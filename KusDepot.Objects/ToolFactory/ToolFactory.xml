@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolFactory>
+
+    <class Name = "ToolFactory" Cref = "ToolFactory">
+
+        <summary>Factory</summary>
+
+        <method Name = "Forge">
+
+            <summary>Craft a Tool</summary>
+
+            <param Name = "data" Cref = "List{DataItem}?">Data</param>
+
+            <param Name = "id" Cref = "Guid?">Guid</param>
+
+            <param Name = "inputs" Cref = "List{Object}?">Inputs</param>
+
+            <param Name = "name" Cref = "String?">Name</param>
+
+            <param Name = "notes" Cref = "List{String}?">Notes</param>
+
+            <param Name = "objectives" Cref = "List{Object}?">Objectives</param>
+
+            <param Name = "policies" Cref = "List{Object}?">Policies</param>
+
+            <param Name = "purpose" Cref = "String?">Purpose</param>
+
+            <param Name = "tags" Cref = "List{String}?">Tags</param>
+
+            <returns Cref = "Tool">New Tool</returns>
+
+            <exception>Exception</exception>
+
+        </method>
+
+    </class>
+
+</ToolFactory>

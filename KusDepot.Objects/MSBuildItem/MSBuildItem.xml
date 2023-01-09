@@ -1,0 +1,113 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MSBuildItem>
+
+    <class Name = "MSBuildItem" Cref = "MSBuildItem">
+
+        <summary>MSBuild Configuration Snippet</summary>
+
+        <content Name = "Content" Cref = "String?">
+
+            <summary>Item Content</summary>
+
+        </content>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "MSBuildItem">New MSBuildItem</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "content" Cref = "String?">Item Content</param>
+
+            <param Name = "id" Cref = "Guid?">Item ID</param>
+
+            <param Name = "notes" Cref = "List{String}?">Item Notes</param>
+
+            <param Name = "tags" Cref = "List{String}?">Tags.cs</param>
+
+            <returns Cref = "MSBuildItem">Unvalidated MSBuildItem</returns>
+
+            <exception>Exception</exception>
+
+        </constructor>
+
+        <method Name = "IComparable{MSBuildItem}.CompareTo">
+
+            <summary>IComparable</summary>
+
+            <param Name = "other" Cref = "MSBuildItem?">Other MSBuildItem</param>
+
+            <returns Cref = "Int32"></returns>
+
+            <exception>ArgumentException</exception>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Override</summary>
+
+            <param Name = "other" Cref = "Object?">Other Object</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "IEquatable{MSBuildItem}.Equals">
+
+            <summary>IEquatable</summary>
+
+            <param Name = "other" Cref = "MSBuildItem?">Other MSBuildItem</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "GetHashCode">
+
+            <summary>Generate Hash Code</summary>
+
+            <returns Cref = "Int32">Result</returns>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Initialize DataItem</summary>
+
+            <param Name = "id" Cref = "Guid?">ID</param>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Returns true if subject is considered valid</summary>
+
+            <param Name = "item" Cref = "MSBuildItem?">Validation Subject</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+    </class>
+
+    <class Name = "MSBuildItemValidator">
+
+        <summary>Validates a MSBuildItem</summary>
+
+        <constructor Name = "Constructor">
+
+            <summary>Configures AbstractValidator</summary>
+
+        </constructor>
+
+    </class>
+
+</MSBuildItem>

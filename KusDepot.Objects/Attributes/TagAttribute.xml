@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<TagAttribute>
+
+    <class Name = "TagAttribute">
+
+        <summary>Metadata</summary>
+
+        <field Name = "Tag" Cref = "String?">
+
+            <summary>Tag.cs</summary>
+
+        </field>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "tag" Cref = "String?">Tag</param>
+
+        </constructor>
+
+    </class>
+
+</TagAttribute>

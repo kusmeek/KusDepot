@@ -1,0 +1,103 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Context>
+
+    <class Name = "Context" Cref = "Context">
+
+        <summary>Context</summary>
+
+        <field Name = "AppDomainID" Cref = "Int128?">
+
+            <summary>AppDomain ID</summary>
+
+        </field>
+
+        <field Name = "AppDomainUID" Cref = "Int128?">
+
+            <summary>Unique ID within AppDomain</summary>
+
+        </field>
+
+        <field Name = "AssemblyVersion" Cref = "Version?">
+
+            <summary>Version of Constructing Assembly</summary>
+
+        </field>
+
+        <field Name = "BornOn" Cref = "DateTime?">
+
+            <summary>Moment of Emergence</summary>
+
+        </field>
+
+        <field Name = "CPUID" Cref = "Int64?">
+
+            <summary>Processor Serial ID</summary>
+
+        </field>
+
+        <field Name = "DomainID" Cref = "String?">
+
+            <summary>Domain ID</summary>
+
+        </field>
+
+        <field Name = "Extension" Cref = "dynamic?">
+
+            <summary>More Capabilities/Information/References</summary>
+
+        </field>
+
+        <field Name = "GPS" Cref = "String?">
+
+            <summary>GPS Location</summary>
+
+        </field>
+
+        <field Name = "ID" Cref = "Guid?">
+
+            <summary>Unique Identifier</summary>
+
+        </field>
+
+        <field Name = "MachineID" Cref = "String?">
+
+            <summary>(Virtual) Machine ID</summary>
+
+        </field>
+
+        <field Name = "Modified" Cref = "DateTime?">
+
+            <summary>Most Recent Modified</summary>
+
+        </field>
+
+        <field Name = "ProcessID" Cref = "Int128?">
+
+            <summary>Process ID</summary>
+
+        </field>
+
+        <field Name = "SecurityDescriptor" Cref = "String?">
+
+            <summary>Access Control, Owner, Principals (SDDL)</summary>
+
+        </field>
+
+        <field Name = "URI" Cref = "String?">
+
+            <summary>Uniform Resource Identifier</summary>
+
+        </field>
+
+        <method Name = "Initialize">
+
+            <summary>Initialize Context</summary>
+
+            <param Name = "id" Cref = "Guid?">ID</param>
+
+        </method>
+
+    </class>
+
+</Context>

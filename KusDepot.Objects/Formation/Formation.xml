@@ -1,0 +1,67 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Formation>
+
+    <class Name = "Formation" Cref = "Formation">
+
+        <summary>Organization</summary>
+
+        <field Name = "Authority" Cref = "Tool?">
+
+            <summary>Chieftain | President</summary>
+
+        </field>
+
+        <field Name = "Extension" Cref = "dynamic?">
+
+            <summary>More Capabilities/Information/References</summary>
+
+        </field>
+
+        <field Name = "Name" Cref = "String?">
+
+            <summary>Formation Name</summary>
+
+        </field>
+
+        <field Name = "Notes" Cref = "List{String}?">
+
+            <summary>Formation Notes</summary>
+
+        </field>
+
+        <field Name = "Operators" Cref = "ConcurrentBag{Tool}?">
+
+            <summary>Affiliates | Associates | Comrades | Mates | Members | Partners</summary>
+
+        </field>
+
+        <field Name = "Repository" Cref = "ConcurrentBag{DataItem}?">
+
+            <summary>Infinite Secure Compartments</summary>
+
+        </field>
+
+        <field Name = "Subformations" Cref = "ConcurrentBag{Formation}?">
+
+            <summary>Units</summary>
+
+        </field>
+
+        <field Name = "Tags" Cref = "List{String}?">
+
+            <summary>Tag.cs</summary>
+
+        </field>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "Formation">New Formation</returns>
+
+        </constructor>
+
+    </class>
+
+</Formation>

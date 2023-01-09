@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolFactoryExam>
+
+    <class Name = "ToolFactoryExam" Cref = "ToolFactoryExam">
+
+        <summary>Fixture ToolFactory exams</summary>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for ToolFactory exams</summary>
+
+        </method>
+
+        <method Name = "Forge">
+
+            <summary>Examine Forge Method</summary>
+
+        </method>
+
+    </class>
+
+</ToolFactoryExam>

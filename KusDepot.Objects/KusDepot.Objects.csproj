@@ -1,0 +1,82 @@
+﻿<Project Sdk = "Microsoft.NET.Sdk">
+
+    <PropertyGroup Label = "Main">
+
+        <NoWarn>CS0067;CS0169</NoWarn>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <ItemGroup Label = "Code">
+
+        <Compile Include = "Attributes\DataTypeAttribute.cs" />
+        <Compile Include = "Attributes\TagAttribute.cs" />
+        <Compile Include = "BinaryItem\BinaryItem.cs" />
+        <Compile Include = "Cache\ICache.cs" />
+        <Compile Include = "Clutch\Clutch.cs" />
+        <Compile Include = "Context\Context.cs" />
+        <Compile Include = "DataItem\DataItem.cs" />
+        <Compile Include = "DataType\DataType.cs" />
+        <Compile Include = "Formation\Formation.cs" />
+        <Compile Include = "GenericItem\GenericItem.cs" />
+        <Compile Include = "GuidReferenceItem\GuidReferenceItem.cs" />
+        <Compile Include = "MSBuildItem\MSBuildItem.cs" />
+        <Compile Include = "MultiMediaItem\MultiMediaItem.cs" />
+        <Compile Include = "Tag\Tag.cs" />
+        <Compile Include = "TextItem\TextItem.cs" />
+        <Compile Include = "Tool\ITool.cs" />
+        <Compile Include = "Tool\Tool.cs" />
+        <Compile Include = "ToolFactory\ToolFactory.cs" />
+        <Compile Include = "Usings.cs" />
+        <Compile Include = "Work\Work.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label = "ConfigEx">
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+    </PropertyGroup>
+
+    <ItemGroup Label = "Diagram">
+
+        <None Include = "Objects.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label = "Documentation">
+
+        <Content Include = "Attributes\DataTypeAttribute.xml" />
+        <Content Include = "Attributes\TagAttribute.xml" />
+        <Content Include = "BinaryItem\BinaryItem.xml" />
+        <Content Include = "Cache\ICache.xml" />
+        <Content Include = "Clutch\Clutch.xml" />
+        <Content Include = "Context\Context.xml" />
+        <Content Include = "DataItem\DataItem.xml" />
+        <Content Include = "DataType\DataType.xml" />
+        <Content Include = "Formation\Formation.xml" />
+        <Content Include = "GenericItem\GenericItem.xml" />
+        <Content Include = "GuidReferenceItem\GuidReferenceItem.xml" />
+        <Content Include = "MSBuildItem\MSBuildItem.xml" />
+        <Content Include = "MultiMediaItem\MultiMediaItem.xml" />
+        <Content Include = "Tag\Tag.xml" />
+        <Content Include = "TextItem\TextItem.xml" />
+        <Content Include = "Tool\ITool.xml" />
+        <Content Include = "Tool\Tool.xml" />
+        <Content Include = "ToolFactory\ToolFactory.xml" />
+        <Content Include = "Work\Work.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label = "Packages or Projects">
+
+      <PackageReference Include = "FluentValidation" Version = "11.3.0" />
+
+    </ItemGroup>
+
+</Project>

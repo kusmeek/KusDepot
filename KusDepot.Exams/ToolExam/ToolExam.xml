@@ -1,0 +1,329 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolExam>
+
+    <class Name = "ToolExam" Cref = "ToolExam">
+
+        <summary>Tool Fixture</summary>
+
+        <event Name = "Alert">
+
+            <summary>Examine Alert Event</summary>
+
+        </event>
+
+        <method Name = "Activate">
+
+            <summary>Examine Activate Method</summary>
+
+        </method>
+
+        <method Name = "AddDataItems">
+
+            <summary>Examine AddDataItems Method</summary>
+
+        </method>
+
+        <method Name = "AddNotes">
+
+            <summary>Examine AddNotes Method</summary>
+
+        </method>
+
+        <method Name = "AddTags">
+
+            <summary>Examine AddTags Method</summary>
+
+        </method>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for Tool exams</summary>
+
+        </method>
+
+        <method Name = "Command">
+
+            <summary>Examine Command Method</summary>
+
+        </method>
+
+        <method Name = "CommandTasks">
+
+            <summary>Examine Command Method Overload</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "Deactivate">
+
+            <summary>Examine Deactivate Method</summary>
+
+        </method>
+
+        <method Name = "GetActivities">
+
+            <summary>Examine GetActivities Method</summary>
+
+        </method>
+
+        <method Name = "GetAppDomainID">
+
+            <summary>Examine GetAppDomainID Method</summary>
+
+        </method>
+
+        <method Name = "GetAppDomainUID">
+
+            <summary>Examine GetAppDomainUID Method</summary>
+
+        </method>
+
+        <method Name = "GetAssemblyVersion">
+
+            <summary>Examine GetAssemblyVersion Method</summary>
+
+        </method>
+
+        <method Name = "GetBornOn">
+
+            <summary>Examine GetBornOn Method</summary>
+
+        </method>
+
+        <method Name = "GetControls">
+
+            <summary>Examine GetControls Method</summary>
+
+        </method>
+
+        <method Name = "GetCPUID">
+
+            <summary>Examine GetCPUID Method</summary>
+
+        </method>
+
+        <method Name = "GetDataItems">
+
+            <summary>Examine GetDataItems Method</summary>
+
+        </method>
+
+        <method Name = "GetDomainID">
+
+            <summary>Examine GetDomainID Method</summary>
+
+        </method>
+
+        <method Name = "GetEventLogs">
+
+            <summary>Examine GetEventLogs Method</summary>
+
+        </method>
+
+        <method Name = "GetExtension">
+
+            <summary>Examine GetExtension Method</summary>
+
+        </method>
+
+        <method Name = "GetGPS">
+
+            <summary>Examine GetGPS Method</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode Method</summary>
+
+        </method>
+
+        <method Name = "GetID">
+
+            <summary>Examine GetID Method</summary>
+
+        </method>
+
+        <method Name = "GetInputs">
+
+            <summary>Examine GetInputs Method</summary>
+
+        </method>
+
+        <method Name = "GetMachineID">
+
+            <summary>Examine GetMachineID Method</summary>
+
+        </method>
+
+        <method Name = "GetModified">
+
+            <summary>Examine GetModified Method</summary>
+
+        </method>
+
+        <method Name = "GetName">
+
+            <summary>Examine GetName Method</summary>
+
+        </method>
+
+        <method Name = "GetNotes">
+
+            <summary>Examine GetNotes Method</summary>
+
+        </method>
+
+        <method Name = "GetObjectives">
+
+            <summary>Examine GetObjectives Method</summary>
+
+        </method>
+
+        <method Name = "GetOutputs">
+
+            <summary>Examine GetOutputs Method</summary>
+
+        </method>
+
+        <method Name = "GetPolicies">
+
+            <summary>Examine GetPolicies Method</summary>
+
+        </method>
+
+        <method Name = "GetProcessID">
+
+            <summary>Examine GetProcessID Method</summary>
+
+        </method>
+
+        <method Name = "GetSecurityDescriptor">
+
+            <summary>Examine GetSecurityDescriptor Method</summary>
+
+        </method>
+
+        <method Name = "GetStatus">
+
+            <summary>Examine GetStatus Method</summary>
+
+        </method>
+
+        <method Name = "GetSubordinates">
+
+            <summary>Examine GetSubordinates Method</summary>
+
+        </method>
+
+        <method Name = "GetSuperior">
+
+            <summary>Examine GetSuperior Method</summary>
+
+        </method>
+
+        <method Name = "GetTags">
+
+            <summary>Examine GetTags Method</summary>
+
+        </method>
+
+        <method Name = "GetTelemetry">
+
+            <summary>Examine GetTelemetry Method</summary>
+
+        </method>
+
+        <method Name = "GetURI">
+
+            <summary>Examine GetURI Method</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "InitializeTool">
+
+            <summary>Examine ITool.Initialize Method</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+        <method Name = "SetExtension">
+
+            <summary>Examine SetExtension Method</summary>
+
+        </method>
+
+        <method Name = "SetModified">
+
+            <summary>Examine SetModified Method</summary>
+
+        </method>
+
+        <method Name = "SetName">
+
+            <summary>Examine SetName Method</summary>
+
+        </method>
+
+        <method Name = "SetObjectives">
+
+            <summary>Examine SetObjectives Method</summary>
+
+        </method>
+
+        <method Name = "SetPolicies">
+
+            <summary>Examine SetPolicies Method</summary>
+
+        </method>
+
+        <method Name = "SetSecurityDescriptor">
+
+            <summary>Examine SetSecurityDescriptor Method</summary>
+
+        </method>
+
+        <method Name = "SetSubordinates">
+
+            <summary>Examine SetSubordinates Method</summary>
+
+        </method>
+
+        <method Name = "SetSuperior">
+
+            <summary>Examine SetSuperior Method</summary>
+
+        </method>
+
+        <method Name = "SetURI">
+
+            <summary>Examine SetURI Method</summary>
+
+        </method>
+
+        <method Name = "UpdateInputs">
+
+            <summary>Examine UpdateInputs Method</summary>
+
+        </method>
+
+    </class>
+
+</ToolExam>

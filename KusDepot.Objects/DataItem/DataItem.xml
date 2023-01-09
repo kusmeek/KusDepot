@@ -1,0 +1,37 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItem>
+
+    <class Name = "DataItem" Cref = "DataItem">
+
+        <summary>Distinct Data Abstraction</summary>
+
+        <field Name = "Name" Cref = "String?">
+
+            <summary>DataItem Name</summary>
+
+            <remarks>May not be unique</remarks>
+
+        </field>
+
+        <field Name = "Notes" Cref = "List{String}?">
+
+            <summary>DataItem Notes</summary>
+
+        </field>
+
+        <field Name = "Tags" Cref = "List{String}?">
+
+            <summary>Tag.cs</summary>
+
+        </field>
+
+        <field Name = "Type" Cref = "String?">
+
+            <summary>DataType.cs</summary>
+
+        </field>
+
+    </class>
+
+</DataItem>

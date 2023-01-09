@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TextItemExam>
+
+    <class Name = "TextItemExam" Cref = "TextItemExam">
+
+        <summary>TextItem Fixture</summary>
+
+        <field Name = "ValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataType Constants</summary>
+
+        </field>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for TextItem exams</summary>
+
+        </method>
+
+        <method Name = "IComparable{TextItem}.CompareTo">
+
+            <summary>Examine CompareTo</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Examine Equals</summary>
+
+        </method>
+
+        <method Name = "IEquatable{TextItem}.Equals">
+
+            <summary>Examine IEquatable{TextItem}.Equals</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Examine Validate Method</summary>
+
+            <param Name = "type" Cref = "String?">A DataType</param>
+
+        </method>
+
+    </class>
+
+</TextItemExam>

@@ -1,0 +1,49 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Work>
+
+    <class Name = "Work" Cref = "Work">
+
+        <summary>Business</summary>
+
+        <field Name = "Assets" Cref = "ConcurrentBag{DataItem}?">
+
+            <summary>Infinite</summary>
+
+        </field>
+
+        <field Name = "Groups" Cref = "ConcurrentBag{Formation}?">
+
+            <summary>Infinite</summary>
+
+        </field>
+
+        <field Name = "Operations" Cref = "ConcurrentBag{Tool}?">
+
+            <summary>Infinite</summary>
+
+        </field>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "Work">New Work</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "assets" Cref = "List{DataItem}?">Assets</param>
+
+            <param Name = "groups" Cref = "List{Formation}?">Groups</param>
+
+            <param Name = "operations" Cref = "List{Tool}?">Operations</param>
+
+        </constructor>
+
+    </class>
+
+</Work>

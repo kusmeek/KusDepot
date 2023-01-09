@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<DataTypeAttribute>
+
+    <class Name = "DataTypeAttribute">
+
+        <summary>Metadata</summary>
+
+        <field Name = "DataType" Cref = "String?">
+
+            <summary>DataType.cs</summary>
+
+        </field>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "datatype" Cref = "String?">DataType</param>
+
+        </constructor>
+
+    </class>
+
+</DataTypeAttribute>

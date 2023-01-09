@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Clutch>
+
+    <class Name = "Clutch" Cref = "Clutch">
+
+        <summary>Carrier</summary>
+
+        <field Name = "Stuff" Cref = "ConcurrentBag{DataItem}?">
+
+            <summary>Infinite</summary>
+
+        </field>
+
+        <field Name = "Tools" Cref = "ConcurrentBag{Tool}?">
+
+            <summary>Power</summary>
+
+        </field>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "Clutch">New Clutch</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "stuff" Cref = "List{DataItem}?">Stuff</param>
+
+            <param Name = "tools" Cref = "List{Tool}?">Tools</param>
+
+        </constructor>
+
+        </class>
+
+</Clutch>

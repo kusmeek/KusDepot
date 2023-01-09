@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GenericItemExam>
+
+    <class Name = "GenericItemExam" Cref = "GenericItemExam">
+
+        <summary>GenericItem Fixture</summary>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for GenericItem exams</summary>
+
+        </method>
+
+        <method Name = "IComparable{GenericItem}.CompareTo">
+
+            <summary>Examine CompareTo</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Examine Equals</summary>
+
+        </method>
+
+        <method Name = "IEquatable{GenericItem}.Equals">
+
+            <summary>Examine IEquatable{GenericItem}.Equals</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+    </class>
+
+</GenericItemExam>

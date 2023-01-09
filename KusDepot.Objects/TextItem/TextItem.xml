@@ -1,0 +1,135 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TextItem>
+
+    <class Name = "TextItem" Cref = "TextItem">
+
+        <summary>Any or No Structure</summary>
+
+        <content Name = "Content" Cref = "String?">
+
+            <summary>Item Content</summary>
+
+        </content>
+
+        <property Name = "Language" Cref = "String?">
+
+            <summary>Item Language</summary>
+
+        </property>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "TextItem">New TextItem</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "content" Cref = "String?">Item Content</param>
+
+            <param Name = "id" Cref = "Guid?">Item ID</param>
+
+            <param Name = "language" Cref = "String?">Item Language</param>
+
+            <param Name = "notes" Cref = "List{String}?">Item Notes</param>
+
+            <param Name = "tags" Cref = "List{String}?">Tags.cs</param>
+
+            <param Name = "type" Cref = "String?">Item Type</param>
+
+            <returns Cref = "TextItem">Unvalidated TextItem</returns>
+
+            <exception>Exception</exception>
+
+        </constructor>
+
+        <method Name = "IComparable{TextItem}.CompareTo">
+
+            <summary>IComparable</summary>
+
+            <param Name = "other" Cref = "TextItem?">Other TextItem</param>
+
+            <returns Cref = "Int32"></returns>
+
+            <exception>ArgumentException</exception>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Override</summary>
+
+            <param Name = "other" Cref = "Object?">Other Object</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "IEquatable{TextItem}.Equals">
+
+            <summary>IEquatable</summary>
+
+            <param Name = "other" Cref = "TextItem?">Other TextItem</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "GetHashCode">
+
+            <summary>Generate Hash Code</summary>
+
+            <returns Cref = "Int32">Result</returns>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Initialize DataItem</summary>
+
+            <param Name = "id" Cref = "Guid?">ID</param>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Returns true if subject is considered valid</summary>
+
+            <param Name = "item" Cref = "TextItem?">Validation Subject</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+    </class>
+
+    <class Name = "TextItemValidator">
+
+        <summary>Validates a TextItem</summary>
+
+        <constructor Name = "Constructor">
+
+            <summary>Configures AbstractValidator</summary>
+
+        </constructor>
+
+        <method Name = "PassThisTest">
+
+            <summary>Returns true if type is considered valid</summary>
+
+            <param Name = "item" Cref = "TextItem?">Validation Subject</param>
+
+            <param Name = "type" Cref = "String?">DataType.cs</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+    </class>
+
+</TextItem>

@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MultiMediaItemExam>
+
+    <class Name = "MultiMediaItemExam" Cref = "MultiMediaItemExam">
+
+        <summary>MultiMediaItem Fixture</summary>
+
+        <field Name = "ValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataType Constants</summary>
+
+        </field>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for MultiMediaItem exams</summary>
+
+        </method>
+
+        <method Name = "IComparable{MultiMediaItem}.CompareTo">
+
+            <summary>Examine CompareTo</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Examine Equals</summary>
+
+        </method>
+
+        <method Name = "IEquatable{MultiMediaItem}.Equals">
+
+            <summary>Examine IEquatable{MultiMediaItem}.Equals</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Examine Validate Method</summary>
+
+        </method>
+
+    </class>
+
+</MultiMediaItemExam>

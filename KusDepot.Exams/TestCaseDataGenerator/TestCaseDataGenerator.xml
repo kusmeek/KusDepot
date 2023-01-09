@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TestCaseDataGenerator>
+
+    <class Name = "TestCaseDataGenerator" Cref = "TestCaseDataGenerator">
+
+        <summary>Generates Data for Exams</summary>
+
+        <field Name = "DataTypes" Cref = "String?[]">
+
+            <summary>DataType.cs</summary>
+
+        </field>
+
+        <field Name = "Tags" Cref = "String?[]">
+
+            <summary>Tag.cs</summary>
+
+        </field>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+        </constructor>
+
+        <property Name = "DataTypeTestCases" Cref = "IEnumerable{TestCaseData}">
+
+            <summary>Test Case Data derived from All DataType Constants</summary>
+
+        </property>
+
+        <property Name = "TagTestCases" Cref = "IEnumerable{TestCaseData}">
+
+            <summary>Test Case Data derived from All Tag Constants</summary>
+
+        </property>
+
+    </class>
+
+</TestCaseDataGenerator>

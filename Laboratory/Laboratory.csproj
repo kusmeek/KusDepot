@@ -1,0 +1,24 @@
+<Project Sdk = "Microsoft.NET.Sdk">
+
+  <PropertyGroup Label = "Main">
+
+    <OutputType>Exe</OutputType>
+
+    <TargetFramework>net7.0</TargetFramework>
+    
+  </PropertyGroup>
+
+  <ItemGroup Label = "Code">
+
+    <Compile Include = "Space.cs" />
+    <Compile Include = "Usings.cs" />
+
+  </ItemGroup>
+
+  <ItemGroup Label = "Packages or Projects">
+
+    <ProjectReference Include = "..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+  </ItemGroup>
+
+</Project>

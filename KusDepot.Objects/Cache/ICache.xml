@@ -1,0 +1,193 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICache>
+
+    <interface Name = "ICache">
+
+        <summary>Cache Replica</summary>
+
+        <method Name = "AccessItem">
+
+            <summary>Returns Item</summary>
+
+            <param Name = "guid" Cref = "Guid?">Guid of DataItem</param>
+
+            <returns Cref = "DataItem?">Item</returns>
+
+        </method>
+
+        <method Name = "AccessTool">
+
+            <summary>Returns Tool</summary>
+
+            <param Name = "guid" Cref = "Guid?">Guid of Tool</param>
+
+            <returns Cref = "Tool?">Tool</returns>
+
+        </method>
+
+        <method Name = "AllocateItemGuid">
+
+            <summary>Allocates a Guid for a new Item</summary>
+
+            <returns Cref = "Guid?">A new Guid</returns>
+
+        </method>
+
+        <method Name = "AllocateToolGuid">
+
+            <summary>Allocates a Guid for a new Tool</summary>
+
+            <returns Cref = "Guid?">A new Guid</returns>
+
+        </method>
+
+        <method Name = "ExistsGuid">
+
+            <summary>True if database contains Tool</summary>
+
+            <param Name = "guid" Cref = "Guid?">Guid of Tool</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "ExistsName">
+
+            <summary>True if database contains Tool</summary>
+
+            <param Name = "name" Cref = "String?">Name of Tool</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "GetData">
+
+            <summary>Fetch Data</summary>
+
+            <returns Cref = "List{DataSet}?">Data</returns>
+
+        </method>
+
+        <method Name = "SearchItemNames">
+
+            <summary>Search for Names</summary>
+
+            <param Name = "names" Cref = "List{String}?">Names to search</param>
+
+            <returns Cref = "List{Guid}?">All Item IDs with given names</returns>
+
+        </method>
+
+        <method Name = "SearchItemTags">
+
+            <summary>Search for Tags</summary>
+
+            <param Name = "tags" Cref = "List{String}?">Tags to search</param>
+
+            <returns Cref = "List{Guid}?">IDs of Items containing all tags in list</returns>
+
+        </method>
+
+        <method Name = "SearchToolNames">
+
+            <summary>Search for Names</summary>
+
+            <param Name = "names" Cref = "List{String}?">Names to search</param>
+
+            <returns Cref = "List{Guid}?">All Tool IDs with given names</returns>
+
+        </method>
+
+        <method Name = "SearchToolTags">
+
+            <summary>Search for Names</summary>
+
+            <param Name = "tags" Cref = "List{String}?">Tags to search</param>
+
+            <returns Cref = "List{Guid}?">IDs of Tools containing all tags in list</returns>
+
+        </method>
+
+        <method Name = "ShowItemGuids">
+
+            <summary>Show all stored Item guids</summary>
+
+            <returns Cref = "List{Guid}?">All Item IDs</returns>
+
+        </method>
+
+        <method Name = "ShowToolGuids">
+
+            <summary>Show all stored Tool guids</summary>
+
+            <returns Cref = "List{Guid}?">All Tool IDs</returns>
+
+        </method>
+
+        <method Name = "ShowItemNames">
+
+            <summary>Show all stored Item names</summary>
+
+            <returns Cref = "List{String}?">All Item names</returns>
+
+        </method>
+
+        <method Name = "ShowItemTags">
+
+            <summary>Show all stored Item tags</summary>
+
+            <returns Cref = "List{String}?">All Item tags</returns>
+
+        </method>
+
+        <method Name = "ShowToolNames">
+
+            <summary>Show all stored Tool names</summary>
+
+            <returns Cref = "List{String}?">All Tool names</returns>
+
+        </method>
+
+        <method Name = "ShowToolTags">
+
+            <summary>Show all stored Tool tags</summary>
+
+            <returns Cref = "List{String}?">All Tool tags</returns>
+
+        </method>
+
+        <method Name = "StoreData">
+
+            <summary>Store Data</summary>
+
+            <param Name = "data" Cref = "List{DataSet}?">Data to store</param>
+
+            <returns Cref = "Boolean">True if Data stored successfully</returns>
+
+        </method>
+
+        <method Name = "StoreItems">
+
+            <summary>Store Items</summary>
+
+            <param Name = "items" Cref = "List{DataItem}?">Items to store</param>
+
+            <returns Cref = "Boolean">True if Items stored successfully</returns>
+
+        </method>
+
+        <method Name = "StoreTools">
+
+            <summary>Store Tools</summary>
+
+            <param Name = "tools" Cref = "List{Tool}?">Tools to store</param>
+
+            <returns Cref = "Boolean">True if Tools stored successfully</returns>
+
+        </method>
+
+    </interface>
+
+</ICache>

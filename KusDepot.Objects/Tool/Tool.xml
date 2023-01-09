@@ -1,0 +1,581 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Tool>
+
+    <class Name = "Tool" Cref = "Tool">
+
+        <summary>Tool</summary>
+
+        <field Name = "Activities" Cref = "List{Task{Object?}}?">
+
+            <summary>Activities</summary>
+
+        </field>
+
+        <field Name = "Controls" Cref = "List{IPEndPoint}?">
+
+            <summary>Remote Communication Interfaces</summary>
+
+        </field>
+
+        <field Name = "Data" Cref = "List{DataItem}?">
+
+            <summary>Tool Data</summary>
+
+        </field>
+
+        <field Name = "EventLogs" Cref = "LinkedList{String}?">
+
+            <summary>Event Logs</summary>
+
+        </field>
+
+        <field Name = "Inputs" Cref = "Queue{Object}?">
+
+            <summary>Tool Inputs</summary>
+
+        </field>
+
+        <field Name = "Name" Cref = "String?">
+
+            <summary>Tool Name</summary>
+
+            <remarks>May not be unique</remarks>
+
+        </field>
+
+        <field Name = "Notes" Cref = "List{String}?">
+
+            <summary>Tool Notes</summary>
+
+        </field>
+
+        <field Name = "Objectives" Cref = "List{Object}?">
+
+            <summary>Tool Objectives</summary>
+
+        </field>
+
+        <field Name = "Outputs" Cref = "List{Object}?">
+
+            <summary>Tool Outputs</summary>
+
+        </field>
+
+        <field Name = "Policies" Cref = "List{Object}?">
+
+            <summary>Compliance, Limits, Investment, and Priorities</summary>
+
+        </field>
+
+        <field Name = "Purpose" Cref = "String?">
+
+            <summary>Tool Purpose</summary>
+
+        </field>
+
+        <method Name = "RaiseAlert">
+
+            <summary>Invoke Alert event</summary>
+
+            <param Name = "sender" Cref = "Object"></param>
+
+            <param Name = "eventargs" Cref = "EventArgs"></param>
+
+        </method>
+
+        <field Name = "Status" Cref = "Stack{Object}?">
+
+            <summary>Current Status</summary>
+
+        </field>
+
+        <field Name = "Subordinates" Cref = "List{Tool}?">
+
+            <summary>Subordinate Tools</summary>
+
+        </field>
+
+        <field Name = "Superior" Cref = "Tool?">
+
+            <summary>Superior Tool</summary>
+
+        </field>
+
+        <field Name = "Tags" Cref = "List{String}?">
+
+            <summary>Tool Tags</summary>
+
+        </field>
+
+        <field Name = "Telemetry" Cref = "List{IPEndPoint}?">
+
+            <summary>Remote Observation Interfaces</summary>
+
+        </field>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "Tool">New Tool</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "data" Cref = "List{DataItem}?">Data</param>
+
+            <param Name = "id" Cref = "Guid?">Guid</param>
+
+            <param Name = "inputs" Cref = "Queue{Object}?">Inputs</param>
+
+            <param Name = "name" Cref = "String?">Name</param>
+
+            <param Name = "notes" Cref = "List{String}?">Notes</param>
+
+            <param Name = "objectives" Cref = "List{Object}?">Objectives</param>
+
+            <param Name = "policies" Cref = "List{Object}?">Policies</param>
+
+            <param Name = "purpose" Cref = "String?">Purpose</param>
+
+            <param Name = "tags" Cref = "List{String}?">Tags</param>
+
+            <returns Cref = "Tool">New Tool</returns>
+
+            <exception>Exception</exception>
+
+        </constructor>
+
+        <event Name = "Alert">
+
+            <summary>Attention Request</summary>
+
+        </event>
+
+        <method Name = "Activate">
+
+            <summary>Activate Tool</summary>
+
+            <returns Cref = "Boolean">True if Tool Activated successfully</returns>
+
+        </method>
+
+        <method Name = "AddDataItems">
+
+            <summary>Add DataItems</summary>
+
+            <param Name = "data" Cref = "List{DataItems}?">List of DataItems</param>
+
+            <returns Cref = "Boolean">True if DataItems added successfully</returns>
+
+        </method>
+
+        <method Name = "AddNotes">
+
+            <summary>Add Notes</summary>
+
+            <param Name = "notes" Cref = "List{String}?">Scroll of Notes</param>
+
+            <returns Cref = "Boolean">True if Notes added successfully</returns>
+
+        </method>
+
+        <method Name = "AddTags">
+
+            <summary>Add Tags</summary>
+
+            <param Name = "tags" Cref = "List{String}?">List of Tags</param>
+
+            <returns Cref = "Boolean">True if Tags added successfully</returns>
+
+        </method>
+
+        <method Name = "Command">
+
+            <summary>Give Command</summary>
+
+            <param Name = "details" Cref = "Object[]?">Details</param>
+
+            <returns Cref = "Boolean">True if Command received and acknowledged</returns>
+
+        </method>
+
+        <method Name = "CommandTasks">
+
+            <summary>Give Command</summary>
+
+            <param Name = "tasks" Cref = "List{Task{Object?}}?">Tasks</param>
+
+            <returns Cref = "Boolean">True if Command received and acknowledged</returns>
+
+        </method>
+
+        <method Name = "Deactivate">
+
+            <summary>Dectivate Tool</summary>
+
+            <returns Cref = "Boolean">True if Tool Deativated</returns>
+
+        </method>
+
+        <method Name = "GetActivities">
+
+            <summary>Observe Current Activities</summary>
+
+            <returns Cref = "List{Task{Object?}}?">Current Activities</returns>
+
+        </method>
+
+        <method Name = "GetAppDomainID">
+
+            <summary>Get AppDomain ID</summary>
+
+            <returns Cref = "Int128?">AppDomain ID</returns>
+
+        </method>
+
+        <method Name = "GetAppDomainUID">
+
+            <summary>Get AppDomain Unique ID</summary>
+
+            <returns Cref = "Int128?">AppDomain Unique ID</returns>
+
+        </method>
+
+        <method Name = "GetAssemblyVersion">
+
+            <summary>Get Assembly Version</summary>
+
+            <returns Cref = "Version?">Version of Constructing Assembly</returns>
+
+        </method>
+
+        <method Name = "GetBornOn">
+
+            <summary>Get BornOn</summary>
+
+            <returns Cref = "DateTime?">Moment of Emergence</returns>
+
+        </method>
+
+        <method Name = "GetControls">
+
+            <summary>Get Controls</summary>
+
+            <returns Cref = "List{IPEndPoint}?">Returns Remote Communication Interfaces</returns>
+
+        </method>
+
+        <method Name = "GetCPUID">
+
+            <summary>Processor Serial ID</summary>
+
+            <returns Cref = "Int64?">Processor Serial ID</returns>
+
+        </method>
+
+        <method Name = "GetDataItems">
+
+            <summary>Returns all DataItems</summary>
+
+            <returns Cref = "List{DataItem}?">Add Data</returns>
+
+        </method>
+
+        <method Name = "GetDomainID">
+
+            <summary>Get Domain ID</summary>
+
+            <returns Cref = "String?">Domain ID</returns>
+
+        </method>
+
+        <method Name = "GetEventLogs">
+
+            <summary>Get Event Logs</summary>
+
+            <returns Cref = "LinkedList{String}?">Get Event Logs</returns>
+
+        </method>
+
+        <method Name = "GetExtension">
+
+            <summary>Get Extension</summary>
+
+            <returns Cref = "dynamic?">Extension</returns>
+
+        </method>
+
+        <method Name = "GetGPS">
+
+            <summary>Get GPS Location</summary>
+
+            <returns Cref = "String?">GPS Location</returns>
+
+        </method>
+
+        <method Name = "GetHashCode">
+
+            <summary>Generate Hash Code</summary>
+
+            <returns Cref = "Int32">Result</returns>
+
+        </method>
+
+        <method Name = "GetID">
+
+            <summary>Get ID</summary>
+
+            <returns Cref = "Guid?">Tool ID</returns>
+
+        </method>
+
+        <method Name = "GetInputs">
+
+            <summary>Returns Tool Inputs</summary>
+
+            <returns Cref = "Queue{Object}?">Inputs</returns>
+
+        </method>
+
+        <method Name = "GetMachineID">
+
+            <summary>Get Machine ID</summary>
+
+            <returns Cref = "String?">(Virtual) Machine ID</returns>
+
+        </method>
+
+        <method Name = "GetModified">
+
+            <summary>Returns Last Modified Time</summary>
+
+            <returns Cref = "DateTime?">Last Modified Time</returns>
+
+        </method>
+
+        <method Name = "GetName">
+
+            <summary>Returns Tool Name</summary>
+
+            <returns Cref = "String?">Tool Name</returns>
+
+        </method>
+
+        <method Name = "GetNotes">
+
+            <summary>Returns all Notes</summary>
+
+            <returns Cref = "List{String}?">Scroll of Notes</returns>
+
+        </method>
+
+        <method Name = "GetObjectives">
+
+            <summary>Check Objectives</summary>
+
+            <returns Cref = "List{Object}?">Goals</returns>
+
+        </method>
+
+        <method Name = "GetOutputs">
+
+            <summary>Get Outputs</summary>
+
+            <returns Cref = "List{Object}?">Tool Outputs</returns>
+
+        </method>
+
+        <method Name = "GetPolicies">
+
+            <summary>Returns Policies</summary>
+
+            <returns Cref = "List{Object}?">Policies</returns>
+
+        </method>
+
+        <method Name = "GetProcessID">
+
+            <summary>Get  Process ID</summary>
+
+            <returns Cref = "Int128?">Process ID</returns>
+
+        </method>
+
+        <method Name = "GetSecurityDescriptor">
+
+            <summary>Get Security Descriptor</summary>
+
+            <returns Cref = "String?">Security Descriptor</returns>
+
+        </method>
+
+        <method Name = "GetStatus">
+
+            <summary>Sense Status</summary>
+
+            <returns Cref = "Stack{Object}?">Current Status</returns>
+
+        </method>
+
+        <method Name = "GetSubordinates">
+
+            <summary>Get Subordinate Tools</summary>
+
+            <returns Cref = "List{Tool}?">Subordinate Tools</returns>
+
+        </method>
+
+        <method Name = "GetSuperior">
+
+            <summary>Get Superior Tool</summary>
+
+            <returns Cref = "Tool?">Superior Tool</returns>
+
+        </method>
+
+        <method Name = "GetTags">
+
+            <summary>Returns all Tags</summary>
+
+            <returns Cref = "List{String}?">All Tags</returns>
+
+        </method>
+
+        <method Name = "GetTelemetry">
+
+            <summary>Get Telemetry</summary>
+
+            <returns Cref = "List{IPEndPoint}?">Returns Remote Observation Interfaces</returns>
+
+        </method>
+
+        <method Name = "GetURI">
+
+            <summary>Get URI</summary>
+
+            <returns Cref = "String?">URI</returns>
+
+        </method>
+
+        <method Name = "InitializeContext">
+
+            <summary>Initialize Context</summary>
+
+            <param Name = "id" Cref = "Guid?">ID</param>
+
+        </method>
+
+        <method Name = "InitializeTool">
+
+            <summary>Initialize Tool</summary>
+
+        </method>
+
+        <method Name = "SetExtension">
+
+            <summary>Set Extension</summary>
+
+            <param Name = "extension" Cref = "dynamic?"></param>
+
+            <returns Cref = "Boolean">Returns true if Extension was set successfully</returns>
+
+        </method>
+
+        <method Name = "SetModified">
+
+            <summary>Set Last Modified Time</summary>
+
+            <param Name = "datetime" Cref = "DateTime?"></param>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully</returns>
+
+        </method>
+
+        <method Name = "SetName">
+
+            <summary>Set Name</summary>
+
+            <param Name = "name" Cref = "String?"></param>
+
+            <returns Cref = "Boolean">Returns true if Name was set successfully</returns>
+
+        </method>
+
+        <method Name = "SetObjectives">
+
+            <summary>Sets Objectives</summary>
+
+            <param Name = "objectives" Cref = "List{Object}?"></param>
+
+            <returns Cref = "Boolean">True if Objectives were set successfully</returns>
+
+        </method>
+
+        <method Name = "SetPolicies">
+
+            <summary>Sets Policies</summary>
+
+            <param Name = "policies" Cref = "List{Object}?"></param>
+
+            <returns Cref = "Boolean">True if Policies were set successfully</returns>
+
+        </method>
+
+        <method Name = "SetSecurityDescriptor">
+
+            <summary>Set Security Descriptor</summary>
+
+            <param Name = "securitydescriptor" Cref = "String?"></param>
+
+            <returns Cref = "Boolean">True if Security Descriptor was set successfully</returns>
+
+        </method>
+
+        <method Name = "SetSubordinates">
+
+            <summary>Set Subordinate Tools</summary>
+
+            <param Name = "subordinates" Cref = "List{Tool}?">Subordinate Tools</param>
+
+            <returns Cref = "Boolean">True if Subordinates were set successfully</returns>
+
+        </method>
+
+        <method Name = "SetSuperior">
+
+            <summary>Set Superior Tool</summary>
+
+            <param Name = "superior" Cref = "Tool?">Superior Tool</param>
+
+            <returns Cref = "Boolean">True if Superior was set successfully</returns>
+
+        </method>
+
+        <method Name = "SetURI">
+
+            <summary>Set URI</summary>
+
+            <param Name = "uri" Cref = "String?">URI</param>
+
+            <returns Cref = "Boolean">True if URI was set successfully</returns>
+
+        </method>
+
+        <method Name = "UpdateInputs">
+
+            <summary>Update Inputs</summary>
+
+            <param Name = "inputs" Cref = "Queue{Object}?"></param>
+
+            <returns Cref = "Boolean">True if Inputs were updated successfully</returns>
+
+        </method>
+
+    </class>
+
+</Tool>

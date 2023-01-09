@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryItemExam>
+
+    <class Name = "BinaryItemExam" Cref = "BinaryItemExam">
+
+        <summary>BinaryItem Fixture</summary>
+
+        <field Name = "ValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataType Constants</summary>
+
+        </field>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for BinaryItem exams</summary>
+
+        </method>
+
+        <method Name = "IComparable{BinaryItem}.CompareTo">
+
+            <summary>Examine CompareTo</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Examine Equals</summary>
+
+        </method>
+
+        <method Name = "IEquatable{BinaryItem}.Equals">
+
+            <summary>Examine IEquatable{BinaryItem}.Equals</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Examine Validate Method</summary>
+
+        </method>
+
+    </class>
+
+</BinaryItemExam>

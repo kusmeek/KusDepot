@@ -1,0 +1,127 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryItem>
+
+    <class Name = "BinaryItem" Cref = "BinaryItem">
+
+        <summary>Executable File | Object Library | UnKnown</summary>
+
+        <content Name = "Content" Cref = "Byte[]?">
+
+            <summary>Item Content</summary>
+
+        </content>
+
+        <constructor Name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor</summary>
+
+            <returns Cref = "BinaryItem">New BinaryItem</returns>
+
+        </constructor>
+
+        <constructor Name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param Name = "content" Cref = "Byte[]?">Item Content</param>
+
+            <param Name = "id" Cref = "Guid?">Item ID</param>
+
+            <param Name = "notes" Cref = "List{String}?">Item Notes</param>
+
+            <param Name = "tags" Cref = "List{String}?">Tags.cs</param>
+
+            <param Name = "type" Cref = "String?">Item Type</param>
+
+            <returns Cref = "BinaryItem">Unvalidated BinaryItem</returns>
+
+            <exception>Exception</exception>
+
+        </constructor>
+
+        <method Name = "IComparable{BinaryItem}.CompareTo">
+
+            <summary>IComparable</summary>
+
+            <param Name = "other" Cref = "BinaryItem?">Other BinaryItem</param>
+
+            <returns Cref = "Int32"></returns>
+
+            <exception>ArgumentException</exception>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Override</summary>
+
+            <param Name = "other" Cref = "Object?">Other Object</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "IEquatable{BinaryItem}.Equals">
+
+            <summary>IEquatable</summary>
+
+            <param Name = "other" Cref = "BinaryItem?">Other BinaryItem</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+        <method Name = "GetHashCode">
+
+            <summary>Generate Hash Code</summary>
+
+            <returns Cref = "Int32">Result</returns>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Initialize DataItem</summary>
+
+            <param Name = "id" Cref = "Guid?">ID</param>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Returns true if subject is considered valid</summary>
+
+            <param Name = "item" Cref = "BinaryItem?">Validation Subject</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+    </class>
+
+    <class Name = "BinaryItemValidator">
+
+        <summary>Validates a BinaryItem</summary>
+
+        <constructor Name = "Constructor">
+
+            <summary>Configures AbstractValidator</summary>
+
+        </constructor>
+
+        <method Name = "PassThisTest">
+
+            <summary>Returns true if type is considered valid</summary>
+
+            <param Name = "item" Cref = "BinaryItem?">Validation Subject</param>
+
+            <param Name = "type" Cref = "String?">DataType.cs</param>
+
+            <returns Cref = "Boolean">Result</returns>
+
+        </method>
+
+    </class>
+
+</BinaryItem>

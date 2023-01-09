@@ -1,0 +1,101 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GuidReferenceItemExam>
+
+    <class Name = "GuidReferenceItemExam" Cref = "GuidReferenceItemExam">
+
+        <summary>GuidReferenceItem Fixture</summary>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for GuidReferenceItem exams</summary>
+
+        </method>
+
+        <method Name = "IComparable{GuidReferenceItem}.CompareTo">
+
+            <summary>Examine CompareTo</summary>
+
+        </method>
+
+        <method Name = "Constructor">
+
+            <summary>Examine Constructor</summary>
+
+        </method>
+
+        <method Name = "EqualsObject">
+
+            <summary>Examine Equals</summary>
+
+        </method>
+
+        <method Name = "IEquatable{GuidReferenceItem}.Equals">
+
+            <summary>Examine IEquatable{GuidReferenceItem}.Equals</summary>
+
+        </method>
+
+        <method Name = "GetHash">
+
+            <summary>Examine GetHashCode</summary>
+
+        </method>
+
+        <method Name = "Initialize">
+
+            <summary>Examine Initialize Method</summary>
+
+        </method>
+
+        <method Name = "OperatorEQ">
+
+            <summary>Examine Equality Operator</summary>
+
+        </method>
+
+        <method Name = "OperatorNE">
+
+            <summary>Examine Inequality Operator</summary>
+
+        </method>
+
+        <method Name = "OperatorLT">
+
+            <summary>Examine Less Than Operator</summary>
+
+        </method>
+
+        <method Name = "OperatorLTE">
+
+            <summary>Examine Less Than or Equal Operator</summary>
+
+        </method>
+
+        <method Name = "OperatorGT">
+
+            <summary>Examine Greater Than Operator</summary>
+
+        </method>
+
+        <method Name = "OperatorGTE">
+
+            <summary>Examine Greater Than or Equal Operator</summary>
+
+        </method>
+
+        <method Name = "ParameterlessConstructor">
+
+            <summary>Examine ParameterlessConstructor</summary>
+
+        </method>
+
+        <method Name = "Validate">
+
+            <summary>Examine Validate Method</summary>
+
+        </method>
+
+    </class>
+
+</GuidReferenceItemExam>

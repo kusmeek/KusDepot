@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AttributesExam>
+
+    <class Name = "AttributesExam" Cref = "AttributesExam">
+
+        <summary>Attributes Fixture</summary>
+
+        <method Name = "Calibrate">
+
+            <summary>Prepare for Attributes exams</summary>
+
+        </method>
+
+        <method Name = "DataTypeConstructor">
+
+            <summary>Examine DataTypeAttribute Constructor</summary>
+
+            <param Name = "type" Cref = "String?">A DataType</param>
+
+        </method>
+
+        <method Name = "TagConstructor">
+
+            <summary>Examine TagAttribute Constructor</summary>
+
+            <param Name = "tag" Cref = "String?">A Tag</param>
+
+        </method>
+
+    </class>
+
+</AttributesExam>
