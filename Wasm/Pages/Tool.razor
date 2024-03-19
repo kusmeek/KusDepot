@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<PageTitle>KusDepot Blazor ToolMaker</PageTitle>
+
+<h1>WebAssembly ToolMaker</h1>
+
+<p role="textbox">@tool</p>
+
+<button class="btn btn-primary" @onclick="MakeTool">Make Tool</button>
+
+@code
+{
+    private String? tool = "";
+
+    private void MakeTool() { this.tool = new KusDepot.Tool().ToString(); }
+}

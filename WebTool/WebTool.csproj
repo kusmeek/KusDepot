@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <TypeScriptCompile Include="Script\Script.ts" />
+
+        <Compile Include="Server.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.2">
+
+            <PrivateAssets>all</PrivateAssets>
+
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+
+        </PackageReference>
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="WWW">
+
+        <Folder Include="wwwroot\" />
+
+    </ItemGroup>
+
+</Project>

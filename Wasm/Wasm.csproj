@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup Label="Main">
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <EnableDefaultItems>True</EnableDefaultItems>
+
+        <EnableDefaultContentItems>True</EnableDefaultContentItems>
+
+        <EnableDefaultCompileItems>True</EnableDefaultCompileItems>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.13" />
+
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.13" PrivateAssets="all" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="ServiceWorker">
+
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+
+    </ItemGroup>
+
+</Project>
