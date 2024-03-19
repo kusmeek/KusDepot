@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemEventArgs>
+
+    <class name = "DataItemEventArgs">
+
+        <main>
+
+            <summary>DataItem Information.</summary>
+
+            <remarks>Created when a DataItem is added or removed.</remarks>
+
+        </main>
+
+        <field name = "ID" Cref = "Guid?">
+
+            <summary>DataItem ID.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+            <param name = "id" Cref = "Guid?">DataItem Identifier.</param>
+
+        </constructor>
+
+    </class>
+
+</DataItemEventArgs>

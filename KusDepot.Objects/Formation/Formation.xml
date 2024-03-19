@@ -1,0 +1,53 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Formation>
+
+    <class name = "Formation">
+
+        <main>
+
+            <summary>Organization.</summary>
+
+        </main>
+
+        <property name = "Ark" Cref = "Ark?">
+
+            <summary>Primary.</summary>
+
+        </property>
+
+        <property name = "Authority" Cref = "Tool?">
+
+            <summary>Chieftain | President.</summary>
+
+        </property>
+
+        <property name = "Operators" Cref = "Dictionary{String,Tool}?">
+
+            <summary>Affiliates | Associates | Comrades | Mates | Members | Partners.</summary>
+
+        </property>
+
+        <property name = "Repository" Cref = "Dictionary{String,DataItem}?">
+
+            <summary>Secure Compartment.</summary>
+
+        </property>
+
+        <property name = "Subformations" Cref = "Dictionary{String,Formation}?">
+
+            <summary>Units.</summary>
+
+        </property>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Object.</summary>
+
+            <returns Cref = "Boolean">True if Object Initialized successfully.</returns>
+
+        </method>
+
+    </class>
+
+</Formation>

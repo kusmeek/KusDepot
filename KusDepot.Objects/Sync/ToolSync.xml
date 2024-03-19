@@ -1,0 +1,281 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolSync>
+
+    <class name = "ToolSync">
+
+        <main>
+
+            <summary>ToolSync.</summary>
+
+            <remarks>Synchronization objects for the object's public properties.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "Object">
+
+            <summary>Activities Sync Object.</summary>
+
+        </field>
+
+        <field name = "AppDomainID" Cref = "Object">
+
+            <summary>AppDomainID Sync Object.</summary>
+
+        </field>
+
+        <field name = "AppDomainUID" Cref = "Object">
+
+            <summary>AppDomainUID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Application" Cref = "Object">
+
+            <summary>Application Sync Object.</summary>
+
+        </field>
+
+        <field name = "ApplicationVersion" Cref = "Object">
+
+            <summary>ApplicationVersion Sync Object.</summary>
+
+        </field>
+
+        <field name = "AssemblyVersion" Cref = "Object">
+
+            <summary>AssemblyVersion Sync Object.</summary>
+
+        </field>
+
+        <field name = "BornOn" Cref = "Object">
+
+            <summary>BornOn Sync Object.</summary>
+
+        </field>
+
+        <field name = "Certificates" Cref = "Object">
+
+            <summary>Certificates Sync Object.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "Object">
+
+            <summary>Commands Sync Object.</summary>
+
+        </field>
+
+        <field name = "Container" Cref = "Object">
+
+            <summary>Container Sync Object.</summary>
+
+        </field>
+
+        <field name = "Controls" Cref = "Object">
+
+            <summary>Controls Sync Object.</summary>
+
+        </field>
+
+        <field name = "CPUID" Cref = "Object">
+
+            <summary>CPUID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Data" Cref = "Object">
+
+            <summary>Data Sync Object.</summary>
+
+        </field>
+
+        <field name = "DistinguishedName" Cref = "Object">
+
+            <summary>DistinguishedName Sync Object.</summary>
+
+        </field>
+
+        <field name = "DomainID" Cref = "Object">
+
+            <summary>DomainID Sync Object.</summary>
+
+        </field>
+
+        <field name = "EventLogs" Cref = "Object">
+
+            <summary>EventLogs Sync Object.</summary>
+
+        </field>
+
+        <field name = "Extension" Cref = "Object">
+
+            <summary>Extension Sync Object.</summary>
+
+        </field>
+
+        <field name = "FILE" Cref = "Object">
+
+            <summary>FILE Sync Object.</summary>
+
+        </field>
+
+        <field name = "GPS" Cref = "Object">
+
+            <summary>GPS Sync Object.</summary>
+
+        </field>
+
+        <field name = "ID" Cref = "Object">
+
+            <summary>ID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Inputs" Cref = "Object">
+
+            <summary>Inputs Sync Object.</summary>
+
+        </field>
+
+        <field name = "Links" Cref = "Object">
+
+            <summary>Links Sync Object.</summary>
+
+        </field>
+
+        <field name = "Locator" Cref = "Object">
+
+            <summary>Locator Sync Object.</summary>
+
+        </field>
+
+        <field name = "Locked" Cref = "Object">
+
+            <summary>Locked Sync Object.</summary>
+
+        </field>
+
+        <field name = "MachineID" Cref = "Object">
+
+            <summary>MachineID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Modified" Cref = "Object">
+
+            <summary>Modified Sync Object.</summary>
+
+        </field>
+
+        <field name = "Name" Cref = "Object">
+
+            <summary>Name Sync Object.</summary>
+
+        </field>
+
+        <field name = "Notes" Cref = "Object">
+
+            <summary>Notes Sync Object.</summary>
+
+        </field>
+
+        <field name = "Objectives" Cref = "Object">
+
+            <summary>Objectives Sync Object.</summary>
+
+        </field>
+
+        <field name = "Outputs" Cref = "Object">
+
+            <summary>Outputs Sync Object.</summary>
+
+        </field>
+
+        <field name = "Policies" Cref = "Object">
+
+            <summary>Policies Sync Object.</summary>
+
+        </field>
+
+        <field name = "ProcessID" Cref = "Object">
+
+            <summary>ProcessID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Purpose" Cref = "Object">
+
+            <summary>Purpose Sync Object.</summary>
+
+        </field>
+
+        <field name = "Secret" Cref = "Object">
+
+            <summary>Secret Sync Object.</summary>
+
+        </field>
+
+        <field name = "SecurityDescriptor" Cref = "Object">
+
+            <summary>SecurityDescriptor Sync Object.</summary>
+
+        </field>
+
+        <field name = "ServiceVersion" Cref = "Object">
+
+            <summary>ServiceVersion Sync Object.</summary>
+
+        </field>
+
+        <field name = "Status" Cref = "Object">
+
+            <summary>Status Sync Object.</summary>
+
+        </field>
+
+        <field name = "Subordinates" Cref = "Object">
+
+            <summary>Subordinates Sync Object.</summary>
+
+        </field>
+
+        <field name = "Superior" Cref = "Object">
+
+            <summary>Superior Sync Object.</summary>
+
+        </field>
+
+        <field name = "Tags" Cref = "Object">
+
+            <summary>Tags Sync Object.</summary>
+
+        </field>
+
+        <field name = "Telemetry" Cref = "Object">
+
+            <summary>Telemetry Sync Object.</summary>
+
+        </field>
+
+        <field name = "ThreadID" Cref = "Object">
+
+            <summary>ThreadID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Traits" Cref = "Object">
+
+            <summary>Traits Sync Object.</summary>
+
+        </field>
+
+        <field name = "Version" Cref = "Object">
+
+            <summary>Version Sync Object.</summary>
+
+        </field>
+
+    </class>
+
+</ToolSync>

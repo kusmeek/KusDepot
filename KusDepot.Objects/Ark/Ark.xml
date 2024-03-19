@@ -1,0 +1,185 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Ark>
+
+    <class name = "Ark">
+
+        <main>
+
+            <summary>Ark Matrix.</summary>
+
+            <remarks>A DataSet for organizing items and tools in a system.</remarks>
+
+        </main>
+
+        <field name = "ActiveServicesTableName" Cref = "String">
+
+            <summary>Name of the ActiveServices table.</summary>
+
+            <remarks>Stores the constant value of the name of the table.</remarks>
+
+        </field>
+
+        <field name = "ElementsTableName" Cref = "String">
+
+            <summary>Name of the Elements table.</summary>
+
+            <remarks>Stores the constant value of the name of the table.</remarks>
+
+        </field>
+
+        <field name = "MediaLibraryTableName" Cref = "String">
+
+            <summary>Name of the MediaLibrary table.</summary>
+
+            <remarks>Stores the constant value of the name of the table.</remarks>
+
+        </field>
+
+        <field name = "NotesTableName" Cref = "String">
+
+            <summary>Name of the Notes table.</summary>
+
+            <remarks>Stores the constant value of the name of the table.</remarks>
+
+        </field>
+
+        <field name = "TagsTableName" Cref = "String">
+
+            <summary>Name of the Tags table.</summary>
+
+            <remarks>Stores the constant value of the name of the table.</remarks>
+
+        </field>
+
+        <field name = "Sync" Cref = "Object">
+
+            <summary>Synchronization Object.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "capacity" Cref = "Int32">Maximum capacity of notes and tags.</param>
+
+            <returns Cref = "Ark">New Ark.</returns>
+
+            <remarks>Constructs a new Ark.</remarks>
+
+        </constructor>
+
+        <method name = "AddUpdate">
+
+            <summary>Add or Update Object.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Item or Tool.</param>
+
+            <returns Cref = "Boolean">True if Object added or updated successfully.</returns>
+
+            <remarks>Add or Update this Ark with a serialized item or tool.</remarks>
+
+        </method>
+
+        <method name = "AddUpdateDescriptor">
+
+            <summary>Add or Update Object.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <returns Cref = "Boolean">True if Object added or updated successfully.</returns>
+
+            <remarks>Add or Update this Ark with an object descriptor.</remarks>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <returns Cref = "Boolean">True if Object exists in Ark.</returns>
+
+            <remarks>Checks for existence of an object by ID.</remarks>
+
+        </method>
+
+        <method name = "GetBytes">
+
+            <summary>Render Ark.</summary>
+
+            <param name = "ark" Cref = "Ark?">Ark.</param>
+
+            <returns Cref = "Byte[]">Ark.</returns>
+
+            <remarks>Serialize an Ark into a persistable form.</remarks>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Ark.</summary>
+
+            <param name = "ark" Cref = "Byte[]?">Ark.</param>
+
+            <returns Cref = "Ark?">Ark.</returns>
+
+            <remarks>Deserialize an Ark with latest schema from storage.</remarks>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Item or Tool.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>Delete references to an object in this ark.</remarks>
+
+        </method>
+
+        <method name = "RemoveDescriptor">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>Delete references to an object in this ark using a descriptor.</remarks>
+
+        </method>
+
+        <method name = "RemoveGuid">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>Delete references to an object in this ark using an ID.</remarks>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Ark.</summary>
+
+            <param name = "it" Cref = "Byte[]?">Input to Parse.</param>
+
+            <param name = "ark" Cref = "Ark?">Output Ark.</param>
+
+            <returns Cref = "Boolean">True if it was parsed successfully.</returns>
+
+            <remarks>Try to construct an ark with latest schema from a byte array.</remarks>
+
+        </method>
+
+    </class>
+
+</Ark>

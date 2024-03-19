@@ -1,0 +1,302 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GuidReferenceItem>
+
+    <class name = "GuidReferenceItem">
+
+        <main>
+
+            <summary>Reference to an Object.</summary>
+
+            <remarks>This Content of this item references the ID field of any other item or tool. Use the Next and Previous fields
+            to build a linked list and/or UndirectedLinks to store a graph.</remarks>
+
+        </main>
+
+        <content name = "Content" Cref = "Guid?">
+
+            <summary>Item Content.</summary>
+
+        </content>
+
+        <field name = "Next" Cref = "GuidReferenceItem?">
+
+            <summary>Next Node.</summary>
+
+        </field>
+
+        <field name = "Previous" Cref = "GuidReferenceItem?">
+
+            <summary>Previous Node.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "GuidReferenceItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "UndirectedLinks" Cref = "HashSet{GuidReferenceItem}?">
+
+            <summary>Graph.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "GuidReferenceItem">New GuidReferenceItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "Guid?">Item Content.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "HashSet{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "HashSet{String}?">Tags.cs.</param>
+
+            <returns Cref = "GuidReferenceItem">Unvalidated GuidReferenceItem.</returns>
+
+        </constructor>
+
+        <method name = "IComparable{GuidReferenceItem}.CompareTo">
+
+            <summary>IComparable.</summary>
+
+            <param name = "other" Cref = "GuidReferenceItem?">Other GuidReferenceItem.</param>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "EqualsObject">
+
+            <summary>Override.</summary>
+
+            <param name = "other" Cref = "Object?">Other Object.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "IEquatable{GuidReferenceItem}.Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "GuidReferenceItem?">Other GuidReferenceItem.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "GuidReferenceItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <returns Cref = "Guid?">Content.</returns>
+
+        </method>
+
+        <method name = "GetDescriptor">
+
+            <summary>Get Descriptor.</summary>
+
+            <returns Cref = "Descriptor?">Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "GetNext">
+
+            <summary>Get Next.</summary>
+
+            <returns Cref = "GuidReferenceItem?">Next.</returns>
+
+        </method>
+
+        <method name = "GetPrevious">
+
+            <summary>Get Previous.</summary>
+
+            <returns Cref = "GuidReferenceItem?">Previous.</returns>
+
+        </method>
+
+        <method name = "GetServiceVersion">
+
+            <summary>Get Service Version.</summary>
+
+            <returns Cref = "Version?">Version of Service.</returns>
+
+        </method>
+
+        <method name = "GetUndirectedLinks">
+
+            <summary>Get UndirectedLinks.</summary>
+
+            <returns Cref = "HashSet{GuidReferenceItem}?">Undirected Links.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Item.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "GuidReferenceItem">Output.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "Guid?">Content.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetNext">
+
+            <summary>Set Next.</summary>
+
+            <param name = "next" Cref = "GuidReferenceItem?">Next.</param>
+
+            <returns Cref = "Boolean">Returns true if Next was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetPrevious">
+
+            <summary>Set Previous.</summary>
+
+            <param name = "previous" Cref = "GuidReferenceItem?">Previous.</param>
+
+            <returns Cref = "Boolean">Returns true if Previous was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetUndirectedLinks">
+
+            <summary>Set UndirectedLinks.</summary>
+
+            <param name = "undirectedlinks" Cref = "IEnumerable{GuidReferenceItem}?">Undirected Links.</param>
+
+            <returns Cref = "Boolean">Returns true if UndirectedLinks was set successfully.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if Object successfully written to file.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Item.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Item.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "item" Cref = "GuidReferenceItem">Output Item.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "Validate">
+
+            <summary>Returns true if item is valid.</summary>
+
+            <param name = "item" Cref = "GuidReferenceItem?">Validation Subject.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+    <class name = "GuidReferenceItemValidator">
+
+        <summary>Validates a GuidReferenceItem.</summary>
+
+        <constructor name = "Constructor">
+
+            <summary>Configures AbstractValidator.</summary>
+
+        </constructor>
+
+    </class>
+
+</GuidReferenceItem>

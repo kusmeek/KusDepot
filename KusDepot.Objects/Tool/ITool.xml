@@ -1,0 +1,541 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ITool>
+
+    <interface name = "ITool">
+
+        <main>
+
+            <summary>Tool Interface.</summary>
+
+            <remarks>This interface defines the base service and operational contracts of the Tool.</remarks>
+
+        </main>
+
+        <method name = "Activate">
+
+            <summary>Activate Tool.</summary>
+
+            <returns Cref = "Boolean">True if Tool activated successfully.</returns>
+
+        </method>
+
+        <method name = "AddActivity">
+
+            <summary>Add an Activity.</summary>
+
+            <param name = "activity" Cref = "Activity?">The Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity added successfully.</returns>
+
+        </method>
+
+        <method name = "AddDataItems">
+
+            <summary>Add DataItems.</summary>
+
+            <param name = "data" Cref = "IEnumerable{DataItems}?">DataItems.</param>
+
+            <returns Cref = "Boolean">True if DataItems added successfully.</returns>
+
+        </method>
+
+        <method name = "AddInput">
+
+            <summary>Queue an Input.</summary>
+
+            <param name = "input" Cref = "Object?">Input.</param>
+
+            <returns Cref = "Boolean">True if Input added to queue successfully.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add an Output.</summary>
+
+            <param name = "id" Cref = "Guid">Identifier.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <returns Cref = "Boolean">True if Output added successfully.</returns>
+
+        </method>
+
+        <event name = "Alert">
+
+            <summary>An occurence of interest.</summary>
+
+            <remarks>EventHandler{AlertEventArgs}</remarks>
+
+        </event>
+
+        <method name = "ClearEventLogs">
+
+            <summary>Clear the EventLog.</summary>
+
+            <returns Cref = "Boolean">True if the EventLog was successfully cleared.</returns>
+
+        </method>
+
+        <method name = "Clone">
+
+            <summary>Clone Tool.</summary>
+
+            <returns Cref = "Object">Cloned Tool.</returns>
+
+            <remarks>Consider reinitializing and generating a new ID.</remarks>
+
+        </method>
+
+        <method name = "CompareTo">
+
+            <summary>IComparable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "Deactivate">
+
+            <summary>Deactivate Tool.</summary>
+
+            <returns Cref = "Boolean">True if Tool Deactivated.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Dispose of Tool.</summary>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>Determine equality.</summary>
+
+            <param name = "other" Cref = "Object?">Other Object.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommand">
+
+            <summary>Give Command.</summary>
+
+            <param name = "details" Cref = "Object[]?">Details.</param>
+
+            <returns Cref = "Guid?">Identifier of generated Activity or null if handle not registered, Command cannot currently execute, or argument not accepted.</returns>
+
+        </method>
+
+        <method name = "GetActivities">
+
+            <summary>Returns Current Activities.</summary>
+
+            <returns Cref = "List{Activity}?">Current Activities.</returns>
+
+        </method>
+
+        <method name = "GetCommands">
+
+            <summary>Get Commands.</summary>
+
+            <returns Cref = "Dictionary{String,Command}?">Registered Commands.</returns>
+
+        </method>
+
+        <method name = "GetContainer">
+
+            <summary>Get Container.</summary>
+
+            <returns Cref = "IContainer?">Container.</returns>
+
+        </method>
+
+        <method name = "GetControls">
+
+            <summary>Get Controls.</summary>
+
+            <returns Cref = "HashSet{String}?">Remote Control Interfaces (Serialized IPEndPoint) (gRPC/WCF).</returns>
+
+        </method>
+
+        <method name = "GetDataItems">
+
+            <summary>Get Data.</summary>
+
+            <returns Cref = "HashSet{DataItem}?">All DataItems.</returns>
+
+        </method>
+
+        <method name = "GetDescriptor">
+
+            <summary>Get Descriptor.</summary>
+
+            <returns Cref = "Descriptor?">Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetDisposed">
+
+            <summary>Get Disposed.</summary>
+
+            <returns Cref = "Boolean">Disposed Status.</returns>
+
+        </method>
+
+        <method name = "GetEvent">
+
+            <summary>Get a logged event.</summary>
+
+            <param name = "key" Cref = "Int32?">Event Key.</param>
+
+            <returns Cref = "String?">Logged event.</returns>
+
+        </method>
+
+        <method name = "GetEventLogs">
+
+            <summary>Get All Event Logs.</summary>
+
+            <returns Cref = "Dictionary{Int32,String}?">Event Logs.</returns>
+
+        </method>
+
+        <method name = "GetInput">
+
+            <summary>Returns Next Tool Input.</summary>
+
+            <returns Cref = "Object?">Next Input.</returns>
+
+        </method>
+
+        <method name = "GetInputs">
+
+            <summary>Returns Tool Inputs.</summary>
+
+            <returns Cref = "Queue{Object}?">Inputs.</returns>
+
+        </method>
+
+        <method name = "GetObjectives">
+
+            <summary>Returns Current Objectives.</summary>
+
+            <returns Cref = "IList{Object}?">Objectives.</returns>
+
+        </method>
+
+        <method name = "GetOutput">
+
+            <summary>Retrieve an Output. Use RemoveOutput to remove from Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <returns Cref = "Object?">Output.</returns>
+
+        </method>
+
+        <method name = "GetOutputIDs">
+
+            <summary>Returns Output Identifiers.</summary>
+
+            <returns Cref = "IList{Guid}?">Tool Output IDs.</returns>
+
+        </method>
+
+        <method name = "GetPolicies">
+
+            <summary>Returns Policies.</summary>
+
+            <returns Cref = "IList{Object}?">Tool Policies.</returns>
+
+        </method>
+
+        <method name = "GetPurpose">
+
+            <summary>Get Purpose.</summary>
+
+            <returns Cref = "String?">Purpose.</returns>
+
+        </method>
+
+        <method name = "GetServiceVersion">
+
+            <summary>Get Service Version.</summary>
+
+            <returns Cref = "Version?">Version of Service.</returns>
+
+        </method>
+
+        <method name = "GetStatus">
+
+            <summary>Returns Current Status.</summary>
+
+            <returns Cref = "Dictionary{String,Object?}?">Current Status.</returns>
+
+        </method>
+
+        <method name = "GetSubordinates">
+
+            <summary>Get Subordinate Tools.</summary>
+
+            <returns Cref = "HashSet{Tool}?">Subordinate Tools.</returns>
+
+        </method>
+
+        <method name = "GetSuperior">
+
+            <summary>Get Superior Tool.</summary>
+
+            <returns Cref = "Tool?">Superior Tool.</returns>
+
+        </method>
+
+        <method name = "GetTelemetry">
+
+            <summary>Get Telemetry.</summary>
+
+            <returns Cref = "HashSet{String}?">Remote Observation Interfaces (Serialized IPEndPoint) (gRPC/WCF).</returns>
+
+        </method>
+
+        <method name = "LogEvent">
+
+            <summary>Log an event.</summary>
+
+            <param name = "eventdata" Cref = "String?">Event Data.</param>
+
+            <returns Cref = "Boolean">True if the event data was successfully added to the EventLog.</returns>
+
+        </method>
+
+        <method name = "RaiseAlert">
+
+            <summary>Invoke Alert event.</summary>
+
+            <param name = "sender" Cref = "Object?">Event Sender.</param>
+
+            <param name = "eventargs" Cref = "AlertEventArgs">Event Arguments.</param>
+
+            <param name = "synchronous" Cref = "Boolean">True to raise alert synchronously, otherwise false.</param>
+
+        </method>
+
+        <method name = "RegisterCommand">
+
+            <summary>Register a Command.</summary>
+
+            <param name = "command" Cref = "Command">Command.</param>
+
+            <param name = "handle" Cref = "String">Command Handle (Names,Verbs).</param>
+
+            <returns Cref = "Boolean">Returns true if Command and Handle were registered successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveActivity">
+
+            <summary>Remove an Activity.</summary>
+
+            <param name = "activity" Cref = "Activity?">The Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveDataItem">
+
+            <summary>Remove a DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Item.</param>
+
+            <returns Cref = "Boolean">Returns true if DataItem was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveOutput">
+
+            <summary>Remove an Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <returns Cref = "Boolean">Returns true if Output was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveStatus">
+
+            <summary>Remove a Status Object.</summary>
+
+            <param name = "key" Cref = "String?">Status key.</param>
+
+            <returns Cref = "Boolean">Returns true if Status Object was removed successfully.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize Tool.</summary>
+
+            <returns Cref = "String">Serialized Tool.</returns>
+
+        </method>
+
+        <method name = "SetContainer">
+
+            <summary>Set Container.</summary>
+
+            <param name = "container" Cref = "Autofac.IContainer?">Container.</param>
+
+            <returns Cref = "Boolean">True if Container was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetControls">
+
+            <summary>Set Controls.</summary>
+
+            <param name = "controls" Cref = "IEnumerable{String}?">Controls.</param>
+
+            <returns Cref = "Boolean">True if Controls was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetObjectives">
+
+            <summary>Sets Objectives.</summary>
+
+            <param name = "objectives" Cref = "List{Object}?">Objectives.</param>
+
+            <returns Cref = "Boolean">True if Objectives were set successfully.</returns>
+
+        </method>
+
+        <method name = "SetPolicies">
+
+            <summary>Sets Policies.</summary>
+
+            <param name = "policies" Cref = "List{Object}?">Policies.</param>
+
+            <returns Cref = "Boolean">True if Policies were set successfully.</returns>
+
+        </method>
+
+        <method name = "SetPurpose">
+
+            <summary>Set Purpose.</summary>
+
+            <param name = "purpose" Cref = "String?">Purpose.</param>
+
+            <returns Cref = "Boolean">Returns true if Purpose was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetStatus">
+
+            <summary>Set a Status.</summary>
+
+            <param name = "key" Cref = "String?">Status Key.</param>
+
+            <param name = "status" Cref = "Object?">Status Object.</param>
+
+            <returns Cref = "Boolean">Returns true if Status Object was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetSubordinates">
+
+            <summary>Set Subordinate Tools.</summary>
+
+            <param name = "subordinates" Cref = "HashSet{Tool}?">Subordinate Tools.</param>
+
+            <returns Cref = "Boolean">True if Subordinates were set successfully.</returns>
+
+        </method>
+
+        <method name = "SetSuperior">
+
+            <summary>Set Superior Tool.</summary>
+
+            <param name = "superior" Cref = "Tool?">Superior Tool.</param>
+
+            <returns Cref = "Boolean">True if Superior was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetTelemetry">
+
+            <summary>Set Telemetry.</summary>
+
+            <param name = "telemetry" Cref = "IEnumerable{String}?">Telemetry.</param>
+
+            <returns Cref = "Boolean">True if Telemetry was set successfully.</returns>
+
+        </method>
+
+        <method name = "StartAsync">
+
+            <summary>IHostedService.</summary>
+
+            <param name = "token" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">Starting Task.</returns>
+
+        </method>
+
+        <method name = "StopAsync">
+
+            <summary>IHostedService.</summary>
+
+            <param name = "token" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">Stopping Task.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>ToString.</summary>
+
+            <returns Cref = "String">Tool.</returns>
+
+        </method>
+
+        <method name = "UnRegisterCommand">
+
+            <summary>UnRegister a Command.</summary>
+
+            <param name = "handle" Cref = "String">Command Handle (Names,Verbs).</param>
+
+            <returns Cref = "Boolean">Returns true if Command was unregistered successfully.</returns>
+
+        </method>
+
+        <method name = "UpdateInputs">
+
+            <summary>Update Inputs.</summary>
+
+            <param name = "inputs" Cref = "Queue{Object}?">Updated Inputs.</param>
+
+            <returns Cref = "Boolean">True if Inputs were updated successfully.</returns>
+
+        </method>
+
+        <method name = "WriteEventLogsToFile">
+
+            <summary>Write EventLogs to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if EventLogs successfully written to file.</returns>
+
+        </method>
+
+    </interface>
+
+</ITool>

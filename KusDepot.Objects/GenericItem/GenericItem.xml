@@ -1,0 +1,211 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GenericItem>
+
+    <class name = "GenericItem">
+
+        <main>
+
+            <summary>Unclassified data.</summary>
+
+            <remarks>This item stores a list of any type of object.</remarks>
+
+        </main>
+
+        <content name = "Content" Cref = "List{Object}?">
+
+            <summary>Item Data.</summary>
+
+            <remarks>Use serializable types to enable persistence.</remarks>
+
+        </content>
+
+        <field name = "Sync" Cref = "ItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "GenericItem">New GenericItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "IEnumerable{Object}?">Item Data.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "HashSet{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "HashSet{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "GenericItem">Unvalidated GenericItem.</returns>
+
+        </constructor>
+
+        <method name = "IComparable{GenericItem}.CompareTo">
+
+            <summary>IComparable.</summary>
+
+            <param name = "other" Cref = "GenericItem?">Other GenericItem.</param>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "EqualsObject">
+
+            <summary>Override.</summary>
+
+            <param name = "other" Cref = "Object?">Other Object.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "IEquatable{GenericItem}.Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "GenericItem?">Other GenericItem.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "GenericItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <returns Cref = "ImmutableList{Object}?">Content.</returns>
+
+        </method>
+
+        <method name = "GetDescriptor">
+
+            <summary>Get Descriptor.</summary>
+
+            <returns Cref = "Descriptor?">Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "GetServiceVersion">
+
+            <summary>Get Service Version.</summary>
+
+            <returns Cref = "Version?">Version of Service.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Item.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "GenericItem">Output.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "IEnumerable{Object}?">Content.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if Object successfully written to file.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Item.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Item.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "item" Cref = "GenericItem">Output Item.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</GenericItem>

@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OutputEventArgs>
+
+    <class name = "OutputEventArgs">
+
+        <main>
+
+            <summary>Output Information.</summary>
+
+            <remarks>Created when output is added or removed.</remarks>
+
+        </main>
+
+        <field name = "ID" Cref = "Guid">
+
+            <summary>Output ID.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+            <param name = "id" Cref = "Guid">Output Identifier.</param>
+
+        </constructor>
+
+    </class>
+
+</OutputEventArgs>

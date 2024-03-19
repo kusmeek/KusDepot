@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Work>
+
+    <class name = "Work">
+
+        <main>
+
+            <summary>Business.</summary>
+
+        </main>
+
+        <property name = "Ark" Cref = "Ark?">
+
+            <summary>Primary.</summary>
+
+        </property>
+
+        <property name = "Assets" Cref = "Dictionary{String,DataItem}?">
+
+            <summary>Property.</summary>
+
+        </property>
+
+        <property name = "Formations" Cref = "Dictionary{String,Formation}?">
+
+            <summary>Organization.</summary>
+
+        </property>
+
+        <property name = "Operators" Cref = "Dictionary{String,Tool}?">
+
+            <summary>Workers.</summary>
+
+        </property>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Object.</summary>
+
+            <returns Cref = "Boolean">True if Object Initialized successfully.</returns>
+
+        </method>
+
+    </class>
+
+</Work>

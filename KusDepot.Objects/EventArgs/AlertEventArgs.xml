@@ -1,0 +1,29 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AlertEventArgs>
+
+    <class name = "AlertEventArgs">
+
+        <main>
+
+            <summary>Base Alert EventArgs.</summary>
+
+        </main>
+
+        <field name = "Code" Cref = "AlertCode">
+
+            <summary>Alert Event Code.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+        </constructor>
+
+    </class>
+
+</AlertEventArgs>

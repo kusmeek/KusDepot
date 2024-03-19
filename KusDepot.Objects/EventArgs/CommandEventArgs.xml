@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandEventArgs>
+
+    <class name = "CommandEventArgs">
+
+        <main>
+
+            <summary>Command Information.</summary>
+
+            <remarks>Created when Command is registered or removed.</remarks>
+
+        </main>
+
+        <field name = "Handle" Cref = "String">
+
+            <summary>Registered handle.</summary>
+
+        </field>
+
+        <field name = "ID" Cref = "Guid?">
+
+            <summary>Command ID.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+            <param name = "handle" Cref = "String">Handle to register.</param>
+
+            <param name = "id" Cref = "Guid?">Command Identifier.</param>
+
+        </constructor>
+
+    </class>
+
+</CommandEventArgs>

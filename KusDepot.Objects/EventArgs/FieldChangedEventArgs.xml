@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<FieldChangedEventArgs>
+
+    <class name = "FieldChangedEventArgs">
+
+        <main>
+
+            <summary>Field Changed Information.</summary>
+
+            <remarks>Created when a field value has changed.</remarks>
+
+        </main>
+
+        <field name = "FieldName" Cref = "String">
+
+            <summary>Name of the changed field.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+            <param name = "fieldname" Cref = "String">Changed Field Name.</param>
+
+        </constructor>
+
+    </class>
+
+</FieldChangedEventArgs>

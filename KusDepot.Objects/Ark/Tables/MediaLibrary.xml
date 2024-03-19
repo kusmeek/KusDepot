@@ -1,0 +1,101 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MediaLibrary>
+
+    <class name = "MediaLibrary">
+
+        <main>
+
+            <summary>MediaLibrary.</summary>
+
+            <remarks>This table stores information on multimedia items.</remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "name" Cref = "String?">TableName.</param>
+
+            <returns Cref = "MediaLibrary">New MediaLibrary.</returns>
+
+            <remarks>The lifecycle of this table is managed by the Ark. Manual creation is not intended.</remarks>
+
+        </constructor>
+
+        <method name = "AddUpdate">
+
+            <summary>Add or Update Object.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Item or Tool.</param>
+
+            <returns Cref = "Boolean">True if Object added or updated successfully.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+        <method name = "AddUpdateDescriptor">
+
+            <summary>Add or Update Object.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <returns Cref = "Boolean">True if Object added or updated successfully.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <returns Cref = "Boolean">True if Object exists in Table.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Item or Tool.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+        <method name = "RemoveDescriptor">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+        <method name = "RemoveGuid">
+
+            <summary>Remove Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <returns Cref = "Boolean">True if Object removed successfully.</returns>
+
+            <remarks>This method is not intended to be called directly. Use public methods of the Ark to ensure data coherence.</remarks>
+
+        </method>
+
+    </class>
+
+</MediaLibrary>

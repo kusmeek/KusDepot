@@ -1,0 +1,268 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Tool>
+
+    <class name = "Tool">
+
+        <main>
+
+            <summary>Tool/Workflow Frame.</summary>
+
+            <remarks>The Tool is a foundation for operations. It stores DataItems and hosts Traits and Commands which
+            define specialized compartmentalized functionality. A Superior and Subordinates may be set to form an 
+            extended hierarchy of Tools. Inputs, Outputs, EventLog, Policies, Status, and Telemetry are also
+            available, as well as an Autofac Container to manage dependencies.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "Dictionary{String,Command}?">
+
+            <summary>Command Handle (Names,Verbs) and Initialized plugin.</summary>
+
+        </field>
+
+        <field name = "Container" Cref = "IContainer?">
+
+            <summary>Autofac Container.</summary>
+
+        </field>
+
+        <field name = "Controls" Cref = "HashSet{String}?">
+
+            <summary>Remote Control Interfaces (Serialized IPEndPoint) (gRPC/WCF).</summary>
+
+        </field>
+
+        <field name = "Data" Cref = "HashSet{DataItem}?">
+
+            <summary>Tool Data.</summary>
+
+        </field>
+
+        <field name = "Disposed" Cref = "Boolean">
+
+            <summary>Disposed status.</summary>
+
+        </field>
+
+        <field name = "EventLogs" Cref = "Dictionary{Int32,String}?">
+
+            <summary>Event Logs.</summary>
+
+        </field>
+
+        <field name = "Inputs" Cref = "Queue{Object}?">
+
+            <summary>Tool Inputs.</summary>
+
+        </field>
+
+        <field name = "Objectives" Cref = "List{Object}?">
+
+            <summary>Tool Objectives.</summary>
+
+        </field>
+
+        <field name = "Outputs" Cref = "Dictionary{Guid,Object?}?">
+
+            <summary>Tool Outputs.</summary>
+
+        </field>
+
+        <field name = "Policies" Cref = "List{Object}?">
+
+            <summary>Compliance, Limits, Investment, and Priorities.</summary>
+
+        </field>
+
+        <field name = "Purpose" Cref = "String?">
+
+            <summary>Tool Purpose.</summary>
+
+        </field>
+
+        <field name = "Status" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Current Status.</summary>
+
+        </field>
+
+        <field name = "Subordinates" Cref = "HashSet{Tool}?">
+
+            <summary>Subordinate Tools.</summary>
+
+        </field>
+
+        <field name = "Superior" Cref = "Tool?">
+
+            <summary>Superior Tool.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "ToolSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "Telemetry" Cref = "HashSet{String}?">
+
+            <summary>Remote Observation Interfaces (Serialized IPEndPoint) (gRPC/WCF).</summary>
+
+        </field>
+
+        <field name = "Traits" Cref = "HashSet{Trait}?">
+
+            <summary>Tool Traits.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "data" Cref = "HashSet{DataItem}?">Data.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "name" Cref = "String?">Name.</param>
+
+            <param name = "container" Cref = "IContainer?">Autofac.</param>
+
+            <param name = "inputs" Cref = "Queue{Object}?">Inputs.</param>
+
+            <param name = "notes" Cref = "HashSet{String}?">Notes.</param>
+
+            <param name = "tags" Cref = "HashSet{String}?">Tags.</param>
+
+            <param name = "traits" Cref = "HashSet{Trait}?">Traits.</param>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <finalizer name = "Finalizer">
+
+            <summary>Tool Finalizer.</summary>
+
+        </finalizer>
+
+        <method name = "DisposeVirtual">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "disposing" Cref = "Boolean">Disposing.</param>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">Result.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Tool?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Result.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Tool.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "Tool">Output.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if Object successfully written to file.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Tool.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "tool" Cref = "Tool">Output Tool.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+        <property name = "ExtensionData">
+
+            <summary>IExtensibleDataObject.</summary>
+
+            <param Cref = "ExtensionDataObject?">Extension Data.</param>
+
+            <returns Cref = "ExtensionDataObject?">Extension Data.</returns>
+
+        </property>
+
+    </class>
+
+</Tool>

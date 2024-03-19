@@ -1,0 +1,522 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SyncException>
+
+    <class name = "SyncException">
+
+        <main>
+
+            <summary>SyncTimeoutException Helper.</summary>
+
+            <remarks>Properties create a SyncTimeoutException with Message indicating the Object's field or property
+            whose cooresponding Sync object field is locked by a different thread.</remarks>
+
+        </main>
+
+        <property name = "ActivitiesSyncException">
+
+            <summary>Activities SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Activities.</returns>
+
+        </property>
+
+        <property name = "AppDomainIDSyncException">
+
+            <summary>AppDomainID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">AppDomainID.</returns>
+
+        </property>
+
+        <property name = "AppDomainUIDSyncException">
+
+            <summary>AppDomainUID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">AppDomainUID.</returns>
+
+        </property>
+
+        <property name = "ApplicationSyncException">
+
+            <summary>Application SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Application.</returns>
+
+        </property>
+
+        <property name = "ApplicationVersionSyncException">
+
+            <summary>ApplicationVersion SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">ApplicationVersion.</returns>
+
+        </property>
+
+        <property name = "ArkSyncException">
+
+            <summary>Ark SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Ark.</returns>
+
+        </property>
+
+        <property name = "ArtistsSyncException">
+
+            <summary>Artists SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Artists.</returns>
+
+        </property>
+
+        <property name = "AssemblyVersionSyncException">
+
+            <summary>AssemblyVersion SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">AssemblyVersion.</returns>
+
+        </property>
+
+        <property name = "BitrateSyncException">
+
+            <summary>Bitrate SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Bitrate.</returns>
+
+        </property>
+
+        <property name = "BornOnSyncException">
+
+            <summary>BornOn SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">BornOn.</returns>
+
+        </property>
+
+        <property name = "CertificatesSyncException">
+
+            <summary>Certificates SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Certificates.</returns>
+
+        </property>
+
+        <property name = "CommandsSyncException">
+
+            <summary>Commands SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Commands.</returns>
+
+        </property>
+
+        <property name = "ContainerSyncException">
+
+            <summary>Container SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Container.</returns>
+
+        </property>
+
+        <property name = "ContentSyncException">
+
+            <summary>Content SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Content.</returns>
+
+        </property>
+
+        <property name = "ControlsSyncException">
+
+            <summary>Controls SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Controls.</returns>
+
+        </property>
+
+        <property name = "CPUIDSyncException">
+
+            <summary>CPUID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">CPUID.</returns>
+
+        </property>
+
+        <property name = "DataSyncException">
+
+            <summary>Data SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Data.</returns>
+
+        </property>
+
+        <property name = "DisposedSyncException">
+
+            <summary>Disposed SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Disposed.</returns>
+
+        </property>
+
+        <property name = "DomainIDSyncException">
+
+            <summary>DomainID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">DomainID.</returns>
+
+        </property>
+
+        <property name = "DistinguishedNameSyncException">
+
+            <summary>DistinguishedName SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">DistinguishedName.</returns>
+
+        </property>
+
+        <property name = "DurationSyncException">
+
+            <summary>Duration SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Duration.</returns>
+
+        </property>
+
+        <property name = "EventLogsSyncException">
+
+            <summary>EventLogs SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">EventLogs.</returns>
+
+        </property>
+
+        <property name = "ExtensionSyncException">
+
+            <summary>Extension SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Extension.</returns>
+
+        </property>
+
+        <property name = "FILESyncException">
+
+            <summary>FILE SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">FILE.</returns>
+
+        </property>
+
+        <property name = "FramerateSyncException">
+
+            <summary>Framerate SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Framerate.</returns>
+
+        </property>
+
+        <property name = "GPSSyncException">
+
+            <summary>GPS SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">GPS.</returns>
+
+        </property>
+
+        <property name = "IDSyncException">
+
+            <summary>ID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">ID.</returns>
+
+        </property>
+
+        <property name = "InputsSyncException">
+
+            <summary>Inputs SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Inputs.</returns>
+
+        </property>
+
+        <property name = "LanguageSyncException">
+
+            <summary>Language SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Language.</returns>
+
+        </property>
+
+        <property name = "LinksSyncException">
+
+            <summary>Links SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Links.</returns>
+
+        </property>
+
+        <property name = "LocatorSyncException">
+
+            <summary>Locator SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Locator.</returns>
+
+        </property>
+
+        <property name = "LockedSyncException">
+
+            <summary>Locked SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Locked.</returns>
+
+        </property>
+
+        <property name = "MachineIDSyncException">
+
+            <summary>MachineID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">MachineID.</returns>
+
+        </property>
+
+        <property name = "ModifiedSyncException">
+
+            <summary>Modified SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Modified.</returns>
+
+        </property>
+
+        <property name = "NameSyncException">
+
+            <summary>Name SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Name.</returns>
+
+        </property>
+
+        <property name = "NextSyncException">
+
+            <summary>Next SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Next.</returns>
+
+        </property>
+
+        <property name = "NotesSyncException">
+
+            <summary>Notes SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Notes.</returns>
+
+        </property>
+
+        <property name = "ObjectivesSyncException">
+
+            <summary>Objectives SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Objectives.</returns>
+
+        </property>
+
+        <property name = "OutputsSyncException">
+
+            <summary>Outputs SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Outputs.</returns>
+
+        </property>
+
+        <property name = "PoliciesSyncException">
+
+            <summary>Policies SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Policies.</returns>
+
+        </property>
+
+        <property name = "PreviousSyncException">
+
+            <summary>Previous SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Previous.</returns>
+
+        </property>
+
+        <property name = "ProcessIDSyncException">
+
+            <summary>ProcessID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">ProcessID.</returns>
+
+        </property>
+
+        <property name = "PurposeSyncException">
+
+            <summary>Purpose SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Purpose.</returns>
+
+        </property>
+
+        <property name = "RequirementsSyncException">
+
+            <summary>Requirements SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Requirements.</returns>
+
+        </property>
+
+        <property name = "SecretSyncException">
+
+            <summary>Secret SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Secret.</returns>
+
+        </property>
+
+        <property name = "SecureHashesSyncException">
+
+            <summary>SecureHashes SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">SecureHashes.</returns>
+
+        </property>
+
+        <property name = "SecurityDescriptorSyncException">
+
+            <summary>SecurityDescriptor SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">SecurityDescriptor.</returns>
+
+        </property>
+
+        <property name = "SequenceSyncException">
+
+            <summary>Sequence SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Sequence.</returns>
+
+        </property>
+
+        <property name = "ServiceVersionSyncException">
+
+            <summary>ServiceVersion SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">ServiceVersion.</returns>
+
+        </property>
+
+        <property name = "SourceSyncException">
+
+            <summary>Source SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Source.</returns>
+
+        </property>
+
+        <property name = "SQLArkSyncException">
+
+            <summary>SQLArk SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">SQLArk.</returns>
+
+        </property>
+
+        <property name = "StatusSyncException">
+
+            <summary>Status SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Status.</returns>
+
+        </property>
+
+        <property name = "SubordinatesSyncException">
+
+            <summary>Subordinates SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Subordinates.</returns>
+
+        </property>
+
+        <property name = "SuperiorSyncException">
+
+            <summary>Superior SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Superior.</returns>
+
+        </property>
+
+        <property name = "TagsSyncException">
+
+            <summary>Tags SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Tags.</returns>
+
+        </property>
+
+        <property name = "TelemetrySyncException">
+
+            <summary>Telemetry SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Telemetry.</returns>
+
+        </property>
+
+        <property name = "ThreadIDSyncException">
+
+            <summary>ThreadID SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">ThreadID.</returns>
+
+        </property>
+
+        <property name = "TitleSyncException">
+
+            <summary>Title SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Title.</returns>
+
+        </property>
+
+        <property name = "TraitsSyncException">
+
+            <summary>Traits SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Traits.</returns>
+
+        </property>
+
+        <property name = "TypeSyncException">
+
+            <summary>Type SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Type.</returns>
+
+        </property>
+
+        <property name = "UndirectedLinksSyncException">
+
+            <summary>UndirectedLinks SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">UndirectedLinks.</returns>
+
+        </property>
+
+        <property name = "VersionSyncException">
+
+            <summary>Version SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Version.</returns>
+
+        </property>
+
+        <property name = "YearSyncException">
+
+            <summary>Year SyncTimeoutException.</summary>
+
+            <returns Cref = "SyncTimeoutException?">Year.</returns>
+
+        </property>
+
+    </class>
+
+</SyncException>

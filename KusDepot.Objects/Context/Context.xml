@@ -1,0 +1,125 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Context>
+
+    <class name = "Context">
+
+        <main>
+
+            <summary>Context.</summary>
+
+            <remarks>Originating or current operating environment identifiers. Intended to remain current as objects evolve among systems.</remarks>
+
+        </main>
+
+        <field name = "AppDomainID" Cref = "Int64?">
+
+            <summary>AppDomain ID.</summary>
+
+        </field>
+
+        <field name = "AppDomainUID" Cref = "Int64?">
+
+            <summary>Unique ID within AppDomain.</summary>
+
+        </field>
+
+        <field name = "AssemblyVersion" Cref = "Version?">
+
+            <summary>Version of Constructing Assembly.</summary>
+
+        </field>
+
+        <field name = "CPUID" Cref = "String?">
+
+            <summary>Processor Core Device Name.</summary>
+
+        </field>
+
+        <field name = "MachineID" Cref = "String?">
+
+            <summary>(Virtual) Machine ID.</summary>
+
+        </field>
+
+        <field name = "ProcessID" Cref = "Int64?">
+
+            <summary>Process ID.</summary>
+
+        </field>
+
+        <field name = "ThreadID" Cref = "Int32?">
+
+            <summary>Thread ID.</summary>
+
+        </field>
+
+        <method name = "GetAppDomainID">
+
+            <summary>Get AppDomain ID.</summary>
+
+            <returns Cref = "Int64?">AppDomain ID.</returns>
+
+        </method>
+
+        <method name = "GetAppDomainUID">
+
+            <summary>Get AppDomain Unique ID.</summary>
+
+            <returns Cref = "Int64?">AppDomain Unique ID.</returns>
+
+        </method>
+
+        <method name = "GetAssemblyVersion">
+
+            <summary>Get Assembly Version.</summary>
+
+            <returns Cref = "Version?">Version of Constructing Assembly.</returns>
+
+        </method>
+
+        <method name = "GetCPUID">
+
+            <summary>Returns Processor Core Device Name.</summary>
+
+            <returns Cref = "String?">Processor Core Device Name.</returns>
+
+        </method>
+
+        <method name = "GetMachineID">
+
+            <summary>Get Machine ID.</summary>
+
+            <returns Cref = "String?">(Virtual) Machine ID.</returns>
+
+        </method>
+
+        <method name = "GetProcessID">
+
+            <summary>Get Process ID.</summary>
+
+            <returns Cref = "Int64?">Process ID.</returns>
+
+        </method>
+
+        <method name = "GetThreadID">
+
+            <summary>Get Thread ID.</summary>
+
+            <returns Cref = "Int32?">Thread ID.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Context.</summary>
+
+            <returns Cref = "Boolean">True if Object Initialized successfully.</returns>
+
+            <remarks>This is called at construction. Call as needed to update the context e.g. post deserialization/reactivation.</remarks>
+
+        </method>
+
+    </class>
+
+</Context>

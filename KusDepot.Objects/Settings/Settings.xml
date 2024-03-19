@@ -1,0 +1,60 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Settings>
+
+    <class name = "Settings">
+
+        <main>
+
+            <summary>Configuration.</summary>
+
+            <remarks>Settings defines data types for item validation as well as method synchronization
+            timeout and exception behavior.</remarks>
+
+        </main>
+
+        <field name = "BinaryItemValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataTypes for BinaryItems.</summary>
+
+        </field>
+
+        <field name = "CodeItemValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataTypes for CodeItems.</summary>
+
+        </field>
+
+        <field name = "GuidReferenceItemValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataType for GuidReferenceItems.</summary>
+
+        </field>
+
+        <field name = "MultiMediaItemValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataTypes for MultiMediaItems.</summary>
+
+        </field>
+
+        <property name = "NoExceptions" Cref = "Boolean">
+
+            <summary>If True exceptions are not thrown.</summary>
+
+        </property>
+
+        <field name = "SyncTime" Cref = "TimeSpan">
+
+            <summary>Method Synchronization Timeout.</summary>
+
+        </field>
+
+        <field name = "TextItemValidDataTypes" Cref = "String?[]">
+
+            <summary>Valid DataTypes for TextItems.</summary>
+
+        </field>
+
+    </class>
+
+</Settings>

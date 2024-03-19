@@ -1,0 +1,57 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Descriptor>
+
+    <record name = "Descriptor">
+
+        <main>
+
+            <summary>Object Descriptor.</summary>
+
+            <remarks>An immutable record for exchanging information about an object with services, usually DataControl and ArkKeeper.</remarks>
+
+        </main>
+
+        <property name = "Application" Cref = "String?"><summary>The object's Application when this descriptor was created.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>The object's ApplicationVersion when this descriptor was created.</summary></property>
+
+        <property name = "Artist" Cref = "String?"><summary>The object's Artist when this descriptor was created.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>The object's BornOn when this descriptor was created.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>The object's DistinguishedName when this descriptor was created.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>The object's ID when this descriptor was created.</summary></property>
+
+        <property name = "Locator" Cref = "String?"><summary>The object's Locator when this descriptor was created.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>The object's Modified when this descriptor was created.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>The object's Name when this descriptor was created.</summary></property>
+
+        <property name = "Notes" Cref = "HashSet{String}?"><summary>The object's Notes when this descriptor was created.</summary></property>
+
+        <property name = "ObjectType" Cref = "String?"><summary>The object's Type.</summary></property>
+
+        <property name = "Purpose" Cref = "String?"><summary>The object's Purpose when this descriptor was created.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>The object's ServiceVersion when this descriptor was created.</summary></property>
+
+        <property name = "Tags" Cref = "HashSet{String}?"><summary>The object's Tags when this descriptor was created.</summary></property>
+
+        <property name = "Title" Cref = "String?"><summary>The object's Title when this descriptor was created.</summary></property>
+
+        <property name = "Type" Cref = "String?"><summary>The object's (Data)Type when this descriptor was created.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>The object's Version when this descriptor was created.</summary></property>
+
+        <property name = "Year" Cref = "String?"><summary>The object's Year when this descriptor was created.</summary></property>
+
+    </record>
+
+</Descriptor>
+
+
+
+

@@ -1,0 +1,149 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AlertCode>
+
+    <enum name = "AlertCode">
+
+        <main>
+
+            <summary>Alert types.</summary>
+
+            <remarks>Indicates the reason for an alert.</remarks>
+
+        </main>
+
+        <value name = "ActivityAdded">
+
+            <summary>An Activity was added.</summary>
+
+        </value>
+
+        <value name = "ActivityRemoved">
+
+            <summary>An Activity was removed.</summary>
+
+        </value>
+
+        <value name = "CommandRegistered">
+
+            <summary>A Command was registered.</summary>
+
+        </value>
+
+        <value name = "CommandUnregistered">
+
+            <summary>A Command was unregistered.</summary>
+
+        </value>
+
+        <value name = "ContainerChanged">
+
+            <summary>The Container was set or changed. New service references should be resolved.</summary>
+
+        </value>
+
+        <value name = "DataItemAdded">
+
+            <summary>A DataItem was added.</summary>
+
+        </value>
+
+        <value name = "DataItemRemoved">
+
+            <summary>A DataItem was removed.</summary>
+
+        </value>
+
+        <value name = "DeserializationComplete">
+
+            <summary>Deserialization has completed.</summary>
+
+        </value>
+
+        <value name = "Disposing">
+
+            <summary>The Tool is being disposed.</summary>
+
+        </value>
+
+        <value name = "FieldChanged">
+
+            <summary>A field has changed.</summary>
+
+        </value>
+
+        <value name = "Initialized">
+
+            <summary>The Tool has been (re)initialized.</summary>
+
+        </value>
+
+        <value name = "InputAdded">
+
+            <summary>An input has been added.</summary>
+
+        </value>
+
+        <value name = "InputRemoved">
+
+            <summary>An input has been removed.</summary>
+
+        </value>
+
+        <value name = "InputUpdated">
+
+            <summary>An input has been updated or the queue order has changed.</summary>
+
+        </value>
+
+        <value name = "Locked">
+
+            <summary>The Tool has been Locked.</summary>
+
+        </value>
+
+        <value name = "OutputAdded">
+
+            <summary>An output has been added.</summary>
+
+        </value>
+
+        <value name = "OutputRemoved">
+
+            <summary>An output has been removed.</summary>
+
+        </value>
+
+        <value name = "SerializationStarted">
+
+            <summary>Serialization has begun.</summary>
+
+        </value>
+
+        <value name = "SerializationComplete">
+
+            <summary>Serialization has finished.</summary>
+
+        </value>
+
+        <value name = "StatusUpdated">
+
+            <summary>Status has been updated.</summary>
+
+        </value>
+
+        <value name = "UnLocked">
+
+            <summary>The Tool has been UnLocked.</summary>
+
+        </value>
+
+        <value name = "Unused">
+
+            <summary>Uninitialized default. Do not use.</summary>
+
+        </value>
+
+    </enum>
+
+</AlertCode>

@@ -1,0 +1,47 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Trait>
+
+    <class name = "Trait">
+
+        <main>
+
+            <summary>Trait.</summary>
+
+            <remarks>Tool customization. Manages a set of related Commands. Should respect policies. May expose telemetry.</remarks>
+
+        </main>
+
+        <method name = "Activate">
+
+            <summary>Activate Trait.</summary>
+
+            <param name = "token" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Trait Activated.</returns>
+
+        </method>
+
+        <method name = "Bind">
+
+            <summary>Bind to Tool.</summary>
+
+            <param name = "tool" Cref = "Tool">Tool.</param>
+
+            <returns Cref = "Task{Boolean}">True if Trait Bound.</returns>
+
+        </method>
+
+        <method name = "Deactivate">
+
+            <summary>Deactivate Trait.</summary>
+
+            <param name = "token" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Trait Deactivated.</returns>
+
+        </method>
+
+    </class>
+
+</Trait>

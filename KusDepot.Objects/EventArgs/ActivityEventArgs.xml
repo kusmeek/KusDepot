@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ActivityEventArgs>
+
+    <class name = "ActivityEventArgs">
+
+        <main>
+
+            <summary>Activity Information.</summary>
+
+            <remarks>Created when an Activity is added or removed.</remarks>
+
+        </main>
+
+        <field name = "Activity" Cref = "Activity">
+
+            <summary>The Activity.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "code" Cref = "AlertCode">Alert Event Code.</param>
+
+            <param name = "activity" Cref = "Activity">The Activity.</param>
+
+        </constructor>
+
+    </class>
+
+</ActivityEventArgs>

@@ -1,0 +1,70 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Command>
+
+    <class name = "Command">
+
+        <main>
+
+            <summary>Dynamic Activity Plugin.</summary>
+
+            <remarks>Encapsulated functional specialization. Registers unique handles and performs operations via Tool.ExecuteCommand.
+            Long-running asynchronous tasks are tracked via Activities.</remarks>
+
+        </main>
+
+        <method name = "Attach">
+
+            <summary>Attach to Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">Tool to Attach.</param>
+
+            <returns Cref = "Boolean">True if Command was attached.</returns>
+
+        </method>
+
+        <method name = "Disable">
+
+            <summary>Disable Command.</summary>
+
+            <returns Cref = "Boolean">True if Command was disabled.</returns>
+
+        </method>
+
+        <method name = "Enable">
+
+            <summary>Enable Command.</summary>
+
+            <returns Cref = "Boolean">True if Command was enabled.</returns>
+
+        </method>
+
+        <method name = "Detach">
+
+            <summary>Detach from Tool.</summary>
+
+            <returns Cref = "Boolean">True if Command was detached.</returns>
+
+        </method>
+
+        <method name = "ExecuteAsync">
+
+            <summary>Execute Command.</summary>
+
+            <param name = "parameter" Cref = "Object[]?">Command Parameter.<remarks> Handle and id must be first and second. If id is null or empty, one must be generated and returned in Activity.ID.</remarks></param>
+
+            <returns Cref = "Activity?">An Activity which represents execution of the Command.</returns>
+
+        </method>
+
+        <method name = "GetSpecifications">
+
+            <summary>Returns a dictionary of Command specifications. Keys are handles, values contain usage information with description and order of parameters.</summary>
+
+            <returns Cref = "Dictionary{String,String}">An Activity which represents execution of the Command.</returns>
+
+        </method>
+
+    </class>
+
+</Command>

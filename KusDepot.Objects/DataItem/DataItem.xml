@@ -1,0 +1,79 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItem>
+
+    <class name = "DataItem">
+
+        <main>
+
+            <summary>Data Abstraction.</summary>
+
+            <remarks>This is the foundation of all storage items.</remarks>
+
+        </main>
+
+        <field name = "SecureHashes" Cref = "Dictionary{String,Byte[]}?">
+
+            <summary>Secure Hash Codes (SHA).</summary>
+
+            <remarks>Stores hash codes for fields. Use field name for keys. SHA512 is recommended.</remarks>
+
+        </field>
+
+        <field name = "Type" Cref = "String?">
+
+            <summary>DataType.cs.</summary>
+
+            <remarks>The format of the item Content.</remarks>
+
+        </field>
+
+        <method name = "Clone">
+
+            <summary>Clone Item.</summary>
+
+            <returns Cref = "Object">Cloned Object.</returns>
+
+            <remarks>Consider reinitializing and generating a new ID.</remarks>
+
+        </method>
+
+        <method name = "GetSecureHashes">
+
+            <summary>Get Secure Hashes.</summary>
+
+            <returns Cref = "Dictionary{String,Byte[]}?">Secure Hashes.</returns>
+
+        </method>
+
+        <method name = "GetType">
+
+            <summary>Get Type.</summary>
+
+            <returns Cref = "String?">Type.</returns>
+
+        </method>
+
+        <method name = "SetSecureHashes">
+
+            <summary>Set Secure Hashes.</summary>
+
+            <param name = "securehashes" Cref = "IDictionary{String,Byte[]}?">Secure Hashes.</param>
+
+            <returns Cref = "Boolean">True if SecureHashes was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetType">
+
+            <summary>Set Type.</summary>
+
+            <param name = "type" Cref = "String?">DataType.cs.</param>
+
+            <returns Cref = "Boolean">Returns true if Type was set successfully.</returns>
+
+        </method>
+
+    </class>
+
+</DataItem>

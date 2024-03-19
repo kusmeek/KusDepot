@@ -1,0 +1,131 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Utility>
+
+    <class name = "Utility">
+
+        <main>
+
+            <summary>General Utility.</summary>
+
+            <remarks>Conversion, compression, and security related methods.</remarks>
+
+        </main>
+
+        <method name = "Compress">
+
+            <summary>Compress data with GZip.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <returns Cref = "Byte[]?">Compressed Data.</returns>
+
+        </method>
+
+        <method name = "Decompress">
+
+            <summary>Decompress GZip data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <returns Cref = "Byte[]?">Decompressed Data.</returns>
+
+        </method>
+
+        <method name = "Decrypt">
+
+            <summary>Decrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "Byte[]?">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DeserializeCertificate">
+
+            <summary>Deserialize a Certificate.</summary>
+
+            <param name = "certificate" Cref = "String?">Serialized Certificate.</param>
+
+            <returns Cref = "X509Certificate2?">Certificate.</returns>
+
+        </method>
+
+        <method name = "Encrypt">
+
+            <summary>Encrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "SerializeCertificate">
+
+            <summary>Serialize a Certificate.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "String?">Serialized Certificate.</returns>
+
+        </method>
+
+        <method name = "ToBase64FromByteArray">
+
+            <summary>Convert a Byte Array into a Base64 String.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Array.</param>
+
+            <returns Cref = "String">Base64 String.</returns>
+
+        </method>
+
+        <method name = "ToByteArrayFromBase64">
+
+            <summary>Convert a Base64 String into a Byte Array.</summary>
+
+            <param name = "input" Cref = "String?">Input Base64 String.</param>
+
+            <returns Cref = "Byte[]">Byte Array.</returns>
+
+        </method>
+
+        <method name = "ToByteArrayFromUTF16String">
+
+            <summary>Convert a UTF16 String into a Byte Array.</summary>
+
+            <param name = "input" Cref = "String?">Input UTF16 String.</param>
+
+            <returns Cref = "Byte[]">Byte Array.</returns>
+
+        </method>
+
+        <method name = "ToUTF16StringFromByteArray">
+
+            <summary>Convert a Byte array into a UTF16 String.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Byte Array.</param>
+
+            <returns Cref = "String">UTF16 String.</returns>
+
+        </method>
+
+        <method name = "TryGetStringFromByteArray">
+
+            <summary>Try to make a String from unknown encoding byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Byte Array.</param>
+
+            <returns Cref = "String">UTF16 String.</returns>
+
+        </method>
+
+    </class>
+
+</Utility>

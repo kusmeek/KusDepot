@@ -1,0 +1,194 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1002;CA1024;CA1030;CA1031;CA1036;CA1051;CA1065;CA1710;CA1711;CA1716;CA1720;CA1724;CA1725;CA2351</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="Activity\Activity.cs" />
+        <Compile Include="AlertCode\AlertCode.cs" />
+        <Compile Include="Ark\Ark.cs" />
+        <Compile Include="Ark\Tables\ActiveServices.cs" />
+        <Compile Include="Ark\Tables\Elements.cs" />
+        <Compile Include="Ark\Tables\MediaLibrary.cs" />
+        <Compile Include="Ark\Tables\Notes.cs" />
+        <Compile Include="Ark\Tables\Tags.cs" />
+        <Compile Include="Attributes\DataTypeAttribute.cs" />
+        <Compile Include="Attributes\TagAttribute.cs" />
+        <Compile Include="BinaryItem\BinaryItem.cs" />
+        <Compile Include="CodeItem\CodeItem.cs" />
+        <Compile Include="Command\Command.cs" />
+        <Compile Include="Common\Common.cs" />
+        <Compile Include="Context\Context.cs" />
+        <Compile Include="DataItem\DataItem.cs" />
+        <Compile Include="DataPort\DataPort.cs" />
+        <Compile Include="DataType\DataType.cs" />
+        <Compile Include="Descriptor\Descriptor.cs" />
+        <Compile Include="EventArgs\ActivityEventArgs.cs" />
+        <Compile Include="EventArgs\AlertEventArgs.cs" />
+        <Compile Include="EventArgs\CommandEventArgs.cs" />
+        <Compile Include="EventArgs\DataItemEventArgs.cs" />
+        <Compile Include="EventArgs\FieldChangedEventArgs.cs" />
+        <Compile Include="EventArgs\OutputEventArgs.cs" />
+        <Compile Include="Exception\InitializationException.cs" />
+        <Compile Include="Exception\SyncException.cs" />
+        <Compile Include="Exception\SyncTimeoutException.cs" />
+        <Compile Include="Formation\Formation.cs" />
+        <Compile Include="GenericItem\GenericItem.cs" />
+        <Compile Include="GuidReferenceItem\GuidReferenceItem.cs" />
+        <Compile Include="MSBuildItem\MSBuildItem.cs" />
+        <Compile Include="MultiMediaItem\MultiMediaItem.cs" />
+        <Compile Include="Settings\Settings.cs" />
+        <Compile Include="Sync\GuidReferenceItemSync.cs" />
+        <Compile Include="Sync\ItemSync.cs" />
+        <Compile Include="Sync\MultiMediaItemSync.cs" />
+        <Compile Include="Sync\MSBuildItemSync.cs" />
+        <Compile Include="Sync\TextItemSync.cs" />
+        <Compile Include="Sync\ToolSync.cs" />
+        <Compile Include="Tag\Tag.cs" />
+        <Compile Include="TextItem\TextItem.cs" />
+        <Compile Include="Tool\ITool.cs" />
+        <Compile Include="Tool\Tool.cs" />
+        <Compile Include="Trait\Trait.cs" />
+        <Compile Include="Usings.cs" />
+        <Compile Include="Utility\Utility.cs" />
+        <Compile Include="Work\Work.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+        <EnableDynamicLoading>True</EnableDynamicLoading>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Diagram">
+
+        <Content Include="Objects.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Documentation">
+
+        <Content Include="Activity\Activity.xml" Pack="false" />
+        <Content Include="AlertCode\AlertCode.xml" Pack="false" />
+        <Content Include="Ark\Ark.xml" Pack="false" />
+        <Content Include="Ark\Tables\ActiveServices.xml" Pack="false" />
+        <Content Include="Ark\Tables\Elements.xml" Pack="false" />
+        <Content Include="Ark\Tables\MediaLibrary.xml" Pack="false" />
+        <Content Include="Ark\Tables\Notes.xml" Pack="false" />
+        <Content Include="Ark\Tables\Tags.xml" Pack="false" />
+        <Content Include="Attributes\DataTypeAttribute.xml" Pack="false" />
+        <Content Include="Attributes\TagAttribute.xml" Pack="false" />
+        <Content Include="BinaryItem\BinaryItem.xml" Pack="false" />
+        <Content Include="CodeItem\CodeItem.xml" Pack="false" />
+        <Content Include="Common\Common.xml" Pack="false" />
+        <Content Include="Command\Command.xml" Pack="false" />
+        <Content Include="Context\Context.xml" Pack="false" />
+        <Content Include="DataItem\DataItem.xml" Pack="false" />
+        <Content Include="DataPort\DataPort.xml" Pack="false" />
+        <Content Include="DataType\DataType.xml" Pack="false" />
+        <Content Include="Descriptor\Descriptor.xml" Pack="false" />
+        <Content Include="EventArgs\ActivityEventArgs.xml" Pack="false" />
+        <Content Include="EventArgs\AlertEventArgs.xml" Pack="false" />
+        <Content Include="EventArgs\CommandEventArgs.xml" Pack="false" />
+        <Content Include="EventArgs\DataItemEventArgs.xml" Pack="false" />
+        <Content Include="EventArgs\FieldChangedEventArgs.xml" Pack="false" />
+        <Content Include="EventArgs\OutputEventArgs.xml" Pack="false" />
+        <Content Include="Exception\InitializationException.xml" Pack="false" />
+        <Content Include="Exception\SyncException.xml" Pack="false" />
+        <Content Include="Exception\SyncTimeoutException.xml" Pack="false" />
+        <Content Include="Formation\Formation.xml" Pack="false" />
+        <Content Include="GenericItem\GenericItem.xml" Pack="false" />
+        <Content Include="GuidReferenceItem\GuidReferenceItem.xml" Pack="false" />
+        <Content Include="MSBuildItem\MSBuildItem.xml" Pack="false" />
+        <Content Include="MultiMediaItem\MultiMediaItem.xml" Pack="false" />
+        <Content Include="Settings\Settings.xml" Pack="false" />
+        <Content Include="Sync\GuidReferenceItemSync.xml" Pack="false" />
+        <Content Include="Sync\MultiMediaItemSync.xml" Pack="false" />
+        <Content Include="Sync\MSBuildItemSync.xml" Pack="false" />
+        <Content Include="Sync\TextItemSync.xml" Pack="false" />
+        <Content Include="Sync\ItemSync.xml" Pack="false" />
+        <Content Include="Sync\ToolSync.xml" Pack="false" />
+        <Content Include="Tag\Tag.xml" Pack="false" />
+        <Content Include="TextItem\TextItem.xml" Pack="false" />
+        <Content Include="Tool\ITool.xml" Pack="false" />
+        <Content Include="Tool\Tool.xml" Pack="false" />
+        <Content Include="Trait\Trait.xml" Pack="false" />
+        <Content Include="Utility\Utility.xml" Pack="false" />
+        <Content Include="Work\Work.xml" Pack="false" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="NuGet">
+
+        <Authors>Mike Abrahams</Authors>
+
+        <ContentTargetFolders>\</ContentTargetFolders>
+
+        <Copyright>Copyright © 2024 Michael Abrahams</Copyright>
+
+        <Description>KusDepot</Description>
+
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+        <IncludeContentInPack>true</IncludeContentInPack>
+
+        <PackageId>KusDepot.Objects</PackageId>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+        <PackageTags>KusDepot</PackageTags>
+
+        <PackageVersion>0.0.1-pre</PackageVersion>
+
+        <RepositoryType>git</RepositoryType>
+
+        <RepositoryUrl>https://github.com/kusmeek/KusDepot</RepositoryUrl>
+
+        <Title>KusDepot.Objects</Title>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Autofac" Version="7.1.0" />
+
+        <PackageReference Include="CoreWCF.Primitives" Version="1.5.1" />
+
+        <PackageReference Include="FluentValidation" Version="11.9.0" />
+
+        <ProjectReference Include="..\Native\Native.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Readme">
+
+        <None Include="..\Readme.md" Pack="true" PackagePath="\" />
+
+    </ItemGroup>
+
+</Project>
