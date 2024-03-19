@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.Catalog</AssemblyName>
+
+        <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1031;CA1849</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="Catalog\ActiveServices\ActiveServices.cs" />
+
+        <Compile Include="Catalog\Catalog.cs" />
+
+        <Compile Include="Catalog\Configuration\ServiceConfiguration.cs" />
+
+        <Compile Include="Catalog\Diagnostics\Diagnostics.cs" />
+
+        <Compile Include="Catalog\Elements\Elements.cs" />
+
+        <Compile Include="Catalog\Media\Media.cs" />
+
+        <Compile Include="Catalog\Notes\Notes.cs" />
+
+        <Compile Include="Catalog\Tags\Tags.cs" />
+
+        <Compile Include="StartUp.cs" />
+
+        <Compile Include="Strings.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Content">
+
+        <Content Include="PackageRoot\Config\Settings.xml" />
+
+        <Content Include="PackageRoot\ServiceManifest.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services" Version="7.0.1816" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.7.0" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0" />
+
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.1" />
+
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+
+        <PackageReference Include="Serilog" Version="3.1.1" />
+
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\Library\Library.csproj" />
+
+    </ItemGroup>
+
+</Project>

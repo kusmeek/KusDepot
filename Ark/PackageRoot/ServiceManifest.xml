@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="ArkPkg" Version="0.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <ServiceTypes>
+    <StatefulServiceType ServiceTypeName="ArkKeeperActorServiceType" HasPersistedState="true">
+      <Extensions>
+        <Extension Name="__GeneratedServiceType__" GeneratedId="528e5617-83d5-4f0d-af2f-34da88bc98b7|Persisted">
+          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+            <DefaultService Name="ArkKeeperActorService" />
+            <ReplicatorEndpoint Name="ArkKeeperActorServiceReplicatorEndpoint" />
+            <ReplicatorConfigSection Name="ArkKeeperActorServiceReplicatorConfig" />
+            <ReplicatorSecurityConfigSection Name="ArkKeeperActorServiceReplicatorSecurityConfig" />
+            <ServiceEndpointV2_1 Name="ArkKeeperActorServiceEndpointV2_1" />
+          </GeneratedNames>
+        </Extension>
+      </Extensions>
+    </StatefulServiceType>
+  </ServiceTypes>
+  <CodePackage Name="Code" Version="0.0.1">
+    <EntryPoint>
+      <ExeHost>
+        <Program>KusDepot.Data.ArkKeeper.exe</Program>
+        <ConsoleRedirection FileRetentionCount="10" />
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+  <ConfigPackage Name="Config" Version="0.0.1" />
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="ArkKeeperActorServiceEndpointV2_1" />
+      <Endpoint Name="ArkKeeperActorServiceReplicatorEndpoint" />
+    </Endpoints>
+  </Resources>
+</ServiceManifest>

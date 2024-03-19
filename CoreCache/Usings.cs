@@ -1,0 +1,15 @@
+﻿global using System;
+global using Serilog;
+global using OpenTelemetry;
+global using System.Threading;
+global using System.Diagnostics;
+global using OpenTelemetry.Trace;
+global using System.Threading.Tasks;
+global using static CoreCache.Strings;
+global using static System.Environment;
+global using System.Collections.Generic;
+global using Microsoft.ServiceFabric.Data;
+global using Microsoft.ServiceFabric.Actors;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.ServiceFabric.Actors.Runtime;
+global using DiagnosticActivity = System.Diagnostics.Activity;

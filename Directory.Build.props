@@ -1,0 +1,73 @@
+﻿<Project>
+
+    <PropertyGroup Label = "Analysis">
+
+        <AnalysisMode>All</AnalysisMode>
+
+        <WarningLevel>9999</WarningLevel>
+
+        <AnalysisLevel>latest</AnalysisLevel>
+
+        <EnableTrimAnalyzer>True</EnableTrimAnalyzer>
+
+        <EnableNETAnalyzers>True</EnableNETAnalyzers>
+
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+
+        <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+        <ILLinkTreatWarningsAsErrors>True</ILLinkTreatWarningsAsErrors>
+
+        <MSBuildTreatWarningsAsErrors>True</MSBuildTreatWarningsAsErrors>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Config">
+
+        <Nullable>Enable</Nullable>
+
+        <Deterministic>True</Deterministic>
+
+        <ImplicitUsings>False</ImplicitUsings>
+
+        <GenerateFullPaths>True</GenerateFullPaths>
+
+        <ChecksumAlgorithm>SHA256</ChecksumAlgorithm>
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Assembly">
+
+        <Product>KusDepot</Product>
+
+        <FileVersion>0.0.0.1</FileVersion>
+
+        <SignAssembly>False</SignAssembly>
+
+        <ProductVersion>0.0.0.1</ProductVersion>
+
+        <Description>"Science Kit"</Description>
+
+        <AssemblyVersion>0.0.0.1</AssemblyVersion>
+
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+
+        <InformationalVersion>0.0.0.1</InformationalVersion>
+
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+
+        <Copyright>https://github.com/kusmeek/KusDepot</Copyright>
+
+        <CopyDebugSymbolFilesFromPackages>True</CopyDebugSymbolFilesFromPackages>
+
+    </PropertyGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+﻿global using System;
+global using Serilog;
+global using System.IO;
+global using System.Linq;
+global using OpenTelemetry;
+global using System.Threading;
+global using System.Diagnostics;
+global using Azure.Storage.Blobs;
+global using OpenTelemetry.Trace;
+global using System.Threading.Tasks;
+global using static System.Environment;
+global using Azure.Storage.Blobs.Models;
+global using System.Security.Cryptography;
+global using Microsoft.ServiceFabric.Actors;
+global using static KusDepot.Data.BlobStrings;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.ServiceFabric.Actors.Runtime;
+global using DiagnosticActivity = System.Diagnostics.Activity;

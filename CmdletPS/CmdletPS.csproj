@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>CmdletPS</AssemblyName>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1031;CA1819;CA1724</NoWarn>        
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="ToolCmdlet.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="PowerShellStandard.Library" Version="5.1.1">
+
+          <PrivateAssets>All</PrivateAssets>
+
+        </PackageReference>
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>
