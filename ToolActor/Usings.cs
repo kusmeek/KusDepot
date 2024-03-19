@@ -1,0 +1,16 @@
+﻿global using System;
+global using Serilog;
+global using KusDepot;
+global using System.IO;
+global using System.Xml;
+global using System.Linq;
+global using System.Threading;
+global using System.Reflection;
+global using System.Threading.Tasks;
+global using static ToolActor.Strings;
+global using static System.Environment;
+global using System.Collections.Generic;
+global using System.Collections.Immutable;
+global using System.Runtime.Serialization;
+global using Microsoft.ServiceFabric.Actors;
+global using Microsoft.ServiceFabric.Actors.Runtime;

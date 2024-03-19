@@ -1,0 +1,16 @@
+﻿<Window x:Class="View.ToolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="Tool" IsManipulationEnabled="True" FontFamily="Microsoft Sans Serif" AllowDrop="True" WindowStartupLocation="CenterOwner" MinWidth="280" MinHeight="280" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+    <RichTextBox>
+        <FlowDocument>
+            <Paragraph>
+                <Run Name="ContentRun"/>
+            </Paragraph>
+        </FlowDocument>
+    </RichTextBox>
+</Window>

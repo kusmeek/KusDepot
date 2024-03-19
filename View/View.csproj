@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>WinExe</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0-windows</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA2000</NoWarn>
+    
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="StartUp.cs" />
+
+        <Compile Include="ToolWindowWeb.xaml.cs" />
+
+        <Compile Include="ToolWindow.xaml.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <UseWPF>True</UseWPF>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Markup">
+
+        <Page Include="ToolWindowWeb.xaml">
+
+          <SubType>Designer</SubType>
+
+          <Generator>MSBuild:Compile</Generator>
+
+        </Page>
+
+        <Page Include="ToolWindow.xaml">
+
+            <Generator>MSBuild:Compile</Generator>
+
+        </Page>
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>
