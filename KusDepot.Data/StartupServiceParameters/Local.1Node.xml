@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServices xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="ArkKeeperActorService_PartitionCount" Value="1" />
+    <Parameter Name="ArkKeeperActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="ArkKeeperActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="BlobActorService_PartitionCount" Value="1" />
+    <Parameter Name="BlobActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="BlobActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="Catalog_InstanceCount" Value="1" />
+    <Parameter Name="DataConfigsActorService_PartitionCount" Value="1" />
+    <Parameter Name="DataConfigsActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="DataConfigsActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="DataControl_InstanceCount" Value="1" />
+    <Parameter Name="SecureActorService_PartitionCount" Value="1" />
+    <Parameter Name="SecureActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="SecureActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="UniverseActorService_PartitionCount" Value="1" />
+    <Parameter Name="UniverseActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="UniverseActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="CoreCacheActorService_PartitionCount" Value="1" />
+    <Parameter Name="CoreCacheActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="CoreCacheActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="ManagementActorService_PartitionCount" Value="1" />
+    <Parameter Name="ManagementActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="ManagementActorService_MinReplicaSetSize" Value="1" />
+  </Parameters>
+</StartupServices>

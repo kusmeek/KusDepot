@@ -1,0 +1,13 @@
+﻿global using System;
+global using Serilog;
+global using KusDepot;
+global using System.Linq;
+global using System.Threading;
+global using System.Reflection;
+global using static KusDepot.Settings;
+global using System.Collections.Generic;
+global using static EntitySQLArk.Strings;
+global using Microsoft.EntityFrameworkCore;
+global using static KusDepot.SyncException;
+global using static System.Threading.Monitor;
+global using static System.Globalization.CultureInfo;

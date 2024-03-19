@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1031;CA1051;CA1724;CA2000;CA2201</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="ArkKeeperExam\ArkKeeperExam.cs" />
+        <Compile Include="BlobExam\BlobExam.cs" />
+        <Compile Include="CatalogExam\CatalogExam.cs" />
+        <Compile Include="CatalogExam\CatalogExamArk.cs" />
+        <Compile Include="CoreCacheExam\CoreCacheExam.cs" />
+        <Compile Include="DataConfigsExam\DataConfigsExam.cs" />
+        <Compile Include="DataControlExam\DataControlExam.cs" />
+        <Compile Include="DataControlExam\DataControlUtilityExam.cs" />
+        <Compile Include="ManagementExam\ManagementExam.cs" />
+        <Compile Include="SecureExam\SecureExam.cs" />
+        <Compile Include="SQLArkExam\SQLArkExam.cs" />
+        <Compile Include="TempDBExam\TempDBExam.cs" />
+        <Compile Include="DataGenerator\DataGenerator.cs" />
+        <Compile Include="UniverseExam\UniverseExam.cs" />
+        <Compile Include="WatchExam\WatchExam.cs" />
+        <Compile Include="ToolActorExam\ToolActorExam.cs" />
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+
+        <PackageReference Include="Microsoft.Identity.Client" Version="4.59.0" />
+
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+
+        <PackageReference Include="NFluent" Version="3.0.3" />
+
+        <PackageReference Include="NUnit" Version="4.1.0" />
+
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+
+        <ProjectReference Include="..\EntitySQLArk\EntitySQLArk.csproj" />
+
+        <ProjectReference Include="..\Library\Library.csproj" />
+
+    </ItemGroup>
+
+</Project>

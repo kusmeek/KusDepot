@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServicesManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="TempDBActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="TempDBActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="TempDBActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ToolActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ToolActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ToolActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="WatchActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="WatchActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="WatchActorService_TargetReplicaSetSize" DefaultValue="3" />
+  </Parameters>
+  <Services>
+    <Service Name="TempDBActorService" GeneratedIdRef="7e02c142-38c9-4af9-80dc-2786492c800f|Volatile">
+      <StatefulService ServiceTypeName="TempDBActorServiceType" TargetReplicaSetSize="[TempDBActorService_TargetReplicaSetSize]" MinReplicaSetSize="[TempDBActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[TempDBActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="ToolActorService" GeneratedIdRef="00f02e2c-a273-4d99-8859-1ff72c7b35ad|Persisted" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="ToolActorServiceType" TargetReplicaSetSize="[ToolActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ToolActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ToolActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="WatchActorService" GeneratedIdRef="90ebc7f7-9add-4cc2-a335-a1a7cddcdae4|Persisted">
+      <StatefulService ServiceTypeName="WatchActorServiceType" TargetReplicaSetSize="[WatchActorService_TargetReplicaSetSize]" MinReplicaSetSize="[WatchActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[WatchActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+  </Services>
+</StartupServicesManifest>

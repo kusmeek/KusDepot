@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1031;CA1050;CA1861;CA2000;CS0067;CS1718;CA1810;CA2201;CA2351;CA5366</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="ArkExam\ArkExam.cs" />
+        <Compile Include="ArkExam\TableExams\ActiveServicesTableExam.cs" />
+        <Compile Include="ArkExam\TableExams\ElementsExam.cs" />
+        <Compile Include="ArkExam\TableExams\MediaLibraryExam.cs" />
+        <Compile Include="ArkExam\TableExams\NotesTableExam.cs" />
+        <Compile Include="ArkExam\TableExams\TagsTableExam.cs" />
+        <Compile Include="AssemblySetup\AssemblySetup.cs" />
+        <Compile Include="AttributesExam\AttributesExam.cs" />
+        <Compile Include="BinaryItemExam\BinaryItemExam.cs" />
+        <Compile Include="CodeItemExam\CodeItemExam.cs" />
+        <Compile Include="DataPortExam\DataPortExam.cs" />
+        <Compile Include="GenericItemExam\GenericItemExam.cs" />
+        <Compile Include="GuidReferenceItemExam\GuidReferenceItemExam.cs" />
+        <Compile Include="MSBuildItemExam\MSBuildItemExam.cs" />
+        <Compile Include="MultiMediaItemExam\MultiMediaItemExam.cs" />
+        <Compile Include="TestCaseDataGenerator\TestCaseDataGenerator.cs" />
+        <Compile Include="TextItemExam\TextItemExam.cs" />
+        <Compile Include="ToolExam\ToolExam.cs" />
+        <Compile Include="Usings.cs" />
+        <Compile Include="UtilityExam\UtilityExam.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Autofac" Version="7.1.0" />
+
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+
+        <PackageReference Include="NFluent" Version="3.0.3" />
+
+        <PackageReference Include="NUnit" Version="4.1.0" />
+
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>
