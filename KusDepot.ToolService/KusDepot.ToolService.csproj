@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <AssemblyName>ToolService</AssemblyName>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+      <Compile Include="ToolService.cs" />
+
+      <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <UserSecretsId>f773074f-fb32-4a64-a9b0-159ae3daa39c</UserSecretsId>
+
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Debug">
+
+      <Content Include="Properties\launchSettings.json" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Docker">
+
+        <None Include="Dockerfile" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CoreWCF.Http" Version="1.5.1" />
+
+        <PackageReference Include="CoreWCF.Primitives" Version="1.5.1" />
+
+        <PackageReference Include="CoreWCF.WebHttp" Version="1.5.1" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+
+        <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.0" />
+
+        <PackageReference Include="System.ServiceModel.Federation" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.Http" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.NetTcp" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.Security" Version="6.0.0" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>

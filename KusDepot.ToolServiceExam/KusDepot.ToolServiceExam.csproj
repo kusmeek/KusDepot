@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1051;CA1724;CA2000</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="Connected Services\ToolServiceExam\ToolClient.cs" />
+
+        <Compile Include="ToolServiceExam\ToolServiceExam.cs" />
+
+        <Compile Include="ToolServiceFabricExam\ToolServiceFabricExam.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Settings">
+        <Content Include="appsettings.json"><CopyToOutputDirectory>Always</CopyToOutputDirectory></Content>
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="7.0.1816" />
+
+        <PackageReference Include="NFluent" Version="3.0.3" />
+
+        <PackageReference Include="NUnit" Version="4.1.0" />
+
+        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+
+        <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.0" />
+
+        <PackageReference Include="System.ServiceModel.Federation" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.Http" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.NetTcp" Version="6.2.0" />
+
+        <PackageReference Include="System.ServiceModel.Security" Version="6.0.0" />
+
+    </ItemGroup>
+
+</Project>
