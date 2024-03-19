@@ -1,0 +1,71 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IWatch>
+
+    <interface name = "IWatch">
+
+        <main>
+
+            <summary>The Watch service acts as a clock and stopwatch.</summary>
+
+        </main>
+
+        <method name = "GetElapsed">
+
+            <summary>Determines elapsed time since Start was called.</summary>
+
+            <returns Cref = "Task{TimeSpan?}">Elapsed time.</returns>
+
+        </method>
+
+        <method name = "GetStarted">
+
+            <summary>Determine when Start was called.</summary>
+
+            <returns Cref = "Task{DateTimeOffset?}">Time when Start was called.</returns>
+
+        </method>
+
+        <method name = "GetStopped">
+
+            <summary>Determine when Stop was called.</summary>
+
+            <returns Cref = "Task{DateTimeOffset?}">Time when Stop was called.</returns>
+
+        </method>
+
+        <method name = "GetTime">
+
+            <summary>Returns current time.</summary>
+
+            <returns Cref = "Task{DateTimeOffset}">Now.</returns>
+
+        </method>
+
+        <method name = "Reset">
+
+            <summary>Clear start and stopped time.</summary>
+
+            <returns Cref = "Task{Boolean}">True if watch reset successfully.</returns>
+
+        </method>
+
+        <method name = "Start">
+
+            <summary>Start stopwatch.</summary>
+
+            <returns Cref = "Task{Boolean}">True if stopwatch started successfully.</returns>
+
+        </method>
+
+        <method name = "Stop">
+
+            <summary>Stop stopwatch.</summary>
+
+            <returns Cref = "Task{Boolean}">True if stopwatch stopped successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IWatch>

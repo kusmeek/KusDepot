@@ -1,0 +1,105 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<ActiveService>
+
+    <record name = "ActiveService">
+
+        <main>
+
+            <summary>Represents ActiveService records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "ActorID" Cref = "Guid?"><summary>ActorID.</summary></property>
+
+        <property name = "ActorNameID" Cref = "String?"><summary>ActorNameID.</summary></property>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Interfaces" Cref = "String?"><summary>Interfaces.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "Purpose" Cref = "String?"><summary>Purpose.</summary></property>
+
+        <property name = "Registered" Cref = "String?"><summary>Registered.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Url" Cref = "String?"><summary>Url.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "ActiveServiceRequest">
+
+        <main>
+
+            <summary>Supports querying ActiveService records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "ActorID" Cref = "Guid?"><summary>ActorID.</summary></property>
+
+        <property name = "ActorNameID" Cref = "String?"><summary>ActorNameID.</summary></property>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Interfaces" Cref = "String?"><summary>Interfaces.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "Purpose" Cref = "String?"><summary>Purpose.</summary></property>
+
+        <property name = "Registered" Cref = "String?"><summary>Registered.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Url" Cref = "String?"><summary>Url.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "ActiveServiceResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "ActiveServices" Cref = "ActiveService[]"><summary>Matching records.</summary></property>
+
+    </record>
+
+</ActiveService>

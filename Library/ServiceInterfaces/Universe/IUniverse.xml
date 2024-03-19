@@ -1,0 +1,101 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IUniverse>
+
+    <interface name = "IUniverse">
+
+        <main>
+
+            <summary>The Universe service maintains a list of all Object IDs to guarantee collision prevention.</summary>
+
+            <remarks>The collision chance is vanishly remote but may present a privacy or security concern.</remarks>
+
+        </main>
+
+        <method name = "Add">
+
+            <summary>Add an ID.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if ID added successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if ID exists.</returns>
+
+        </method>
+
+        <method name = "GetSize">
+
+            <summary>Retrieve list size.</summary>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Int32}">Current size of list.</returns>
+
+        </method>
+
+        <method name = "ListAll">
+
+            <summary>Retrieve entire list.</summary>
+
+            <param name = "token" Cref = "String">Administrator authorization token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{HashSet{Guid}?}">All IDs.</returns>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove an ID.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if ID removed successfully.</returns>
+
+        </method>
+
+        <method name = "Reset">
+
+            <summary>Replace entire list.</summary>
+
+            <param name = "ids" Cref = "HashSet{Guid}?">Object IDs.</param>
+
+            <param name = "token" Cref = "String">Administrator authorization token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if list reset successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IUniverse>

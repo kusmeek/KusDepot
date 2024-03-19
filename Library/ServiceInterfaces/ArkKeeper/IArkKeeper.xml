@@ -1,0 +1,111 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IArkKeeper>
+
+    <interface name = "IArkKeeper">
+
+        <main>
+
+            <summary>The ArkKeeper service stores the backing database for Catalogs.</summary>
+
+        </main>
+
+        <method name = "AddUpdate">
+
+            <summary>Add or Update Object metadata.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if metadata added or updated successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "ExistsID">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "GetArk">
+
+            <summary>Retrieves serialized Ark.</summary>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Byte[]?}">Serialized Ark.</returns>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove Object metadata.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveID">
+
+            <summary>Remove Object metadata.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object removed successfully.</returns>
+
+        </method>
+
+        <method name = "StoreArk">
+
+            <summary>Stores Ark.</summary>
+
+            <param name = "ark" Cref = "Byte[]?">Serialized Ark.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Ark stored successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IArkKeeper>

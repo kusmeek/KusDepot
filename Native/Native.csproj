@@ -1,0 +1,53 @@
+﻿<Project Sdk = "Microsoft.NET.Sdk">
+
+    <PropertyGroup Label = "Main">
+
+        <OutputType>Library</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Native</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Analysis">
+
+        <NoWarn>CA1031</NoWarn>
+    
+    </PropertyGroup>
+
+    <ItemGroup Label = "Code">
+
+        <Compile Include = "Native.cs" />
+
+        <Compile Include = "Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label = "ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label = "Generator">
+
+        <Content Include = "NativeMethods.txt" />
+
+    </ItemGroup>
+
+    <ItemGroup Label = "Packages or Projects">
+
+    <PackageReference Include = "Microsoft.Windows.CsWin32" Version = "0.3.2-beta">
+
+        <PrivateAssets>all</PrivateAssets>
+
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+
+    </PackageReference>
+
+    </ItemGroup>
+
+</Project>

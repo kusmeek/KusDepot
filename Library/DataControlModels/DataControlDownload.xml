@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownload>
+
+    <class name = "DataControlDownload">
+
+        <main>
+
+            <summary>Data transfer download model for DataControl service.</summary>
+
+        </main>
+
+        <property name = "Object" Cref = "String"><summary>Serialized Object.</summary></property>
+
+        <property name = "ObjectSHA512" Cref = "String"><summary>SHA512 of serialized object.</summary></property>
+
+    </class>
+
+</DataControlDownload>

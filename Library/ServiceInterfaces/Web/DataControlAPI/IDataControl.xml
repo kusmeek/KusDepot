@@ -1,0 +1,51 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControl>
+
+    <interface name = "IDataControl">
+
+        <main>
+
+            <summary>This pseudo-interface exists only to generate documentation for the DataControl service and is not implemented. See DataControlAPI.json for OpenAPI specification.</summary>
+
+        </main>
+
+        <method name = "Delete">
+
+            <summary>Delete Object.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <returns Cref = "String">Object ID. HTTP status code indicates success or failure.</returns>
+
+        </method>
+
+        <method name = "Get">
+
+            <summary>Retrieve Object.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <returns Cref = "String">Serialized Object or ID if not found. HTTP status code indicates success or failure.</returns>
+
+        </method>
+
+        <method name = "Store">
+
+            <summary>Store Object.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "dcu" Cref = "DataControlUpload?">DataControlUpload.</param>
+
+            <returns Cref = "String">Object ID. HTTP status code indicates success or failure.</returns>
+
+        </method>
+
+    </interface>
+
+</IDataControl>

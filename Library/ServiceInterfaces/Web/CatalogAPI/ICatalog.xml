@@ -1,0 +1,75 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalog>
+
+    <interface name = "ICatalog">
+
+        <main>
+
+            <summary>This pseudo-interface exists only to generate documentation for the Catalog service and is not implemented. See CatalogAPI.json for OpenAPI specification.</summary>
+
+        </main>
+
+        <method name = "SearchActiveServices">
+
+            <summary>Search for Active Services.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "search" Cref = "ActiveServiceRequest?">Query.</param>
+
+            <returns Cref = "ActiveServiceResponse">Records found.</returns>
+
+        </method>
+
+        <method name = "SearchElements">
+
+            <summary>Search for Elements.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "search" Cref = "ElementRequest?">Query.</param>
+
+            <returns Cref = "ElementResponse">Records found.</returns>
+
+        </method>
+
+        <method name = "SearchMedia">
+
+            <summary>Search for Media.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "search" Cref = "MediaRequest?">Query.</param>
+
+            <returns Cref = "MediaResponse">Records found.</returns>
+
+        </method>
+
+        <method name = "SearchNotes">
+
+            <summary>Search for Notes.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "search" Cref = "NoteRequest?">Query.</param>
+
+            <returns Cref = "NoteResponse">Records found.</returns>
+
+        </method>
+
+        <method name = "SearchTags">
+
+            <summary>Search for Tags.</summary>
+
+            <remarks>Requires authorized Bearer token.</remarks>
+
+            <param name = "search" Cref = "TagRequest?">Query.</param>
+
+            <returns Cref = "TagResponse">Records found.</returns>
+
+        </method>
+
+    </interface>
+
+</ICatalog>

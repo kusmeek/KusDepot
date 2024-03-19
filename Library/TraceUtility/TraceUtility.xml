@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<TraceUtility>
+
+    <class name = "TraceUtility">
+
+        <main>
+
+            <summary>Diagnostic Trace Utility.</summary>
+
+        </main>
+
+        <method name = "GetUPN">
+
+            <summary>Get User Name from Token.</summary>
+
+            <param name = "token" Cref = "String?">Token from which to extract User Name.</param>
+
+            <returns Cref = "String?">User Name.</returns>
+
+        </method>
+
+    </class>
+
+</TraceUtility>

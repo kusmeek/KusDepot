@@ -1,0 +1,27 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ArkKeeperFactory>
+
+    <class name ="ArkKeeperFactory">
+
+        <main>
+
+            <summary>ArkKeeperFactory.</summary>
+
+            <remarks>This factory creates an ActorProxy for an ArkKeeper service.</remarks>
+
+        </main>
+
+        <method name = "Create">
+
+            <summary>Creates an ActorProxy for an ArkKeeper service.</summary>
+
+            <param name = "catalogname" Cref = "String">The catalog the ArkKeeper stores.</param>
+
+            <returns Cref = "IArkKeeper">The ActorProxy.</returns>
+
+        </method>
+
+    </class>
+
+</ArkKeeperFactory>

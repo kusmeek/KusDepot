@@ -1,0 +1,727 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolActor>
+
+    <interface name = "IToolActor">
+
+        <main>
+
+            <summary>Foundation for Fabric Actor Tools.</summary>
+
+        </main>
+
+        <method name = "Activate">
+
+            <summary>Activate Service functionality.</summary>
+
+            <returns Cref = "Boolean">True if Service functionality ctivated successfully.</returns>
+
+        </method>
+
+        <method name = "AddDataItems">
+
+            <summary>Add DataItems.</summary>
+
+            <param name = "data" Cref = "IEnumerable{DataItems}?">DataItems.</param>
+
+            <returns Cref = "Task{Boolean}">True if DataItems added successfully.</returns>
+
+        </method>
+
+        <method name = "AddInput">
+
+            <summary>Queue an Input.</summary>
+
+            <param name = "input" Cref = "Object?">Input.</param>
+
+            <returns Cref = "Task{Boolean}">True if Input added to queue successfully.</returns>
+
+        </method>
+
+        <method name = "AddNotes">
+
+            <summary>Add Notes.</summary>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Scroll of Notes.</param>
+
+            <returns Cref = "Task{Boolean}">True if Notes added successfully.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add an Output.</summary>
+
+            <param name = "id" Cref = "Guid">Identifier.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <returns Cref = "Task{Boolean}">True if Output added successfully.</returns>
+
+        </method>
+
+        <method name = "AddTags">
+
+            <summary>Add Tags.</summary>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">List of Tags.</param>
+
+            <returns Cref = "Task{Boolean}">True if Tags added successfully.</returns>
+
+        </method>
+
+        <method name = "ClearEventLogs">
+
+            <summary>Clear the EventLog.</summary>
+
+            <returns Cref = "Boolean">True if the EventLog was successfully cleared.</returns>
+
+        </method>
+
+        <method name = "Deactivate">
+
+            <summary>Deactivate Service functionality.</summary>
+
+            <returns Cref = "Boolean">True if Service functionality deactivated.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommand">
+
+            <summary>Give Command.</summary>
+
+            <param name = "details" Cref = "Object[]?">Details.</param>
+
+            <returns Cref = "Guid?">Identifier of generated Activity or null if handle not registered, Command cannot currently execute, or argument not accepted.</returns>
+
+        </method>
+
+        <method name = "GetActorID">
+
+            <summary>Returns Actor ID.</summary>
+
+            <returns Cref = "Task{Guid?}">Actor ID.</returns>
+
+        </method>
+
+        <method name = "GetAppDomainID">
+
+            <summary>Get AppDomain ID.</summary>
+
+            <returns Cref = "Task{Int64?}">AppDomain ID.</returns>
+
+        </method>
+
+        <method name = "GetAppDomainUID">
+
+            <summary>Get AppDomain Unique ID.</summary>
+
+            <returns Cref = "Task{Int64?}">AppDomain Unique ID.</returns>
+
+        </method>
+
+        <method name = "GetApplication">
+
+            <summary>Get Application.</summary>
+
+            <returns Cref = "Task{String?}">Application.</returns>
+
+        </method>
+
+        <method name = "GetApplicationVersion">
+
+            <summary>Get Application Version.</summary>
+
+            <returns Cref = "Task{Version?}">Version of Application.</returns>
+
+        </method>
+
+        <method name = "GetAssemblyVersion">
+
+            <summary>Get Assembly Version.</summary>
+
+            <returns Cref = "Task{Version?}">Version of Constructing Assembly.</returns>
+
+        </method>
+
+        <method name = "GetBornOn">
+
+            <summary>Get BornOn.</summary>
+
+            <returns Cref = "Task{DateTimeOffset?}">Moment of Emergence.</returns>
+
+        </method>
+
+        <method name = "GetCertificates">
+
+            <summary>Returns associated certificate identifiers.</summary>
+
+            <returns Cref = "Task{Dictionary{String,String}?}">Associated Certificate Identifiers.</returns>
+
+        </method>
+
+        <method name = "GetCPUID">
+
+            <summary>Returns Processor Core Device Name.</summary>
+
+            <returns Cref = "Task{String?}">Processor Core Device Name.</returns>
+
+        </method>
+
+        <method name = "GetDataItems">
+
+            <summary>Get Data.</summary>
+
+            <returns Cref = "Task{HashSet{DataItem}?}">All DataItems.</returns>
+
+        </method>
+
+        <method name = "GetDistinguishedName">
+
+            <summary>Get Distinguished Name.</summary>
+
+            <returns Cref = "Task{String?}">Distinguished Name.</returns>
+
+        </method>
+
+        <method name = "GetDomainID">
+
+            <summary>Get Domain ID.</summary>
+
+            <returns Cref = "Task{String?}">Domain ID.</returns>
+
+        </method>
+
+        <method name = "GetEvent">
+
+            <summary>Get Event.</summary>
+
+            <param name = "key" Cref = "Int32?">Event Key.</param>
+
+            <returns Cref = "Task{String?}">Event.</returns>
+
+        </method>
+
+        <method name = "GetEventLogs">
+
+            <summary>Get Event Logs.</summary>
+
+            <returns Cref = "Task{Dictionary{Int32,String}?}">Get Event Logs.</returns>
+
+        </method>
+
+        <method name = "GetExtension">
+
+            <summary>Get Extension.</summary>
+
+            <returns Cref = "Task{Dictionary{String,Object}?}">Extension.</returns>
+
+        </method>
+
+        <method name = "GetGPS">
+
+            <summary>Get GPS Location.</summary>
+
+            <returns Cref = "Task{String?}">GPS Location.</returns>
+
+        </method>
+
+        <method name = "GetID">
+
+            <summary>Get ID.</summary>
+
+            <returns Cref = "Task{Guid?}">Tool ID.</returns>
+
+        </method>
+
+        <method name = "GetInput">
+
+            <summary>Returns Next Tool Input.</summary>
+
+            <returns Cref = "Task{Object?}">Inputs.</returns>
+
+        </method>
+
+        <method name = "GetInputs">
+
+            <summary>Returns Tool Inputs.</summary>
+
+            <returns Cref = "Task{Queue{Object}?}">Inputs.</returns>
+
+        </method>
+
+        <method name = "GetLinks">
+
+            <summary>Get Links.</summary>
+
+            <returns Cref = "Task{Dictionary{String,GuidReferenceItem}?}">Links.</returns>
+
+        </method>
+
+        <method name = "GetLocator">
+
+            <summary>Get URL.</summary>
+
+            <returns Cref = "Task{Uri?}">Locator.</returns>
+
+        </method>
+
+        <method name = "GetLocked">
+
+            <summary>Get Locked.</summary>
+
+            <returns Cref = "Task{Boolean}">Locked.</returns>
+
+        </method>
+
+        <method name = "GetMachineID">
+
+            <summary>Get Machine ID.</summary>
+
+            <returns Cref = "Task{String?}">(Virtual) Machine ID.</returns>
+
+        </method>
+
+        <method name = "GetModified">
+
+            <summary>Returns Last Modified Time.</summary>
+
+            <returns Cref = "Task{DateTimeOffset?}">Last Modified Time.</returns>
+
+        </method>
+
+        <method name = "GetName">
+
+            <summary>Returns Tool Name.</summary>
+
+            <returns Cref = "Task{String?}">Tool Name.</returns>
+
+        </method>
+
+        <method name = "GetNotes">
+
+            <summary>Returns Notes.</summary>
+
+            <returns Cref = "Task{HashSet{String}?}">Scroll of Notes.</returns>
+
+        </method>
+
+        <method name = "GetObjectives">
+
+            <summary>Returns Current Objectives.</summary>
+
+            <returns Cref = "Task{List{Object}?}">Objectives.</returns>
+
+        </method>
+
+        <method name = "GetOutput">
+
+            <summary>Returns Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <returns Cref = "Task{Object?}">Output.</returns>
+
+        </method>
+
+        <method name = "GetOutputIDs">
+
+            <summary>Returns Output Identifiers.</summary>
+
+            <returns Cref = "Task{List{Guid}?}">Tool Output IDs.</returns>
+
+        </method>
+
+        <method name = "GetPolicies">
+
+            <summary>Returns Policies.</summary>
+
+            <returns Cref = "Task{List{Object}?}">Tool Policies.</returns>
+
+        </method>
+
+        <method name = "GetProcessID">
+
+            <summary>Get Process ID.</summary>
+
+            <returns Cref = "Task{Int64?}">Process ID.</returns>
+
+        </method>
+
+        <method name = "GetPurpose">
+
+            <summary>Get Purpose.</summary>
+
+            <returns Cref = "Task{String?}">Purpose.</returns>
+
+        </method>
+
+        <method name = "GetSecurityDescriptor">
+
+            <summary>Get Security Descriptor.</summary>
+
+            <returns Cref = "Task{String?}">Security Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetServiceVersion">
+
+            <summary>Get Service Version.</summary>
+
+            <returns Cref = "Task{Version?}">Version of Service.</returns>
+
+        </method>
+
+        <method name = "GetStatus">
+
+            <summary>Returns Current Status.</summary>
+
+            <returns Cref = "Task{Dictionary{String,Object}?}">Current Status.</returns>
+
+        </method>
+
+        <method name = "GetStringID">
+
+            <summary>Returns Actor StringID.</summary>
+
+            <returns Cref = "Task{String?}">Actor StringID.</returns>
+
+        </method>
+
+        <method name = "GetTags">
+
+            <summary>Returns all Tags.</summary>
+
+            <returns Cref = "Task{HashSet{String}?}">All Tags.</returns>
+
+        </method>
+
+        <method name = "GetThreadID">
+
+            <summary>Get Thread ID.</summary>
+
+            <returns Cref = "Task{Int32?}">Thread ID.</returns>
+
+        </method>
+
+        <method name = "GetVersion">
+
+            <summary>Get Tool Version.</summary>
+
+            <returns Cref = "Task{Version?}">Version of Tool.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Tool.</summary>
+
+            <returns Cref = "Task{Boolean}">True if Tool Initialized successfully.</returns>
+
+        </method>
+
+        <method name = "Lock">
+
+            <summary>Lock Tool.</summary>
+
+            <param name = "secret" Cref = "String?">Secret.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Tool was Locked successfully.</returns>
+
+        </method>
+
+        <method name = "LogEvent">
+
+            <summary>Log an event.</summary>
+
+            <param name = "eventdata" Cref = "String?">Event Data.</param>
+
+            <returns Cref = "Task{Boolean}">True if the event data was successfully added to the EventLog.</returns>
+
+        </method>
+
+        <method name = "RemoveDataItem">
+
+            <summary>Remove a DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Item.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if DataItem was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveNote">
+
+            <summary>Remove a Note.</summary>
+
+            <param name = "note" Cref = "String?">Note to Remove.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Note was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveOutput">
+
+            <summary>Remove Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Output was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveStatus">
+
+            <summary>Remove a Status Object.</summary>
+
+            <param name = "key" Cref = "String?">Status key.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Status Object was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveTag">
+
+            <summary>Remove a Tag.</summary>
+
+            <param name = "tag" Cref = "String?">Tag to Remove.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Tag was removed successfully.</returns>
+
+        </method>
+
+        <method name = "SetApplication">
+
+            <summary>Set Application.</summary>
+
+            <param name = "application" Cref = "String?">Application.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Application was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetApplicationVersion">
+
+            <summary>Set Application Version.</summary>
+
+            <param name = "applicationversion" Cref = "Version?">Application Version.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Application Version was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetBornOn">
+
+            <summary>Set BornOn.</summary>
+
+            <param name = "bornon" Cref = "DateTimeOffset?">BornOn.</param>
+
+            <returns Cref = "Task{Boolean}">True if BornOn was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetCertificates">
+
+            <summary>Set Certificates.</summary>
+
+            <param name = "certificates" Cref = "Dictionary{String,String}?">Certificates</param>
+
+            <returns Cref = "Task{Boolean}">True if Certificates was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetDistinguishedName">
+
+            <summary>Set Distinguished Name.</summary>
+
+            <param name = "distinguishedname" Cref = "String?">Distinguished Name.</param>
+
+            <returns Cref = "Task{Boolean}">True if Distinguished Name was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetDomainID">
+
+            <summary>Set DomainID.</summary>
+
+            <param name = "domainid" Cref = "String?">DomainID.</param>
+
+            <returns Cref = "Task{Boolean}">True if DomainID was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetExtension">
+
+            <summary>Set Extension.</summary>
+
+            <param name = "extension" Cref = "Dictionary{String,Object}?">Extension.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Extension was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetGPS">
+
+            <summary>Set GPS.</summary>
+
+            <param name = "gps" Cref = "String?">GPS.</param>
+
+            <returns Cref = "Task{Boolean}">True if GPS was set successfully</returns>
+
+        </method>
+
+        <method name = "SetID">
+
+            <summary>Set ID.</summary>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if ID was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetLinks">
+
+            <summary>Set Links.</summary>
+
+            <param name = "links" Cref = "Dictionary{String,GuidReferenceItem}?">Links.</param>
+
+            <returns Cref = "Task{Boolean}">True if Links was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetLocator">
+
+            <summary>Set URL.</summary>
+
+            <param name = "locator" Cref = "Uri?">Locator.</param>
+
+            <returns Cref = "Task{Boolean}">True if Locator was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetModified">
+
+            <summary>Set Last Modified Time.</summary>
+
+            <param name = "modified" Cref = "DateTimeOffset?">Last Modified Time.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+        <method name = "SetName">
+
+            <summary>Set Name.</summary>
+
+            <param name = "name" Cref = "String?">Name.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Name was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetObjectives">
+
+            <summary>Sets Objectives.</summary>
+
+            <param name = "objectives" Cref = "IEnumerable{Object}?">Objectives.</param>
+
+            <returns Cref = "Task{Boolean}">True if Objectives were set successfully.</returns>
+
+        </method>
+
+        <method name = "SetPolicies">
+
+            <summary>Sets Policies.</summary>
+
+            <param name = "policies" Cref = "IEnumerable{Object}?">Policies.</param>
+
+            <returns Cref = "Task{Boolean}">True if Policies were set successfully.</returns>
+
+        </method>
+
+        <method name = "SetPurpose">
+
+            <summary>Set Purpose.</summary>
+
+            <param name = "purpose" Cref = "String?">Purpose.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Purpose was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetSecurityDescriptor">
+
+            <summary>Set Security Descriptor.</summary>
+
+            <param name = "securitydescriptor" Cref = "String?">New Security Descriptor.</param>
+
+            <returns Cref = "Task{Boolean}">True if Security Descriptor was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetServiceVersion">
+
+            <summary>Set Service Version.</summary>
+
+            <param name = "serviceversion" Cref = "Version?">New Service Version.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Service Version was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetStatus">
+
+            <summary>Set a Status.</summary>
+
+            <param name = "key" Cref = "String?">Status Key.</param>
+
+            <param name = "status" Cref = "Object?">Status Object.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Status Object was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetVersion">
+
+            <summary>Set Tool Version.</summary>
+
+            <param name = "version" Cref = "Version?">New Tool Version.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Version was set successfully.</returns>
+
+        </method>
+
+        <method name = "UnLock">
+
+            <summary>UnLock Tool.</summary>
+
+            <param name = "secret" Cref = "String?">Secret.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if Tool was UnLocked successfully.</returns>
+
+        </method>
+
+        <method name = "UpdateInputs">
+
+            <summary>Update Inputs.</summary>
+
+            <param name = "inputs" Cref = "Queue{Object}?">Updated Inputs.</param>
+
+            <returns Cref = "Task{Boolean}">True if Inputs were updated successfully.</returns>
+
+        </method>
+
+        <method name = "WriteEventLogsToFile">
+
+            <summary>Write EventLogs to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Task{Boolean}">Returns true if EventLogs successfully written to file.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolActor>

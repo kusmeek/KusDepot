@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlUtility>
+
+    <class name = "DataControlUtility">
+
+        <main>
+
+            <summary>Defines methods to generate DataControl download and upload models and verify their integrity.</summary>
+
+        </main>
+
+        <method name = "MakeDataControlDownload">
+
+            <summary>Creates a DataControlDownload model.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Object.</param>
+
+            <returns Cref = "DataControlDownload?">The model.</returns>
+
+        </method>
+
+        <method name = "MakeDataControlUpload">
+
+            <summary>Creates a DataControlUpload model.</summary>
+
+            <param name = "it" Cref = "KusDepot.Common?">Object.</param>
+
+            <returns Cref = "DataControlUpload?">The model.</returns>
+
+        </method>
+
+        <method name = "VerifyDownload">
+
+            <summary>Verify integrity of Download Model.</summary>
+
+            <param name = "dcd" Cref = "DataControlUpload?">The model.</param>
+
+            <returns Cref = "Boolean">True if SHA512 has of Object equals ObjectSHA512.</returns>
+
+        </method>
+
+        <method name = "VerifyUpload">
+
+            <summary>Verify integrity of Upload Model.</summary>
+
+            <param name = "dcu" Cref = "DataControlUpload?">The model.</param>
+
+            <returns Cref = "Boolean">True if SHA512 has of Object equals ObjectSHA512.</returns>
+
+        </method>
+
+    </class>
+
+</DataControlUtility>

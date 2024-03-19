@@ -1,0 +1,97 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.Management</AssemblyName>
+
+        <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1031;CA1724;CA1812;CA1849</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="Management\ArkKeeper\ArkKeeper.cs" />
+
+        <Compile Include="Management\Config.cs" />
+
+        <Compile Include="Management\DataConfigs\DataConfigs.cs" />
+
+        <Compile Include="Management\Diagnostics.cs" />
+
+        <Compile Include="Management\Management.cs" />
+
+        <Compile Include="Management\Universe\Universe.cs" />
+
+        <Compile Include="StartUp.cs" />
+
+        <Compile Include="Strings.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <FabActUtilWorkingDir>$(BaseIntermediateOutputPath)\FabActUtilTemp</FabActUtilWorkingDir>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <GenerateRuntimeConfigDevFile>true</GenerateRuntimeConfigDevFile>
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <ServicePackagePath>PackageRoot</ServicePackagePath>
+
+        <ServicePackagePrefix>$(MSBuildProjectName)</ServicePackagePrefix>
+
+        <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+
+        <UpdateServiceFabricManifestEnabled>True</UpdateServiceFabricManifestEnabled>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Manifest and Settings">
+
+      <Content Include="PackageRoot\Config\Settings.xml" />
+
+      <Content Include="PackageRoot\ServiceManifest.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+
+        <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="7.0.0" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="7.0.1816" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.7.0" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0" />
+
+        <PackageReference Include="Serilog" Version="3.1.1" />
+
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\Library\Library.csproj" />
+
+    </ItemGroup>
+
+</Project>

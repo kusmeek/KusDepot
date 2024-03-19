@@ -1,0 +1,122 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net7.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Library</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1031;CA1056;CA1716;CA1720;CA1724;CA1725;CA1819</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="ActorIds\ActorIds.cs" />
+        <Compile Include="CatalogRecords\ActiveService.cs" />
+        <Compile Include="CatalogRecords\Element.cs" />
+        <Compile Include="CatalogRecords\Media.cs" />
+        <Compile Include="CatalogRecords\Note.cs" />
+        <Compile Include="CatalogRecords\Tag.cs" />
+        <Compile Include="DataControlModels\DataControlDownload.cs" />
+        <Compile Include="DataControlModels\DataControlUtility.cs" />
+        <Compile Include="DataControlModels\DataControlUpload.cs" />
+        <Compile Include="EndpointLocators\EndpointLocators.cs" />
+        <Compile Include="ServiceFactories\ArkKeeper\ArkKeeperFactory.cs" />
+        <Compile Include="ServiceFactories\ArkKeeper\IArkKeeperFactory.cs" />
+        <Compile Include="ServiceInterfaces\CoreCache\ICoreCache.cs" />
+        <Compile Include="ServiceInterfaces\Management\IManagement.cs" />
+        <Compile Include="ServiceInterfaces\Universe\IUniverse.cs" />
+        <Compile Include="ServiceInterfaces\ArkKeeper\IArkKeeper.cs" />
+        <Compile Include="ServiceInterfaces\DataConfigs\IDataConfigs.cs" />
+        <Compile Include="ServiceInterfaces\Secure\ISecure.cs" />
+        <Compile Include="ServiceInterfaces\Blob\IBlob.cs" />
+        <Compile Include="ServiceInterfaces\TempDB\ITempDB.cs" />
+        <Compile Include="ServiceInterfaces\ToolActor\IToolActor.cs" />
+        <Compile Include="ServiceInterfaces\Watch\IWatch.cs" />
+        <Compile Include="ServiceInterfaces\Web\CatalogAPI\ICatalog.cs" />
+        <Compile Include="ServiceInterfaces\Web\DataControlAPI\IDataControl.cs" />
+        <Compile Include="ServiceLocators\ServiceLocators.cs" />
+        <Compile Include="StorageSilo\StorageSilo.cs" />
+        <Compile Include="TraceUtility\TraceUtility.cs" />
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+        <PlatformTarget>x64</PlatformTarget>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+      <Content Include="ActorIds\ActorIds.xml" />
+      <Content Include="CatalogRecords\ActiveService.xml" />
+      <Content Include="CatalogRecords\Element.xml" />
+      <Content Include="CatalogRecords\Media.xml" />
+      <Content Include="CatalogRecords\Note.xml" />
+      <Content Include="CatalogRecords\Tag.xml" />
+      <Content Include="ConfigurationFiles\AdminSilo.xml" />
+      <Content Include="ConfigurationFiles\appsettings.json" />
+      <Content Include="ConfigurationFiles\settings.xml" />
+      <Content Include="ConfigurationFiles\StartUpSilo.xml" />
+      <Content Include="DataControlModels\DataControlDownload.xml" />
+      <Content Include="DataControlModels\DataControlUtility.xml" />
+      <Content Include="DataControlModels\DataControlUpload.xml" />
+      <Content Include="EndpointLocators\EndpointLocators.xml" />
+      <Content Include="ServiceFactories\ArkKeeper\ArkKeeperFactory.xml" />
+      <Content Include="ServiceFactories\ArkKeeper\IArkKeeperFactory.xml" />
+      <Content Include="ServiceInterfaces\ArkKeeper\IArkKeeper.xml" />
+      <Content Include="ServiceInterfaces\Blob\IBlob.xml" />
+      <Content Include="ServiceInterfaces\CoreCache\ICoreCache.xml" />
+      <Content Include="ServiceInterfaces\DataConfigs\IDataConfigs.xml" />
+      <Content Include="ServiceInterfaces\Management\IManagement.xml" />
+      <Content Include="ServiceInterfaces\Secure\ISecure.xml" />
+      <Content Include="ServiceInterfaces\TempDB\ITempDB.xml" />
+      <Content Include="ServiceInterfaces\ToolActor\IToolActor.xml" />
+      <Content Include="ServiceInterfaces\Universe\IUniverse.xml" />
+      <Content Include="ServiceInterfaces\Watch\IWatch.xml" />
+      <Content Include="ServiceInterfaces\Web\CatalogAPI\CatalogAPI.json" />
+      <Content Include="ServiceInterfaces\Web\CatalogAPI\ICatalog.xml" />
+      <Content Include="ServiceInterfaces\Web\DataControlAPI\DataControlAPI.json" />
+      <Content Include="ServiceInterfaces\Web\DataControlAPI\IDataControl.xml" />
+      <Content Include="ServiceLocators\ServiceLocators.xml" />
+      <Content Include="StorageSilo\StorageSilo.xml" />
+      <Content Include="TraceUtility\TraceUtility.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Diagram">
+
+      <None Include="ServiceInterfaces\ServiceInterfaces.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.4.1" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="7.0.1816" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services" Version="7.0.1816" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="7.0.1816" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>

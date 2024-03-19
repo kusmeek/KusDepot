@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlUpload>
+
+    <class name = "DataControlUpload">
+
+        <main>
+
+            <summary>Data transfer upload model for DataControl service.</summary>
+
+        </main>
+
+        <property name = "Descriptor" Cref = "Descriptor"><summary>Object Descriptor.</summary></property>
+
+        <property name = "Object" Cref = "String"><summary>Serialized Object.</summary></property>
+
+        <property name = "ObjectSHA512" Cref = "String"><summary>SHA512 of serialized object.</summary></property>
+
+    </class>
+
+</DataControlUpload>
