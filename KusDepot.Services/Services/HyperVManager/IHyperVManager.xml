@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IHyperVManager>
+
+    <interface name = "IHyperVManager">
+
+        <main>
+
+            <summary>Hyper-V Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Hyper-V Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IHyperVManager>

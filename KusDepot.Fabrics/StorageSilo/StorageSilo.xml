@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<StorageSilo>
+
+    <class name = "StorageSilo">
+
+        <main>
+
+            <summary>Represents a securable storage service.</summary>
+
+            <remarks>Corresponds to Azure Enterprise Applications backed by Blob Storage. See Catalog, DataConfigs, and Secure services.</remarks>
+
+        </main>
+
+        <property name = "AppClientID" Cref = "String"><summary>Application/Client ID.</summary></property>
+
+        <property name = "CatalogName" Cref = "String"><summary>Catalog internal name.</summary></property>
+
+        <property name = "ConnectionString" Cref = "String"><summary>Storage account connection string.</summary></property>
+
+        <property name = "Name" Cref = "String"><summary>Display/External name.</summary></property>
+
+        <property name = "TenantID" Cref = "String"><summary>Tenant ID.</summary></property>
+
+        <method name = "EqualsObject">
+
+            <summary>Override.</summary>
+
+            <param name = "other" Cref = "Object?">Other Object.</param>
+
+            <returns Cref = "Boolean">True if Objects are equal.</returns>
+
+        </method>
+
+        <method name = "IEquatable{StorageSilo}.Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "StorageSilo?">Other StorageSilo.</param>
+
+            <returns Cref = "Boolean">True if StorageSilos are equal.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "StorageSilo?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Display.</summary>
+
+            <returns Cref = "String">Display Item.</returns>
+
+        </method>
+
+    </class>
+
+</StorageSilo>

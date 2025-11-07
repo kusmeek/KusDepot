@@ -1,0 +1,71 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolHostLifetime>
+
+    <interface name = "IToolHostLifetime">
+
+        <main>
+
+            <summary>ToolHostLifetime Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolHostLifetime.</remarks>
+
+        </main>
+
+        <property name = "ApplicationStarting">
+
+            <summary>ApplicationStarting Token</summary>
+
+            <returns Cref = "CancellationToken">ApplicationStarting Token.</returns>
+
+        </property>
+
+        <method name = "Dispose">
+
+            <summary>Dispose of ToolHostLifetime.</summary>
+
+        </method>
+
+        <method name = "NotifyStarting">
+
+            <summary>Signal Starting</summary>
+
+            <param name = "lifeid" Cref = "Guid">ToolHost LifeID.</param>
+
+        </method>
+
+        <method name = "NotifyStarted">
+
+            <summary>Signal Started</summary>
+
+            <param name = "lifeid" Cref = "Guid">ToolHost LifeID.</param>
+
+        </method>
+
+        <method name = "NotifyStopping">
+
+            <summary>Signal Stopping</summary>
+
+            <param name = "lifeid" Cref = "Guid">ToolHost LifeID.</param>
+
+        </method>
+
+        <method name = "NotifyStopped">
+
+            <summary>Signal Stopped</summary>
+
+            <param name = "lifeid" Cref = "Guid">ToolHost LifeID.</param>
+
+        </method>
+
+        <method name = "StopApplication">
+
+            <summary>IHostApplicationLifetime</summary>
+
+            <remarks>Does nothing.</remarks>
+
+        </method>
+
+    </interface>
+
+</IToolHostLifetime>

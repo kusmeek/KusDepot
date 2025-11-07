@@ -1,0 +1,323 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IMetaBase>
+
+    <interface name = "IMetaBase">
+
+        <main>
+
+            <summary>MetaBase Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of MetaBases.</remarks>
+
+        </main>
+
+        <method name = "AddNotes">
+
+            <summary>Add Notes.</summary>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Scroll of Notes.</param>
+
+            <returns Cref = "Boolean">True if Notes added successfully.</returns>
+
+        </method>
+
+        <method name = "AddTags">
+
+            <summary>Add Tags.</summary>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">List of Tags.</param>
+
+            <returns Cref = "Boolean">True if Tags added successfully.</returns>
+
+        </method>
+
+        <method name = "GetApplication">
+
+            <summary>Get Application.</summary>
+
+            <returns Cref = "String?">Application.</returns>
+
+        </method>
+
+        <method name = "GetApplicationVersion">
+
+            <summary>Get Application Version.</summary>
+
+            <returns Cref = "Version?">Version of Application.</returns>
+
+        </method>
+
+        <method name = "GetBornOn">
+
+            <summary>Get BornOn.</summary>
+
+            <returns Cref = "DateTimeOffset?">Moment of Emergence.</returns>
+
+        </method>
+
+        <method name = "GetDescriptor">
+
+            <summary>Get Descriptor.</summary>
+
+            <returns Cref = "Descriptor?">Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetDistinguishedName">
+
+            <summary>Get Distinguished Name.</summary>
+
+            <returns Cref = "String?">Distinguished Name.</returns>
+
+        </method>
+
+        <method name = "GetDomainID">
+
+            <summary>Get Domain ID.</summary>
+
+            <returns Cref = "String?">Domain ID.</returns>
+
+        </method>
+
+        <method name = "GetExtension">
+
+            <summary>Get Extension.</summary>
+
+            <returns Cref = "Dictionary{String,Object?}?">Extension.</returns>
+
+        </method>
+
+        <method name = "GetFILE">
+
+            <summary>Get Full Path or Name.</summary>
+
+            <returns Cref = "String?">Full Path or Name.</returns>
+
+        </method>
+
+        <method name = "GetID">
+
+            <summary>Get ID.</summary>
+
+            <returns Cref = "Guid?">Object ID.</returns>
+
+        </method>
+
+        <method name = "GetLinks">
+
+            <summary>Get Links.</summary>
+
+            <returns Cref = "Dictionary{String,GuidReferenceItem}?">Links.</returns>
+
+        </method>
+
+        <method name = "GetModified">
+
+            <summary>Returns Last Modified Time.</summary>
+
+            <returns Cref = "DateTimeOffset?">Last Modified Time.</returns>
+
+        </method>
+
+        <method name = "GetName">
+
+            <summary>Returns Object Name.</summary>
+
+            <returns Cref = "String?">Object Name.</returns>
+
+        </method>
+
+        <method name = "GetNotes">
+
+            <summary>Returns Notes.</summary>
+
+            <returns Cref = "HashSet{String}?">Scroll of Notes.</returns>
+
+        </method>
+
+        <method name = "GetSecurityDescriptor">
+
+            <summary>Get Security Descriptor.</summary>
+
+            <returns Cref = "String?">Security Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetServiceVersion">
+
+            <summary>Get Service Version.</summary>
+
+            <returns Cref = "Version?">Version of Service.</returns>
+
+        </method>
+
+        <method name = "GetTags">
+
+            <summary>Returns all Tags.</summary>
+
+            <returns Cref = "HashSet{String}?">All Tags.</returns>
+
+        </method>
+
+        <method name = "GetVersion">
+
+            <summary>Get Object Version.</summary>
+
+            <returns Cref = "Version?">Version of Object.</returns>
+
+        </method>
+
+        <method name = "RemoveNote">
+
+            <summary>Remove a Note.</summary>
+
+            <param name = "note" Cref = "String?">Note to Remove.</param>
+
+            <returns Cref = "Boolean">Returns true if Note was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveTag">
+
+            <summary>Remove a Tag.</summary>
+
+            <param name = "tag" Cref = "String?">Tag to Remove.</param>
+
+            <returns Cref = "Boolean">Returns true if Tag was removed successfully.</returns>
+
+        </method>
+
+        <method name = "SetApplication">
+
+            <summary>Set Application.</summary>
+
+            <param name = "application" Cref = "String?">Application.</param>
+
+            <returns Cref = "Boolean">Returns true if Application was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetApplicationVersion">
+
+            <summary>Set Application Version.</summary>
+
+            <param name = "applicationversion" Cref = "Version?">Application Version.</param>
+
+            <returns Cref = "Boolean">Returns true if Application Version was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetBornOn">
+
+            <summary>Set BornOn.</summary>
+
+            <param name = "bornon" Cref = "DateTimeOffset?">BornOn.</param>
+
+            <returns Cref = "Boolean">True if BornOn was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetDistinguishedName">
+
+            <summary>Set Distinguished Name.</summary>
+
+            <param name = "distinguishedname" Cref = "String?">Distinguished Name.</param>
+
+            <returns Cref = "Boolean">True if Distinguished Name was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetDomainID">
+
+            <summary>Set DomainID.</summary>
+
+            <param name = "domainid" Cref = "String?">DomainID.</param>
+
+            <returns Cref = "Boolean">True if DomainID was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetExtension">
+
+            <summary>Set Extension.</summary>
+
+            <param name = "extension" Cref = "IDictionary{String,Object?}?">Extension.</param>
+
+            <returns Cref = "Boolean">Returns true if Extension was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetFILE">
+
+            <summary>Set Full Path or Name.</summary>
+
+            <param name = "file" Cref = "String?">Full Path or Name.</param>
+
+            <returns Cref = "Boolean">True if FILE was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetLinks">
+
+            <summary>Set Links.</summary>
+
+            <param name = "links" Cref = "IDictionary{String,GuidReferenceItem}?">Links.</param>
+
+            <returns Cref = "Boolean">True if Links was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetModified">
+
+            <summary>Set Last Modified Time.</summary>
+
+            <param name = "modified" Cref = "DateTimeOffset?">Last Modified Time.</param>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+        <method name = "SetName">
+
+            <summary>Set Name.</summary>
+
+            <param name = "name" Cref = "String?">Name.</param>
+
+            <returns Cref = "Boolean">Returns true if Name was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetSecurityDescriptor">
+
+            <summary>Set Security Descriptor.</summary>
+
+            <param name = "securitydescriptor" Cref = "String?">New Security Descriptor.</param>
+
+            <returns Cref = "Boolean">True if Security Descriptor was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetServiceVersion">
+
+            <summary>Set Service Version.</summary>
+
+            <param name = "serviceversion" Cref = "Version?">New Service Version.</param>
+
+            <returns Cref = "Boolean">Returns true if Service Version was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetVersion">
+
+            <summary>Set Object Version.</summary>
+
+            <param name = "version" Cref = "Version?">New Object Version.</param>
+
+            <returns Cref = "Boolean">Returns true if Application Version was set successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IMetaBase>

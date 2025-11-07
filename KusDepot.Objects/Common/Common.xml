@@ -1,0 +1,193 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Common>
+
+    <class name = "Common">
+
+        <main>
+
+            <summary>Common Entity.</summary>
+
+            <remarks>This class defines the elements common to all entities.</remarks>
+
+        </main>
+
+        <property name = "ExceptionsEnabled">
+
+            <summary>Exceptions Enabled.</summary>
+
+            <returns Cref = "Boolean">True if Object throws exceptions.</returns>
+
+        </property>
+
+        <field name = "ID" Cref = "Guid?">
+
+            <summary>Unique Identifier.</summary>
+
+        </field>
+
+        <field name = "Locked" Cref = "Boolean">
+
+            <summary>True if Object should be considered Read-Only.</summary>
+
+        </field>
+
+        <field name = "MyNoExceptions" Cref = "Boolean">
+
+            <summary>Object Exception Setting.</summary>
+
+        </field>
+
+        <property name = "MyID">
+
+            <summary>Object ID String.</summary>
+
+            <returns Cref = "String?">Object ID String.</returns>
+
+        </property>
+
+        <property name = "MyTypeName">
+
+            <summary>Object Type Name.</summary>
+
+            <returns Cref = "String?">Object Type Name.</returns>
+
+        </property>
+
+        <field name = "Secrets" Cref = "List{Byte[]}?">
+
+            <summary>Secrets.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "SyncNode">
+
+            <summary>SyncNode.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "Common?">A Common.</param>
+
+            <param name = "b" Cref = "Common?">Other Common.</param>
+
+            <returns Cref = "Boolean">True if Commons are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "Common?">A Common.</param>
+
+            <param name = "b" Cref = "Common?">Other Common.</param>
+
+            <returns Cref = "Boolean">True if Commons are not equal.</returns>
+
+        </method>
+
+        <method name = "CheckRemoveSecret">
+
+            <summary>Remove a secret created by CreateSecret corresponding to certificate.</summary>
+
+            <param name = "certificate" Cref = "Byte[]?">Serialized X509Certificate2.</param>
+
+            <param name = "secrets" Cref = "ICollection{Byte[]}?">Secrets to check.</param>
+
+            <returns Cref = "Boolean">True if a secret removed.</returns>
+
+        </method>
+
+        <method name = "CheckSecret">
+
+            <summary>Check if secret was created by CreateSecret.</summary>
+
+            <param name = "certificate" Cref = "Byte[]?">Serialized X509Certificate2.</param>
+
+            <param name = "secret" Cref = "ReadOnlySpan{Byte}">Secret to check.</param>
+
+            <returns Cref = "Boolean">True if secret created by CreateSecret.</returns>
+
+        </method>
+
+        <method name = "CheckSecrets">
+
+            <summary>Check if any secret in the collection was created by CreateSecret.</summary>
+
+            <param name = "certificate" Cref = "Byte[]?">Serialized X509Certificate2.</param>
+
+            <param name = "secrets" Cref = "ICollection{Byte[]}?">Secrets to check.</param>
+
+            <returns Cref = "Boolean">True if any secret created by CreateSecret.</returns>
+
+        </method>
+
+        <method name = "CheckSecretCore">
+
+            <summary>Validate a secret against a certificate and AAD.</summary>
+
+            <param name = "secret" Cref = "ReadOnlySpan{Byte}">Secret to validate.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate to validate against.</param>
+
+            <param name = "aad" Cref = "ReadOnlySpan{Byte}">Additional authenticated data.</param>
+
+            <returns Cref = "Boolean">True if the secret is valid for the certificate and AAD.</returns>
+
+        </method>
+
+        <method name = "CreateSecret">
+
+            <summary>Create a secret derived from certificate.</summary>
+
+            <param name = "certificate" Cref = "Byte[]?">Serialized X509Certificate2.</param>
+
+            <returns Cref = "Byte[]?">Secret.</returns>
+
+        </method>
+
+        <method name = "DestroySecrets">
+
+            <summary>Destroys all secrets, rendering all ManagementKeys invalid.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">A Management Key for authorization.</param>
+
+            <returns Cref = "Boolean">True if secrets were destroyed; false if unauthorized.</returns>
+
+        </method>
+
+        <method name = "GetDebuggerDisplay">
+
+            <summary>Get Debugger Display Data.</summary>
+
+            <returns Cref = "String">Data.</returns>
+
+        </method>
+
+        <method name ="GetSyncNode">
+
+            <summary>Get SyncNode.</summary>
+
+            <returns Cref = "SyncNode">Sync Node.</returns>
+
+        </method>
+
+        <method name = "RefreshSyncNodes">
+
+            <summary>Deserialization Support.</summary>
+
+        </method>
+
+    </class>
+
+</Common>

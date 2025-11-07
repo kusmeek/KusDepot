@@ -1,0 +1,41 @@
+﻿namespace KusDepot.CatalogDb;
+
+[PrimaryKey("PrimaryKey")]
+public partial class Command : ModelBase
+{
+    public String? Application           {get;set;}
+
+    public String? ApplicationVersion    {get;set;}
+
+    public String? BornOn                {get;set;}
+
+    public String? CommandHandle         {get;set;}
+
+    public String? CommandSpecifications {get;set;}
+
+    public String? CommandType           {get;set;}
+
+    public String? ContentHash           {get;set;}
+
+    public Boolean? ContentStreamed      {get;set;}
+
+    public String? DistinguishedName     {get;set;}
+
+    public String? FilePath              {get;set;}
+
+    public override Guid? ID             {get;set;}
+
+    public String? Modified              {get;set;}
+
+    public String? Name                  {get;set;}
+
+    public String? ObjectType            {get;set;}
+
+    public Guid?   PrimaryKey            {get;set;}
+
+    public String? ServiceVersion        {get;set;}
+
+    public String? Size                  {get;set;}
+
+    public String? Version               {get;set;}
+}

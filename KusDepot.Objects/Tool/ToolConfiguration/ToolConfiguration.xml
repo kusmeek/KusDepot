@@ -1,0 +1,45 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolConfiguration>
+
+    <class name = "ToolConfiguration">
+
+        <main>
+
+            <summary>Tool Configuration Serialization Helper.</summary>
+
+        </main>
+
+        <method name = "SerializeSection">
+
+            <summary>Serialize a Configuration Section.</summary>
+
+            <param name = "settings" Cref = "Dictionary{String,String}">Settings.</param>
+
+            <param name = "section" Cref = "IConfigurationSection">A Configuration Section.</param>
+
+        </method>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize Tool Configuration.</summary>
+
+            <param name = "data" Cref = "String?">Serialized Configuration.</param>
+
+            <returns Cref = "IConfiguration?">Tool Configuration.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize Tool Configuration.</summary>
+
+            <param name = "config" Cref = "IConfiguration?">Tool Configuration.</param>
+
+            <returns Cref = "String?">Serialized Tool Configuration.</returns>
+
+        </method>
+
+    </class>
+
+</ToolConfiguration>

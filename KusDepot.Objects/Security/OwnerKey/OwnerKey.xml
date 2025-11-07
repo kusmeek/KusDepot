@@ -1,0 +1,105 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OwnerKey>
+
+    <class name = "OwnerKey">
+
+        <main>
+
+            <summary>Owner Key.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "certificate" Cref = "Byte[]">Certificate.</param>
+
+            <param name = "id" Cref = "Guid?">Key ID.</param>
+
+            <param name = "thumbprint" Cref = "String?">Certificate Thumbprint.</param>
+
+            <returns Cref = "OwnerKey">New OwnerKey.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorCertificate">
+
+            <summary>Constructor.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate.</param>
+
+            <param name = "id" Cref = "Guid?">Key ID.</param>
+
+            <returns Cref = "OwnerKey">New OwnerKey.</returns>
+
+        </constructor>
+
+        <method name = "IParsable{OwnerKey}.Parse">
+
+            <summary>Parse OwnerKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "OwnerKey">Parsed OwnerKey.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse OwnerKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "OwnerKey?">Parsed OwnerKey.</returns>
+
+        </method>
+
+        <method name = "ToOwnerKeyWeb">
+
+            <summary>Convert to OwnerKeyWeb.</summary>
+
+            <returns Cref = "OwnerKeyWeb">This Key converted to OwnerKeyWeb.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse OwnerKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "key" Cref = "OwnerKey">Output OwnerKey.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "OwnerKeyWeb">
+
+        <main>
+
+            <summary>OwnerKey Web Interoperations.</summary>
+
+        </main>
+
+        <method name = "ToOwnerKey">
+
+            <summary>Convert To OwnerKey.</summary>
+
+            <returns Cref = "OwnerKey?">A OwnerKey.</returns>
+
+        </method>
+
+    </record>
+
+</OwnerKey>

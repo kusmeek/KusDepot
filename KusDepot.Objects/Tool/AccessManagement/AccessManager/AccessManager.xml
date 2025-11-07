@@ -1,0 +1,152 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManager>
+
+    <class name = "AccessManager">
+
+        <main>
+            <summary>Default Access Manager.</summary>
+            <remarks>
+                <para>Each issued key encapsulates:</para>
+                <list type="bullet">
+                    <item><description>A subject string (tool, command, or anonymous GUID namespace).</description></item>
+                    <item><description>An 8192-bit permission bitmap (UInt128 * 64).</description></item>
+                    <item><description>A 32-byte AccessKeyToken used for membership revocation.</description></item>
+                </list>
+                <para>Authorization Flow:</para>
+                <list type="number">
+                    <item><description>Token decrypted and parsed (subject, bitmap, AccessKeyToken, expiry) with issuer binding (AAD = Version|ToolId).</description></item>
+                    <item><description>Permission bit tested; membership verified against AccessKeys.</description></item>
+                    <item><description>Expired or unknown operations fail.</description></item>
+                </list>
+            </remarks>
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "AccessManager">New AccessManager.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorState">
+
+            <summary>Constructor.</summary>
+
+            <param name = "state" Cref = "AccessManagerState">Access Manager State.</param>
+
+            <returns Cref = "AccessManager">New AccessManager.</returns>
+
+        </constructor>
+
+        <field name = "ID" Cref= "Guid?">
+            <summary>Access Manager ID.</summary>
+        </field>
+
+        <field name = "Tool" Cref= "ITool?">
+            <summary>Tool.</summary>
+        </field>
+
+        <field name = "Logger" Cref= "ILogger?">
+            <summary>Logger.</summary>
+        </field>
+
+        <field name = "Certificate" Cref= "X509Certificate2?">
+            <summary>Certificate used for hybrid encryption / decryption.</summary>
+        </field>
+
+        <field name = "AccessKeys" Cref= "Dictionary{String,HashSet{AccessTokenSecret.AccessKeyToken}}">
+            <summary>Subject → AccessKeyToken membership map for active tokens.</summary>
+        </field>
+
+        <property name = "MyNoExceptions" Cref= "Boolean">
+            <summary>Suppress AccessManager exceptions if the owning tool has disabled its exceptions.</summary>
+        </property>
+
+        <method name = "AccessCheck">
+            <summary>Authorization check using an encrypted access token and caller member name.</summary>
+            <param name = "key" Cref = "AccessKey?">Encrypted access key containing permission bitmap.</param>
+            <param name = "operationname" Cref = "String?">Caller member name (auto-supplied).</param>
+            <returns Cref = "Boolean">True if token valid, not expired, membership present, and permission bit set.</returns>
+            <remarks>
+                <list type="bullet">
+                    <item><description>Returns false on any structural, cryptographic, or membership failure.</description></item>
+                </list>
+            </remarks>
+        </method>
+
+        <method name = "RevokeAccess">
+            <summary>Revokes a token by removing its AccessKeyToken from membership.</summary>
+            <param name = "key" Cref = "AccessKey?">Encrypted access key.</param>
+            <returns Cref = "Boolean">True if removed; false if parse failed, not found, or already revoked.</returns>
+        </method>
+
+        <method name = "TryIssueToken">
+            <summary>Create encrypted token from operation indices and subject.</summary>
+            <param name = "ops" Cref = "IEnumerable{Int32}">Operation indices to authorize.</param>
+            <param name = "subject" Cref = "String">Subject string (UTF-16LE serialized).</param>
+            <param name = "ciphertext" Cref = "Byte[]">Output ciphertext on success.</param>
+            <param name = "token" Cref = "AccessTokenSecret.AccessKeyToken">Resulting AccessKeyToken identity.</param>
+            <returns Cref = "Boolean">True if token created.</returns>
+            <remarks>No membership side effects.</remarks>
+        </method>
+
+        <method name = "AddMembership">
+            <summary>Add AccessKeyToken membership for a subject.</summary>
+            <param name = "subject" Cref = "String">Subject.</param>
+            <param name = "token" Cref = "AccessTokenSecret.AccessKeyToken">Access token identity.</param>
+            <returns Cref = "Boolean">True if added (or already present).</returns>
+        </method>
+
+        <method name = "RemoveMembership">
+            <summary>Remove AccessKeyToken membership for a subject.</summary>
+            <param name = "subject" Cref = "String">Subject.</param>
+            <param name = "token" Cref = "AccessTokenSecret.AccessKeyToken">Access token identity.</param>
+            <returns Cref = "Boolean">True if removed.</returns>
+        </method>
+
+        <method name = "GenerateClientKey">
+            <summary>Issue a ClientKey with the <see cref="ProtectedOperationSets.Client"/> permission set.</summary>
+            <returns Cref = "ClientKey?">Client Key.</returns>
+        </method>
+
+        <method name = "GenerateCommandKey">
+            <summary>Issue a CommandKey for a specific command using <see cref="ProtectedOperationSets.Command"/>.</summary>
+            <param name = "command" Cref = "ICommand?">Command instance.</param>
+            <param name = "key" Cref = "AccessKey?">Tool AccessKey when locked.</param>
+            <returns Cref = "CommandKey?">Command Key.</returns>
+        </method>
+
+        <method name = "GenerateExecutiveKey">
+            <summary>Issue an ExecutiveKey granting all defined protected operations.</summary>
+            <returns Cref = "ExecutiveKey?">Executive Key.</returns>
+        </method>
+
+        <method name = "GenerateHostKey">
+            <summary>Issue a HostKey with lifecycle control operations (<see cref="ProtectedOperationSets.Host"/>).</summary>
+            <returns Cref = "HostKey?">Host Key.</returns>
+        </method>
+
+        <method name = "GenerateHostedServiceKey">
+            <summary>Issue a MyHostKey for an internally hosted service (<see cref="ProtectedOperationSets.MyHost"/>).</summary>
+            <param name = "tool" Cref = "ITool?">Hosted service tool.</param>
+            <param name = "key" Cref = "AccessKey?">Tool AccessKey when locked.</param>
+            <returns Cref = "MyHostKey?">MyHostKey.</returns>
+        </method>
+
+        <method name = "GenerateServiceKey">
+            <summary>Issue a ServiceKey for an external service (<see cref="ProtectedOperationSets.Service"/>).</summary>
+            <param name = "tool" Cref = "ITool?">Service tool.</param>
+            <returns Cref = "ServiceKey?">Service Key.</returns>
+        </method>
+
+    </class>
+
+</AccessManager>

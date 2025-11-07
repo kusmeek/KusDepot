@@ -1,0 +1,27 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolGenericHost>
+
+    <interface name = "IToolGenericHost">
+
+        <main>
+
+            <summary>ToolGenericHost Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolGenericHost.</remarks>
+
+        </main>
+
+        <method name = "GetManagedApplication">
+
+            <summary>Get Managed Application.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IHost?">Managed Application.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolGenericHost>

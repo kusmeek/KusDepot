@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DependencyInjection>
+
+    <class name = "DependencyInjection">
+
+        <main>
+
+            <summary>Dependency Injection Extensions.</summary>
+
+        </main>
+
+        <method name = "AddKusDepotToolInstance">
+
+            <summary>Add Tool to Services.</summary>
+
+            <param name = "services" Cref = "IServiceCollection">Services.</param>
+
+            <param name = "tool" Cref = "ITool">Tool.</param>
+
+            <returns Cref = "IServiceCollection">Services.</returns>
+
+        </method>
+
+        <method name = "AddKusDepotToolFactory">
+
+            <summary>Add Tool to Services.</summary>
+
+            <param name = "services" Cref = "IServiceCollection">Services.</param>
+
+            <param name = "toolfactory" Cref = "Func{ITool}">Implementation Factory.</param>
+
+            <returns Cref = "IServiceCollection">Services.</returns>
+
+        </method>
+
+        <method name = "AddKusDepotToolInstanceAutofac">
+
+            <summary>Add Tool to Autofac ContainerBuilder.</summary>
+
+            <param name = "containerbuilder" Cref = "ContainerBuilder">Container Builder.</param>
+
+            <param name = "tool" Cref = "ITool">Tool.</param>
+
+            <returns Cref = "ContainerBuilder">Container Builder.</returns>
+
+        </method>
+
+        <method name = "AddKusDepotToolFactoryAutofac">
+
+            <summary>Add Tool to Autofac ContainerBuilder.</summary>
+
+            <param name = "containerbuilder" Cref = "ContainerBuilder">Container Builder.</param>
+
+            <param name = "toolfactory" Cref = "Func{ITool}">Implementation Factory.</param>
+
+            <returns Cref = "ContainerBuilder">Container Builder.</returns>
+
+        </method>
+
+    </class>
+
+</DependencyInjection>

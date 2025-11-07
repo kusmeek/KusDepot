@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolAspireHostBuilder>
+
+    <class name = "ToolAspireHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Aspire Tools.</summary>
+
+        </main>
+
+        <method name = "configuretoolaspirehost">
+
+            <summary>Execute Tool Aspire Host Configuration Actions.</summary>
+
+            <param name = "toolaspirehost" Cref = "IToolAspireHost">Built ToolAspireHost.</param>
+
+        </method>
+
+    </class>
+
+</ToolAspireHostBuilder>

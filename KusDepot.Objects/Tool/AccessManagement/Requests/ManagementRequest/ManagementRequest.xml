@@ -1,0 +1,107 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ManagementRequest>
+
+    <class name = "ManagementRequest">
+
+        <main>
+
+            <summary>Management Access Request.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "key" Cref = "String">Serialized ManagementKey.</param>
+
+            <returns Cref = "ManagementRequest">New ManagementRequest.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorKey">
+
+            <summary>Constructor.</summary>
+
+            <param name = "key" Cref = "ManagementKey">ManagementKey.</param>
+
+            <returns Cref = "ManagementRequest">New ManagementRequest.</returns>
+
+        </constructor>
+
+        <method name = "IParsable{ManagementRequest}.Parse">
+
+            <summary>Parse ManagementRequest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ManagementRequest">Parsed ManagementRequest.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ManagementRequest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ManagementRequest?">Parsed ManagementRequest.</returns>
+
+        </method>
+
+        <method name = "ToManagementRequestWeb">
+
+            <summary>Convert to ManagementRequestWeb.</summary>
+
+            <returns Cref = "ManagementRequestWeb">This ManagementRequest converted to ManagementRequestWeb.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>ToString.</summary>
+
+            <returns Cref = "String">Serialized ManagementRequest.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ManagementRequest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "key" Cref = "ManagementRequest">Output ManagementRequest.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "ManagementRequestWeb">
+
+        <main>
+
+            <summary>ManagementRequest Web Interoperations.</summary>
+
+        </main>
+
+        <method name = "ToManagementRequest">
+
+            <summary>Convert To ManagementRequest.</summary>
+
+            <returns Cref = "ManagementRequest?">A ManagementRequest.</returns>
+
+        </method>
+
+    </record>
+
+</ManagementRequest>

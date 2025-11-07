@@ -1,0 +1,29 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolWebHostBuilder>
+
+    <class name = "ToolWebHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Web Tools.</summary>
+
+        </main>
+
+        <field name = "ConfigureToolWebHostActions" Cref = "List{Action{ToolBuilderContext,IToolWebHost}}">
+
+            <summary>ToolWebHost Configuration Actions.</summary>
+
+        </field>
+
+        <method name = "configuretoolwebhost">
+
+            <summary>Execute Tool Web Host Configuration Actions.</summary>
+
+            <param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+        </method>
+
+    </class>
+
+</ToolWebHostBuilder>

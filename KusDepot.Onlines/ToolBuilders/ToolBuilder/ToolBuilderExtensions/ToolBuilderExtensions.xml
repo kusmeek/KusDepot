@@ -1,0 +1,25 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolBuilderExtensions>
+
+    <class name = "ToolBuilderExtensions">
+
+        <main>
+
+            <summary>ToolBuilder Extension Methods.</summary>
+
+        </main>
+
+        <method name = "ToArgument">
+
+            <summary>Convert registered commands to constructor argument.</summary>
+
+            <param name = "commands" Cref = "Dictionary{String,ICommand}?">Registered Commands.</param>
+
+            <returns Cref = "IEnumerable{Meta{ICommand}}?">Tool Constructor Argument.</returns>
+
+        </method>
+
+    </class>
+
+</ToolBuilderExtensions>

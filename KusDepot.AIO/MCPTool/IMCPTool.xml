@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IMCPTool>
+
+    <interface name = "IMCPTool">
+
+        <main>
+
+            <summary>Model Context Protocol Tool Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Model Context Protocol Tool.</remarks>
+
+        </main>
+
+    </interface>
+
+</IMCPTool>

@@ -1,0 +1,197 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolWebHostBuilder>
+
+    <interface name = "IToolWebHostBuilder">
+
+        <main>
+
+            <summary>ToolWebHostBuilder Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolWebHostBuilder.</remarks>
+
+        </main>
+
+        <property name = "Builder">
+
+            <summary>WebApplication Builder</summary>
+
+            <returns Cref = "WebApplicationBuilder">WebApplication Builder.</returns>
+
+        </property>
+
+        <method name = "BuildWebHost">
+
+            <summary>Build the Web Host.</summary>
+
+            <param name = "app" Cref = "WebApplication?">Prebuilt, UnStarted WebApplication</param>
+
+            <returns Cref = "IToolWebHost">Tool Web Host.</returns>
+
+        </method>
+
+        <method name = "BuildWebHostAsync">
+
+            <summary>Build the ToolWebHost Async.</summary>
+
+            <param name = "app" Cref = "WebApplication?">Web Application.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IToolWebHost}">Tool Web Host.</returns>
+
+        </method>
+
+        <method name = "BuildWebHostOpen">
+
+            <summary>Build the Web Host.</summary>
+
+            <param name = "app" Cref = "WebApplication?">Prebuilt, UnStarted WebApplication</param>
+
+            <typeparam name = "TToolWebHost">A Type of ToolWebHost.</typeparam>
+
+            <returns Cref = "IToolWebHost">ToolWebHost of type specified.</returns>
+
+        </method>
+
+        <method name = "BuildWebHostAsyncOpen">
+
+            <summary>Build the ToolWebHost Async.</summary>
+
+            <typeparam name = "TToolWebHost">A Type of ToolWebHost.</typeparam>
+
+            <param name = "app" Cref = "WebApplication?">Web Application.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{TToolWebHost}">ToolWebHost of type specified.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolWebHost">
+
+            <summary>Configure ToolWebHost.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolWebHost}">Configuration Action.</param>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "ConfigureWebApplication">
+
+            <summary>Configure WebApplication.</summary>
+
+            <param name = "action" Cref = "Action{WebApplication}">Configuration Action.</param>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "ConnectWithApplication">
+
+            <summary>Add IToolConnect to Application Services.</summary>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "LinkLifetime">
+
+            <summary>Add IToolHostLifetime to Application Services.</summary>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseBuilderOptions">
+
+            <summary>Use WebApplication Options.</summary>
+
+            <param name = "options" Cref="WebApplicationOptions?">Options.</param>
+
+            <remarks>Uses a new Empty WebApplication Builder.</remarks>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseSlimBuilderArgs">
+
+            <summary>Use Slim Builder.</summary>
+
+            <param name = "args" Cref="String[]?">Arguments.</param>
+
+            <remarks>Uses a new Slim WebApplication Builder.</remarks>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseSlimBuilder">
+
+            <summary>Use Slim Builder.</summary>
+
+            <param name = "options" Cref="WebApplicationOptions?">Options.</param>
+
+            <remarks>Uses a new Slim WebApplication Builder.</remarks>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseFullBuilderArgs">
+
+            <summary>Use Full Builder.</summary>
+
+            <param name = "args" Cref="String[]?">Arguments.</param>
+
+            <remarks>Uses a new Full WebApplication Builder.</remarks>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseFullBuilder">
+
+            <summary>Use Full Builder.</summary>
+
+            <param name = "options" Cref="WebApplicationOptions?">Options.</param>
+
+            <remarks>Uses a new Full WebApplication Builder.</remarks>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseConsoleLifetime">
+
+            <summary>Use Console Lifetime.</summary>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseRandomLocalPorts">
+
+            <summary>Use Random Local Ports.</summary>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseMcpServer">
+
+            <summary>Use Model Context Protocol Server.</summary>
+
+            <param name = "capabilities" Cref="ServerCapabilities?">Server Capabilities.</param>
+
+            <param name = "instructions" Cref="String?">Server Instructions.</param>
+
+            <returns Cref = "IToolWebHostBuilder">ToolWebHostBuilder.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolWebHostBuilder>

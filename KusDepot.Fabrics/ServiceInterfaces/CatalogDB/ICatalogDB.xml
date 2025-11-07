@@ -1,0 +1,169 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalogDB>
+
+    <interface name = "ICatalogDB">
+
+        <main>
+
+            <summary>The CatalogDB service stores the backing database for Catalogs.</summary>
+
+        </main>
+
+        <method name = "AddUpdate">
+
+            <summary>Add or Update Object metadata.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if metadata added or updated successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "ExistsID">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove Object metadata.</summary>
+
+            <param name = "descriptor" Cref = "Descriptor?">Object Descriptor.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveID">
+
+            <summary>Remove Object metadata.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object removed successfully.</returns>
+
+        </method>
+
+        <method name = "SearchCommands">
+
+            <summary>Search Commands.</summary>
+
+            <param name = "query" Cref = "CommandQuery?">Command query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{CommandResponse}">Search results.</returns>
+
+        </method>
+
+        <method name = "SearchElements">
+
+            <summary>Search Elements.</summary>
+
+            <param name = "query" Cref = "ElementQuery?">Element query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{ElementResponse}">Search results.</returns>
+
+        </method>
+
+        <method name = "SearchMedia">
+
+            <summary>Search Media.</summary>
+
+            <param name = "query" Cref = "MediaQuery?">Media query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{MediaResponse}">Search results.</returns>
+
+        </method>
+
+        <method name = "SearchNotes">
+
+            <summary>Search Notes.</summary>
+
+            <param name = "query" Cref = "NoteQuery?">Note query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{NoteResponse}">Search results.</returns>
+
+        </method>
+
+        <method name = "SearchServices">
+
+            <summary>Search Services.</summary>
+
+            <param name = "query" Cref = "ServiceQuery?">Service query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{ServiceResponse}">Search results.</returns>
+
+        </method>
+
+        <method name = "SearchTags">
+
+            <summary>Search Tags.</summary>
+
+            <param name = "query" Cref = "TagQuery?">Tag query.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{TagResponse}">Search results.</returns>
+
+        </method>
+
+    </interface>
+
+</ICatalogDB>

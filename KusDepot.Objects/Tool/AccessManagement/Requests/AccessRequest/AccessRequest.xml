@@ -1,0 +1,121 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessRequest>
+
+    <class name = "AccessRequest">
+
+        <main>
+
+            <summary>Access Request.</summary>
+
+        </main>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Request Data.</summary>
+
+            <remarks>ServiceRequest or StandardRequest - JsonWebToken, Serialized Certificate. ManagementRequest - Serialized ManagementKey or ManagementKey.Key Value.</remarks>
+
+        </property>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "ParseAny">
+
+            <summary>Parse AccessRequest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "AccessRequest?">Output AccessRequest.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse AccessRequest.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "AccessRequest?">Parsed AccessRequest.</returns>
+
+        </method>
+
+        <method name = "ToAccessRequestWeb">
+
+            <summary>Convert to AccessRequestWeb.</summary>
+
+            <returns Cref = "AccessRequestWeb">This AccessRequest converted to AccessRequestWeb.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse AccessRequest.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output AccessRequest.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "AccessRequestWeb">
+
+        <main>
+
+            <summary>AccessRequest Web Interoperations.</summary>
+
+        </main>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Data.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "String?">
+
+            <summary>Type Name.</summary>
+
+        </property>
+
+        <method name = "Parse">
+
+            <summary>Parse AccessRequestWeb.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "AccessRequestWeb?">Parsed AccessRequestWeb.</returns>
+
+        </method>
+
+        <method name = "ToAccessRequest">
+
+            <summary>Convert To AccessRequest.</summary>
+
+            <returns Cref = "AccessRequest?">An AccessRequest.</returns>
+
+        </method>
+
+    </record>
+
+</AccessRequest>

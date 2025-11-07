@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64</Platforms>
+
+        <TargetFrameworks>net10.0</TargetFrameworks>
+
+        <AssemblyName>KusDepot.ToolService</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1031;CA2007;IDE0052</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CoreWCF.Http" />
+
+        <PackageReference Include="CoreWCF.Primitives" />
+
+        <PackageReference Include="CoreWCF.WebHttp" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <PackageReference Include="System.ServiceModel.Duplex" />
+
+        <PackageReference Include="System.ServiceModel.Federation" />
+
+        <PackageReference Include="System.ServiceModel.Http" />
+
+        <PackageReference Include="System.ServiceModel.NetTcp" />
+
+        <PackageReference Include="System.ServiceModel.Security" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MetaSync>
+
+    <class name = "MetaSync">
+
+        <main>
+
+            <summary>MetaSync.</summary>
+
+            <remarks>Synchronization object for the object's public properties.</remarks>
+
+        </main>
+
+        <field name = "Meta" Cref = "SemaphoreSlim">
+
+            <summary>Metadata Sync Object.</summary>
+
+        </field>
+
+    </class>
+
+</MetaSync>

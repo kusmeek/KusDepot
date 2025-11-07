@@ -1,0 +1,101 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Element>
+
+    <record name = "Element">
+
+        <main>
+
+            <summary>Represents Element records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "ObjectType" Cref = "String?"><summary>ObjectType.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Type" Cref = "String?"><summary>Type.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "ElementQuery">
+
+        <main>
+
+            <summary>Supports querying Element records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "ObjectType" Cref = "String?"><summary>ObjectType.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Type" Cref = "String?"><summary>Type.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "ElementResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "Elements" Cref = "Element[]"><summary>Matching records.</summary></property>
+
+    </record>
+
+</Element>

@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAzureResourcesManager>
+
+    <interface name = "IAzureResourcesManager">
+
+        <main>
+
+            <summary>Azure Resources Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of an Azure Resources Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IAzureResourcesManager>

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BufferHandlers>
+  <class name="AccessKeySecret">
+
+    <struct name="BufferCursor">
+      <main>
+        <summary>A forward-only writer for serializing data into a <see cref="Span{T}"/> of <see cref="Byte"/>.</summary>
+      </main>
+      <field name="buffer">
+        <summary>The underlying buffer.</summary>
+      </field>
+      <property name="Position">
+        <summary>Gets the current write position (the number of bytes written) in the buffer.</summary>
+      </property>
+      <property name="Length">
+        <summary>Gets the total length of the underlying buffer.</summary>
+      </property>
+      <property name="Remaining">
+        <summary>Gets the number of bytes remaining in the buffer that can be written to.</summary>
+      </property>
+      <property name="WrittenSpan">
+        <summary>Gets a read-only span representing the portion of the buffer that has been written to so far.</summary>
+      </property>
+      <constructor name="Constructor">
+        <summary>Initializes a new instance of the <see cref="BufferCursor"/> struct over the specified buffer.</summary>
+        <param name="buffer" cref="Span{Byte}">The byte span to write into.</param>
+      </constructor>
+      <method name="TryWriteByte">
+        <summary>Tries to write a single byte to the buffer.</summary>
+        <param name="value" cref="Byte">The byte to write.</param>
+        <returns>True if the byte was written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteBytes">
+        <summary>Tries to write a sequence of bytes to the buffer.</summary>
+        <param name="source" cref="ReadOnlySpan{Byte}">The source span of bytes to write.</param>
+        <returns>True if the bytes were written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteRandom">
+        <summary>Tries to fill a portion of the buffer with cryptographically strong random bytes.</summary>
+        <param name="count" cref="Int32">The number of random bytes to write.</param>
+        <returns>True if the random bytes were written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteGuid">
+        <summary>Tries to write a 16-byte <see cref="Guid"/> to the buffer.</summary>
+        <param name="id" cref="Guid">The Guid to write.</param>
+        <returns>True if the Guid was written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteInt64BigEndian">
+        <summary>Tries to write a 64-bit integer to the buffer in big-endian format.</summary>
+        <param name="value" cref="Int64">The value to write.</param>
+        <returns>True if the value was written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteUInt16BigEndian">
+        <summary>Tries to write a 16-bit unsigned integer to the buffer in big-endian format.</summary>
+        <param name="value" cref="UInt16">The value to write.</param>
+        <returns>True if the value was written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+      <method name="TryWriteUInt128BigEndian">
+        <summary>Tries to write a 128-bit unsigned integer to the buffer in big-endian format.</summary>
+        <param name="value" cref="UInt128">The value to write.</param>
+        <returns>True if the value was written successfully; otherwise, false if there was insufficient space.</returns>
+      </method>
+    </struct>
+
+    <struct name="BufferReader">
+      <main>
+        <summary>A forward-only reader for parsing data from a <see cref="ReadOnlySpan{T}"/> of <see cref="Byte"/>.</summary>
+      </main>
+      <field name="buffer">
+        <summary>The underlying buffer.</summary>
+      </field>
+      <property name="Position">
+        <summary>Gets the current read position in the buffer.</summary>
+      </property>
+      <property name="Remaining">
+        <summary>Gets the number of bytes remaining in the buffer that can be read.</summary>
+      </property>
+      <constructor name="Constructor">
+        <summary>Initializes a new instance of the <see cref="BufferReader"/> struct over the specified buffer.</summary>
+        <param name="buffer" cref="ReadOnlySpan{Byte}">The read-only byte span to read from.</param>
+      </constructor>
+      <method name="TryReadByte">
+        <summary>Tries to read a single byte from the buffer.</summary>
+        <param name="value" cref="Byte">When this method returns, contains the byte read, or default if the read failed.</param>
+        <returns>True if the byte was read successfully; otherwise, false.</returns>
+      </method>
+      <method name="TryReadBytes">
+        <summary>Tries to read a sequence of bytes from the buffer as a slice.</summary>
+        <param name="count" cref="Int32">The number of bytes to read.</param>
+        <param name="slice" cref="ReadOnlySpan{Byte}">When this method returns, contains a slice of the buffer, or an empty span if the read failed.</param>
+        <returns>True if the slice was read successfully; otherwise, false.</returns>
+      </method>
+      <method name="TryReadGuid">
+        <summary>Tries to read a 16-byte <see cref="Guid"/> from the buffer.</summary>
+        <param name="id" cref="Guid">When this method returns, contains the Guid read, or default if the read failed.</param>
+        <returns>True if the Guid was read successfully; otherwise, false.</returns>
+      </method>
+      <method name="TryReadInt64BigEndian">
+        <summary>Tries to read a 64-bit integer in big-endian format from the buffer.</summary>
+        <param name="value" cref="Int64">When this method returns, contains the value read, or default if the read failed.</param>
+        <returns>True if the value was read successfully; otherwise, false.</returns>
+      </method>
+      <method name="TryReadUInt16BigEndian">
+        <summary>Tries to read a 16-bit unsigned integer in big-endian format from the buffer.</summary>
+        <param name="value" cref="UInt16">When this method returns, contains the value read, or default if the read failed.</param>
+        <returns>True if the value was read successfully; otherwise, false.</returns>
+      </method>
+      <method name="TryReadUInt128BigEndian">
+        <summary>Tries to read a 128-bit unsigned integer in big-endian format from the buffer.</summary>
+        <param name="value" cref="UInt128">When this method returns, contains the value read, or default if the read failed.</param>
+        <returns>True if the value was read successfully; otherwise, false.</returns>
+      </method>
+    </struct>
+
+  </class>
+</BufferHandlers>

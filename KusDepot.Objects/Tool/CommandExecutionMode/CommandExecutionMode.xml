@@ -1,0 +1,73 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandExecutionMode>
+
+    <class name = "CommandExecutionMode">
+
+        <main>
+
+            <summary>Defines execution mode configuration for a Command.</summary>
+
+        </main>
+
+        <property name = "AllowAsynchronous" Cref = "Boolean">
+
+            <summary>True if asynchronous execution is permitted.</summary>
+
+        </property>
+
+        <property name = "AllowSynchronous" Cref = "Boolean">
+
+            <summary>True if synchronous execution is permitted.</summary>
+
+        </property>
+
+        <field name = "Locked" Cref = "Boolean">
+
+            <summary>True if the execution model is locked and cannot be changed.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "CommandExecutionMode">New CommandExecutionMode.</returns>
+
+        </constructor>
+
+        <method name = "AllowBoth">
+
+            <summary>Allow both synchronous and asynchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowAsynchronousOnly">
+
+            <summary>Allow only asynchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowSynchronousOnly">
+
+            <summary>Allow only synchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "Lock">
+
+            <summary>Lock the execution model to prevent further changes.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+    </class>
+
+</CommandExecutionMode>

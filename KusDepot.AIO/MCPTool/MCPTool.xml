@@ -1,0 +1,21 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MCPTool>
+
+    <class name = "MCPTool">
+
+        <main>
+
+            <summary>Model Context Protocol Tool.</summary>
+
+        </main>
+
+        <field name = "Tool" Cref = "ITool?">
+
+            <summary>Tool.</summary>
+
+        </field>
+
+    </class>
+
+</MCPTool>

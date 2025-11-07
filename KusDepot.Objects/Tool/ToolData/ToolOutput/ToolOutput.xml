@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ToolOutput>
+
+    <class name = "ToolOutput">
+
+        <main>
+
+            <summary>ToolOutput</summary>
+
+        </main>
+
+        <property name = "ID" Cref = "Guid?">
+
+            <summary>Output ID.</summary>
+
+        </property>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ToolOutput.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ToolOutput?">Parsed ToolOutput.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Object.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ToolOutput.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "data" Cref = "ToolOutput">Output ToolOutput.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</ToolOutput>

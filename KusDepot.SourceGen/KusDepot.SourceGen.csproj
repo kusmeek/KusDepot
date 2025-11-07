@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU</Platforms>
+
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnforceExtendedAnalyzerRules>True</EnforceExtendedAnalyzerRules>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+    </ItemGroup>
+
+</Project>

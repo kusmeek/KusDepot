@@ -1,0 +1,87 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IBlob>
+
+    <interface name = "IBlob">
+
+        <main>
+
+            <summary>The Blob service manages data storage with Azure Blobs.</summary>
+
+        </main>
+
+        <method name = "Delete">
+
+            <summary>Deletes an Object.</summary>
+
+            <param name = "connection" Cref = "String?">Storage connection string.</param>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "version" Cref = "String?">Blob version.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object deleted successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "connection" Cref = "String?">Storage connection string.</param>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "version" Cref = "String?">Blob version.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "Get">
+
+            <summary>Retrieve Object.</summary>
+
+            <param name = "connection" Cref = "String?">Storage connection string.</param>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "version" Cref = "String?">Blob version.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Byte[]?}">The Object.</returns>
+
+        </method>
+
+        <method name = "Store">
+
+            <summary>Store an Object.</summary>
+
+            <param name = "connection" Cref = "String?">Storage connection string.</param>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "it" Cref = "Byte[]?">Serialized Object.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object stored successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IBlob>

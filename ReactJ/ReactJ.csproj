@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Version>0.0.1</Version>
+
+        <StartAction>Program</StartAction>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <JarName>ShapeAPI-$(Version)-jar-with-dependencies.jar</JarName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileContext>.</DockerfileContext>
+
+        <DockerfileTag>kusdepotreactj</DockerfileTag>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <StartProgram>$(JAVA_HOME)\bin\java.exe</StartProgram>
+
+        <UserSecretsId>11cd03b0-c653-4f4c-8481-e75b8fa35f07</UserSecretsId>
+
+        <StartArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar "$(MSBuildProjectDirectory)\target\$(JarName)"</StartArguments>
+
+    </PropertyGroup>
+
+    <Target Name="CopyShapeApiProto" BeforeTargets="Build">
+
+        <Copy SourceFiles="..\ReactG\shapeapi\shapeapi.proto" DestinationFolder="proto\" />
+
+    </Target>
+
+    <Target Name="Maven" AfterTargets="Build">
+
+        <Exec Command="mvn clean package -DskipTests" WorkingDirectory="$(MSBuildProjectDirectory)" />
+
+    </Target>
+
+    <ItemGroup Label="Packages or Projects">
+
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+    </ItemGroup>
+
+</Project>

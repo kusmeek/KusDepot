@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<KusDepotCab>
+
+    <record name = "KusDepotCab">
+
+        <main>
+
+            <summary>Integration.</summary>
+
+        </main>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Serialized Object.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "String?">
+
+            <summary>Object Type Name.</summary>
+
+        </property>
+
+        <property name = "Cargo" Cref = "Dictionary{String,KusDepotCab}?">
+
+            <summary>Cab Cargo.</summary>
+
+        </property>
+
+        <property name = "Manifest" Cref = "Dictionary{String,String}?">
+
+            <summary>Cab Manifest, Log.</summary>
+
+        </property>
+
+        <method name = "GetAccessRequest">
+
+            <summary>Get AccessRequest.</summary>
+
+            <returns Cref = "AccessRequest?">An AccessRequest.</returns>
+
+        </method>
+
+        <method name = "GetAccessRequestWeb">
+
+            <summary>Get AccessRequestWeb.</summary>
+
+            <returns Cref = "AccessRequestWeb?">An AccessRequestWeb.</returns>
+
+        </method>
+
+        <method name = "GetCommandDetails">
+
+            <summary>Get CommandDetails.</summary>
+
+            <returns Cref = "CommandDetails?">A CommandDetails.</returns>
+
+        </method>
+
+        <method name = "GetDataItem">
+
+            <summary>Get DataItem.</summary>
+
+            <returns Cref = "DataItem?">A DataItem.</returns>
+
+        </method>
+
+        <method name = "GetDataContent">
+
+            <summary>Get DataContent.</summary>
+
+            <returns Cref = "DataContent?">A DataContent.</returns>
+
+        </method>
+
+        <method name = "GetDescriptor">
+
+            <summary>Get Descriptor.</summary>
+
+            <returns Cref = "Descriptor?">A Descriptor.</returns>
+
+        </method>
+
+        <method name = "GetKeySet">
+
+            <summary>Get KeySet.</summary>
+
+            <returns Cref = "KeySet?">A KeySet.</returns>
+
+        </method>
+
+        <method name = "GetObject">
+
+            <summary>Get Object.</summary>
+
+            <typeparam name = "TResult">Type of Object.</typeparam>
+
+            <returns Cref = "TResult?">An Object.</returns>
+
+        </method>
+
+        <method name = "GetSecurityKey">
+
+            <summary>Get SecurityKey.</summary>
+
+            <returns Cref = "SecurityKey?">A SecurityKey.</returns>
+
+        </method>
+
+        <method name = "GetSecurityKeyWeb">
+
+            <summary>Get SecurityKeyWeb.</summary>
+
+            <returns Cref = "SecurityKeyWeb?">A SecurityKeyWeb.</returns>
+
+        </method>
+
+        <method name = "GetToolData">
+
+            <summary>Get Object.</summary>
+
+            <returns Cref = "ToolData?">ToolData.</returns>
+
+        </method>
+
+        <method name = "GetToolInput">
+
+            <summary>Get ToolInput.</summary>
+
+            <returns Cref = "ToolInput?">A ToolInput.</returns>
+
+        </method>
+
+        <method name = "GetToolOutput">
+
+            <summary>Get ToolOutput.</summary>
+
+            <returns Cref = "ToolOutput?">A ToolOutput.</returns>
+
+        </method>
+
+        <method name = "GetWorkflowExceptionData">
+
+            <summary>Get Object.</summary>
+
+            <returns Cref = "WorkflowExceptionData?">WorkflowExceptionData.</returns>
+
+        </method>
+
+        <method name = "IParsable{KusDepotCab}.Parse">
+
+            <summary>Parse KusDepotCab.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "KusDepotCab">Parsed KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse KusDepotCab.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "KusDepotCab?">Parsed KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse KusDepotCab.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "CodeKusDepotCab">Output KusDepotCab.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </record>
+
+</KusDepotCab>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="KusDepot.ToolWebHost">
+    <Position X="9" Y="9.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAKCABAMAAAggAAAAAAAAAAIAAAQAAAAAIAAA=</HashCode>
+      <FileName>Tools\ToolWebHost\ToolWebHost.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.ToolHostOptions">
+    <Position X="22.25" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\ToolHost\ToolHostOptions\ToolHostOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.ToolHostLifetime">
+    <Position X="21.75" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAACAQAAACAAAAAAAABBwAZABAAAAAAAACACA=</HashCode>
+      <FileName>Tools\ToolHost\ToolHostLifetime\ToolHostLifetime.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.ToolHostConsoleLifetime">
+    <Position X="22" Y="10.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACCAAAAAAAAAAABAAAAAAAAAQAABEAAAGAQA=</HashCode>
+      <FileName>Tools\ToolHost\ToolHostLifetime\ToolHostConsoleLifetime\ToolHostConsoleLifetime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.ToolHost">
+    <Position X="8.75" Y="0.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>gEIAAQAAKCAAAIIACghAAAAAAEgAAAAAAUAAAAAAAAI=</HashCode>
+      <FileName>Tools\ToolHost\ToolHost.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="KusDepot.ToolGenericHost">
+    <Position X="16.75" Y="9.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAMAKCAAAIAAAggAAAAAAAAACIABAQAAAAAIAAg=</HashCode>
+      <FileName>Tools\ToolGenericHost\ToolGenericHost.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.ToolAspireHost">
+    <Position X="2" Y="9.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAKCAAAIAAAggAAAAAAgAAAIAAAQAAAAAIAAA=</HashCode>
+      <FileName>Tools\ToolAspireHost\ToolAspireHost.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="KusDepot.IToolHost">
+    <Position X="15.5" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAACABAAAAAAEAAAAAAAEAAAAAAAAI=</HashCode>
+      <FileName>Tools\ToolHost\IToolHost.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

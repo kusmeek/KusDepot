@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IFirewallManager>
+
+    <interface name = "IFirewallManager">
+
+        <main>
+
+            <summary>Firewall Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Firewall Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IFirewallManager>

@@ -1,0 +1,89 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControlClient>
+
+    <interface name = "IDataControlClient">
+
+        <main>
+
+            <summary>DataControl Client Interface.</summary>
+
+        </main>
+
+        <method name = "Delete">
+
+            <summary>Delete Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{Guid?}}">Object ID. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "Get">
+
+            <summary>Retrieve Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{DataControlDownload?}}">DataControlDownload containing Object. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "GetStream">
+
+            <summary>Retrieve Streamed Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "filepath" Cref = "String?">Full path of Streamed Content.</param>
+
+            <param name = "itempath" Cref = "String?">Full path of Serialized Object.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DownloadInfo?}}">DataControlDownload containing Object. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "Store">
+
+            <summary>Store Object.</summary>
+
+            <param name = "dcu" Cref = "DataControlUpload">DataControlUpload.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{Guid?}}">Object ID. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "StoreStream">
+
+            <summary>Store Streamed Content Object.</summary>
+
+            <param name = "it" Cref = "DataItem?">Object to Store.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{HttpResponseMessage?}?">Content contains ID of stored Object.</returns>
+
+        </method>
+
+    </interface>
+
+</IDataControlClient>

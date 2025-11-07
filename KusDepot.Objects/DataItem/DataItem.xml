@@ -1,0 +1,515 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItem>
+
+    <class name = "DataItem">
+
+        <main>
+
+            <summary>Data Abstraction.</summary>
+
+            <remarks>This is the foundation of all storage items.</remarks>
+
+        </main>
+
+        <field name = "ContentStreamed" Cref = "Boolean">
+
+            <summary>True if the Object's data is streamed. Use GetContentStream instead of GetContent.</summary>
+
+        </field>
+
+        <field name = "DataEncrypted" Cref = "Boolean">
+
+            <summary>Data Encrypted.</summary>
+
+        </field>
+
+        <field name = "DataEncryptInfo" Cref = "DataEncryptInfo?">
+
+            <summary>DataEncrypt Information.</summary>
+
+        </field>
+
+        <field name = "DataMasked" Cref = "Boolean">
+
+            <summary>Data Masked.</summary>
+
+        </field>
+
+        <field name = "EncryptedData" Cref = "Byte[]?">
+
+            <summary>This DataItem in encrypted form.</summary>
+
+        </field>
+
+        <field name = "SecureHashes" Cref = "Dictionary{String,Byte[]}?">
+
+            <summary>Secure Hash Codes (SHA).</summary>
+
+            <remarks>Stores hash codes for fields. Use field name for keys.</remarks>
+
+        </field>
+
+        <field name = "SecureSignatures" Cref = "Dictionary{String,Byte[]}?">
+
+            <summary>Digital Signatures.</summary>
+
+            <remarks>Stores digital signatures for fields. Use field name for keys.</remarks>
+
+        </field>
+
+        <field name = "Sync" Cref = "DataSync">
+
+            <summary>Synchronization Object.</summary>
+
+        </field>
+
+        <field name = "Type" Cref = "String?">
+
+            <summary>DataType.cs.</summary>
+
+            <remarks>The format of the item Content.</remarks>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "CheckDataHashCore">
+
+            <summary>Core hash verification logic for data integrity.</summary>
+
+            <param name = "data" Cref = "Byte[]?">The in-memory content to verify.</param>
+
+            <param name = "stream" Cref = "Stream?">The content stream to verify.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the current data matches the stored hash for the current state.</returns>
+
+        </method>
+
+        <method name = "Clone">
+
+            <summary>Clone Item.</summary>
+
+            <returns Cref = "DataItem?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "CloneOpen">
+
+            <summary>Clone Item.</summary>
+
+            <typeparam name = "TResult">Type to Clone.</typeparam>
+
+            <returns Cref = "TResult?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "CloneProtected">
+
+            <summary>Clone Item.</summary>
+
+            <returns Cref = "DataItem?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "DecryptDataBuffer">
+
+            <summary>Decrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to decrypt.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for decryption.</param>
+
+            <returns Cref = "Byte[]?">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptDataBufferAsync">
+
+            <summary>Decrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to decrypt.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptDataCore">
+
+            <summary>Decrypt Content.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Content to decrypt.</param>
+
+            <param name = "file" Cref = "String?">FILE path if ContentStreamed.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Stream?}">A stream containing the decrypted data.</returns>
+
+        </method>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize Object.</summary>
+
+            <typeparam name = "TResult">Type to deserialize.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Input to deserialize.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "TResult">Output Object.</returns>
+
+        </method>
+
+        <method name = "DeserializeAny">
+
+            <summary>Deserialize Object.</summary>
+
+            <param name = "input" Cref = "Byte[]">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataItem?">Output Object.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBuffer">
+
+            <summary>Encrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to encrypt.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for encryption and signing.</param>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferAsync">
+
+            <summary>Encrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to encrypt.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for encryption and signing.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptDataCore">
+
+            <summary>Encrypt Content.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Content to encrypt.</param>
+
+            <param name = "file" Cref = "String?">FILE path if ContentStreamed.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for encryption and signing.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <return Cref = "Task{Stream?}">Encrypted Data.</return>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <typeparam name = "TResult">Type to Create.</typeparam>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "TResult?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContentStream_NoSync">
+
+            <summary>Opens a Stream from the FILE path without synchronization. The Object's Content field is ignored.</summary>
+
+            <returns Cref = "Stream?">Content Stream.</returns>
+
+        </method>
+
+        <method name = "GetHashCode_NoSync">
+
+            <summary>Generate Hash Code without synchronization.</summary>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetEncryptedData">
+
+            <summary>Get EncryptedData.</summary>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "GetSecureHashes">
+
+            <summary>Get Secure Hashes.</summary>
+
+            <returns Cref = "Dictionary{String,Byte[]}?">Secure Hashes.</returns>
+
+        </method>
+
+        <method name = "GetSecureSignatures">
+
+            <summary>Get Secure Signatures.</summary>
+
+            <returns Cref = "Dictionary{String,Byte[]}?">Secure Signatures.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Object.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "TResult">Output Object.</returns>
+
+        </method>
+
+        <method name = "ParseAny">
+
+            <summary>Parse Object.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataItem?">Output Object.</returns>
+
+        </method>
+
+        <method name = "RegisterManager_NoSync">
+
+            <summary>Register a Manager without synchronization.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Manager Registered.</returns>
+
+        </method>
+
+        <method name = "RegisterManagerCertificate_NoSync">
+
+            <summary>Register a Manager without synchronization.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "ManagementKey?">ManagementKey derived from certificate.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize the current object to an array of bytes .</summary>
+
+            <returns Cref = "Byte[]">A Byte array representing the serialized object.</returns>
+
+        </method>
+
+        <method name = "ToStringCore">
+
+            <summary>Serialize the current object to a string.</summary>
+
+            <returns Cref = "String">A base64-encoded string representing the serialized object.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Object.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output Object.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "TryDeserialize">
+
+            <summary>Try to Deserialize Object.</summary>
+
+            <typeparam name = "TResult">Type to deserialize.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Input to deserialize.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output Object.</param>
+
+            <returns Cref = "Boolean">True if input was deserialize successfully.</returns>
+
+        </method>
+
+        <method name = "UpdateSecureHash">
+
+            <summary>Update a SecureHash.</summary>
+
+            <param name = "key" Cref = "String?">SecureHash key.</param>
+
+            <param name = "data" Cref = "Byte[]?">Data to hash.</param>
+
+            <param name = "store" Cref = "Boolean">True to store data value directly.</param>
+
+            <returns Cref = "Boolean">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+        <method name = "UpdateSecureSignature">
+
+            <summary>Sign the hash for the given key using the provided ManagementKey and store the signature in SecureSignatures.</summary>
+
+            <param name = "key" Cref = "String?">The key for the hash/signature (e.g., field name).</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The ManagementKey containing the certificate for signing.</param>
+
+            <returns Cref = "Boolean">True if the signature was computed and stored successfully.</returns>
+
+        </method>
+
+        <method name = "VerifyDataCore">
+
+            <summary>
+                Verifies the most recent digital signature for the specified field using the provided current field data or stream.
+            </summary>
+
+            <param name = "field" Cref = "String?">The name of the field to verify (e.g., "Content").</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The ManagementKey containing the certificate for signature verification.</param>
+
+            <param name = "currentfielddata" Cref = "Byte[]?">The current in-memory data for the field.</param>
+
+            <param name = "currentfieldstream" Cref = "Stream?">The current stream for the field.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid and the current data matches the signed hash; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "VerifySecureHash">
+
+            <summary>Verify secure hash match current data.</summary>
+
+            <param name = "key" Cref = "String?">SecureHash key.</param>
+
+            <param name = "data" Cref = "Byte[]?">Data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if secure hash match current data.</returns>
+
+        </method>
+
+        <method name = "VerifySecureHashStream">
+
+            <summary>Verify secure hash match current data.</summary>
+
+            <param name = "key" Cref = "String?">SecureHash key.</param>
+
+            <param name = "data" Cref = "Stream?">Data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if secure hash match current data.</returns>
+
+        </method>
+
+        <method name = "VerifySecureSignature">
+
+            <summary>Verify the signature for the given key using the provided ManagementKey.</summary>
+
+            <param name = "key" Cref = "String">The key for the hash/signature (e.g., field name).</param>
+
+            <param name = "managementKey" Cref = "ManagementKey?">The ManagementKey containing the certificate for verification.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid for the hash and key.</returns>
+
+        </method>
+
+        <method name = "ZeroDataCore">
+
+            <summary>The core recursive implementation for ZeroData.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key for authorization.</param>
+
+            <param name = "visited" Cref = "HashSet{Object}">A set of already visited objects.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the object has already been processed; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ZeroDataInMemoryOnlyCore">
+
+            <summary>The core recursive implementation for zeroing only the in-memory data.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key for authorization.</param>
+
+            <param name = "visited" Cref = "HashSet{Object}">A set of already visited objects.</param>
+
+            <param name = "requirelocks" Cref = "Boolean">A flag indicating whether locks must be acquired.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the object has already been processed; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+    </class>
+
+</DataItem>

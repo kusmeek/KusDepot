@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="KusDepot.Data.Clients.CatalogClient">
+    <Position X="11.75" Y="2.25" Width="9" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAADAAAAAAAAAAAAAAIAAAAAAgAAAAABAECAQ=</HashCode>
+      <FileName>ServiceClients\CatalogClient\CatalogClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.Data.Clients.DataControlClient">
+    <Position X="2" Y="2.25" Width="9" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAAQABAAAAAIAAABAEAAAAAAAAAAVAAAAQ=</HashCode>
+      <FileName>ServiceClients\DataControlClient\DataControlClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

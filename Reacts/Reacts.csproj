@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Reacts</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CS4014;NU1510</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <UserSecretsId>964ef7fb-d715-482d-aad8-6ebe438a15ce</UserSecretsId>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <DockerfileContext>.</DockerfileContext>
+
+        <Nullable>Enable</Nullable>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CoreWCF.Primitives" ExcludeAssets="all" />
+
+        <PackageReference Include="Google.Protobuf" />
+
+        <PackageReference Include="Grpc.Net.Client" />
+
+        <PackageReference Include="KusDepot.Builders" />
+
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" />
+
+        <PackageReference Include="Microsoft.TypeScript.MSBuild" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+        <PackageReference Include="RestSharp" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="www">
+        <Folder Include="localpkgs\" />
+        <Folder Include="wwwroot" />
+    </ItemGroup>
+
+    <Target Name="CopyShapeApiGrpcClient" BeforeTargets="CoreCompile" Condition="'$(ContainerBuild)' != 'true'">
+        <ItemGroup>
+            <ShapeApiGrpcFiles Include="..\ReactG\shapeapicsharp\shapeapi\*" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(ShapeApiGrpcFiles)" DestinationFiles="@(ShapeApiGrpcFiles->'$(ProjectDir)ShapeApiClients\grpc-generated\%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
+
+    <Target Name="NpmInstall" BeforeTargets="CoreCompile" Condition="'$(ContainerBuild)' != 'true'">
+
+        <Exec Command="npm install" WorkingDirectory="$(ProjectDir)" />
+
+    </Target>
+
+    <Target Name="ClearWwwRoot" AfterTargets="Build" Condition="'$(ContainerBuild)' != 'true'">
+        <ItemGroup>
+            <FilesToDelete Include="$(ProjectDir)wwwroot\**\*.*" />
+        </ItemGroup>
+
+        <Delete Files="@(FilesToDelete)" />
+    </Target>
+
+    <Target Name="RunWebpack" AfterTargets="ClearWwwRoot" Condition="'$(ContainerBuild)' != 'true'">
+      <Exec Condition=" '$(Configuration)' == 'Release' " Command="npm run production" WorkingDirectory="$(ProjectDir)" />
+      <Exec Condition=" '$(Configuration)' != 'Release' " Command="npm run development" WorkingDirectory="$(ProjectDir)" />
+    </Target>
+
+</Project>
