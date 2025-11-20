@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolServiceProvider>
+    <class name = "ToolServiceProvider">
+        <main>
+            <summary>
+                Constructor injection for a ServiceProvider.
+            </summary>
+        </main>
+        <property name="ServiceProvider">
+            <summary>The service provider instance.</summary>
+        </property>
+        <constructor name="Constructor">
+            <summary>Initializes a new instance of the ToolServiceProvider class.</summary>
+            <param name="serviceprovider">The service provider.</param>
+        </constructor>
+    </class>
+</ToolServiceProvider>

@@ -1,0 +1,25 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostLifetime>
+
+    <class name = "ToolHostLifetime">
+
+        <main>
+
+            <summary>ToolHost Lifetime.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name= "lifeid" Cref= "Guid">LifeID</param>
+
+            <returns Cref = "ToolHostLifetime">ToolHostLifetime.</returns>
+
+        </constructor>
+
+    </class>
+
+</ToolHostLifetime>

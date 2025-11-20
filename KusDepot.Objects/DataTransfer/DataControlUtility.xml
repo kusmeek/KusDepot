@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlUtility>
+
+    <class name = "DataControlUtility">
+
+        <main>
+
+            <summary>Defines methods to generate DataControl download and upload DTOs and verify their integrity.</summary>
+
+        </main>
+
+        <method name = "MakeDataControlDownload">
+
+            <summary>Creates a DataControlDownload DTO.</summary>
+
+            <param name = "it" Cref = "String?">Serialized Object.</param>
+
+            <param name = "fs" Cref = "Stream?">Streamed File.</param>
+
+            <returns Cref = "DataControlDownload?">The DTO.</returns>
+
+        </method>
+
+        <method name = "MakeDataControlUpload">
+
+            <summary>Creates a DataControlUpload DTO.</summary>
+
+            <param name = "it" Cref = "DataItem?">Data Item.</param>
+
+            <returns Cref = "DataControlUpload?">The DTO.</returns>
+
+        </method>
+
+        <method name = "VerifyDownload">
+
+            <summary>Verify integrity of Download DTO.</summary>
+
+            <param name = "dcd" Cref = "DataControlUpload?">The DTO.</param>
+
+            <returns Cref = "Boolean">True if SHA512 hash of Object equals ObjectSHA512.</returns>
+
+        </method>
+
+        <method name = "VerifyUpload">
+
+            <summary>Verify integrity of Upload DTO.</summary>
+
+            <param name = "dcu" Cref = "DataControlUpload?">The DTO.</param>
+
+            <returns Cref = "Boolean">True if SHA512 hash of Object equals ObjectSHA512.</returns>
+
+        </method>
+
+    </class>
+
+</DataControlUtility>

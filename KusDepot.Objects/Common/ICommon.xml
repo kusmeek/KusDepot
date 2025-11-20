@@ -1,0 +1,155 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICommon>
+
+    <interface name = "ICommon">
+
+        <main>
+
+            <summary>Common Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of Common Entities.</remarks>
+
+        </main>
+
+        <method name = "CheckManager">
+
+            <summary>Check management of Object.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Object is managed by key.</returns>
+
+        </method>
+
+        <method name = "CreateManagementKey">
+
+            <summary>Create a ManagementKey.</summary>
+
+            <param name = "subject" Cref = "String?">Subject of certificate key.</param>
+
+            <returns Cref = "ManagementKey?">Management Key.</returns>
+
+        </method>
+
+        <method name = "CreateManagementKeyCertificate">
+
+            <summary>Create a ManagementKey.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "ManagementKey?">Management Key.</returns>
+
+        </method>
+
+        <method name = "RegisterManager">
+
+            <summary>Register a Manager.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Manager Registered.</returns>
+
+        </method>
+
+        <method name = "RegisterManagerCertificate">
+
+            <summary>Register a Manager.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "ManagementKey?">ManagementKey derived from certificate.</returns>
+
+        </method>
+
+        <method name = "DisableMyExceptions">
+
+            <summary>Disable Object's exceptions.</summary>
+
+            <returns Cref = "Boolean">True if Object's exceptions suppressed.</returns>
+
+        </method>
+
+        <method name = "EnableMyExceptions">
+
+            <summary>Enable Object's exceptions.</summary>
+
+            <returns Cref = "Boolean">True if exceptions are thrown by this Object.</returns>
+
+        </method>
+
+        <method name = "GetID">
+
+            <summary>Get ID.</summary>
+
+            <returns Cref = "Guid?">Object ID.</returns>
+
+        </method>
+
+        <method name = "GetLocked">
+
+            <summary>Get Locked.</summary>
+
+            <returns Cref = "Boolean">Locked.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Object.</summary>
+
+            <returns Cref = "Boolean">True if Object Initialized successfully.</returns>
+
+        </method>
+
+        <method name = "Lock">
+
+            <summary>Lock Object.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Object Locked successfully.</returns>
+
+        </method>
+
+        <method name = "MyExceptionsEnabled">
+
+            <summary>Current Object exception configuration.</summary>
+
+            <returns Cref = "Boolean">True if exceptions are thrown by this Object.</returns>
+
+        </method>
+
+        <method name = "SetID">
+
+            <summary>Set ID.</summary>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <returns Cref = "Boolean">Returns true if ID was set successfully.</returns>
+
+        </method>
+
+        <method name = "UnLock">
+
+            <summary>UnLock Object.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Object Unlocked successfully.</returns>
+
+        </method>
+
+        <method name = "UnRegisterManager">
+
+            <summary>UnRegister a Manager.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Manager UnRegistered.</returns>
+
+        </method>
+
+    </interface>
+
+</ICommon>

@@ -1,0 +1,65 @@
+﻿namespace KusDepot.Data;
+
+internal static class DataControlStrings
+{
+    public const String ConfigFilePath        = @"C:\KusDepotConfig\DataControl\appsettings.json";
+    public const String DiskStorePath         = @"C:\KusDepotDiskStore";
+    public const String LogFilePath           = @"C:\KusDepotLogs\DataControl.log";
+
+    public const String AddCacheFail          = @"AddCache Failed";
+    public const String AddCacheFailID        = @"AddCache Failed {@ID}";
+    public const String AddCacheSuccess       = @"AddCache Succeeded";
+    public const String AddCacheSuccessID     = @"AddCache Succeeded {@ID}";
+    public const String BadArg                = @"An argument was not valid";
+    public const String BadArgID              = @"An argument was not valid {@ID}";
+    public const String DataControlClosing    = @"DataControl Service Closing";
+    public const String DataControlFail       = @"DataControl Service Failed";
+    public const String DataControlStartedURL = @"DataControl Server Started at {@URL}";
+    public const String DataControlStopped    = @"DataControl Server Stopped";
+    public const String DeleteCatalogFail     = @"Delete Blob Succeeded CatalogDB Remove Failed";
+    public const String DeleteCatalogFailID   = @"Delete Blob Succeeded CatalogDB Remove Failed {@ID}";
+    public const String DeleteBlobFail        = @"Delete Blob Failed";
+    public const String DeleteBlobFailID      = @"Delete Blob Failed {@ID}";
+    public const String DeleteFail            = @"Delete Failed";
+    public const String DeleteFailID          = @"Delete Failed {@ID}";
+    public const String DeleteNotFound        = @"Delete Not Found";
+    public const String DeleteNotFoundID      = @"Delete Not Found {@ID}";
+    public const String DeleteSuccessID       = @"Delete Succeeded {@ID}";
+    public const String DeleteUnAuth          = @"Delete Failed Unauthorized";
+    public const String DeleteUnAuthID        = @"Delete Failed Unauthorized {@ID}";
+    public const String StreamBlobName        = @"STREAM";
+    public const String GetFail               = @"Get Failed";
+    public const String GetFailID             = @"Get Failed {@ID}";
+    public const String GetNotFound           = @"Get Not Found";
+    public const String GetNotFoundID         = @"Get Not Found {@ID}";
+    public const String GetSuccessID          = @"Get Succeeded {@ID}";
+    public const String GetStreamSuccessID    = @"GetStream Succeeded {@ID}";
+    public const String GetSuccessCacheID     = @"Get Succeeded from CoreCache {@ID}";
+    public const String GetUnAuth             = @"Get Failed Unauthorized";
+    public const String GetUnAuthID           = @"Get Failed Unauthorized {@ID}";
+    public const String HostProcessExit       = @"DataControl Host Process Exiting {@PID}";
+    public const String RegisterSuccess       = @"DataControl Service Registration Succeeded {@PID}";
+    public const String ServiceName           = @"DataControl";
+    public const String StartDiagnosticFail   = @"StartDiagnostic Failed {@Method}";
+    public const String StartUpFail           = @"DataControl StartUp Failed";
+    public const String StoreCatalogFail      = @"Store Blob Succeeded CatalogDB AddUpdate Failed";
+    public const String StoreCatalogFailID    = @"Store Blob Succeeded CatalogDB AddUpdate Failed {@ID}";
+    public const String StoreBlobFail         = @"Store Blob Failed";
+    public const String StoreBlobFailID       = @"Store Blob Failed {@ID}";
+    public const String StoreFailConflict     = @"Store Failed Conflict";
+    public const String StoreFailConflictID   = @"Store Failed Conflict {@ID}";
+    public const String StoreFailDescriptor   = @"Store Failed {@Descriptor}";
+    public const String StoreSuccessID        = @"Store Succeeded {@ID}";
+    public const String StoreUnAuth           = @"Store Failed Unauthorized";
+    public const String StoreUnAuthID         = @"Store Failed Unauthorized {@ID}";
+    public const String TraceServiceName      = @"DataControl";
+    public const String TraceSourceName       = @"KusDepot.Data.Control";
+    public const String VerificationFail      = @"Store Failed Verification";
+    public const String VerificationFailID    = @"Store Failed Verification {@ID}";
+    public const String X509AuthFail          = @"Certificate Policy Oid Not Found";
+    public const String X509Claim             = @"DataControlAccess";
+    public const String X509NotFound          = @"TLS Server Certificate Not Found";
+    public const String X509Policy            = @"DataControlAccess";
+    public const String X509PolicyOid         = @"2.5.29.32.853207196923";
+    public const String X509SubjectName       = @"KusDepot.Data.Control";
+}

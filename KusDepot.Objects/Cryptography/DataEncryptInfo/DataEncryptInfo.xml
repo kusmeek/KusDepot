@@ -1,0 +1,107 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataEncryptInfo>
+
+    <class name = "DataEncryptInfo">
+
+        <main>
+
+            <summary>Describes the cryptographic identity used to encrypt a DataItem.</summary>
+
+        </main>
+
+        <field name = "managementkeyid" Cref = "Guid?">
+
+            <summary>ManagementKey ID.</summary>
+
+        </field>
+
+        <field name = "publickey" Cref = "String?">
+
+            <summary>The public key (Base64-encoded) used for encryption.</summary>
+
+        </field>
+
+        <field name = "serial" Cref = "String?">
+
+            <summary>The serial number of the certificate used for encryption.</summary>
+
+        </field>
+
+        <field name = "thumbprint" Cref = "String?">
+
+            <summary>The thumbprint of the certificate used for encryption.</summary>
+
+        </field>
+
+        <property name = "ManagementKeyID" Cref = "Guid?">
+
+            <summary>ManagementKey ID.</summary>
+
+        </property>
+
+        <property name = "PublicKey" Cref = "String?">
+
+            <summary>Gets or sets the Base64-encoded public key used for encryption.</summary>
+
+        </property>
+
+        <property name = "Serial" Cref = "String?">
+
+            <summary>Gets or sets the serial number of the certificate used for encryption.</summary>
+
+        </property>
+
+        <property name = "ThumbPrint" Cref = "String?">
+
+            <summary>Gets or sets the thumbprint of the certificate used for encryption.</summary>
+
+        </property>
+
+        <method name = "Clone">
+
+            <summary>Clone DataEncryptInfo.</summary>
+
+            <returns Cref = "DataEncryptInfo">A new DataEncryptInfo instance with identical values.</returns>
+
+        </method>
+
+        <constructor name = "Constructor">
+
+            <summary>Initializes a new instance of the DataEncryptInfo class with the specified public key, serial number, and thumbprint.</summary>
+
+            <param name = "publickey" Cref = "String?">The Base64-encoded public key used for encryption.</param>
+
+            <param name = "serial" Cref = "String?">The serial number of the certificate used for encryption.</param>
+
+            <param name = "thumbprint" Cref = "String?">The thumbprint of the certificate used for encryption.</param>
+
+            <param name = "managementkeyid" Cref = "Guid?">ManagementKey ID.</param>
+
+            <returns Cref = "DataEncryptInfo">A new DataEncryptInfo instance.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorCertificate">
+
+            <summary>Initializes a new instance of the DataEncryptInfo class from an X509Certificate2, extracting the public key, serial number, and thumbprint.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">The certificate to extract information from.</param>
+
+            <returns Cref = "DataEncryptInfo">A new DataEncryptInfo instance.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorKey">
+
+            <summary>Initializes a new instance of the DataEncryptInfo class from a ManagementKey, deserializing the certificate and extracting the public key, serial number, and thumbprint.</summary>
+
+            <param name = "key" Cref = "ManagementKey">The management key containing the certificate.</param>
+
+            <returns Cref = "DataEncryptInfo">A new DataEncryptInfo instance.</returns>
+
+        </constructor>
+
+    </class>
+
+</DataEncryptInfo>

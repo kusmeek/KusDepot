@@ -1,0 +1,809 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Utility>
+
+    <class name = "Utility">
+
+        <main>
+
+            <summary>General Utility.</summary>
+
+            <remarks>Conversion, compression, security, and miscellaneous methods.</remarks>
+
+        </main>
+
+        <method name = "AllAsyncRx">
+
+            <summary>Forwards to System.Linq.Async.</summary>
+
+            <typeparam name = "TSource">Source Type.</typeparam>
+
+            <param name = "source" Cref = "IAsyncEnumerable{TSource}">Source.</param>
+
+            <param name = "predicate" Cref = "Func{TSource,Boolean}">Predicate.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "ValueTask{Boolean}">Result of AllAsync.</returns>
+
+        </method>
+
+        <method name = "CloneByteArray">
+
+            <summary>Clone a Byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <returns Cref = "Byte[]">Cloned array or empty if input was null.</returns>
+
+        </method>
+
+        <method name = "CreateCertificate">
+
+            <summary>Create a Certificate.</summary>
+
+            <param name = "obj" Cref = "ICommon?">Common Entity.</param>
+
+            <param name = "subject" Cref = "String?">Certificate subject.</param>
+
+            <returns Cref = "X509Certificate2?">Self-signed certificate.</returns>
+
+        </method>
+
+        <method name = "CreateCertificate2">
+
+            <summary>Create a Certificate.</summary>
+
+            <param name = "obj" Cref = "ICommon?">Common Entity.</param>
+
+            <param name = "subject" Cref = "String?">Certificate subject.</param>
+
+            <param name = "rsakeysize" Cref = "Int32">RSA Key Size.</param>
+
+            <param name = "yearsvalid" Cref = "Int32">Certificate validity in years.</param>
+
+            <param name = "hashname" Cref = "HashAlgorithmName?">Hash Algorithm.</param>
+
+            <returns Cref = "X509Certificate2?">Self-signed certificate.</returns>
+
+        </method>
+
+        <method name = "CreateCertificateID">
+
+            <summary>Create a Certificate.</summary>
+
+            <param name = "id" Cref = "Guid?">Common Entity ID.</param>
+
+            <param name = "subject" Cref = "String?">Certificate subject.</param>
+
+            <param name = "rsakeysize" Cref = "Int32">RSA Key Size.</param>
+
+            <param name = "yearsvalid" Cref = "Int32">Certificate validity in years.</param>
+
+            <param name = "hashname" Cref = "HashAlgorithmName?">Hash Algorithm.</param>
+
+            <returns Cref = "X509Certificate2?">Self-signed certificate.</returns>
+
+        </method>
+
+        <method name = "Compress">
+
+            <summary>Compress data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <returns Cref = "Byte[]?">Compressed Data.</returns>
+
+        </method>
+
+        <method name = "CompressAsync">
+
+            <summary>Compress data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Compressed Data.</returns>
+
+        </method>
+
+        <method name = "CompressStream">
+
+            <summary>Compresses data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if compression succeeded.</returns>
+
+        </method>
+
+        <method name = "CompressStreamAsync">
+
+            <summary>Asynchronously compresses data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if compression succeeded.</returns>
+
+        </method>
+
+        <method name = "Decompress">
+
+            <summary>Decompress data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <returns Cref = "Byte[]?">Decompressed Data.</returns>
+
+        </method>
+
+        <method name = "DecompressAsync">
+
+            <summary>Decompress data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Decompressed Data.</returns>
+
+        </method>
+
+        <method name = "DecompressStream">
+
+            <summary>Decompresses data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if decompression succeeded.</returns>
+
+        </method>
+
+        <method name = "DecompressStreamAsync">
+
+            <summary>Asynchronously decompresses data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if decompression succeeded.</returns>
+
+        </method>
+
+        <method name = "Decrypt">
+
+            <summary>Decrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <returns Cref = "Byte[]?">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptAsync">
+
+            <summary>Decrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]?">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptStream">
+
+            <summary>Decrypts data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <returns Cref = "Boolean">True if decryption succeeded.</returns>
+
+        </method>
+
+        <method name = "DecryptSpan">
+
+            <summary>Decrypt data.</summary>
+
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Input.</param>
+
+            <param name = "output" Cref = "Span{Byte}">Output.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "byteswritten" Cref = "Int32">Bytes Written.</param>
+
+            <param name = "aad" Cref = "ReadOnlySpan{Byte}">Additional authenticated data.</param>
+
+            <returns Cref = "Boolean">True if decryption succeeded.</returns>
+
+        </method>
+
+        <method name = "DecryptStreamAsync">
+
+            <summary>Decrypts data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if decryption succeeded.</returns>
+
+        </method>
+
+        <method name = "DeserializeCertificate">
+
+            <summary>Deserialize a Certificate.</summary>
+
+            <param name = "certificate" Cref = "Byte[]?">Serialized Certificate.</param>
+
+            <returns Cref = "X509Certificate2?">Certificate.</returns>
+
+        </method>
+
+        <method name = "Encrypt">
+
+            <summary>Encrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "includeaadhash" Cref = "Boolean">Include AAD hash in envelope.</param>
+
+            <param name = "includeoriginallength" Cref = "Boolean">Include original length in envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Chunk size as a power of two.</param>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptAsync">
+
+            <summary>Encrypt data.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "includeaadhash" Cref = "Boolean">Include AAD hash in envelope.</param>
+
+            <param name = "includeoriginallength" Cref = "Boolean">Include original length in envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Chunk size as a power of two.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptStream">
+
+            <summary>Encrypts data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "includeaadhash" Cref = "Boolean">Include AAD hash in envelope.</param>
+
+            <param name = "includeoriginallength" Cref = "Boolean">Include original length in envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Chunk size as a power of two.</param>
+
+            <returns Cref = "Boolean">True if encryption succeeded.</returns>
+
+        </method>
+
+        <method name = "EncryptSpan">
+
+            <summary>Encrypt data.</summary>
+
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Input.</param>
+
+            <param name = "output" Cref = "Span{Byte}">Output.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "byteswritten" Cref = "Int32">Bytes Written.</param>
+
+            <param name = "aad" Cref = "ReadOnlySpan{Byte}">Additional authenticated data.</param>
+
+            <param name = "includeaadhash" Cref = "Boolean">Include AAD hash in envelope.</param>
+
+            <returns Cref = "Boolean">True if encryption succeeded.</returns>
+
+        </method>
+
+        <method name = "EncryptStreamAsync">
+
+            <summary>Encrypts data from input stream to output stream.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <param name = "aad" Cref = "Byte[]?">Additional authenticated data.</param>
+
+            <param name = "includeaadhash" Cref = "Boolean">Include AAD hash in envelope.</param>
+
+            <param name = "includeoriginallength" Cref = "Boolean">Include original length in envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Chunk size as a power of two.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if encryption succeeded.</returns>
+
+        </method>
+
+        <method name = "FormatName">
+
+            <summary>Formats the name of a Type.</summary>
+
+            <param name = "type" Cref = "Type">Input Type.</param>
+
+            <returns Cref = "String?">Formatted Name.</returns>
+
+        </method>
+
+        <method name = "GenerateDeterministicHashCode">
+
+            <summary>Generate a deterministic content-based hash code for an object.</summary>
+
+            <param name = "obj" Cref = "Object?">The object to hash.</param>
+
+            <returns Cref = "Int32">A deterministic hash code based on the object's content.</returns>
+
+            <remarks>
+                <para>This method produces a deterministic hash code for objects by serializing the object's structure and content into a byte representation and hashing it with SHA512.</para>
+                <para>Supports primitives, strings, arrays, lists, sets, dictionaries, DateTime, Guid, Version, Uri, BigInteger, Half, IntPtr, and custom objects with public properties.</para>
+                <para>Returns a fixed value for null input. For objects that cause a stack overflow, returns a hash of the type name.</para>
+            </remarks>
+
+        </method>
+
+        <method name = "GetAllDataTypes">
+
+            <summary>Get all Data Types.</summary>
+
+            <returns Cref = "Dictionary{String,String}">Data Types.</returns>
+
+        </method>
+
+        <method name = "GetAllTags">
+
+            <summary>Get all Tags.</summary>
+
+            <returns Cref = "List{String}">Tags.</returns>
+
+        </method>
+
+        <method name = "GetCommandSpecifications">
+
+            <summary>Get Command Specifications from a Type.</summary>
+
+            <param name = "type" Cref = "Type?">Type that implements Commands.</param>
+
+            <returns Cref = "Dictionary{String,String}?">Specification Manual. Keys are handles, values contain usage information with parameter names and descriptions.</returns>
+
+        </method>
+
+        <method name = "GetAssemblyCommands">
+
+            <summary>Get CommandContainerAttribute data from an assembly.</summary>
+
+            <param name = "assembly" Cref = "Byte[]?">Assembly.</param>
+
+            <param name = "dllpaths" Cref = "IEnumerable{String}?">Paths to DLLs.</param>
+
+            <returns Cref = "HashSet{Tuple{String,String,String}}?">CommandContainerAttribute data.</returns>
+
+        </method>
+
+        <method name = "GetAssemblyServices">
+
+            <summary>Get ServiceContainerAttribute data from an assembly.</summary>
+
+            <param name = "assembly" Cref = "Byte[]?">Assembly.</param>
+
+            <param name = "dllpaths" Cref = "IEnumerable{String}?">Paths to DLLs.</param>
+
+            <returns Cref = "HashSet{Tuple{String,String}}?">ServiceContainerAttribute data.</returns>
+
+        </method>
+
+        <method name = "GetInheritanceList">
+
+            <summary>Get the inheritance list of the object.</summary>
+
+            <param name = "input" Cref = "Object?">Input Object.</param>
+
+            <returns Cref = "String?">Inheritance list.</returns>
+
+        </method>
+
+        <method name = "GetInterfaceList">
+
+            <summary>Get the implemented interface list of the object.</summary>
+
+            <param name = "input" Cref = "Object?">Input Object.</param>
+
+            <returns Cref = "String?">List of interfaces.</returns>
+
+        </method>
+
+        <method name = "GetInterfaceListType">
+
+            <summary>Get the implemented interface list of the type.</summary>
+
+            <param name = "type" Cref = "Type?">Type.</param>
+
+            <returns Cref = "String?">List of interfaces.</returns>
+
+        </method>
+
+        <method name = "IsNullOrEmptyGuid">
+
+            <summary>Determines if a Guid is null or empty.</summary>
+
+            <param name = "input" Cref = "Guid?">Input Object.</param>
+
+            <returns Cref = "Boolean">True if input is null or empty.</returns>
+
+        </method>
+
+        <method name = "ReadAllText">
+
+            <summary>Read all text from a file.</summary>
+
+            <param name = "path" Cref = "String?">Path.</param>
+
+            <returns Cref = "String?">File Content.</returns>
+
+        </method>
+
+        <method name = "SerializeCertificate">
+
+            <summary>Serialize a Certificate.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "Byte[]?">Serialized Certificate.</returns>
+
+        </method>
+
+        <method name = "SelectAwaitRx">
+
+            <summary>Forwards to System.Linq.Async.</summary>
+
+            <typeparam name = "TSource">Source Type.</typeparam>
+
+            <typeparam name = "TResult">Result Type.</typeparam>
+
+            <param name = "source" Cref = "IAsyncEnumerable{TSource}">Source.</param>
+
+            <param name = "selector" Cref = "Func{TSource,ValueTask{TResult}}">Selector.</param>
+
+            <returns Cref = "IAsyncEnumerable{TResult}">Result of SelectAwait.</returns>
+
+        </method>
+
+        <method name = "SignHash">
+
+            <summary>Sign a hash using an X509Certificate2 private key.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key.</param>
+
+            <param name = "hash" Cref = "Byte[]?">Hash to sign.</param>
+
+            <returns Cref = "Byte[]?">Signature of the hash, or null if signing fails.</returns>
+
+        </method>
+
+        <method name = "SignHashKey">
+
+            <summary>Sign a hash using an X509Certificate2 private key.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <param name = "hash" Cref = "Byte[]?">Hash to sign.</param>
+
+            <returns Cref = "Byte[]?">Signature of the hash, or null if signing fails.</returns>
+
+        </method>
+
+        <method name = "ToAsyncEnumerableRx">
+
+            <summary>Forwards to System.Linq.Async.</summary>
+
+            <typeparam name = "TSource">Source Type.</typeparam>
+
+            <param name = "source" Cref = "IAsyncEnumerable{TSource}">Source.</param>
+
+            <returns Cref = "IAsyncEnumerable{TSource}">Result of ToAsyncEnumerable.</returns>
+
+        </method>
+
+        <method name = "ToBase64FromByteArray">
+
+            <summary>Convert a Byte Array into a Base64 String.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Array.</param>
+
+            <returns Cref = "String">Base64 String.</returns>
+
+        </method>
+
+        <method name = "ToByteArrayFromBase64">
+
+            <summary>Convert a Base64 String into a Byte Array.</summary>
+
+            <param name = "input" Cref = "String?">Input Base64 String.</param>
+
+            <returns Cref = "Byte[]">Byte Array.</returns>
+
+        </method>
+
+        <method name = "ToByteArrayFromUTF16String">
+
+            <summary>Convert a UTF16 String into a Byte Array.</summary>
+
+            <param name = "input" Cref = "String?">Input UTF16 String.</param>
+
+            <returns Cref = "Byte[]">Byte Array.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabAccessRequest">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "AccessRequest?">AccessRequest.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabAccessRequestWeb">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "AccessRequestWeb?">AccessRequestWeb.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabCommandDetails">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "CommandDetails?">Command Details.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabDataContent">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "DataContent?">DataContent.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabDataItem">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "DataItem?">DataItem.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabDescriptor">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "Descriptor?">Descriptor.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabKeySet">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "KeySet?">KeySet.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabSecurityKey">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "SecurityKey?">SecurityKey.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabSecurityKeyWeb">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "SecurityKeyWeb?">SecurityKeyWeb.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabToolData">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "ToolData?">ToolData.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToKusDepotCabWorkflowExceptionData">
+
+            <summary>Create a KusDepotCab from object.</summary>
+
+            <param name = "input" Cref = "WorkflowExceptionData?">WorkflowExceptionData.</param>
+
+            <returns Cref = "KusDepotCab">KusDepotCab.</returns>
+
+        </method>
+
+        <method name = "ToUTF16StringFromByteArray">
+
+            <summary>Convert a Byte array into a UTF16 String.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Byte Array.</param>
+
+            <returns Cref = "String">UTF16 String.</returns>
+
+        </method>
+
+        <method name = "ToStringInvariant">
+
+            <summary>Calls Convert.ToString using CultureInfo.InvariantCulture.</summary>
+
+            <param name = "input" Cref = "Object?">Input Object.</param>
+
+            <returns Cref = "String?">String.</returns>
+
+        </method>
+
+        <method name = "TryGetStringFromByteArray">
+
+            <summary>Try to make a String from unknown encoding byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Input Byte Array.</param>
+
+            <returns Cref = "String">UTF16 String.</returns>
+
+        </method>
+
+        <method name = "VerifyHash">
+
+            <summary>Verify a hash signature using an X509Certificate2 public key.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the public key.</param>
+
+            <param name = "hash" Cref = "Byte[]?">Hash that was signed.</param>
+
+            <param name = "signature" Cref = "Byte[]?">Signature to verify.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid for the hash and certificate; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "VerifyHashKey">
+
+            <summary>Verify a hash signature using an X509Certificate2 public key.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <param name = "hash" Cref = "Byte[]?">Hash that was signed.</param>
+
+            <param name = "signature" Cref = "Byte[]?">Signature to verify.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid for the hash and certificate; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ZeroMemoryStream">
+
+            <summary>Overwrites a stream with zeros.</summary>
+
+            <param name = "stream" Cref = "Stream?">The stream to overwrite.</param>
+
+            <returns Cref = "Boolean">True if the operation succeeded; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ZeroMemoryString">
+
+            <summary>Overwrites a string with zeros.</summary>
+
+            <param name = "input" Cref = "String?">The string to overwrite.</param>
+
+            <returns Cref = "Boolean">True if the operation succeeded; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ZeroMemoryStreamAsync">
+
+            <summary>Asynchronously overwrites a stream with zeros.</summary>
+
+            <param name = "stream" Cref = "Stream?">The stream to overwrite.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the operation succeeded; otherwise, false.</returns>
+
+        </method>
+
+    </class>
+
+</Utility>

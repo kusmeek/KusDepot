@@ -1,0 +1,15 @@
+﻿global using Azure;
+global using System;
+global using Serilog;
+global using Azure.Core;
+global using KusDepot.Test;
+global using System.Text.Json;
+global using System.Threading;
+global using System.ComponentModel;
+global using System.Text.Json.Nodes;
+global using System.Threading.Tasks;
+global using Azure.AI.Translation.Text;
+global using ModelContextProtocol.Server;
+global using ModelContextProtocol.Protocol;
+global using static KusDepot.ExceptionStrings;
+global using static KusDepot.AI.ExceptionStrings;

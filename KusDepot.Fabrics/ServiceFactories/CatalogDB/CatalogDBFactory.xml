@@ -1,0 +1,27 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CatalogDBFactory>
+
+    <class name ="CatalogDBFactory">
+
+        <main>
+
+            <summary>CatalogDBFactory.</summary>
+
+            <remarks>This factory creates an ActorProxy for a CatalogDB service.</remarks>
+
+        </main>
+
+        <method name = "Create">
+
+            <summary>Creates an ActorProxy for a CatalogDB service.</summary>
+
+            <param name = "catalogname" Cref = "String">The catalog the CatalogDB stores.</param>
+
+            <returns Cref = "ICatalogDB">The ActorProxy.</returns>
+
+        </method>
+
+    </class>
+
+</CatalogDBFactory>

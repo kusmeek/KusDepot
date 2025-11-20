@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>KusDepot.ToolGrains</AssemblyName>
+
+        <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>IDE0052</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Manifest and Settings">
+
+        <Content Include="PackageRoot\Config\Settings.xml" />
+
+        <Content Include="PackageRoot\ServiceManifest.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.Orleans.Server" />
+
+        <PackageReference Include="Microsoft.Orleans.Transactions" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Services\KusDepot.Services.csproj" />
+
+    </ItemGroup>
+
+</Project>

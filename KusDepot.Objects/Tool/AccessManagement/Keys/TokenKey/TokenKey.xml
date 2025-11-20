@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TokenKey>
+  <class name="TokenKey">
+    <main>
+      <summary>Generic carrier for external tokens.</summary>
+    </main>
+    <constructor name="Constructor">
+      <summary>Create a TokenKey from raw token bytes with an optional ID and classification.</summary>
+      <param name="token" Cref="ReadOnlySpan{Byte}">Raw token bytes.</param>
+      <param name="id" Cref="Guid">Optional identifier for this key.</param>
+      <param name="type" Cref="TokenKeyType">Classification.</param>
+    </constructor>
+    <property name="Type">
+      <summary>Token classification.</summary>
+      <value Cref="TokenKeyType">Token type classification.</value>
+    </property>
+    <method name="Parse">
+      <summary>Deserialize a TokenKey from a base64-encoded binary XML string.</summary>
+      <param name="input" Cref="String">Serialized input.</param>
+      <param name="format" Cref="IFormatProvider">Optional format provider (unused).</param>
+      <returns Cref="TokenKey">The deserialized TokenKey if successful.</returns>
+    </method>
+    <method name="TryParse">
+      <summary>Try to deserialize a TokenKey from a base64-encoded binary XML string.</summary>
+      <param name="input" Cref="String">Serialized input.</param>
+      <param name="format" Cref="IFormatProvider">Optional format provider (unused).</param>
+      <param name="key" Cref="TokenKey">When this method returns, contains the deserialized key if the operation succeeded.</param>
+      <returns Cref="Boolean">True if parse succeeded; otherwise false.</returns>
+    </method>
+  </class>
+  <enum name="TokenKeyType">
+    <main>
+      <summary>Classification for token formats and schemes.</summary>
+    </main>
+    <field name="Unknown">
+      <summary>Unspecified or unknown token type (default).</summary>
+    </field>
+    <field name="Cwt">
+      <summary>CBOR Web Token.</summary>
+    </field>
+    <field name="Jwt">
+      <summary>JSON Web Token.</summary>
+    </field>
+    <field name="Kerberos">
+      <summary>Kerberos service ticket.</summary>
+    </field>
+    <field name="Opaque">
+      <summary>Opaque or binary token.</summary>
+    </field>
+    <field name="Other">
+      <summary>Other.</summary>
+    </field>
+    <field name="Paseto">
+      <summary>Platform-Agnostic Security Tokens.</summary>
+    </field>
+    <field name="Pop">
+      <summary>Generic proof-of-possession token.</summary>
+    </field>
+    <field name="Saml2">
+      <summary>SAML 2.0 assertion.</summary>
+    </field>
+    <field name="Sas">
+      <summary>Shared Access Signature.</summary>
+    </field>
+    <field name="Spnego">
+      <summary>SPNEGO wrapper.</summary>
+    </field>
+    <field name="X509">
+      <summary>X.509 certificate.</summary>
+    </field>
+  </enum>
+</TokenKey>

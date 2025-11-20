@@ -1,0 +1,39 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<HostRequest>
+
+    <class name = "HostRequest">
+
+        <main>
+
+            <summary>Service Access Request.</summary>
+
+        </main>
+
+        <property name = "Host" Cref = "ITool?">
+
+            <summary>Host Requesting Access.</summary>
+
+        </property>
+
+        <property name = "External" Cref = "Boolean">
+
+            <summary>True if external hosting request.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "host" Cref = "ITool">Host.</param>
+
+            <param name = "external" Cref = "Boolean">External.</param>
+
+            <returns Cref = "HostRequest">New HostRequest.</returns>
+
+        </constructor>
+
+    </class>
+
+</HostRequest>

@@ -1,0 +1,45 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandContainerAttribute>
+
+    <class name = "CommandContainerAttribute">
+
+        <main>
+
+            <summary>Associates Command specifications and implementing types with containing assemblies.</summary>
+
+        </main>
+
+        <property name = "Type" Cref = "Type">
+
+            <summary>Implementing type.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String">
+
+            <summary>Command handle.</summary>
+
+        </property>
+
+        <property name = "Specifications" Cref = "String">
+
+            <summary>Command specifications.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "type" Cref = "Type">Implementing Type.</param>
+
+            <param name = "handle" Cref = "String">Command Handle.</param>
+
+            <param name = "specifications" Cref = "String">Command Specifications.</param>
+
+        </constructor>
+
+    </class>
+
+</CommandContainerAttribute>

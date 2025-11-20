@@ -1,0 +1,31 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostBuilder>
+
+    <class name = "ToolHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Tools.</summary>
+
+        </main>
+
+        <method name = "AutoStart">
+
+            <summary>Start Host after Build.</summary>
+
+            <returns Cref = "IToolHostBuilder">ToolHostBuilder.</returns>
+
+        </method>
+
+        <method name = "configuretoolhost">
+
+            <summary>Execute Tool Host Configuration Actions.</summary>
+
+            <param name = "toolhost" Cref = "IToolHost">Built ToolHost.</param>
+
+        </method>
+
+    </class>
+
+</ToolHostBuilder>

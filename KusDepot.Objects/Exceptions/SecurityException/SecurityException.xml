@@ -1,0 +1,47 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SecurityException>
+
+    <class name = "SecurityException">
+
+        <main>
+
+            <summary>Security Exception.</summary>
+
+            <remarks>Security related exception.</remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "SecurityException">New Security Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageConstructor">
+
+            <summary>Constructor With Message.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <returns Cref = "SecurityException">New Security Exception.</returns>
+
+        </constructor> 
+
+        <constructor name = "MessageInnerExceptionConstructor">
+
+            <summary>Constructor With Message And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "innerException" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "SecurityException">New Security Exception.</returns>
+
+        </constructor>
+
+    </class>
+
+</SecurityException>

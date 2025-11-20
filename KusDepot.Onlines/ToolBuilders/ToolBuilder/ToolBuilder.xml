@@ -1,0 +1,149 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolBuilder>
+
+    <class name = "ToolBuilder">
+
+        <main>
+
+            <summary>Build Tools.</summary>
+
+        </main>
+
+        <field name = "seal" Cref = "Boolean">
+
+            <summary>Seal Tool if true.</summary>
+
+        </field>
+
+        <field name = "Start" Cref = "Boolean">
+
+            <summary>Start Tool after Build.</summary>
+
+        </field>
+
+        <field name = "ToolBuilt" Cref = "Boolean">
+
+            <summary>True if Tool has been built.</summary>
+
+        </field>
+
+        <field name = "Context" Cref = "ToolBuilderContext?">
+
+            <summary>Tool Builder Context.</summary>
+
+        </field>
+
+        <field name = "AccessManager" Cref = "IAccessManager?">
+
+            <summary>Access Manager.</summary>
+
+        </field>
+
+        <field name = "ContainerBuilder" Cref = "ContainerBuilder?">
+
+            <summary>Container Builder.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "Dictionary{String,ICommand}?">
+
+            <summary>Commands.</summary>
+
+        </field>
+
+        <field name = "ExternalServiceProvider" Cref = "IServiceProvider?">
+
+            <summary>External ServiceProvider.</summary>
+
+        </field>
+
+        <field name = "ConfigureServicesActions" Cref = "List{Action{ToolBuilderContext,IServiceCollection}}">
+
+            <summary>Service Configuration Actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolActions" Cref = "List{Action{ToolBuilderContext,ITool}}">
+
+            <summary>Tool Configuration Actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolConfigActions" Cref = "List{Action{ToolBuilderContext,IConfigurationBuilder}}">
+
+            <summary>Tool.Configuration Configuration Actions.</summary>
+
+        </field>
+
+        <field name = "SealAction" Cref = "Action{ToolBuilderContext,ITool}">
+
+            <summary>Sealing Action.</summary>
+
+        </field>
+
+        <field name = "StartAction" Cref = "Action{ToolBuilderContext,ITool}">
+
+            <summary>StartHost Action.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "ToolBuilder">New ToolBuilder.</returns>
+
+        </constructor>
+
+        <method name = "configuretool">
+
+            <summary>Execute Tool Configuration Actions.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+        </method>
+
+        <method name = "StartTool">
+
+            <summary>Start the Tool Async.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to start.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if successful.</returns>
+
+        </method>
+
+        <method name = "SealTool">
+
+            <summary>Seal the Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to seal.</param>
+
+            <returns Cref = "Boolean">True if successful.</returns>
+
+        </method>
+
+        <method name = "InitializeToolBuilderContext">
+
+            <summary>Initialize ToolBuilderContext.</summary>
+
+        </method>
+
+        <method name = "InitializeConfiguration">
+
+            <summary>Initialize Configuration.</summary>
+
+        </method>
+
+        <method name = "InitializeServiceProvider">
+
+            <summary>Initialize ServiceProvider.</summary>
+
+        </method>
+
+    </class>
+
+</ToolBuilder>

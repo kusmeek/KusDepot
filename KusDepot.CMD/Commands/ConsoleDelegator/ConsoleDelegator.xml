@@ -1,0 +1,51 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConsoleDelegator>
+
+    <class name = "ConsoleDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a CliWrap Command .</summary>
+
+        </main>
+
+        <property name = "Buffered">
+
+            <summary>True to Execute Command Buffered.</summary>
+
+            <returns Cref = "Boolean">Buffered Execution Mode.</returns>
+
+        </property>
+
+        <property name = "CommandResult">
+
+            <summary>Command Result.</summary>
+
+            <returns Cref = "CommandResult">Console Command Result.</returns>
+
+        </property>
+
+        <property name = "ConsoleCommand">
+
+            <summary>CliWrap Command.</summary>
+
+            <returns Cref = "CliWrap.Command">Console Command.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "command" Cref = "CliWrap.Command">Console Command.</param>
+
+            <param name = "buffered" Cref = "Boolean">Execution Mode.</param>
+
+            <returns Cref = "ConsoleDelegator">New ConsoleDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</ConsoleDelegator>

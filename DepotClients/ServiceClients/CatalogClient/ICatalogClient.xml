@@ -1,0 +1,99 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalogClient>
+
+    <interface name = "ICatalogClient">
+
+        <main>
+
+            <summary>Catalog Client Interface.</summary>
+
+        </main>
+
+        <method name = "SearchServices">
+
+            <summary>Search Services.</summary>
+
+            <param name = "query" Cref = "ServiceRequest">Service Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ServiceResponse?}}">Service Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchCommands">
+
+            <summary>Search Commands.</summary>
+
+            <param name = "query" Cref = "CommandRequest">Command Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{CommandResponse?}}">Command Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchElements">
+
+            <summary>Search Elements.</summary>
+
+            <param name = "query" Cref = "ElementRequest">Element Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ElementResponse?}}">Element Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchMedia">
+
+            <summary>Search Media.</summary>
+
+            <param name = "query" Cref = "MediaRequest">Media Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{MediaResponse?}}">Media Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchNotes">
+
+            <summary>Search Notes.</summary>
+
+            <param name = "query" Cref = "NoteRequest">Note Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{NoteResponse?}}">Note Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchTags">
+
+            <summary>Search Tags.</summary>
+
+            <param name = "query" Cref = "TagRequest">Tag Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{TagResponse?}}">Tag Records. StatusCode indicates result.</returns>
+
+        </method>
+
+    </interface>
+
+</ICatalogClient>

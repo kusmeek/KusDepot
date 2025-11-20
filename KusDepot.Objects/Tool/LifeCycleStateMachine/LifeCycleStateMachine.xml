@@ -1,0 +1,185 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LifeCycleStateMachine>
+
+    <class name = "LifeCycleStateMachine">
+
+        <main>
+
+            <summary>LifeCycle State Machine.</summary>
+
+        </main>
+
+        <property name = "State">
+
+            <summary>Current State.</summary>
+
+            <returns Cref = "LifeCycleState">Current State.</returns>
+
+        </property>
+
+        <property name = "ToolID">
+
+            <summary>Tool ID.</summary>
+
+            <returns Cref = "LifeCycleState">Tool ID.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param name = "toolid" Cref ="Guid?">Tool ID.</param>
+
+            <returns Cref = "LifeCycleStateMachine">LifeCycleStateMachine</returns>
+
+        </constructor>
+
+        <method name = "ActivateOK">
+
+            <summary>Determine if OK to begin Activate.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Activate.</returns>
+
+        </method>
+
+        <method name = "DeactivateOK">
+
+            <summary>Determine if OK to begin Deactivate.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Deactivate.</returns>
+
+        </method>
+
+        <method name = "InitializeOK">
+
+            <summary>Determine if OK to begin Initialize.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Initialize.</returns>
+
+        </method>
+
+        <method name = "StartingOK">
+
+            <summary>Determine if OK to begin Starting.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Starting.</returns>
+
+        </method>
+
+        <method name = "StartOK">
+
+            <summary>Determine if OK to begin Start.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Start.</returns>
+
+        </method>
+
+        <method name = "StartedOK">
+
+            <summary>Determine if OK to begin Started.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Started.</returns>
+
+        </method>
+
+        <method name = "StoppingOK">
+
+            <summary>Determine if OK to begin Stopping.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Stopping.</returns>
+
+        </method>
+
+        <method name = "StopOK">
+
+            <summary>Determine if OK to begin Stop.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Stop.</returns>
+
+        </method>
+
+        <method name = "StoppedOK">
+
+            <summary>Determine if OK to begin Stopped.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Stopped.</returns>
+
+        </method>
+
+        <method name = "StartHostOK">
+
+            <summary>Determine if OK to begin StartHost.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin StartHost.</returns>
+
+        </method>
+
+        <method name = "StopHostOK">
+
+            <summary>Determine if OK to begin StopHost.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin StopHost.</returns>
+
+        </method>
+
+        <method name = "ToActive">
+
+            <summary>Change to Active.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Active.</returns>
+
+        </method>
+
+        <method name = "ToInActive">
+
+            <summary>Change to InActive.</summary>
+
+            <returns Cref = "Boolean">True if State changed to InActive.</returns>
+
+        </method>
+
+        <method name = "ToInitialized">
+
+            <summary>Change to Initialized.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Initialized.</returns>
+
+        </method>
+
+        <method name = "ToError">
+
+            <summary>Change to Error.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Error.</returns>
+
+        </method>
+
+        <method name = "ToStarting">
+
+            <summary>Change to Starting.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Starting.</returns>
+
+        </method>
+
+        <method name = "ToStopping">
+
+            <summary>Change to Stopping.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Stopping.</returns>
+
+        </method>
+
+        <method name = "ToUnInitialized">
+
+            <summary>Change to UnInitialized.</summary>
+
+            <returns Cref = "Boolean">True if State changed to UnInitialized.</returns>
+
+        </method>
+
+    </class>
+
+</LifeCycleStateMachine>

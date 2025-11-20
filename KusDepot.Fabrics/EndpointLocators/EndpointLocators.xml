@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<EndpointLocators>
+
+    <class name = "EndpointLocators">
+
+        <main>
+
+            <summary>Endpoint Locators.</summary>
+
+            <remarks>Defines properties to lookup URLs for well-known services.</remarks>
+
+        </main>
+
+        <property name = "CatalogService" Cref = "String"><summary>Catalog URL.</summary></property>
+
+        <property name = "DataControlService" Cref = "String"><summary>DataControlService URL.</summary></property>
+
+        <property name = "ToolFabricService" Cref = "String"><summary>ToolFabricService URL.</summary></property>
+
+    </class>
+
+</EndpointLocators>

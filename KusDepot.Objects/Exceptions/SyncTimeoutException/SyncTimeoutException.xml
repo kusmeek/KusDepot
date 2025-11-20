@@ -1,0 +1,55 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SyncTimeoutException> 
+
+    <class name = "SyncTimeoutException">
+
+        <main>
+
+            <summary>Sync Timeout Exception.</summary>
+
+            <remarks>Thrown by methods if thread synchronization timeout expires.</remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "SyncTimeoutException">New SyncTimeout Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageConstructor">
+
+            <summary>Constructor With Message.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <returns Cref = "SyncTimeoutException">New SyncTimeout Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageInnerExceptionConstructor">
+
+            <summary>Constructor With Message And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "innerException" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "SyncTimeoutException">New SyncTimeout Exception.</returns>
+
+        </constructor>
+
+        <property name = "SyncException">
+
+            <summary>Calls parameterless constructor.</summary>
+
+            <returns Cref = "SyncTimeoutException">New SyncTimeout Exception.</returns>
+
+        </property>
+
+    </class>
+
+</SyncTimeoutException>

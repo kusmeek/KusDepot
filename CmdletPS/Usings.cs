@@ -1,0 +1,10 @@
+﻿global using System;
+global using Serilog;
+global using KusDepot;
+global using System.Linq;
+global using System.Threading;
+global using System.Globalization;
+global using System.Threading.Tasks;
+global using static KusDepot.Settings;
+global using System.Collections.Generic;
+global using System.Management.Automation;

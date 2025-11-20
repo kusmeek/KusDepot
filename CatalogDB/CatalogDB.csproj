@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net9.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.CatalogDB</AssemblyName>
+
+        <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">        
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileTag>kusdepotcatalogdb</DockerfileTag>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <ServicePackagePath>PackageRoot</ServicePackagePath>
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <GenerateRuntimeConfigDevFile>True</GenerateRuntimeConfigDevFile>
+
+        <ServicePackagePrefix>$(MSBuildProjectName)</ServicePackagePrefix>
+
+        <UpdateServiceFabricManifestEnabled>True</UpdateServiceFabricManifestEnabled>
+
+        <FabActUtilWorkingDir>$(BaseIntermediateOutputPath)\FabActUtilTemp</FabActUtilWorkingDir>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Manifest and Settings">
+
+        <Content Include="PackageRoot\Config\Settings.xml" />
+
+        <Content Include="PackageRoot\ServiceManifest.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+
+        <PackageReference Include="OpenTelemetry.Api" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
+
+        <ProjectReference Include="..\KusDepot.Fabrics\KusDepot.Fabrics.csproj" />
+
+    </ItemGroup>
+
+</Project>

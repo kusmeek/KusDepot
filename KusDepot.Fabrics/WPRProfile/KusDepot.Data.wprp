@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<WindowsPerformanceRecorder Version="0.1">
+  <Profiles>
+    <EventCollector Id="KusDepot.Data.Collector" Name="KusDepot.Data Collector">
+      <BufferSize Value="128"/>
+      <Buffers Value="128"/>
+    </EventCollector>
+    <EventProvider Id="CLR" Name="Microsoft-Windows-DotNETRuntime" Level="5">
+        <Keywords><Keyword Value="0x4"/></Keywords>
+    </EventProvider>
+    <EventProvider Id="KusDepot.Data.ArkKeeper"     Name="*KusDepot.Data.ArkKeeper"/>
+    <EventProvider Id="KusDepot.Data.Blob"          Name="*KusDepot.Data.Blob"/>
+    <EventProvider Id="KusDepot.Data.Catalog"       Name="*KusDepot.Data.Catalog"/>
+    <EventProvider Id="KusDepot.Data.Configuration" Name="*KusDepot.Data.Configuration"/>
+    <EventProvider Id="KusDepot.Data.Control"       Name="*KusDepot.Data.Control"/>
+    <EventProvider Id="KusDepot.Data.CoreCache"     Name="*KusDepot.Data.CoreCache"/>
+    <EventProvider Id="KusDepot.Data.Management"    Name="*KusDepot.Data.Management"/>
+    <EventProvider Id="KusDepot.Data.Secure"        Name="*KusDepot.Data.Secure"/>
+    <EventProvider Id="KusDepot.Data.Universe"      Name="*KusDepot.Data.Universe"/>
+    <Profile Description="KusDepot.Data" DetailLevel="Verbose" Id="KusDepot.Verbose.File" LoggingMode="File" Name="KusDepot">
+      <Collectors>
+        <EventCollectorId Value="KusDepot.Data.Collector">
+          <EventProviders>
+            <EventProviderId Value="CLR"/>
+            <EventProviderId Value="KusDepot.Data.ArkKeeper"/>
+            <EventProviderId Value="KusDepot.Data.Blob"/>
+            <EventProviderId Value="KusDepot.Data.Catalog"/>
+            <EventProviderId Value="KusDepot.Data.Configuration"/>
+            <EventProviderId Value="KusDepot.Data.Control"/>
+            <EventProviderId Value="KusDepot.Data.CoreCache"/>
+            <EventProviderId Value="KusDepot.Data.Management"/>
+            <EventProviderId Value="KusDepot.Data.Secure"/>
+            <EventProviderId Value="KusDepot.Data.Universe"/>
+          </EventProviders>
+        </EventCollectorId>
+      </Collectors>
+    </Profile>
+    <Profile Base="KusDepot.Verbose.File" Description="KusDepot.Data" DetailLevel="Verbose" Id="KusDepot.Verbose.Memory" LoggingMode="Memory" Name="KusDepot">
+      <Collectors Operation="Add">
+        <EventCollectorId Value="KusDepot.Data.Collector">
+          <Buffers PercentageOfTotalMemory="true" Value="5" />
+        </EventCollectorId>
+      </Collectors>
+    </Profile>
+  </Profiles>
+</WindowsPerformanceRecorder>

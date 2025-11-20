@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AccessKeyToken>
+  <struct name="AccessKeyToken">
+    <main>
+      <summary>64-byte identity + integrity hash (SHA-512) for token membership and revocation.</summary>
+      <remarks>
+        <list type="bullet">
+          <item><description>Constructed directly from SHA-512 hash bytes.</description></item>
+        </list>
+      </remarks>
+    </main>
+    <constructor name="Constructor">
+      <summary>Create token wrapper from a 64-byte hash value.</summary>
+      <param name="bytes" Cref="ReadOnlySpan{Byte}">Hash bytes (length 64).</param>
+    </constructor>
+    <method name="Create">
+      <summary>Create token wrapper from a 64-byte hash value.</summary>
+      <param name="bytes" Cref="ReadOnlySpan{Byte}">Hash bytes (length 64).</param>
+      <returns Cref="AccessKeyToken">New token instance.</returns>
+    </method>
+    <field name="token">
+      <summary>Underlying hash value representing this access key token.</summary>
+    </field>
+    <method name="Clear">
+      <summary>Clear token memory.</summary>
+    </method>
+    <method name="Clone">
+      <summary>Clone AccessKeyToken.</summary>
+        <returns Cref="AccessKeyToken">Cloned token.</returns>
+    </method>
+    <method name="Equals">
+      <summary>Constant-time equality comparison with another AccessKeyToken.</summary>
+      <param name="other" Cref="AccessKeyToken">Other token.</param>
+      <returns Cref="Boolean">True if equal; otherwise false.</returns>
+    </method>
+    <method name="op_Equality">
+      <summary>Constant-time equality operator.</summary>
+      <param name="a" Cref="AccessKeyToken">Left operand.</param>
+      <param name="b" Cref="AccessKeyToken">Right operand.</param>
+      <returns Cref="Boolean">True if equal; otherwise false.</returns>
+    </method>
+    <method name="op_Inequality">
+      <summary>Inequality operator (negation of ==).</summary>
+      <param name="a" Cref="AccessKeyToken">Left operand.</param>
+      <param name="b" Cref="AccessKeyToken">Right operand.</param>
+      <returns Cref="Boolean">True if not equal; otherwise false.</returns>
+    </method>
+  </struct>
+</AccessKeyToken>

@@ -1,0 +1,91 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ClientKey>
+
+    <class name = "ClientKey">
+
+        <main>
+
+            <summary>Client Access Key.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "key" Cref = "Byte[]">Key.</param>
+
+            <param name = "id" Cref = "Guid?">Key ID.</param>
+
+            <returns Cref = "ClientKey">New ClientKey.</returns>
+
+        </constructor>
+
+        <method name = "IParsable{ClientKey}.Parse">
+
+            <summary>Parse ClientKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ClientKey">Parsed ClientKey.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ClientKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ClientKey?">Parsed ClientKey.</returns>
+
+        </method>
+
+        <method name = "ToClientKeyWeb">
+
+            <summary>Convert to ClientKeyWeb.</summary>
+
+            <returns Cref = "ClientKeyWeb">This Key converted to ClientKeyWeb.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ClientKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "key" Cref = "ClientKey">Output ClientKey.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "ClientKeyWeb">
+
+        <main>
+
+            <summary>ClientKey Web Interoperations.</summary>
+
+        </main>
+
+        <method name = "ToClientKey">
+
+            <summary>Convert To ClientKey.</summary>
+
+            <returns Cref = "ClientKey?">A ClientKey.</returns>
+
+        </method>
+
+    </record>
+
+</ClientKey>

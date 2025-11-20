@@ -1,0 +1,24 @@
+{
+  "name": "reactn",
+  "version": "0.0.1",
+  "description": "",
+  "main": "target/StartUp.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node target/StartUp.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "latest",
+    "@grpc/proto-loader": "latest",
+    "fastify": "latest",
+    "uuid": "latest"
+  }
+}

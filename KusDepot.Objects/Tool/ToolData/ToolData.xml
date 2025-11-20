@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ToolData>
+
+    <class name = "ToolData">
+
+        <main>
+
+            <summary>ToolData.</summary>
+
+        </main>
+
+        <property name = "Data">
+
+            <summary>Data.</summary>
+
+            <returns Cref = "Object?">Data.</returns>
+
+        </property>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ToolData.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ToolData?">Parsed ToolData.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Object.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ToolData.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "data" Cref = "ToolData">Output ToolData.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</ToolData>

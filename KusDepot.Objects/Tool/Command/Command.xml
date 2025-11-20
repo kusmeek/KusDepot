@@ -1,0 +1,132 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Command>
+
+    <class name = "Command">
+
+        <main>
+
+            <summary>Dynamic Activity Plugin.</summary>
+
+            <remarks>Functional specialization. Registered via Tool.RegisterCommand and invoked via Tool.ExecuteCommand.
+            Long-running asynchronous tasks are tracked via Activities.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "AttachedTool" Cref = "ITool?">
+
+            <summary>Attached Tool.</summary>
+
+        </field>
+
+        <field name = "enabled" Cref = "Boolean">
+
+            <summary>True if Command enabled.</summary>
+
+        </field>
+
+        <field name = "Key" Cref = "AccessKey?">
+
+            <summary>Access Key.</summary>
+
+        </field>
+
+        <property name = "ExecutionMode" Cref = "CommandExecutionMode">
+
+            <summary>Command execution configuration.</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "AccessCheck">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Key.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "AddActivity">
+
+            <summary>Add Activity to Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity added to Attached Tool.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add Output to Attached Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">Output ID.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <returns Cref = "Boolean">True if Output added to Attached Tool.</returns>
+
+            <remarks>Adds null Output by default.</remarks>
+
+        </method>
+
+        <method name = "CleanUp">
+
+            <summary>CleanUp Activity.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity.</param>
+
+        </method>
+
+        <method name = "Execute">
+
+            <summary>Execute synchronously.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "key" Cref = "AccessKey?">Tool Access Key.</param>
+
+            <returns Cref = "Activity?">An Activity which represents execution of the Command.</returns>
+
+        </method>
+
+        <method name = "ExecuteAsync">
+
+            <summary>Execute asynchronously.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">Tool Access Key.</param>
+
+            <returns Cref = "Task{Activity?}">An Activity which represents execution of the Command.</returns>
+
+        </method>
+
+        <method name = "RemoveActivity">
+
+            <summary>Remove Activity from Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity removed from Attached Tool.</returns>
+
+        </method>
+
+    </class>
+
+</Command>

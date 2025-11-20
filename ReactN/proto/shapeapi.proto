@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package shapeapi;
+
+option go_package = "/shapeapi_pb;shapeapi_pb";
+
+message ToolShape {
+  optional string id = 1;
+  optional double x = 2;
+  optional double y = 3;
+  optional bool circle = 4;
+  optional double opacity = 5;
+  optional string rgb = 6;
+  optional double rotation = 7;
+  optional double scale = 8;
+  optional int32 sides = 9;
+  optional bool star = 10;
+}
+
+service ShapeAPI {
+  rpc GenerateShape (ToolShape) returns (ToolShape);
+}

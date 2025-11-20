@@ -1,0 +1,153 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryItem>
+
+    <class name = "BinaryItem">
+
+        <main>
+
+            <summary>Serialized Object | Executable File | Object Library.</summary>
+
+            <remarks>This item stores binary data as an array of bytes.</remarks>
+
+        </main>
+
+        <content name = "Content" Cref = "Byte[]?">
+
+            <summary>Item Content.</summary>
+
+        </content>
+
+        <field name = "Commands" Cref = "HashSet{Tuple{String,String,String}}?">
+
+            <summary>Assembly Command Descriptor Data.</summary>
+
+        </field>
+
+        <field name = "Services" Cref = "HashSet{Tuple{String,String}}?">
+
+            <summary>Assembly Service Descriptor Data.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "ItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "BinaryItem">New BinaryItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Item Content.</param>
+
+            <param name = "dllpaths" Cref = "IEnumerable{String}?">Paths to DLLs for content assembly metadata.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "BinaryItem">BinaryItem.</returns>
+
+        </constructor>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "BinaryItem?">A BinaryItem.</param>
+
+            <param name = "b" Cref = "BinaryItem?">Other BinaryItem.</param>
+
+            <returns Cref = "Boolean">True if BinaryItems are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "BinaryItem?">A BinaryItem.</param>
+
+            <param name = "b" Cref = "BinaryItem?">Other BinaryItem.</param>
+
+            <returns Cref = "Boolean">True if BinaryItems are not equal.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "BinaryItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <returns Cref = "Byte[]?">Content.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse BinaryItem.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "BinaryItem?">Parsed BinaryItem.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Content.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</BinaryItem>

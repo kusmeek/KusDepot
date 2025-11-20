@@ -1,0 +1,65 @@
+﻿namespace KusDepot;
+
+/**<include file='ProtectedOperation.xml' path='ProtectedOperation/class[@name="ProtectedOperation"]/main/*'/>*/
+internal static class ProtectedOperation
+{
+    public const Int32 Activate                   = 0;
+    public const Int32 AddActivity                = 1;
+    public const Int32 AddDataItems               = 2;
+    public const Int32 AddInput                   = 3;
+    public const Int32 AddInstance                = 4;
+    public const Int32 AddOutput                  = 5;
+    public const Int32 CreateManagementKey        = 6;
+    public const Int32 CreateOwnerKey             = 7;
+    public const Int32 Deactivate                 = 8;
+    public const Int32 DestroySecrets             = 9;
+    public const Int32 Dispose                    = 10;
+    public const Int32 ExecuteCommand             = 11;
+    public const Int32 ExportAccessManagerState   = 12;
+    public const Int32 GenerateCommandKey         = 13;
+    public const Int32 GenerateHostedServiceKey   = 14;
+    public const Int32 GetAccessManager           = 15;
+    public const Int32 GetActivities              = 16;
+    public const Int32 GetCommands                = 17;
+    public const Int32 GetConfiguration           = 18;
+    public const Int32 GetDataDescriptors         = 19;
+    public const Int32 GetDataItem                = 20;
+    public const Int32 GetDataItems               = 21;
+    public const Int32 GetHostedServices          = 22;
+    public const Int32 GetInput                   = 23;
+    public const Int32 GetInputs                  = 24;
+    public const Int32 GetOutput                  = 25;
+    public const Int32 GetOutputIDs               = 26;
+    public const Int32 GetRemoveOutput            = 27;
+    public const Int32 GetServices                = 28;
+    public const Int32 GetStatus                  = 29;
+    public const Int32 GetToolServiceScope        = 30;
+    public const Int32 GetToolServices            = 31;
+    public const Int32 GetWorkingSet              = 32;
+    public const Int32 ImportAccessManagementKeys = 33;
+    public const Int32 Initialize                 = 34;
+    public const Int32 KusDepotExceptions         = 35;
+    public const Int32 MaskCommandTypes           = 36;
+    public const Int32 MaskHostedServices         = 37;
+    public const Int32 MyExceptions               = 38;
+    public const Int32 RegisterCommand            = 39;
+    public const Int32 RegisterManager            = 40;
+    public const Int32 RemoveActivity             = 41;
+    public const Int32 RemoveDataItem             = 42;
+    public const Int32 RemoveOutput               = 43;
+    public const Int32 RemoveStatus               = 44;
+    public const Int32 SetID                      = 45;
+    public const Int32 SetStatus                  = 46;
+    public const Int32 StartAsync                 = 47;
+    public const Int32 StartedAsync               = 48;
+    public const Int32 StartingAsync              = 49;
+    public const Int32 StartHostAsync             = 50;
+    public const Int32 StopAsync                  = 51;
+    public const Int32 StoppedAsync               = 52;
+    public const Int32 StoppingAsync              = 53;
+    public const Int32 StopHostAsync              = 54;
+    public const Int32 ToStringOp                 = 55;
+    public const Int32 UnRegisterCommand          = 56;
+    public const Int32 UnRegisterManager          = 57;
+    public const Int32 UpdateInputs               = 58;
+}

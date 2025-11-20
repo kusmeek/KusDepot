@@ -1,0 +1,31 @@
+{
+  "name": "reacts",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/signalr": "^10.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "copy-webpack-plugin": "^13.0.1",
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.4",
+    "source-map-loader": "^5.0.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "production": "webpack --mode production",
+    "development": "webpack --mode development"
+  },
+  "-vs-binding": {
+    "AfterBuild": []
+  }
+}

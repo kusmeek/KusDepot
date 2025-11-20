@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CryptoCore>
+    <class name="CryptoCore">
+        <main>
+            <summary>
+                Cryptography Utility.
+            </summary>
+        </main>
+        <method name="Decrypt">
+            <summary>
+                Decrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="Byte[]?">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Byte[]?">Recovered plaintext.</returns>
+        </method>
+        <method name="DecryptStream">
+            <summary>
+                Decrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="Byte[]?">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Boolean">True if decryption and authentication succeed; false otherwise.</returns>
+        </method>
+        <method name="DecryptSpan">
+            <summary>
+                Decrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Serialized envelope.</param>
+            <param name="output" Cref="Span{Byte}">Buffer to write the recovered plaintext to.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="byteswritten" Cref="Int32">The number of bytes written to the output span.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Boolean">True if decryption and authentication succeed; false otherwise.</returns>
+        </method>
+        <method name="DecryptAsync">
+            <summary>
+                Decrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="Byte[]?">AAD value that must exactly match the AAD used at encryption.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">Recovered plaintext.</returns>
+        </method>
+        <method name="DecryptAsyncStream">
+            <summary>
+                Decrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="Byte[]?">AAD value that must exactly match the AAD used at encryption.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True if decryption and authentication succeed; false otherwise.</returns>
+        </method>
+        <method name="Encrypt">
+            <summary>
+                Encrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext data.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="Byte[]?">Optional AAD. Only cryptographically bound if includeaadhash is true.</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA256 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Chunk size exponent (1 &lt;&lt; chunksizepower), bounds 12..26.</param>
+            <returns Cref="Byte[]?">Serialized envelope.</returns>
+        </method>
+        <method name="EncryptStream">
+            <summary>
+                Encrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="Byte[]?">Optional AAD. Only cryptographically bound if includeaadhash is true.</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA256 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Chunk size exponent (1 &lt;&lt; chunksizepower), bounds 12..26.</param>
+            <returns Cref="Boolean">True on success.</returns>
+        </method>
+        <method name="EncryptSpan">
+            <summary>
+                Encrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Plaintext data.</param>
+            <param name="output" Cref="Span{Byte}">Buffer to write the envelope to.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="byteswritten" Cref="Int32">The number of bytes written to the output span.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional AAD. Only cryptographically bound if includeaadhash is true.</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header.</param>
+            <returns Cref="Boolean">True on success.</returns>
+        </method>
+        <method name="EncryptAsync">
+            <summary>
+                Encrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext data.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="Byte[]?">Optional AAD. Only cryptographically bound if includeaadhash is true.</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA256 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Chunk size exponent (1 &lt;&lt; chunksizepower), bounds 12..26.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">Serialized envelope.</returns>
+        </method>
+        <method name="EncryptAsyncStream">
+            <summary>
+                Encrypt with GeneralDataEnvelope.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="Byte[]?">Optional AAD. Only cryptographically bound if includeaadhash is true.</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA256 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Chunk size exponent (1 &lt;&lt; chunksizepower), bounds 12..26.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True on success.</returns>
+        </method>
+    </class>
+</CryptoCore>

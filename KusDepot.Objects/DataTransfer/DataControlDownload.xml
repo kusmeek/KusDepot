@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownload>
+
+    <class name = "DataControlDownload">
+
+        <main>
+
+            <summary>Data transfer download object for DataControl service.</summary>
+
+        </main>
+
+        <property name = "Object" Cref = "String"><summary>Serialized Object.</summary></property>
+
+        <property name = "ObjectSHA512" Cref = "String"><summary>SHA512 of serialized object.</summary></property>
+
+        <property name = "StreamSHA512" Cref = "String"><summary>SHA512 of Object's Content Stream.</summary></property>
+
+        <method name = "Parse">
+
+            <summary>Parse DataControlDownload.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataControlDownload?">Parsed DataControlDownload.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized DataControlDownload.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse DataControlDownload.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "dcd" Cref = "DataControlDownload">Output DataControlDownload.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</DataControlDownload>

@@ -1,0 +1,109 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Media>
+
+    <record name = "Media">
+
+        <main>
+
+            <summary>Represents Media records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Album" Cref = "String?"><summary>Album.</summary></property>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "Artist" Cref = "String?"><summary>Artist.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "ContentHash" Cref = "String?"><summary>ContentHash.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Title" Cref = "String?"><summary>Title.</summary></property>
+
+        <property name = "Type" Cref = "String?"><summary>Type.</summary></property>
+
+        <property name = "Year" Cref = "String?"><summary>Year.</summary></property>
+
+    </record>
+
+    <record name = "MediaQuery">
+
+        <main>
+
+            <summary>Supports querying Media records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Album" Cref = "String?"><summary>Album.</summary></property>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "Artist" Cref = "String?"><summary>Artist.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "ContentHash" Cref = "String?"><summary>ContentHash.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Title" Cref = "String?"><summary>Title.</summary></property>
+
+        <property name = "Type" Cref = "String?"><summary>Type.</summary></property>
+
+        <property name = "Year" Cref = "String?"><summary>Year.</summary></property>
+
+    </record>
+
+    <record name = "MediaResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "Media" Cref = "Media[]"><summary>Matching records.</summary></property>
+
+    </record>
+
+</Media>

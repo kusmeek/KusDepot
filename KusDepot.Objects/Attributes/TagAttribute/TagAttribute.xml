@@ -1,0 +1,34 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TagAttribute>
+
+    <class name = "TagAttribute">
+
+        <main>
+
+            <summary>Metadata.</summary>
+
+            <remarks>An additional association of Tag information with various elements.
+            Valid on classes, fields, generic parameters, interfaces, parameters, properties and return values.</remarks>
+
+        </main>
+
+        <property name = "Tag" Cref = "String">
+
+            <summary>Tag.cs.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "tag" Cref = "String?">Tag.</param>
+
+            <remarks>Valid tags are defined in Tag.cs.</remarks>
+
+        </constructor>
+
+    </class>
+
+</TagAttribute>

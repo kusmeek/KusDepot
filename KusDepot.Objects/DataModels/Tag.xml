@@ -1,0 +1,29 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Tag>
+
+    <record name = "TagQuery">
+
+        <main>
+
+            <summary>Supports querying Tag records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+    </record>
+
+    <record name = "TagResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "IDs" Cref = "HashSet{Guid}"><summary>Matching records.</summary></property>
+
+    </record>
+
+</Tag>

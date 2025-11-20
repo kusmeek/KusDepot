@@ -1,0 +1,89 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolSync>
+
+    <class name = "ToolSync">
+
+        <main>
+
+            <summary>ToolSync.</summary>
+
+            <remarks>Synchronization objects for the object's public properties.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "Object">
+
+            <summary>Activities Sync Object.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "SemaphoreSlim">
+
+            <summary>Commands Sync Object.</summary>
+
+        </field>
+
+        <field name = "CommandTypes" Cref = "Object">
+
+            <summary>CommandTypes Sync Object.</summary>
+
+        </field>
+
+        <field name = "Data" Cref = "Object">
+
+            <summary>Data Sync Object.</summary>
+
+        </field>
+
+        <field name = "Disposed" Cref = "SemaphoreSlim">
+
+            <summary>Disposal Sync Object.</summary>
+
+        </field>
+
+        <field name = "HostedServices" Cref = "Object">
+
+            <summary>HostedServices Sync Object.</summary>
+
+        </field>
+
+        <field name = "Inputs" Cref = "Object">
+
+            <summary>Inputs Sync Object.</summary>
+
+        </field>
+
+        <field name = "Life" Cref = "SemaphoreSlim">
+
+            <summary>Lifecycle Sync Object.</summary>
+
+        </field>
+
+        <field name = "Logger" Cref = "Object">
+
+            <summary>Logger Sync Object.</summary>
+
+        </field>
+
+        <field name = "Outputs" Cref = "SemaphoreSlim">
+
+            <summary>Outputs Sync Object.</summary>
+
+        </field>
+
+        <field name = "OwnerSecret" Cref = "Object">
+
+            <summary>OwnerSecret Sync Object.</summary>
+
+        </field>
+
+        <field name = "Status" Cref = "Object">
+
+            <summary>Status Sync Object.</summary>
+
+        </field>
+
+    </class>
+
+</ToolSync>
