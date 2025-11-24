@@ -1,0 +1,70 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: 'AI'
+  inputs:
+    command: build
+    projects: 'KusDepot.AIO/KusDepot.AIO.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Builders'
+  inputs:
+    command: build
+    projects: 'KusDepot.Onlines/KusDepot.Onlines.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Orleans'
+  inputs:
+    command: build
+    projects: 'ToolGrains/ToolGrains.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'ToolService'
+  inputs:
+    command: build
+    projects: 'KusDepot.ToolService/KusDepot.ToolService.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'DaprSupervisor'
+  inputs:
+    command: build
+    projects: 'DaprSidecar/DaprSidecar.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Laboperator'
+  inputs:
+    command: build
+    projects: 'Laboperator/Laboperator.AppHost/Laboperator.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Workflow'
+  inputs:
+    command: build
+    projects: 'ToolWork/ToolWork.csproj'
+    arguments: '--configuration Release'
+
+- task: PowerShell@2
+  displayName: 'Package'
+  inputs:
+    targetType: 'filePath'
+    filePath: '$(Build.SourcesDirectory)/KusDepot.Packages/Package-KusDepot.ps1'
+    workingDirectory: '$(Build.SourcesDirectory)/KusDepot.Packages'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Exams'
+  inputs:
+    command: test
+    projects: 'KusDepot.Exam/KusDepot.Exam.csproj'
+    arguments: '--configuration Release'
