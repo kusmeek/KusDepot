@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServicesManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="BlobActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="BlobActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="BlobActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="Catalog_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="CatalogDBActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CatalogDBActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="CatalogDBActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="CoreCacheActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CoreCacheActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CoreCacheActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataConfigsActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="DataConfigsActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataConfigsActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataControl_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="ManagementActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ManagementActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="ManagementActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="SecureActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="SecureActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="SecureActorService_TargetReplicaSetSize" DefaultValue="1" />
+  </Parameters>
+  <Services>
+    <Service Name="BlobActorService" GeneratedIdRef="81ea670b-2bb4-4ef5-ba2e-341e0f3bb89a|None" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="BlobActorServiceType" TargetReplicaSetSize="[BlobActorService_TargetReplicaSetSize]" MinReplicaSetSize="[BlobActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[BlobActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="Catalog" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="CatalogType" InstanceCount="[Catalog_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="CatalogDBActorService" GeneratedIdRef="2b96f415-8786-4858-b0e2-2459e848b85d|None">
+      <StatefulService ServiceTypeName="CatalogDBActorServiceType" TargetReplicaSetSize="[CatalogDBActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CatalogDBActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CatalogDBActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CoreCacheActorService" GeneratedIdRef="890f11a8-866b-4450-b3ec-9721f5a4a094|Persisted" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="CoreCacheActorServiceType" TargetReplicaSetSize="[CoreCacheActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CoreCacheActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CoreCacheActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="DataConfigsActorService" GeneratedIdRef="78eea333-c807-46a8-ab91-50246c3fc092|Persisted" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="DataConfigsActorServiceType" TargetReplicaSetSize="[DataConfigsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[DataConfigsActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[DataConfigsActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="DataControl" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="DataControlType" InstanceCount="[DataControl_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="ManagementActorService" GeneratedIdRef="258bcae0-e9a2-4131-869d-d4bee521ca8f|None" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="ManagementActorServiceType" TargetReplicaSetSize="[ManagementActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ManagementActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ManagementActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="SecureActorService" GeneratedIdRef="59db52c8-1eaf-46a7-bcf1-f4ffb43af27a|None" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="SecureActorServiceType" TargetReplicaSetSize="[SecureActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SecureActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[SecureActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+  </Services>
+</StartupServicesManifest>

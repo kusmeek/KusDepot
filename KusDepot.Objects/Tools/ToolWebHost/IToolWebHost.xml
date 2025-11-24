@@ -1,0 +1,35 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolWebHost>
+
+    <interface name = "IToolWebHost">
+
+        <main>
+
+            <summary>ToolWebHost Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolWebHost.</remarks>
+
+        </main>
+
+        <method name = "GetManagedApplication">
+
+            <summary>Get Managed Application.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IHost?">Managed Application.</returns>
+
+        </method>
+
+        <property name = "Urls">
+
+            <summary>WebApplication Urls.</summary>
+
+            <returns Cref = "ICollection{String}?">Urls.</returns>
+
+        </property>
+
+    </interface>
+
+</IToolWebHost>

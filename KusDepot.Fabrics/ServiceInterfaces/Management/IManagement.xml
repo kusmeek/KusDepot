@@ -1,0 +1,55 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IManagement>
+
+    <interface name = "IManagement">
+
+        <main>
+
+            <summary>The Management service performs cluster data backup and restore.</summary>
+
+        </main>
+
+        <method name = "BackupDataConfigs">
+
+            <summary>Backup StorageSilos.</summary>
+
+            <remarks>Caller must be System Admin. See Secure service.</remarks>
+
+            <param name = "connection" Cref = "String">Backup storage connection string.</param>
+
+            <param name = "certificate" Cref = "String">Encryption certificate.</param>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if StorageSilos successfully backed up.</returns>
+
+        </method>
+
+        <method name = "RestoreDataConfigs">
+
+            <summary>Restore StorageSilos.</summary>
+
+            <remarks>Caller must be System Admin. See Secure service.</remarks>
+
+            <param name = "connection" Cref = "String">Restore storage connection string.</param>
+
+            <param name = "certificate" Cref = "String">Encryption certificate.</param>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if StorageSilos successfully restored.</returns>
+
+        </method>
+
+    </interface>
+
+</IManagement>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AccessManagerState>
+    <class name="AccessManagerState">
+        <main>
+            <summary>Represents the persisted state of an <see cref="AccessManager"/>.</summary>
+        </main>
+        <field name="id" Cref ="Guid">
+            <summary>The AccessManager's ID.</summary>
+        </field>
+        <property name="ID" Cref ="Guid">
+            <summary>The AccessManager's ID.</summary>
+        </property>
+        <field name="accesskeys" Cref ="Dictionary{String,HashSet{AccessKeyToken}}">
+            <summary>The collection of issued <see cref="AccessKeyToken"/>s.</summary>
+        </field>
+        <property name="AccessKeys" Cref ="Dictionary{String,HashSet{AccessKeyToken}}">
+            <summary>The collection of issued <see cref="AccessKeyToken"/>s.</summary>
+        </property>
+        <field name="certificate" Cref="Byte[]?">
+            <summary>The AccessManager's certificate.</summary>
+        </field>
+        <property name="Certificate" Cref="Byte[]?">
+            <summary>The AccessManager's certificate.</summary>
+        </property>
+        <method name="Clear">
+            <summary>
+                Clears AccessKeys and Certificate memory.
+            </summary>
+        </method>
+        <method name="Deserialize">
+            <summary>
+                Deserializes a byte array into an <see cref="AccessManagerState"/> instance.
+            </summary>
+            <param name="input">The byte array to deserialize.</param>
+            <param name="format">This parameter is not used.</param>
+            <returns>
+                A deserialized <see cref="AccessManagerState"/> instance, or null if deserialization fails.
+            </returns>
+        </method>
+        <method name="Serialize">
+            <summary>
+                Serializes the <see cref="AccessManagerState"/> instance to a byte array.
+            </summary>
+        </method>
+    </class>
+</AccessManagerState>

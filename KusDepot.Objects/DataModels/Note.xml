@@ -1,0 +1,29 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Note>
+
+    <record name = "NoteQuery">
+
+        <main>
+
+            <summary>Supports querying Note records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+    </record>
+
+    <record name = "NoteResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "IDs" Cref = "HashSet{Guid}"><summary>Matching records.</summary></property>
+
+    </record>
+
+</Note>

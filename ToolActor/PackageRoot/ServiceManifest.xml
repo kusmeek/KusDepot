@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="ToolActorPkg" Version="0.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <ServiceTypes>
+    <StatefulServiceType ServiceTypeName="ToolActorServiceType" HasPersistedState="true">
+      <Extensions>
+        <Extension Name="__GeneratedServiceType__" GeneratedId="4098f092-688c-4f28-a7c4-7b315ff3c1f3|Persisted">
+          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+            <DefaultService Name="ToolActorService" />
+            <ReplicatorEndpoint Name="ToolActorServiceReplicatorEndpoint" />
+            <ReplicatorConfigSection Name="ToolActorServiceReplicatorConfig" />
+            <ReplicatorSecurityConfigSection Name="ToolActorServiceReplicatorSecurityConfig" />
+            <ServiceEndpointV2_1 Name="ToolActorServiceEndpointV2_1" />
+          </GeneratedNames>
+        </Extension>
+      </Extensions>
+    </StatefulServiceType>
+  </ServiceTypes>
+  <CodePackage Name="Code" Version="0.0.1">
+    <EntryPoint>
+      <ExeHost>
+        <Program>KusDepot.ToolActor.exe</Program>
+        <ConsoleRedirection FileRetentionCount="10" />
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+  <ConfigPackage Name="Config" Version="0.0.1" />
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="ToolActorServiceEndpointV2_1" />
+      <Endpoint Name="ToolActorEndpointV2_1" />
+      <Endpoint Name="TestToolActorEndpointV2_1" />
+      <Endpoint Name="ToolActorServiceReplicatorEndpoint" />
+      <Endpoint Name="TestToolActorServiceEndpointV2_1" />
+    </Endpoints>
+  </Resources>
+</ServiceManifest>

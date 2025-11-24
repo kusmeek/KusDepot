@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IWindowManager>
+
+    <interface name = "IWindowManager">
+
+        <main>
+
+            <summary>Window Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Window Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IWindowManager>

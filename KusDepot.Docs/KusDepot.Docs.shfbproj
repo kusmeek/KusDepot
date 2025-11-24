@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>507558d4-0d0a-4361-98c8-4ef9473ddbc4</ProjectGuid>
+    <SHFBSchemaVersion>2017.9.26.0</SHFBSchemaVersion>
+    <AssemblyName>KusDepot.Docs</AssemblyName>
+    <RootNamespace>KusDepot.Docs</RootNamespace>
+    <Name>KusDepot.Docs</Name>
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
+    <OutputPath>.\Documentation\</OutputPath>
+    <HtmlHelpName>KusDepot</HtmlHelpName>
+    <Language>en-US</Language>
+    <TransformComponentArguments>
+      <Argument Key="logoFile" Value="Help.png" xmlns="" />
+      <Argument Key="logoHeight" Value="" xmlns="" />
+      <Argument Key="logoWidth" Value="" xmlns="" />
+      <Argument Key="logoAltText" Value="" xmlns="" />
+      <Argument Key="logoPlacement" Value="left" xmlns="" />
+      <Argument Key="logoAlignment" Value="left" xmlns="" />
+      <Argument Key="maxVersionParts" Value="" xmlns="" />
+    </TransformComponentArguments>
+    <DocumentationSources>
+      <DocumentationSource sourceFile="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+      <DocumentationSource sourceFile="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+      <DocumentationSource sourceFile="..\DepotClients\DepotClients.csproj" />
+      <DocumentationSource sourceFile="..\KusDepot.Fabrics\KusDepot.Fabrics.csproj" />
+      <DocumentationSource sourceFile="..\KusDepot.CMD\KusDepot.CMD.csproj" />
+      <DocumentationSource sourceFile="..\KusDepot.Services\KusDepot.Services.csproj" />
+    </DocumentationSources>
+    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <SyntaxFilters>C#</SyntaxFilters>
+    <PresentationStyle>VS2013</PresentationStyle>
+    <CleanIntermediates>True</CleanIntermediates>
+    <KeepLogFile>True</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <IndentHtml>False</IndentHtml>
+    <BuildAssemblerVerbosity>OnlyErrors</BuildAssemblerVerbosity>
+    <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
+    <VisibleItems>Attributes, ExplicitInterfaceImplementations, InheritedMembers, Internals, Privates, PrivateFields, Protected, SealedProtected, PublicCompilerGenerated</VisibleItems>
+    <MissingTags>AutoDocumentCtors, Namespace, TypeParameter, IncludeTargets</MissingTags>
+    <HelpTitle>KusDepot Documentation</HelpTitle>
+    <HelpFileVersion>0.0.0.1</HelpFileVersion>
+    <NamingMethod>MemberName</NamingMethod>
+    <ContentPlacement>BelowNamespaces</ContentPlacement>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <NamespaceGrouping>False</NamespaceGrouping>
+    <MaximumGroupParts>2</MaximumGroupParts>
+    <Preliminary>False</Preliminary>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <HtmlSdkLinkType>None</HtmlSdkLinkType>
+    <BinaryTOC>True</BinaryTOC>
+    <IncludeFavorites>False</IncludeFavorites>
+    <WebsiteSdkLinkType>None</WebsiteSdkLinkType>
+    <AppendMarkdownFileExtensionsToUrls>False</AppendMarkdownFileExtensionsToUrls>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" />
+<NamespaceSummaryItem name="KusDepot" isDocumented="True">The Tool is a foundation for business workflows. It processes CommandWorkflows by executing Commands, defined by specialized compartmentalized functionality, as well as hosting and managing itself and other IHostedServices. Configuration, Data, Logger, Status, and WorkingSet are available, as well as a customizable Access Manager and Dependency Injection Container.
+
+For integration see ToolConnect, DependencyInjection, KusDepotRegistry, SecurityKeyWeb, CommandDetailsWeb, and KusDepotCab.
+
+Storage items include TextItem, CodeItem, BinaryItem, MultiMediaItem, MSBuildItem, GenericItem, KeySet, and DataSetItem.
+The GuidReferenceItem stores references and graphs.
+
+Program units implement IHost and integrate the respective application types - ToolWebHost, ToolGenericHost, and ToolAspireHost.
+
+Each has a builder and can be composed with the others to form arbitrarily complex services.
+
+See DaprSidecar, DaprActors, ToolService, ToolActor, ToolGrain, ToolWorkflow, and MCPTool.
+
+DataControl and Catalog APIs manage item storage and searching using Fabric Actors.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Data" isDocumented="True">The Data application stores, secures, and supports searching and retrieval of DataItems.
+
+Services included are Blob, Catalog, CatalogDB, CoreCache, DataConfigs, DataControl, Management, and Secure.
+
+Logical isolation is defined by the StorageSilo abstraction and enforced by Azure Storage and Microsoft Entra.
+
+An administrative tenant and enterprise application with the "Admin.All" role must exist and be specified in the Secure service configuration.
+
+Catalog tenants/applications require roles with names in the form "*.Read" and ".*Write" with user groups assigned membership for authorization.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.ToolActor" isDocumented="True">Service Fabric Actor.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Data.Clients" isDocumented="True">Catalog and DataControl Service Clients.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="CoreWCF.Configuration" isDocumented="False" />
+<NamespaceSummaryItem name="Projects" isDocumented="False" />
+<NamespaceSummaryItem name="KusDepot.AI" isDocumented="True">Artificial intelligence.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Test" isDocumented="False" />
+<NamespaceSummaryItem name="KusDepot.Cryptography" isDocumented="True">Cryptography.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Data.Models" isDocumented="True">Catalog and CatalogDB Entity Models.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Commands" isDocumented="True">Basic Commands.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="KusDepot.Services" isDocumented="True">Service Identification Interfaces.</NamespaceSummaryItem></NamespaceSummaries>
+    <PlugInConfigurations>
+      <PlugInConfig id="Assembly Binding Redirection" enabled="False">
+        <configuration useGAC="false">
+          <assemblyBinding>
+            <dependentAssembly>
+              <assemblyIdentity name="Autofac" publicKeyToken="17863af14b0044da" />
+              <bindingRedirect oldVersion="8.1.0.0" newVersion="8.4.0.0" />
+            </dependentAssembly>
+          </assemblyBinding>
+          <ignoreIfUnresolved>
+            <assemblyIdentity name="BusinessObjects.Licensing.KeycodeDecoder" />
+            <assemblyIdentity name="Microsoft.VisualStudio.TestTools.UITest.Playback" />
+          </ignoreIfUnresolved>
+        </configuration>
+      </PlugInConfig>
+    </PlugInConfigurations>
+    <CatalogProductId>VS</CatalogProductId>
+    <CatalogVersion>100</CatalogVersion>
+    <TocOrder>-1</TocOrder>
+    <TocParentId>-1</TocParentId>
+    <TocParentVersion>100</TocParentVersion>
+    <TopicVersion>100</TopicVersion>
+    <MSHelpViewerSdkLinkType>None</MSHelpViewerSdkLinkType>
+    <CopyrightText>Copyright &amp;#169%3b 2025 Michael Abrahams</CopyrightText>
+    <FeedbackEMailAddress>mike_abrahams%40outlook.com</FeedbackEMailAddress>
+    <FeedbackEMailLinkText>mike_abrahams%40outlook.com</FeedbackEMailLinkText>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="" isExposed="False" xmlns="" />
+      <Filter entryType="Namespace" fullName="KusDepot" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="KusDepot.Utility" filterName="Utility" isExposed="True">
+          <Filter entryType="Method" fullName="KusDepot.Utility.ToStringInvariant" filterName="ToStringInvariant" isExposed="False" />
+        </Filter>
+      </Filter>
+    </ApiFilter>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Icons" />
+    <Folder Include="Diagrams" />
+  </ItemGroup>
+  <ItemGroup>
+    <ContentLayout Include="ContentLayout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Diagrams\DepotClients.png">
+      <ImageId>DepotClients</ImageId>
+      <AlternateText>Depot Clients</AlternateText>
+    </Image>
+    <Image Include="Diagrams\Objects.png">
+      <ImageId>Objects</ImageId>
+      <AlternateText>Objects</AlternateText>
+    </Image>
+    <Image Include="Diagrams\ProgramUnits.png">
+      <ImageId>ProgramUnits</ImageId>
+      <AlternateText>Program Units</AlternateText>
+    </Image>
+    <Image Include="Diagrams\ServiceInterfaces.png">
+      <ImageId>ServiceInterfaces</ImageId>
+      <AlternateText>Service Interfaces</AlternateText>
+    </Image>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="'$(MSBuildRestoreSessionId)' != ''" />
+  <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" Condition="Exists('$(SHFBROOT)\SandcastleHelpFileBuilder.targets') And '$(MSBuildRestoreSessionId)' == ''" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+</Project>

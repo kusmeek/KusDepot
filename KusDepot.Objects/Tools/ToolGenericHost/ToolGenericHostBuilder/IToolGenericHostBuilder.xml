@@ -1,0 +1,185 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolGenericHostBuilder>
+
+    <interface name = "IToolGenericHostBuilder">
+
+        <main>
+
+            <summary>ToolGenericHostBuilder Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolGenericHostBuilder.</remarks>
+
+        </main>
+
+        <property name = "Builder">
+
+            <summary>HostApplication Builder</summary>
+
+            <returns Cref = "HostApplicationBuilder">HostApplication Builder.</returns>
+
+        </property>
+
+        <property name = "HostBuilder">
+
+            <summary>Host Builder</summary>
+
+            <returns Cref = "IHostBuilder">Host Builder.</returns>
+
+        </property>
+
+        <method name = "ConfigureToolGenericHost">
+
+            <summary>Configure ToolGenericHost.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolGenericHost}">Configuration Action.</param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+        </method>
+
+        <method name = "BuildGenericHost">
+
+            <summary>Build the ToolGenericHost.</summary>
+
+            <param name = "host" Cref = "IHost?">Host.</param>
+
+            <returns Cref = "IToolGenericHost">ToolGenericHost.</returns>
+
+        </method>
+
+        <method name = "BuildGenericHostAsync">
+
+            <summary>Build the ToolGenericHost Async.</summary>
+
+            <param name = "host" Cref = "IHost?">Host.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IToolGenericHost}">ToolGenericHost.</returns>
+
+        </method>
+
+        <method name = "BuildGenericHostOpen">
+
+            <summary>Build the ToolGenericHost.</summary>
+
+            <param name = "host" Cref = "IHost?">Host.</param>
+
+            <typeparam name = "TToolGenericHost">A Type of ToolGenericHost.</typeparam>
+
+            <returns Cref = "IToolGenericHost">ToolGenericHost of type specified.</returns>
+
+        </method>
+
+        <method name = "BuildGenericHostAsyncOpen">
+
+            <summary>Build the ToolGenericHost Async.</summary>
+
+            <typeparam name = "TToolGenericHost">A Type of ToolGenericHost.</typeparam>
+
+            <param name = "host" Cref = "IHost?">Host.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{TToolGenericHost}">ToolGenericHost of type specified.</returns>
+
+        </method>
+
+        <method name = "ConnectWithApplication">
+
+            <summary>Add IToolConnect to Application Services.</summary>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+        </method>
+
+        <method name = "LinkLifetime">
+
+            <summary>Add IToolHostLifetime to Application Services.</summary>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseConsoleLifetime">
+
+            <summary>Use Console Lifetime.</summary>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseBuilderSettings">
+
+            <summary>Use HostApplication Settings.</summary>
+
+            <param name = "settings" Cref="HostApplicationBuilderSettings?"></param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+            <remarks>Uses a new Empty HostApplication Builder.</remarks>
+
+        </method>
+
+        <method name = "UseFullBuilderArgs">
+
+            <summary>Use Full Builder.</summary>
+
+            <param name = "args" Cref="String[]?">Arguments.</param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+            <remarks>Uses a new Full HostApplication Builder.</remarks>
+
+        </method>
+
+        <method name = "UseHostBuilder">
+
+            <summary>Use Host Builder.</summary>
+
+            <param name = "args" Cref="String[]?">Arguments.</param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+            <remarks>Removes Builder and uses a new HostBuilder.</remarks>
+
+        </method>
+
+        <method name = "UseFullBuilder">
+
+            <summary>Use Full Builder.</summary>
+
+            <param name = "settings" Cref="HostApplicationBuilderSettings?"></param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+            <remarks>Uses a new Full HostApplication Builder.</remarks>
+
+        </method>
+
+        <method name = "UseMcpServerDefaults">
+
+            <summary>Use Model Context Protocol Server with default configuration.</summary>
+
+            <param name = "toolassembly" Cref="Assembly?">Tool Assembly.</param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+            <remarks>Tools from Assembly and Stdio Transport.</remarks>
+
+        </method>
+
+        <method name = "UseOrleans">
+
+            <summary>Use Orleans.</summary>
+
+            <param name = "configureorleans" Cref="Action{ISiloBuilder}">Silo Configuration.</param>
+
+            <returns Cref = "IToolGenericHostBuilder">ToolGenericHostBuilder.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolGenericHostBuilder>

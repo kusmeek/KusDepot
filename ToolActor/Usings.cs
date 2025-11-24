@@ -1,0 +1,16 @@
+﻿global using System;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using static KusDepot.Utility;
+global using static KusDepot.Settings;
+global using static System.Environment;
+global using System.Collections.Generic;
+global using Microsoft.Extensions.Logging;
+global using static KusDepot.LifeCycleState;
+global using Microsoft.ServiceFabric.Actors;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.ServiceFabric.Actors.Runtime;
+global using static System.Globalization.CultureInfo;
+global using static KusDepot.ToolActor.ToolActorStrings;
+global using static KusDepot.ToolActor.ToolActorSettings;
+global using System.Security.Cryptography.X509Certificates;

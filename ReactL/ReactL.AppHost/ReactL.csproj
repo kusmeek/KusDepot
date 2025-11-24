@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.2" />
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <AssemblyName>ReactorLab</AssemblyName>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileContext>../..</DockerfileContext>
+
+        <DockerfileTag>kusdepotreactorlab</DockerfileTag>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Settings">
+
+      <None Update="appsettings.json">
+
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+      </None>
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" IsAspireProjectResource="false" />
+
+        <PackageReference Include="Serilog.AspNetCore" IsAspireProjectResource="false" />
+
+        <PackageReference Include="Serilog.Sinks.Console" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\..\KusDepot.Onlines\KusDepot.Onlines.csproj" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\..\ReactF\ReactF.fsproj" />
+
+        <ProjectReference Include="..\..\ReactG\ReactG.csproj" />
+
+        <ProjectReference Include="..\..\ReactJ\ReactJ.csproj" />
+
+        <ProjectReference Include="..\..\ReactN\ReactN.csproj" />
+
+        <ProjectReference Include="..\..\ReactP\ReactP.csproj" />
+
+        <ProjectReference Include="..\..\ReactR\ReactR.csproj" />
+
+        <ProjectReference Include="..\..\Reacts\Reacts.csproj" />
+
+    </ItemGroup>
+
+</Project>

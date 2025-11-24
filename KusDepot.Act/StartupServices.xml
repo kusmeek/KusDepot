@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServicesManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="ToolActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ToolActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ToolActorService_TargetReplicaSetSize" DefaultValue="3" />
+  </Parameters>
+  <Services>
+    <Service Name="ToolActorService" GeneratedIdRef="4098f092-688c-4f28-a7c4-7b315ff3c1f3|Persisted">
+      <StatefulService ServiceTypeName="ToolActorServiceType" TargetReplicaSetSize="[ToolActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ToolActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ToolActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+  </Services>
+</StartupServicesManifest>

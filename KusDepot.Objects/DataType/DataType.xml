@@ -1,0 +1,1253 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataType>
+
+    <class name = "DataType">
+
+        <main>
+
+            <summary>Data Types</summary>
+
+            <remarks>Data or file formats generally associated with a media (MIME) type or file extension.</remarks>
+
+        </main>
+
+        <value name = "ACCDB" Cref = "String">
+
+            <summary>Access Database.</summary>
+
+        </value>
+
+        <value name = "ADML" Cref = "String">
+
+            <summary>Administrative Template.</summary>
+
+        </value>
+
+        <value name = "ADMX" Cref = "String">
+
+            <summary>Administrative Template.</summary>
+
+        </value>
+
+        <value name = "AHK" Cref = "String">
+
+            <summary>AutoHotKey Script.</summary>
+
+        </value>
+
+        <value name = "API" Cref = "String">
+
+            <summary>OpenAPI/Swagger Document.</summary>
+
+        </value>
+
+        <value name = "APPLICATION" Cref = "String">
+
+            <summary>Deployment Manifest.</summary>
+
+        </value>
+
+        <value name = "APPREF" Cref = "String">
+
+            <summary>Application Reference.</summary>
+
+        </value>
+
+        <value name = "APPX" Cref = "String">
+
+            <summary>Universal Package.</summary>
+
+        </value>
+
+        <value name = "ARM" Cref = "String">
+
+            <summary>Azure Resource Manager Template.</summary>
+
+        </value>
+
+        <value name = "ASM" Cref = "String">
+
+            <summary>Assembly Code.</summary>
+
+        </value>
+
+        <value name = "AU3" Cref = "String">
+
+            <summary>AutoIT Script.</summary>
+
+        </value>
+
+        <value name = "AVI" Cref = "String">
+
+            <summary>AVI Video.</summary>
+
+        </value>
+
+        <value name = "BACPAC" Cref = "String">
+
+            <summary>Database Archive.</summary>
+
+        </value>
+
+        <value name = "BAML" Cref = "String">
+
+            <summary>Binary Application Markup Language.</summary>
+
+        </value>
+
+        <value name = "BAR" Cref = "String">
+
+            <summary>Bar Code Image.</summary>
+
+        </value>
+
+        <value name = "BAT" Cref = "String">
+
+            <summary>Windows Script Code.</summary>
+
+        </value>
+
+        <value name = "BICEP" Cref = "String">
+
+            <summary>Bicep Template.</summary>
+
+        </value>
+
+        <value name = "BIN" Cref = "String">
+
+            <summary>Object Library | Executable | Opaque Binary.</summary>
+
+        </value>
+
+        <value name = "BMP" Cref = "String">
+
+            <summary>Bitmap Image.</summary>
+
+        </value>
+
+        <value name = "C" Cref = "String">
+
+            <summary>C Code.</summary>
+
+        </value>
+
+        <value name = "CAB" Cref = "String">
+
+            <summary>Cabinet File.</summary>
+
+        </value>
+
+        <value name = "CR" Cref = "String">
+
+            <summary>Citrix Receiver/Workspace.</summary>
+
+        </value>
+
+        <value name = "CAD" Cref = "String">
+
+            <summary>Computer Aided Design.</summary>
+
+        </value>
+
+        <value name = "CAKE" Cref = "String">
+
+            <summary>C# Make.</summary>
+
+        </value>
+
+        <value name = "CER" Cref = "String">
+
+            <summary>X.509 Certificate.</summary>
+
+        </value>
+
+        <value name = "CFG" Cref = "String">
+
+            <summary>Configuration Data.</summary>
+
+        </value>
+
+        <value name = "CHM" Cref = "String">
+
+            <summary>HTML Help.</summary>
+
+        </value>
+
+        <value name = "CIL" Cref = "String">
+
+            <summary>Common Intermediate Language.</summary>
+
+        </value>
+
+        <value name = "CMD" Cref = "String">
+
+            <summary>Windows Script Code.</summary>
+
+        </value>
+
+        <value name = "COM" Cref = "String">
+
+            <summary>DOS Executable.</summary>
+
+        </value>
+
+        <value name = "CONFIG" Cref = "String">
+
+            <summary>Application/Framework/Machine Configuration.</summary>
+
+        </value>
+
+        <value name = "CPP" Cref = "String">
+
+            <summary>C++ Code.</summary>
+
+        </value>
+
+        <value name = "CS" Cref = "String">
+
+            <summary>C# Code.</summary>
+
+        </value>
+
+        <value name = "CSHTML" Cref = "String">
+
+            <summary>Layout | MVC (partial) View | Razor Page.</summary>
+
+        </value>
+
+        <value name = "CSPROJ" Cref = "String">
+
+            <summary>C# Project.</summary>
+
+        </value>
+
+        <value name = "CSS" Cref = "String">
+
+            <summary>Cascading Style Sheet.</summary>
+
+        </value>
+
+        <value name = "CSV" Cref = "String">
+
+            <summary>Comma-separated values.</summary>
+
+        </value>
+
+        <value name = "CSX" Cref = "String">
+
+            <summary>C# Script.</summary>
+
+        </value>
+
+        <value name = "CUE" Cref = "String">
+
+            <summary>Optical Metadata Sheet.</summary>
+
+        </value>
+
+        <value name = "DACPAC" Cref = "String">
+
+            <summary>Database Model.</summary>
+
+        </value>
+
+        <value name = "DAT" Cref = "String">
+
+            <summary>Arbitrary Data | Registry Hive | User Profile.</summary>
+
+        </value>
+
+        <value name = "DAW" Cref = "String">
+
+            <summary>Digital Audio Workstation.</summary>
+
+        </value>
+
+        <value name = "DB" Cref = "String">
+
+            <summary>Generic Database.</summary>
+
+        </value>
+
+        <value name = "DIAGSESSION" Cref = "String">
+
+            <summary>Application Diagnostic Session.</summary>
+
+        </value>
+
+        <value name = "DIT" Cref = "String">
+
+            <summary>Active Directory Information Tree.</summary>
+
+        </value>
+
+        <value name = "DLL" Cref = "String">
+
+            <summary>Dynamic Link Library | Satellite Assembly.</summary>
+
+        </value>
+
+        <value name = "DOCX" Cref = "String">
+
+            <summary>Office Document.</summary>
+
+        </value>
+
+        <value name = "DMP" Cref = "String">
+
+            <summary>Application/Crash Dump.</summary>
+
+        </value>
+
+        <value name = "EDB" Cref = "String">
+
+            <summary>Extensible Storage Engine Database.</summary>
+
+        </value>
+
+        <value name = "EOT" Cref = "String">
+
+            <summary>Embedded OpenType Font.</summary>
+
+        </value>
+
+        <value name = "EPUB" Cref = "String">
+
+            <summary>Electronic Publication.</summary>
+
+        </value>
+
+        <value name = "ETL" Cref = "String">
+
+            <summary>Performance Recorder Event Tracing Log.</summary>
+
+        </value>
+
+        <value name = "EVTX" Cref = "String">
+
+            <summary>Event Log.</summary>
+
+        </value>
+
+        <value name = "EXE" Cref = "String">
+
+            <summary>Executable.</summary>
+
+        </value>
+
+        <value name = "EXT" Cref = "String">
+
+            <summary>Extra/Extension/Etc.</summary>
+
+        </value>
+
+        <value name = "FLAC" Cref = "String">
+
+            <summary>FLAC Audio.</summary>
+
+        </value>
+
+        <value name = "FS" Cref = "String">
+
+            <summary>F# Code.</summary>
+
+        </value>
+
+        <value name = "GCDUMP" Cref = "String">
+
+            <summary>Heap Analysis.</summary>
+
+        </value>
+
+        <value name = "GEO" Cref = "String">
+
+            <summary>Geographic Information (GIS).</summary>
+
+        </value>
+
+        <value name = "GIF" Cref = "String">
+
+            <summary>GIF Image.</summary>
+
+        </value>
+
+        <value name = "GO" Cref = "String">
+
+            <summary>Go Code.</summary>
+
+        </value>
+
+        <value name = "GPX" Cref = "String">
+
+            <summary>GPS Exchange.</summary>
+
+        </value>
+
+        <value name = "GUID" Cref = "String">
+
+            <summary>Unique ID.</summary>
+
+        </value>
+
+        <value name = "GZ" Cref = "String">
+
+            <summary>Gzip archive.</summary>
+
+        </value>
+
+        <value name = "H" Cref = "String">
+
+            <summary>C Header.</summary>
+
+        </value>
+
+        <value name = "HAR" Cref = "String">
+
+            <summary>HTTP Archive.</summary>
+
+        </value>
+
+        <value name = "HPP" Cref = "String">
+
+            <summary>C++ Header.</summary>
+
+        </value>
+
+        <value name = "HTM" Cref = "String">
+
+            <summary>HTML Code/Document.</summary>
+
+        </value>
+
+        <value name = "HTML" Cref = "String">
+
+            <summary>HTML Code/Document.</summary>
+
+        </value>
+
+        <value name = "HXS" Cref = "String">
+
+            <summary>HTML Help.</summary>
+
+        </value>
+
+        <value name = "ICO" Cref = "String">
+
+            <summary>Icon.</summary>
+
+        </value>
+
+        <value name = "ICS" Cref = "String">
+
+            <summary>Internet Calendaring and Scheduling.</summary>
+
+        </value>
+
+        <value name = "IMAX" Cref = "String">
+
+            <summary>IMAX Laser.</summary>
+
+        </value>
+
+        <value name = "IMG" Cref = "String">
+
+            <summary>Disk Image (Raw Sectors).</summary>
+
+        </value>
+
+        <value name = "INF" Cref = "String">
+
+            <summary>Setup Information.</summary>
+
+        </value>
+
+        <value name = "INI" Cref = "String">
+
+            <summary>Initialization Data.</summary>
+
+        </value>
+
+        <value name = "ISO" Cref = "String">
+
+            <summary>ISO 9660.</summary>
+
+        </value>
+
+        <value name = "JAR" Cref = "String">
+
+            <summary>Java Archive.</summary>
+
+        </value>
+
+        <value name = "JAVA" Cref = "String">
+
+            <summary>Java (Oak) Code.</summary>
+
+        </value>
+
+        <value name = "JPEG" Cref = "String">
+
+            <summary>JPEG Image.</summary>
+
+        </value>
+
+        <value name = "JPG" Cref = "String">
+
+            <summary>JPEG Image.</summary>
+
+        </value>
+
+        <value name = "JS" Cref = "String">
+
+            <summary>JavaScript Code.</summary>
+
+        </value>
+
+        <value name = "JSON" Cref = "String">
+
+            <summary>JavaScript Object.</summary>
+
+        </value>
+
+        <value name = "KEY" Cref = "String">
+
+            <summary>A Private Key.</summary>
+
+        </value>
+
+        <value name = "KEYSET" Cref = "String">
+
+            <summary>A KeySet.</summary>
+
+        </value>
+
+        <value name = "KCAB" Cref = "String">
+
+            <summary>KusDepot Cab.</summary>
+
+        </value>
+
+        <value name = "KCMD" Cref = "String">
+
+            <summary>KusDepot Command.</summary>
+
+        </value>
+
+        <value name = "KCMDWF" Cref = "String">
+
+            <summary>KusDepot CommandWorkflow.</summary>
+
+        </value>
+
+        <value name = "KDATA" Cref = "String">
+
+            <summary>KusDepot DataItem.</summary>
+
+        </value>
+
+        <value name = "KML" Cref = "String">
+
+            <summary>Google (Keyhole) Earth Markup.</summary>
+
+        </value>
+
+        <value name = "KTOOL" Cref = "String">
+
+            <summary>KusDepot Tool.</summary>
+
+        </value>
+
+        <value name = "KQL" Cref = "String">
+
+            <summary>Kusto Query Language.</summary>
+
+        </value>
+
+        <value name = "LDF" Cref = "String">
+
+            <summary>Database Transaction Log File.</summary>
+
+        </value>
+
+        <value name = "LOG" Cref = "String">
+
+            <summary>Log Segment.</summary>
+
+        </value>
+
+        <value name = "LUA" Cref = "String">
+
+            <summary>Lua Code.</summary>
+
+        </value>
+
+        <value name = "M4A" Cref = "String">
+
+            <summary>MP4 Audio.</summary>
+
+        </value>
+
+        <value name = "MDB" Cref = "String">
+
+            <summary>Access 2003 Database.</summary>
+
+        </value>
+
+        <value name = "MDF" Cref = "String">
+
+            <summary>Primary Database File.</summary>
+
+        </value>
+
+        <value name = "MEM" Cref = "String">
+
+            <summary>Protected Mode Address Space Fragment.</summary>
+
+        </value>
+
+        <value name = "MIDI" Cref = "String">
+
+            <summary>MIDI Audio.</summary>
+
+        </value>
+
+        <value name = "MJS" Cref = "String">
+
+            <summary>JavaScript Module.</summary>
+
+        </value>
+
+        <value name = "MOF" Cref = "String">
+
+            <summary>PowerShell DSC Managed Object Format Resource Schema.</summary>
+
+        </value>
+
+        <value name = "MOV" Cref = "String">
+
+            <summary>QuickTime Video.</summary>
+
+        </value>
+
+        <value name = "MP3" Cref = "String">
+
+            <summary>MP3 Audio.</summary>
+
+        </value>
+
+        <value name = "MP4" Cref = "String">
+
+            <summary>MP4 Video.</summary>
+
+        </value>
+
+        <value name = "MPEG" Cref = "String">
+
+            <summary>MPEG Container.</summary>
+
+        </value>
+
+        <value name = "MPG" Cref = "String">
+
+            <summary>MPEG Container.</summary>
+
+        </value>
+
+        <value name = "MSB" Cref = "String">
+
+            <summary>MSBuild Configurations Snippet.</summary>
+
+        </value>
+
+        <value name = "MSBUILDPROJ" Cref = "String">
+
+            <summary>MSBuild Project.</summary>
+
+        </value>
+
+        <value name = "MSHC" Cref = "String">
+
+            <summary>HTML Help.</summary>
+
+        </value>
+
+        <value name = "MSIL" Cref = "String">
+
+            <summary>Intermediate Language.</summary>
+
+        </value>
+
+        <value name = "MSIX" Cref = "String">
+
+            <summary>Windows App Package.</summary>
+
+        </value>
+
+        <value name = "MUI" Cref = "String">
+
+            <summary>Multilingual User Interface.</summary>
+
+        </value>
+
+        <value name = "NDF" Cref = "String">
+
+            <summary>Supplemental Database File.</summary>
+
+        </value>
+
+        <value name = "NETTRACE" Cref = "String">
+
+            <summary>EventPipe.</summary>
+
+        </value>
+
+        <value name = "NFO" Cref = "String">
+
+            <summary>Information.</summary>
+
+        </value>
+
+        <value name = "NONE" Cref = "String">
+
+            <summary>No Extension.</summary>
+
+        </value>
+
+        <value name = "NUPKG" Cref = "String">
+
+            <summary>NuGet Package.</summary>
+
+        </value>
+
+        <value name = "OCI" Cref = "String">
+
+            <summary>Docker Image.</summary>
+
+        </value>
+
+        <value name = "OCIL" Cref = "String">
+
+            <summary>OCI Layer.</summary>
+
+        </value>
+
+        <value name = "OCILN" Cref = "String">
+
+            <summary>OCI Nondistributable Layer.</summary>
+
+        </value>
+
+        <value name = "OCILZ" Cref = "String">
+
+            <summary>OCI Layer Compressed.</summary>
+
+        </value>
+
+        <value name = "OCILNZ" Cref = "String">
+
+            <summary>OCI Nondistributable Layer Compressed.</summary>
+
+        </value>
+
+        <value name = "OGA" Cref = "String">
+
+            <summary>OGG Audio.</summary>
+
+        </value>
+
+        <value name = "OGV" Cref = "String">
+
+            <summary>OGG Video.</summary>
+
+        </value>
+
+        <value name = "OGX" Cref = "String">
+
+            <summary>OGG Multiplex.</summary>
+
+        </value>
+
+        <value name = "OTF" Cref = "String">
+
+            <summary>OpenType Font.</summary>
+
+        </value>
+
+        <value name = "P7B" Cref = "String">
+
+            <summary>PKCS#7 Container.</summary>
+
+        </value>
+
+        <value name = "PAGE" Cref = "String">
+
+            <summary>Memory Page.</summary>
+
+        </value>
+
+        <value name = "PCAP" Cref = "String">
+
+            <summary>Network Packet Capture.</summary>
+
+        </value>
+
+        <value name = "PDB" Cref = "String">
+
+            <summary>Program Database Debug Symbols.</summary>
+
+        </value>
+
+        <value name = "PDF" Cref = "String">
+
+            <summary>PDF Document.</summary>
+
+        </value>
+
+        <value name = "PEM" Cref = "String">
+
+            <summary>Certificate Chain.</summary>
+
+        </value>
+
+        <value name = "PFX" Cref = "String">
+
+            <summary>PKCS#12 Container.</summary>
+
+        </value>
+
+        <value name = "PHP" Cref = "String">
+
+            <summary>Personal Home Page.</summary>
+
+        </value>
+
+        <value name = "PNG" Cref = "String">
+
+            <summary>PNG Image.</summary>
+
+        </value>
+
+        <value name = "PPKG" Cref = "String">
+
+            <summary>Windows Provisioning Package.</summary>
+
+        </value>
+
+        <value name = "PPTX" Cref = "String">
+
+            <summary>PowerPoint Document.</summary>
+
+        </value>
+
+        <value name = "PROMPT" Cref = "String">
+
+            <summary>Large language model prompt.</summary>
+
+        </value>
+
+        <value name = "PROPS" Cref = "String">
+
+            <summary>Visual Studio Properties.</summary>
+
+        </value>
+
+        <value name = "PROTO" Cref = "String">
+
+            <summary>Protocol Buffers.</summary>
+
+        </value>
+
+        <value name = "PS1" Cref = "String">
+
+            <summary>PowerShell Code.</summary>
+
+        </value>
+
+        <value name = "PSD1" Cref = "String">
+
+            <summary>PowerShell Data or Manifest.</summary>
+
+        </value>
+
+        <value name = "PSM1" Cref = "String">
+
+            <summary>PowerShell Binary or Script Module.</summary>
+
+        </value>
+
+        <value name = "PSSC" Cref = "String">
+
+            <summary>PowerShell Session Configuration.</summary>
+
+        </value>
+
+        <value name = "PY" Cref = "String">
+
+            <summary>Python/IronPython Code.</summary>
+
+        </value>
+
+        <value name = "QRC" Cref = "String">
+
+            <summary>Quick Response Code Image.</summary>
+
+        </value>
+
+        <value name = "RAR" Cref = "String">
+
+            <summary>RAR Archive.</summary>
+
+        </value>
+
+        <value name = "RAZOR" Cref = "String">
+
+            <summary>Blazor/Razor Component.</summary>
+
+        </value>
+
+        <value name = "REG" Cref = "String">
+
+            <summary>Registry Data/Entries.</summary>
+
+        </value>
+
+        <value name = "RESX" Cref = "String">
+
+            <summary>Resources.</summary>
+
+        </value>
+
+        <value name = "RFC" Cref = "String">
+
+            <summary>Request For Comments.</summary>
+
+        </value>
+
+        <value name = "RLIB" Cref = "String">
+
+            <summary>Rust Library.</summary>
+
+        </value>
+
+        <value name = "RS" Cref = "String">
+
+            <summary>Rust Code.</summary>
+
+        </value>
+
+        <value name = "RTF" Cref = "String">
+
+            <summary>RichText.</summary>
+
+        </value>
+
+        <value name = "SCR" Cref = "String">
+
+            <summary>Screen Saver.</summary>
+
+        </value>
+
+        <value name = "SFPKG" Cref = "String">
+
+            <summary>Service Fabric Package.</summary>
+
+        </value>
+
+        <value name = "SFPROJ" Cref = "String">
+
+            <summary>Service Fabric Project.</summary>
+
+        </value>
+
+        <value name = "SGML" Cref = "String">
+
+            <summary>Standard Generalized Markup Language.</summary>
+
+        </value>
+
+        <value name = "SH" Cref = "String">
+
+            <summary>Shell Script Code.</summary>
+
+        </value>
+
+        <value name = "SHFBPROJ" Cref = "String">
+
+            <summary>Sandcastle Help File Builder Project.</summary>
+
+        </value>
+
+        <value name = "SLN" Cref = "String">
+
+            <summary>Visual Studio Solution.</summary>
+
+        </value>
+
+        <value name = "SLNX" Cref = "String">
+
+            <summary>Visual Studio Solution XML.</summary>
+
+        </value>
+
+        <value name = "SO" Cref = "String">
+
+            <summary>Shared Object.</summary>
+
+        </value>
+
+        <value name = "SQL" Cref = "String">
+
+            <summary>Structured Query Language.</summary>
+
+        </value>
+
+        <value name = "SQLPROJ" Cref = "String">
+
+            <summary>SQL Database Project.</summary>
+
+        </value>
+
+        <value name = "SUO" Cref = "String">
+
+            <summary>Binary VS Solution Options.</summary>
+
+        </value>
+
+        <value name = "SVG" Cref = "String">
+
+            <summary>SVG Image.</summary>
+
+        </value>
+
+        <value name = "SYS" Cref = "String">
+
+            <summary>Kernel Mode Code/Driver.</summary>
+
+        </value>
+
+        <value name = "TAR" Cref = "String">
+
+            <summary>TAR Archive.</summary>
+
+        </value>
+
+        <value name = "TARGETS" Cref = "String">
+
+            <summary>Visual Studio Targets.</summary>
+
+        </value>
+
+        <value name = "TIFF" Cref = "String">
+
+            <summary>TIFF Audio.</summary>
+
+        </value>
+
+        <value name = "TOOLCFG" Cref = "String">
+
+            <summary>Tool Configuration Serialized.</summary>
+
+        </value>
+
+        <value name = "TS" Cref = "String">
+
+            <summary>TypeScript Code.</summary>
+
+        </value>
+
+        <value name = "TSX" Cref = "String">
+
+            <summary>TypeScript Code.</summary>
+
+        </value>
+
+        <value name = "TTF" Cref = "String">
+
+            <summary>TrueType Font.</summary>
+
+        </value>
+
+        <value name = "TXT" Cref = "String">
+
+            <summary>Plain Text.</summary>
+
+        </value>
+
+        <value name = "VB" Cref = "String">
+
+            <summary>Visual Basic Code.</summary>
+
+        </value>
+
+        <value name = "VHDX" Cref = "String">
+
+            <summary>Hyper-V.</summary>
+
+        </value>
+
+        <value name = "VSD" Cref = "String">
+
+            <summary>Visio Document.</summary>
+
+        </value>
+
+        <value name = "VSIX" Cref = "String">
+
+            <summary>Visual Studio Extension.</summary>
+
+        </value>
+
+        <value name = "WAPPROJ" Cref = "String">
+
+            <summary>Windows Application Packaging Project.</summary>
+
+        </value>
+
+        <value name = "WASM" Cref = "String">
+
+            <summary>WebCIL/WebAssembly Module.</summary>
+
+        </value>
+
+        <value name = "WAT" Cref = "String">
+
+            <summary>WebAssembly Text.</summary>
+
+        </value>
+
+        <value name = "WAV" Cref = "String">
+
+            <summary>WAV Audio.</summary>
+
+        </value>
+
+        <value name = "WDBG" Cref = "String">
+
+            <summary>DbgHelp/WinDBG.</summary>
+
+        </value>
+
+        <value name = "WEBA" Cref = "String">
+
+            <summary>WebM Audio.</summary>
+
+        </value>
+
+        <value name = "WEBM" Cref = "String">
+
+            <summary>WebM Video.</summary>
+
+        </value>
+
+        <value name = "WEBP" Cref = "String">
+
+            <summary>WebP Image.</summary>
+
+        </value>
+
+        <value name = "WIM" Cref = "String">
+
+            <summary>Windows Imaging.</summary>
+
+        </value>
+
+        <value name = "WINGET" Cref = "String">
+
+            <summary>Windows Get.</summary>
+
+        </value>
+
+        <value name = "WINMD" Cref = "String">
+
+            <summary>Windows Metadata.</summary>
+
+        </value>
+
+        <value name = "WIT" Cref = "String">
+
+            <summary>WebAssembly Interface.</summary>
+
+        </value>
+
+        <value name = "WMA" Cref = "String">
+
+            <summary>WMA Audio.</summary>
+
+        </value>
+
+        <value name = "WMV" Cref = "String">
+
+            <summary>Windows Media Video.</summary>
+
+        </value>
+
+        <value name = "WOFF" Cref = "String">
+
+            <summary>Web Open Font.</summary>
+
+        </value>
+
+        <value name = "WPRP" Cref = "String">
+
+            <summary>Windows Performance Recorder Profile.</summary>
+
+        </value>
+
+        <value name = "WSDL" Cref = "String">
+
+            <summary>Web Services Description Language.</summary>
+
+        </value>
+
+        <value name = "XAML" Cref = "String">
+
+            <summary>Extensible Application Markup Language.</summary>
+
+        </value>
+
+        <value name = "XAP" Cref = "String">
+
+            <summary>Silverlight/Phone Package.</summary>
+
+        </value>
+
+        <value name = "XHTML" Cref = "String">
+
+            <summary>XHTML Code.</summary>
+
+        </value>
+
+        <value name = "XLSX" Cref = "String">
+
+            <summary>Excel Document.</summary>
+
+        </value>
+
+        <value name = "XML" Cref = "String">
+
+            <summary>XML.</summary>
+
+        </value>
+
+        <value name = "YAML" Cref = "String">
+
+            <summary>YAML Ain't Markup Language.</summary>
+
+        </value>
+
+        <value name = "YML" Cref = "String">
+
+            <summary>YAML Ain't Markup Language.</summary>
+
+        </value>
+
+        <value name = "ZIP" Cref = "String">
+
+            <summary>ZIP Archive.</summary>
+
+        </value>
+
+    </class>
+
+</DataType>

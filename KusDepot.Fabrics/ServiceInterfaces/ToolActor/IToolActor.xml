@@ -1,0 +1,71 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolActor>
+
+    <interface name = "IToolActor">
+
+        <main>
+
+            <summary>Fabric Actor Tools.</summary>
+
+        </main>
+
+        <method name = "ExecuteCommand">
+
+            <summary>Give Command.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "key" Cref = "AccessKey?">Key.</param>
+
+            <returns Cref = "Task{Guid?}">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommandCab">
+
+            <summary>Give Command.</summary>
+
+            <param name = "cab" Cref = "KusDepotCab?">Command Details Cab.</param>
+
+            <param name = "key" Cref = "AccessKey?">Key.</param>
+
+            <returns Cref = "Task{Guid?}">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "GetOutput">
+
+            <summary>Get Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "key" Cref = "AccessKey?">Key.</param>
+
+            <returns Cref = "Task{Object?}">Output.</returns>
+
+        </method>
+
+        <method name = "RequestAccess">
+
+            <summary>Request Access.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Request.</param>
+
+            <returns Cref = "Task{AccessKey?}">Access Key.</returns>
+
+        </method>
+
+        <method name = "RevokeAccess">
+
+            <summary>Revoke Access.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Key.</param>
+
+            <returns Cref = "Task{Boolean}">True if AccessKey revoked.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolActor>

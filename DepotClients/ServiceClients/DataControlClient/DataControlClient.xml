@@ -1,0 +1,87 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlClient>
+
+    <class name = "DataControlClient">
+
+        <main>
+
+            <summary>DataControl Client.</summary>
+
+        </main>
+
+        <field name = "Client" Cref = "RestClient">
+
+            <summary>Rest Client.</summary>
+
+        </field>
+
+        <field name = "Auth" Cref = "JwtAuthenticator">
+
+            <summary>JWT Authenticator.</summary>
+
+        </field>
+
+        <property name = "EndPoint" Cref = "String">
+
+            <summary>Service EndPoint.</summary>
+
+        </property>
+
+        <property name = "Certificate" Cref = "X509Certificate2">
+
+            <summary>Client Certificate.</summary>
+
+        </property>
+
+        <property name = "StreamBufferSize" Cref = "Int32">
+
+            <summary>Size of Stream buffer in Bytes.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "endpoint" Cref = "String">Service Endpoint.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Authentication Certificate. Requires Extension Oid 2.5.29.32.853207196923.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <returns Cref = "DataControlClient">New DataControlClient.</returns>
+
+        </constructor>
+
+    </class>
+
+    <record name="DownloadInfo">
+
+        <main>
+
+            <summary>Stores the result of a GetStream operation.</summary>
+
+        </main>
+
+        <property name="DataControlDownload" Cref = "DataControlDownload">
+
+            <summary>DataControl Download.</summary>
+
+        </property>
+
+        <property name="FilePath" Cref = "String">
+
+            <summary>Path to retrieved Content Stream.</summary>
+
+        </property>
+
+        <property name="ItemPath" Cref = "String">
+
+            <summary>Path to Serialized Object.</summary>
+
+        </property>
+
+    </record>
+
+</DataControlClient>

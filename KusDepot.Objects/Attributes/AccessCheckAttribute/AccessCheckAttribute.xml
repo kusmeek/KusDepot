@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<AccessCheckAttribute>
+
+    <class name = "AccessCheckAttribute">
+
+        <main>
+
+            <summary>Metadata.</summary>
+
+            <remarks>Identifies Protected Operations for Access Manager.</remarks>
+
+        </main>
+
+        <property name = "Index" Cref = "Int32">
+
+            <summary>ProtectedOperations.cs.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "index" Cref = "Int32">Operation Index.</param>
+
+            <remarks>Index Constants are defined in ProtectedOperations.cs.</remarks>
+
+        </constructor>
+
+    </class>
+
+</AccessCheckAttribute>

@@ -1,0 +1,27 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalogDBFactory>
+
+    <interface name ="ICatalogDBFactory">
+
+        <main>
+
+            <summary>CatalogDBFactory Interface.</summary>
+
+            <remarks>This interface defines a method to create a ActorProxy for a CatalogDB service.</remarks>
+
+        </main>
+
+        <method name = "Create">
+
+            <summary>Creates an ActorProxy for an CatalogDB service.</summary>
+
+            <param name = "catalogname" Cref = "String">The catalog the CatalogDB stores.</param>
+
+            <returns Cref = "ICatalogDB">The ActorProxy.</returns>
+
+        </method>
+
+    </interface>
+
+</ICatalogDBFactory>

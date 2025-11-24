@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolGenericHostBuilder>
+
+    <class name = "ToolGenericHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Generic Tools.</summary>
+
+        </main>
+
+        <method name = "configuretoolgenerichost">
+
+            <summary>Execute Tool Generic Host Configuration Actions.</summary>
+
+            <param name = "toolgenerichost" Cref = "IToolGenericHost">Built ToolGenericHost.</param>
+
+        </method>
+
+    </class>
+
+</ToolGenericHostBuilder>

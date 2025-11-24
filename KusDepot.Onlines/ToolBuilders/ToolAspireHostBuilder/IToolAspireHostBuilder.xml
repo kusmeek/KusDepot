@@ -1,0 +1,131 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolAspireHostBuilder>
+
+    <interface name = "IToolAspireHostBuilder">
+
+        <main>
+
+            <summary>ToolAspireHostBuilder Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolAspireHostBuilder.</remarks>
+
+        </main>
+
+        <property name = "Builder">
+
+            <summary>Aspire Host Builder</summary>
+
+            <returns Cref = "IDistributedApplicationBuilder">Aspire Host Builder.</returns>
+
+        </property>
+
+        <method name = "BuildAspireHost">
+
+            <summary>Build the Aspire Host.</summary>
+
+            <param name = "app" Cref = "DistributedApplication?">Prebuilt, UnStarted DistributedApplication.</param>
+
+            <returns Cref = "IToolAspireHost">Tool Aspire Host.</returns>
+
+        </method>
+
+        <method name = "BuildAspireHostAsync">
+
+            <summary>Build the ToolAspireHost Async.</summary>
+
+            <param name = "app" Cref = "DistributedApplication?">Distributed Application.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IToolAspireHost}">Tool Aspire Host.</returns>
+
+        </method>
+
+        <method name = "BuildAspireHostOpen">
+
+            <summary>Build the Aspire Host.</summary>
+
+            <param name = "app" Cref = "DistributedApplication?">Prebuilt, UnStarted DistributedApplication.</param>
+
+            <typeparam name = "TToolAspireHost">A Type of ToolAspireHost.</typeparam>
+
+            <returns Cref = "IToolAspireHost">ToolAspireHost of type specified.</returns>
+
+        </method>
+
+        <method name = "BuildAspireHostAsyncOpen">
+
+            <summary>Build the ToolAspireHost Async.</summary>
+
+            <typeparam name = "TToolAspireHost">A Type of ToolAspireHost.</typeparam>
+
+            <param name = "app" Cref = "DistributedApplication?">Distributed Application.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{TToolAspireHost}">ToolAspireHost of type specified.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolAspireHost">
+
+            <summary>Configure ToolAspireHost.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolAspireHost}">Configuration Action.</param>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+        <method name = "ConnectWithApplication">
+
+            <summary>Add IToolConnect to Application Services.</summary>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+        <method name = "LinkLifetime">
+
+            <summary>Add IToolHostLifetime to Application Services.</summary>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseConsoleLifetime">
+
+            <summary>Use Console Lifetime.</summary>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseBuilderArguments">
+
+            <summary>Use Builder Arguments.</summary>
+
+            <param name = "args" Cref="String[]?">Arguments.</param>
+
+            <remarks>Uses a new Distributed Application Builder.</remarks>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseBuilderOptions">
+
+            <summary>Use Builder Options.</summary>
+
+            <param name = "options" Cref="DistributedApplicationOptions?">Options.</param>
+
+            <remarks>Uses a new Distributed Application Builder.</remarks>
+
+            <returns Cref = "IToolAspireHostBuilder">ToolAspireHostBuilder.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolAspireHostBuilder>

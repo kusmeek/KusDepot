@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<INamedPipeManager>
+
+    <interface name = "INamedPipeManager">
+
+        <main>
+
+            <summary>Named Pipe Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Named Pipe Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</INamedPipeManager>

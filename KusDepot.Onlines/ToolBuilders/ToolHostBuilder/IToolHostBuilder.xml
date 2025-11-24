@@ -1,0 +1,75 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolHostBuilder>
+
+    <interface name = "IToolHostBuilder">
+
+        <main>
+
+            <summary>ToolHostBuilder Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolHostBuilder.</remarks>
+
+        </main>
+
+        <method name = "BuildHost">
+
+            <summary>Build the ToolHost.</summary>
+
+            <returns Cref = "IToolHost">ToolHost.</returns>
+
+        </method>
+
+        <method name = "BuildHostAsync">
+
+            <summary>Build the ToolHost Async.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IToolHost}">ToolHost.</returns>
+
+        </method>
+
+        <method name = "BuildHostOpen">
+
+            <summary>Build the ToolHost.</summary>
+
+            <typeparam name = "TToolHost">A Type of ToolHost.</typeparam>
+
+            <returns Cref = "IToolHost">ToolHost of type specified.</returns>
+
+        </method>
+
+        <method name = "BuildHostAsyncOpen">
+
+            <summary>Build the ToolHost Async.</summary>
+
+            <typeparam name = "TToolHost">A Type of ToolHost.</typeparam>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{TToolHost}">ToolHost of type specified.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolHost">
+
+            <summary>Configure ToolHost.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolHost}">Configuration Action.</param>
+
+            <returns Cref = "IToolHostBuilder">ToolHostBuilder.</returns>
+
+        </method>
+
+        <method name = "UseConsoleLifetime">
+
+            <summary>Use Console Lifetime.</summary>
+
+            <returns Cref = "IToolHostBuilder">ToolHostBuilder.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolHostBuilder>

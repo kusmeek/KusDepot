@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GeneralDataEnvelope>
+    <class name="GeneralDataEnvelope">
+        <main>
+            <summary>
+                Data protection with RSA and AES-GCM.
+            </summary>
+            <remarks>
+                <para>Envelope Layout:</para>
+                <list type="bullet">
+                    <item><description>Header (variable length):</description></item>
+                    <item><description>[0]                : Version (1 byte)</description></item>
+                    <item><description>[1]                : Flags (1 byte)</description></item>
+                    <item><description>[2..3]             : RsaWrappedLen (UInt16)</description></item>
+                    <item><description>[4..(4+R-1)]       : RSA wrapped AES key + base nonce seed (R bytes)</description></item>
+                    <item><description>[4+R]              : chunksizepower (1 byte)</description></item>
+                    <item><description>[opt]              : OriginalLength (UInt64, 8 bytes) if Flag_HasOriginalLength</description></item>
+                    <item><description>[opt]              : AadHash (64 bytes) if Flag_HasAadHash</description></item>
+                    <item><description>(Header length     : see ComputeHeaderLength</description></item>
+                    <item><description>Chunk (repeated):</description></item>
+                    <item><description>[0..3]             : Plaintext length (UInt32)</description></item>
+                    <item><description>[4..7]             : Ciphertext length (UInt32)</description></item>
+                    <item><description>[8..(8+C-1)]       : Ciphertext (C bytes)</description></item>
+                    <item><description>[8+C]              : TagSize (1 byte, always 16)</description></item>
+                    <item><description>[8+C+1..8+C+16]    : GCM Tag (16 bytes)</description></item>
+                    <item><description>Footer (if not using original length):</description></item>
+                    <item><description>[0]                : FooterMarker (0xF0)</description></item>
+                    <item><description>[1..4]             : ChunkCount (UInt32)</description></item>
+                </list>
+                <para>Notes:</para>
+                <list type="bullet">
+                    <item><description>Nonce for each chunk is derived via HMAC-SHA512(aeskey, basenonceseed || chunkindex) and truncated to 12 bytes.</description></item>
+                    <item><description>Per-chunk AAD is SHA512 hash of header fields + chunk index + lengths + optional fields.</description></item>
+                    <item><description>If Flag_HasOriginalLength is set, no footer is present; otherwise, footer marks end and chunk count.</description></item>
+                    <item><description>All multi-byte integers are big endian.</description></item>
+                    <item><description>Envelope = header + chunks + (optional footer)</description></item>
+                </list>
+            </remarks>
+        </main>
+        <struct name="Header">
+            <summary>
+                Parsed header.
+            </summary>
+            <remarks>
+                <para>Header fields:</para>
+                <list type="bullet">
+                    <item><description>VersionByte: Envelope version.</description></item>
+                    <item><description>Flags: Bitfield indicating presence of optional fields (OriginalLength, AadHash).</description></item>
+                    <item><description>RsaWrappedLen: Length of RSA-wrapped AES key + base nonce seed.</description></item>
+                    <item><description>ChunkSizePower: Power-of-two chunk size (e.g., 20 for 1MB chunks).</description></item>
+                    <item><description>HasOriginalLength: True if the original plaintext length is included in the header.</description></item>
+                    <item><description>HasAadHash: True if a SHA512 hash of user-supplied AAD is included in the header.</description></item>
+                    <item><description>OriginalLength: The original plaintext length (if present).</description></item>
+                    <item><description>AadHash: SHA512 hash of AAD (if present).</description></item>
+                    <item><description>HeaderTotalLength: Total length of the parsed header in bytes.</description></item>
+                </list>
+                <para>Notes:</para>
+                <list type="bullet">
+                    <item><description>The header is authenticated via per-chunk AAD and is required for correct parsing and decryption.</description></item>
+                </list>
+            </remarks>
+        </struct>
+
+        <struct name="Footer">
+            <summary>
+                Parsed footer.
+            </summary>
+            <remarks>
+                <para>Footer fields:</para>
+                <list type="bullet">
+                    <item><description>ChunkCount: The total number of chunks in the envelope.</description></item>
+                </list>
+                <para>Notes:</para>
+                <list type="bullet">
+                    <item><description>The footer is present only if the original length is not included in the header.</description></item>
+                    <item><description>The footer marker (0xF0) is used to signal the end of the envelope and prevent truncation attacks.</description></item>
+                    <item><description>ChunkCount is used to verify integrity and completeness of the envelope.</description></item>
+                </list>
+            </remarks>
+        </struct>
+
+        <method name="DecryptArray">
+            <summary>
+                Decrypt data.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Byte[]?">Recovered plaintext.</returns>
+        </method>
+
+        <method name="DecryptArrayAsync">
+            <summary>
+                Decrypt data.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">Recovered plaintext.</returns>
+        </method>
+
+        <method name="EncryptArray">
+            <summary>
+                Encrypt data.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext data.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data (AAD).</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent determining chunk size. Bounds: 12..26.</param>
+            <returns Cref="Byte[]?">The envelope.</returns>
+        </method>
+
+        <method name="EncryptArrayAsync">
+            <summary>
+                Encrypt data.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext data.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Optional additional authenticated data (AAD).</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent determining chunk size. Bounds: 12..26.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">The envelope.</returns>
+        </method>
+
+        <method name="DecryptSpan">
+            <summary>
+                Decrypt data.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Serialized envelope.</param>
+            <param name="output" Cref="Span{Byte}">Buffer to write the recovered plaintext to.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="byteswritten" Cref="Int32">The number of bytes written to the output span.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Boolean">True if decryption and authentication succeed; false otherwise.</returns>
+            <remarks>
+                <para>This method is optimized for decrypting a complete envelope that is already in memory.</para>
+            </remarks>
+        </method>
+
+        <method name="EncryptSpan">
+            <summary>
+                Encrypt data.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Plaintext data.</param>
+            <param name="output" Cref="Span{Byte}">Buffer to write the envelope to.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="byteswritten" Cref="Int32">The number of bytes written to the output span.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data (AAD).</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header.</param>
+            <returns Cref="Boolean">True on success.</returns>
+            <remarks>
+                <para>This method is optimized for small, in-memory payloads and processes the input as a single chunk.</para>
+                <list type="bullet">
+                    <item><description>It always includes the original plaintext length in the header.</description></item>
+                </list>
+            </remarks>
+        </method>
+
+        <method name="DecryptStream">
+            <summary>
+                Decrypt data.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing the envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <returns Cref="Boolean">True if decryption and authentication succeed; false otherwise.</returns>
+            <remarks>
+                <para>Parsing and Validation</para>
+                <list type="number">
+                    <item><description>Read first 4 bytes (version, flags, rsaLen); validate version and flag bits.</description></item>
+                    <item><description>Read rest of header (variable) and parse optional OriginalLength / AadHash.</description></item>
+                    <item><description>RSA-OAEP decrypt wrapped material -> AES key + base nonce seed.</description></item>
+                    <item><description>If AadHash present: compute SHA512(aad) and perform fixed-time equality check.</description></item>
+                </list>
+
+                <para>Decryption</para>
+                <list type="bullet">
+                    <item><description>OriginalLength mode: read length blocks until EOF; must match declared OriginalLength exactly.</description></item>
+                    <item><description>Footer mode: read length blocks until FooterMarker encountered, then validate chunk count and absence of trailing bytes.</description></item>
+                    <item><description>For each chunk:</description></item>
+                    <list type="number">
+                        <item><description>a. Read plainLen, cipherLen, ciphertext, tagLen, tag.</description></item>
+                        <item><description>b. Reject if plainLen != cipherLen or sizes exceed chunk size bound.</description></item>
+                        <item><description>c. Derive nonce via HMACSHA512(aesKey, baseNonceSeed || chunkindex) -> first 12 bytes.</description></item>
+                        <item><description>d. Build per-chunk descriptor and SHA512 hash -> perChunkAad.</description></item>
+                        <item><description>e. AES-GCM decrypt and authenticate; on failure terminate and return false.</description></item>
+                    </list>
+                </list>
+
+                <para>Integrity and Security</para>
+                <list type="bullet">
+                    <item><description>Ordering enforced via chunkindex in AAD.</description></item>
+                    <item><description>Tampering with header, lengths, ciphertext, tags, or footer triggers authentication or structural failure.</description></item>
+                    <item><description>Replay or reordering of chunks invalid unless attacker can forge GCM tag.</description></item>
+                </list>
+
+                <para>Failure Modes</para>
+                <list type="bullet">
+                    <item><description>Structural: truncated header, invalid lengths, unexpected EOF, footer mismatch.</description></item>
+                    <item><description>Cryptographic: RSA failure, GCM authentication failure, HMAC/AAD build errors.</description></item>
+                    <item><description>Policy: Version mismatch, unsupported flags, chunk size overflow.</description></item>
+                </list>
+            </remarks>
+        </method>
+
+        <method name="DecryptStreamAsync">
+            <summary>
+                Decrypt data.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing the envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing RSA private key.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">AAD value that must exactly match the AAD used at encryption.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True if decryption and authentication succeed; false otherwise.</returns>
+        </method>
+
+        <method name="EncryptStream">
+            <summary>
+                Encrypt data.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for the envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data (AAD).</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent determining chunk size. Bounds: 12..26.</param>
+            <returns Cref="Boolean">True on success.</returns>
+            <remarks>
+                <para>Encryption</para>
+                <list type="number">
+                    <item><description>Validate arguments (stream capabilities, chunksizepower bounds, optional fields consistency).</description></item>
+                    <item><description>Optionally determine original length (requires seekable input) when includeoriginallength = true.</description></item>
+                    <item><description>Generate random AES-256 key and 16-byte base nonce seed; concatenate and RSA-OAEP(SHA-512) encrypt them.</description></item>
+                    <item><description>Emit header: version | flags | rsawrappedlen | wrappedbytes | chunksizepower | [originallength?] | [aadhash?].</description></item>
+                    <item><description>For each read chunk (up to chunkSize):</description></item>
+                    <item><description>a. Derive per-chunk nonce = first 12 bytes of HMACSHA512(aeskey, basenonceseed || chunkindex).</description></item>
+                    <item><description>b. Build per-chunk AAD descriptor (Version, Flags, ChunkIndex, PlainLength, [OriginalLength], [AadHash]) and hash with SHA512 -> perChunkAad.</description></item>
+                    <item><description>c. Encrypt with AES-GCM(nonce, plaintextChunk, perChunkAad) -> ciphertextChunk, tag.</description></item>
+                    <item><description>d. Write: UInt32 plainLen | UInt32 cipherLen | ciphertext | Byte tagLen (16) | tag.</description></item>
+                    <item><description>If includeoriginallength = false write footer marker (0xF0) and UInt32 chunkCount.</description></item>
+                </list>
+                <para>Security Properties</para>
+                <list type="bullet">
+                    <item><description>Confidentiality: AES-256-GCM with unique nonce per chunk derived from HMAC prevents reuse across indices.</description></item>
+                    <item><description>Integrity and Authenticity: GCM tag covers ciphertext and per-chunk AAD which commits to ordering, lengths, version, flags, optional global fields.</description></item>
+                    <item><description>Ordering: Chunk index hashed into per-chunk AAD prevents silent reordering or duplication.</description></item>
+                    <item><description>Length / Truncation: Original length or footer chunk count detects premature truncation or over-extension.</description></item>
+                    <item><description>AAD Binding: If includeaadhash = true, user-supplied context is bound globally.</description></item>
+                </list>
+            </remarks>
+        </method>
+
+        <method name="EncryptStreamAsync">
+            <summary>
+                Encrypt data.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for the envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate providing RSA public key.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Optional additional authenticated data (AAD).</param>
+            <param name="includeaadhash" Cref="Boolean">If true, a SHA512 hash of aad is stored in the header and bound into per-chunk AAD.</param>
+            <param name="includeoriginallength" Cref="Boolean">If true, original total plaintext length is written in header and footer is omitted.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent determining chunk size. Bounds: 12..26.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True on success.</returns>
+        </method>
+
+        <method name="BuildPerChunkAad">
+            <summary>Builds the per-chunk AAD descriptor, hashes it with SHA512, and outputs the result.</summary>
+            <param name="flags" Cref="Byte">Envelope flags.</param>
+            <param name="chunkindex" Cref="UInt32">Chunk index.</param>
+            <param name="plainlen" Cref="UInt32">Plaintext length for this chunk.</param>
+            <param name="hasoriginallength" Cref="Boolean">True if original length is present.</param>
+            <param name="originallength" Cref="UInt64">Original plaintext length.</param>
+            <param name="aadhash" Cref="ReadOnlySpan{Byte}">User AAD hash (SHA512).</param>
+            <param name="hasaadhash" Cref="Boolean">True if user AAD hash is present.</param>
+            <param name="aadout" Cref="Span{Byte}">Output buffer for hashed AAD.</param>
+            <returns Cref="Boolean">True if AAD built and hashed successfully, false otherwise.</returns>
+            <remarks>
+                <para>Used to bind chunk metadata and context to AEAD for integrity and ordering. Ensures all fields are present and correctly sized.</para>
+                <list type="bullet">
+                    <item><description>Returns false if buffer sizes are invalid or hashing fails.</description></item>
+                    <item><description>Zeroes intermediate buffers for security.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="ComputeHeaderLength">
+            <summary>Computes the total header length for envelope serialization based on presence of optional fields.</summary>
+            <param name="rsawrappedlen" Cref="UInt16">Length of RSA wrapped key material.</param>
+            <param name="hasoriginallen" Cref="Boolean">True if original length field is present.</param>
+            <param name="hasaadhash" Cref="Boolean">True if user AAD hash field is present.</param>
+            <returns Cref="Int32">Total header length in bytes.</returns>
+            <remarks>
+                <para>Used to allocate buffers and validate header size during serialization and parsing.</para>
+                <list type="bullet">
+                    <item><description>Accounts for all required and optional header fields.</description></item>
+                    <item><description>Ensures correct offset calculations for chunk and footer parsing.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="DeriveNonce">
+            <summary>Derives a per-chunk nonce using HMAC-SHA512(aesKey, baseNonceSeed || chunkindex) and truncates to 12 bytes.</summary>
+            <param name="aeskey" Cref="ReadOnlySpan{Byte}">AES key for HMAC.</param>
+            <param name="basenonceseed" Cref="ReadOnlySpan{Byte}">Base nonce seed.</param>
+            <param name="chunkindex" Cref="UInt64">Chunk index for uniqueness.</param>
+            <param name="nonceout" Cref="Span{Byte}">Output buffer for derived nonce.</param>
+            <returns Cref="Boolean">True if nonce derived successfully, false otherwise.</returns>
+            <remarks>
+                <para>Ensures nonce uniqueness per chunk and session. Used for AES-GCM encryption and decryption.</para>
+                <list type="bullet">
+                    <item><description>Returns false if input sizes are invalid.</description></item>
+                    <item><description>Zeroes intermediate buffers for security.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="ParseHeaderForAsync">
+            <summary>Parses a header buffer in async context and extracts the header and RSA wrapped key copy.</summary>
+            <param name="headerbuffer" Cref="Byte[]">Buffer containing the serialized envelope header.</param>
+            <param name="header" Cref="Header">Output: parsed header structure.</param>
+            <param name="rsawrappedcopy" Cref="Byte[]">Output: copy of the RSA wrapped key material.</param>
+            <returns Cref="Boolean">True if parsing succeeds, false otherwise.</returns>
+            <remarks>
+                <para>Used in async decryption to extract header fields and key material for RSA unwrap. Delegates to TryParseHeader and copies the RSA wrapped span to a new array for use in async code.</para>
+                <list type="bullet">
+                    <item><description>Returns false if header is malformed or does not match expected envelope format.</description></item>
+                    <item><description>Ensures output buffer is always initialized.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="ReadExact">
+            <summary>Reads exactly the specified number of bytes from a stream into a span. Returns false on EOF or partial read.</summary>
+            <param name="s" Cref="Stream">Stream to read from.</param>
+            <param name="span" Cref="Span{Byte}">Span to fill.</param>
+            <returns Cref="Boolean">True if all bytes read, false otherwise.</returns>
+            <remarks>
+                <para>Used for fixed-length reads during header, chunk, and tag parsing. Does not throw on EOF.</para>
+                <list type="bullet">
+                    <item><description>Caller must handle false return for error or EOF.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="ReadExact_overload">
+            <summary>Reads exactly the specified number of bytes from a stream into a buffer at an offset. Returns false on EOF or partial read.</summary>
+            <param name="s" Cref="Stream">Stream to read from.</param>
+            <param name="buffer" Cref="Byte[]">Buffer to fill.</param>
+            <param name="offset" Cref="Int32">Offset in buffer.</param>
+            <param name="count" Cref="Int32">Number of bytes to read.</param>
+            <returns Cref="Boolean">True if all bytes read, false otherwise.</returns>
+            <remarks>
+                <para>Used for chunk and tag parsing when buffer and offset are required. Does not throw on EOF.</para>
+                <list type="bullet">
+                    <item><description>Caller must handle false return for error or EOF.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="ReadExactAsync">
+            <summary>Reads exactly the specified number of bytes asynchronously from a stream into a buffer.</summary>
+            <param name="s" Cref="Stream">Stream to read from.</param>
+            <param name="buffer" Cref="Memory{Byte}">Buffer to fill.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token for cooperative cancellation.</param>
+            <returns Cref="Task{Boolean}">True if all bytes read, false otherwise.</returns>
+            <remarks>
+                <para>Used for async stream parsing to ensure fixed-length reads (e.g., header, chunk, tag). Returns false on EOF or cancellation before buffer is filled.</para>
+                <list type="bullet">
+                    <item><description>Does not throw on cancellation; returns false.</description></item>
+                    <item><description>Caller must handle partial reads and error cases.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="TryParseFooter">
+            <summary>Attempts to parse the envelope footer from a buffer and extract chunk count.</summary>
+            <param name="buffer" Cref="ReadOnlySpan{Byte}">Buffer containing footer bytes.</param>
+            <param name="footer" Cref="Footer">Output: parsed footer structure.</param>
+            <returns Cref="Boolean">True if parsing succeeds, false otherwise.</returns>
+            <remarks>
+                <para>Validates footer marker and extracts chunk count for integrity checks during parsing.</para>
+                <list type="bullet">
+                    <item><description>Returns false if marker is missing or buffer is too short.</description></item>
+                    <item><description>Used to verify envelope completeness in footer mode.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="TryParseHeader">
+            <summary>Attempts to parse the envelope header from a buffer and extract all fields.</summary>
+            <param name="buffer" Cref="ReadOnlySpan{Byte}">Buffer containing header bytes.</param>
+            <param name="parsed" Cref="Header">Output: parsed header structure.</param>
+            <param name="rsawrappedkey" Cref="ReadOnlySpan{Byte}">Output: RSA wrapped key material.</param>
+            <returns Cref="Boolean">True if parsing succeeds, false otherwise.</returns>
+            <remarks>
+                <para>Validates version, flags, and field sizes. Extracts all header fields and computes header length for chunk offset calculations.</para>
+                <list type="bullet">
+                    <item><description>Returns false if any field is out of bounds or reserved bits are set.</description></item>
+                    <item><description>Used in both sync and async parsing paths.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="TryReadAndProcessHeaderAsync">
+            <summary>Reads and processes the envelope header from a stream asynchronously.</summary>
+            <param name="input">The input stream to read from.</param>
+            <param name="certificate">The certificate with the private key for decryption.</param>
+            <param name="aad">The Additional Authenticated Data to validate against the header.</param>
+            <param name="cancel">A cancellation token to observe.</param>
+            <returns>A tuple with a `Success` flag and the parsed `Header`, `AesKey`, and `BaseNonceSeed`.</returns>
+            <remarks>
+                This method performs the following asynchronous steps:
+                <list type="number">
+                    <item>
+                        <description>Reads the entire header from the stream.</description>
+                    </item>
+                    <item>
+                        <description>Parses the header fields.</description>
+                    </item>
+                    <item>
+                        <description>Decrypts the RSA-wrapped key material to obtain the AES key and nonce seed.</description>
+                    </item>
+                    <item>
+                        <description>Validates the AAD hash if it is present in the header.</description>
+                    </item>
+                </list>
+            </remarks>
+        </method>
+        <method name="TryReadAndProcessHeader">
+            <summary>Reads and processes the envelope header from a stream.</summary>
+            <param name="input">The input stream to read from.</param>
+            <param name="certificate">The certificate with the private key for decryption.</param>
+            <param name="aad">The Additional Authenticated Data to validate against the header.</param>
+            <param name="header">When this method returns, contains the parsed header information.</param>
+            <param name="aeskey">When this method returns, contains the decrypted AES key.</param>
+            <param name="basenonceseed">When this method returns, contains the decrypted base nonce seed.</param>
+            <returns>
+                <see langword="true"/> if the header was read, parsed, and validated successfully; otherwise, <see langword="false"/>.
+            </returns>
+            <remarks>
+                This method performs the following steps:
+                <list type="number">
+                    <item>
+                        <description>Reads the entire header from the stream.</description>
+                    </item>
+                    <item>
+                        <description>Parses the header fields.</description>
+                    </item>
+                    <item>
+                        <description>Decrypts the RSA-wrapped key material to obtain the AES key and nonce seed.</description>
+                    </item>
+                    <item>
+                        <description>Validates the AAD hash if it is present in the header.</description>
+                    </item>
+                </list>
+            </remarks>
+        </method>
+        <method name="TryReadAndProcessHeaderSpan">
+            <summary>Reads and processes the envelope header from a span.</summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">The input span containing the complete envelope.</param>
+            <param name="certificate" Cref="X509Certificate2">The certificate with the private key for decryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">The Additional Authenticated Data to validate against the header.</param>
+            <param name="header" Cref="Header">When this method returns, contains the parsed header information.</param>
+            <param name="body" Cref="ReadOnlySpan{Byte}">When this method returns, contains a slice of the input corresponding to the envelope body.</param>
+            <param name="aeskey" Cref="Span{Byte}">When this method returns, contains the decrypted AES key.</param>
+            <param name="basenonceseed" Cref="Span{Byte}">When this method returns, contains the decrypted base nonce seed.</param>
+            <returns>
+                <see langword="true"/> if the header was read, parsed, and validated successfully; otherwise, <see langword="false"/>.
+            </returns>
+            <remarks>
+                This method performs the following steps:
+                <list type="number">
+                    <item>
+                        <description>Parses the header fields from the input span.</description>
+                    </item>
+                    <item>
+                        <description>Decrypts the RSA-wrapped key material to obtain the AES key and nonce seed.</description>
+                    </item>
+                    <item>
+                        <description>Validates the AAD hash if it is present in the header.</description>
+                    </item>
+                    <item>
+                        <description>Outputs a slice of the input span representing the body of the envelope.</description>
+                    </item>
+                </list>
+            </remarks>
+        </method>
+        <method name="WriteFooter">
+            <summary>Writes the envelope footer (marker and chunk count) to the output stream.</summary>
+            <param name="output" Cref="Stream">Output stream for footer bytes.</param>
+            <param name="chunkcount" Cref="UInt32">Number of chunks written.</param>
+            <returns Cref="Boolean">True if footer written successfully, false otherwise.</returns>
+            <remarks>
+                <para>Appends the footer marker and chunk count to the envelope for integrity and truncation detection in footer mode.</para>
+                <list type="bullet">
+                    <item><description>Returns false on I/O error or null output stream.</description></item>
+                    <item><description>Footer is only present when original length is not included in header.</description></item>
+                </list>
+            </remarks>
+        </method>
+        <method name="WriteHeader">
+            <summary>Serializes and writes the envelope header to the output stream.</summary>
+            <param name="output" Cref="Stream">Output stream for header bytes.</param>
+            <param name="rsawrappedkey" Cref="ReadOnlySpan{Byte}">RSA wrapped key material.</param>
+            <param name="aadhash" Cref="ReadOnlySpan{Byte}">User AAD hash (SHA512).</param>
+            <param name="includeaadhash" Cref="Boolean">True to include user AAD hash field.</param>
+            <param name="originallength" Cref="UInt64">Original plaintext length.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include original length field.</param>
+            <param name="chunksizepower" Cref="Byte">Chunk size power (2^N bytes per chunk).</param>
+            <returns Cref="Boolean">True if header written successfully, false otherwise.</returns>
+            <remarks>
+                <para>Builds the header according to envelope format and writes it to the output stream.</para>
+            </remarks>
+        </method>
+
+        <method name="WriteHeaderSpan">
+            <summary>Serializes and writes the envelope header to an output span.</summary>
+            <param name="output" Cref="Span{Byte}">Output span for header bytes.</param>
+            <param name="rsawrappedkey" Cref="ReadOnlySpan{Byte}">RSA wrapped key material.</param>
+            <param name="aadhash" Cref="ReadOnlySpan{Byte}">User AAD hash (SHA512).</param>
+            <param name="includeaadhash" Cref="Boolean">True to include user AAD hash field.</param>
+            <param name="originallength" Cref="UInt64">Original plaintext length.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include original length field.</param>
+            <param name="chunksizepower" Cref="Byte">Chunk size power (2^N bytes per chunk).</param>
+            <returns Cref="Boolean">True if header written successfully, false otherwise.</returns>
+            <remarks>
+                <para>Builds the header according to envelope format and writes it to the output span.</para>
+            </remarks>
+        </method>
+
+        <field name="AadHashSize">
+            <summary>Size of the SHA512 AAD hash in bytes.</summary>
+        </field>
+        <field name="AesKeySize">
+            <summary>Size of the AES key in bytes (AES-256).</summary>
+        </field>
+        <field name="BaseNonceSeedSize">
+            <summary>Size of the base nonce seed in bytes for per-chunk nonce derivation.</summary>
+        </field>
+        <field name="ChunkLengthsBlockSize">
+            <summary>Size of the block that stores plaintext and ciphertext lengths for a chunk (2 * 4 = 8 bytes).</summary>
+        </field>
+        <field name="ChunkSizePowerSize">
+            <summary>Size of the chunk size power field in bytes.</summary>
+        </field>
+        <field name="DefaultChunkSizePower">
+            <summary>Default chunk size exponent (2^20 bytes).</summary>
+        </field>
+        <field name="FixedHeaderSize">
+            <summary>Size of the fixed portion of the header in bytes (Version + Flags + RsaWrappedLen + ChunkSizePower).</summary>
+        </field>
+        <field name="Flag_HasAadHash">
+            <summary>Flag bit indicating presence of the AAD hash field in the header.</summary>
+        </field>
+        <field name="Flag_HasOriginalLength">
+            <summary>Flag bit indicating presence of the original length field in the header.</summary>
+        </field>
+        <field name="FlagsSize">
+            <summary>Size of the envelope flags field in bytes.</summary>
+        </field>
+        <field name="FooterMarker">
+            <summary>Byte value marking the start of the envelope footer (0xF0).</summary>
+        </field>
+        <field name="IntSize">
+            <summary>Size of a 32-bit integer in bytes.</summary>
+        </field>
+        <field name="LongSize">
+            <summary>Size of a 64-bit integer in bytes.</summary>
+        </field>
+        <field name="MaxChunkSizePower">
+            <summary>Maximum allowed chunk size exponent (2^26 bytes).</summary>
+        </field>
+        <field name="MinChunkSizePower">
+            <summary>Minimum allowed chunk size exponent (2^12 bytes).</summary>
+        </field>
+        <field name="NonceSize">
+            <summary>Size of the AES-GCM nonce in bytes.</summary>
+        </field>
+        <field name="PerChunkAadHashSize">
+            <summary>Size of the per-chunk AAD hash in bytes (SHA512 output).</summary>
+        </field>
+        <field name="RsaWrappedLenSize">
+            <summary>Size of the RSA wrapped length field in bytes.</summary>
+        </field>
+        <field name="TagSize">
+            <summary>Size of the AES-GCM authentication tag in bytes.</summary>
+        </field>
+        <field name="Version">
+            <summary>Envelope version identifier.</summary>
+        </field>
+        <field name="VersionSize">
+            <summary>Size of the envelope version field in bytes.</summary>
+        </field>
+        <field name="WrappedMaterialSize">
+            <summary>Total size in bytes of the wrapped key material (AES key + base nonce seed).</summary>
+        </field>
+
+        <record name="DecryptionChunk">
+            <summary>Data for a single chunk to be decrypted.</summary>
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>Cipher: The encrypted ciphertext.</description></item>
+                    <item><description>Tag: The GCM authentication tag.</description></item>
+                    <item><description>PlainLength: The original length of the plaintext.</description></item>
+                    <item><description>CipherLength: The length of the ciphertext.</description></item>
+                    <item><description>ChunkIndex: The 0-based index of the chunk.</description></item>
+                </list>
+            </remarks>
+        </record>
+
+        <record name="DecryptedChunk">
+            <summary>Data for a single decrypted chunk.</summary>
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>Plain: The recovered plaintext.</description></item>
+                    <item><description>PlainLength: The length of the plaintext.</description></item>
+                    <item><description>ChunkIndex: The 0-based index of the chunk.</description></item>
+                </list>
+            </remarks>
+        </record>
+
+        <record name="EncryptionChunk">
+            <summary>Data for a single chunk to be encrypted.</summary>
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>Plain: The plaintext content.</description></item>
+                    <item><description>ReadLength: The number of bytes read into the plain buffer.</description></item>
+                    <item><description>ChunkIndex: The 0-based index of the chunk.</description></item>
+                </list>
+            </remarks>
+        </record>
+
+        <record name="EncryptedChunk">
+            <summary>Data for a single encrypted chunk.</summary>
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>Cipher: The resulting ciphertext buffer. This buffer may be larger than the actual ciphertext.</description></item>
+                    <item><description>Tag: The GCM authentication tag.</description></item>
+                    <item><description>Lengths: The serialized block containing plaintext and ciphertext lengths.</description></item>
+                    <item><description>CipherLength: The actual length of the ciphertext within the Cipher buffer.</description></item>
+                    <item><description>ChunkIndex: The 0-based index of the chunk.</description></item>
+                </list>
+            </remarks>
+        </record>
+
+    </class>
+</GeneralDataEnvelope>

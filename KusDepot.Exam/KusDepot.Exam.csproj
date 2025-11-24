@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <NoWarn>CA1001;CA1031;CA1050;CA1515;CA1861;CA2000;CA2014;CA2263;CS0067;CS1718;CA1810;CA1849;CA2007;CA2201;CA2351;CA5366;CA5394;CS0618;CS8620;IDE0004;IDE0017;IDE0018;IDE0040;IDE0044;IDE0060;IDE1006</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CliWrap" />
+
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+
+        <PackageReference Include="Microsoft.Orleans.Serialization" />
+
+        <PackageReference Include="NFluent" />
+
+        <PackageReference Include="NUnit" />
+
+        <PackageReference Include="NUnit3TestAdapter" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <ProjectReference Include="..\KusDepot.CMD\KusDepot.CMD.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Services\KusDepot.Services.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="ContainerAssembly.bin">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

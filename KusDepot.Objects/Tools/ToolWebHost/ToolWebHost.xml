@@ -1,0 +1,69 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolWebHost>
+
+    <class name = "ToolWebHost">
+
+        <main>
+
+            <summary>A Program Unit.</summary>
+
+        </main>
+
+        <property name = "WebApplication">
+
+            <summary>WebApplication.</summary>
+
+            <returns Cref = "IHost?">WebApplication.</returns>
+
+        </property>
+
+        <property name = "LifeSync">
+
+            <summary>LifeSync.</summary>
+
+            <returns Cref = "SemaphoreSlim">LifeSync.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "data" Cref = "IEnumerable{DataItem}?">Data.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Services.</param>
+
+            <param name = "commands" Cref = "IEnumerable{Meta{ICommand}}?">Commands.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "lifeid" Cref = "Guid?">LifeID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <param name = "urls" Cref = "ICollection{String}?">Urls.</param>
+
+            <param name = "webapplication" Cref = "IHost?">Web Application</param>
+
+            <returns Cref = "ToolWebHost">New ToolWebHost.</returns>
+
+        </constructor>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "ToolWebHost">New ToolWebHost.</returns>
+
+        </constructor>
+
+    </class>
+
+</ToolWebHost>

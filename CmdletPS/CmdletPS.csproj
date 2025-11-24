@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>CmdletPS</AssemblyName>
+
+        <TargetFramework>net9.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1031;CA1819;CA1724;CA2007;IDE0017;IDE0040;IDE0044</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="PowerShellStandard.Library" >
+
+          <PrivateAssets>All</PrivateAssets>
+
+        </PackageReference>
+
+        <PackageReference Include="Serilog" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+    </ItemGroup>
+
+</Project>

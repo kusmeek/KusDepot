@@ -1,0 +1,13 @@
+﻿global using System;
+global using Serilog;
+global using KusDepot;
+global using System.IO;
+global using System.Text;
+global using System.Threading;
+global using ToolShapeServices;
+global using System.Globalization;
+global using System.Security.Cryptography;
+global using System.Text.RegularExpressions;
+global using System.Runtime.InteropServices;
+global using System.Runtime.CompilerServices;
+global using static ToolShapeServices.ToolShapeGenerator;

@@ -1,0 +1,103 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICommand>
+
+    <interface name = "ICommand">
+
+        <main>
+
+            <summary>Command Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the base Command.</remarks>
+
+        </main>
+
+        <method name = "Attach">
+
+            <summary>Attach to Tool.</summary>
+
+            <remarks>This method should store the given references and return immediately. Do not allocate resources or perform asynchronous work.</remarks>
+
+            <param name = "tool" Cref = "ITool">Tool to Attach.</param>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <returns Cref = "Boolean">True if Command was attached.</returns>
+
+        </method>
+
+        <method name = "Disable">
+
+            <summary>Disable Command.</summary>
+
+            <remarks>Resource disposal and deallocation.</remarks>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was disabled.</returns>
+
+        </method>
+
+        <method name = "Detach">
+
+            <summary>Detach from Tool.</summary>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <remarks>This method should release references to the attached tool and return immediately.</remarks>
+
+            <returns Cref = "Boolean">True if Command was detached.</returns>
+
+        </method>
+
+        <method name = "Enable">
+
+            <summary>Enable Command.</summary>
+
+            <remarks>Resource allocation, initialization, and configuration.</remarks>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was enabled.</returns>
+
+        </method>
+
+        <property name = "Enabled">
+
+            <summary>Command Status.</summary>
+
+            <returns Cref = "Boolean">True if Command is enabled.</returns>
+
+        </property>
+
+        <method name = "Execute">
+
+            <summary>Execute Command.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity for this execution.</param>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <returns Cref = "Guid?">Identifier of the Activity when execution completes, or null on failure.</returns>
+
+        </method>
+
+        <method name = "ExecuteAsync">
+
+            <summary>Execute Command asynchronously.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity for this execution.</param>
+
+            <param name = "key" Cref = "AccessKey">Tool Access Key.</param>
+
+            <returns Cref = "Task{Guid?}">Identifier of the Activity when execution completes, or null on failure.</returns>
+
+        </method>
+
+    </interface>
+
+</ICommand>

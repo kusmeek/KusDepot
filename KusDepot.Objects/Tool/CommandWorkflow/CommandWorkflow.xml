@@ -1,0 +1,223 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandWorkflow>
+
+    <class name = "CommandWorkflow">
+
+        <main>
+
+            <summary>Command Workflow.</summary>
+
+        </main>
+
+        <field name = "details" Cref = "CommandDetails?">
+
+            <summary>Command Details.</summary>
+
+        </field>
+
+        <field name = "eventlog" Cref = "Dictionary{String,String}?">
+
+            <summary>Workflow Event Log. Key is "DetailsID~AttachedToolID~Handle~Action~Timestamp". Value is data.</summary>
+
+            <remarks>Timestamp is in "O" format.</remarks>
+
+        </field>
+
+        <field name = "sequence" Cref = "SortedList{Int32,String}?">
+
+            <summary>Workflow Sequence. Key is zero-based step index. Value is Handle.</summary>
+
+        </field>
+
+        <property name = "Details" Cref = "CommandDetails?">
+
+            <summary>Command Details.</summary>
+
+        </property>
+
+        <property name = "EventLog" Cref = "Dictionary{String,String}?">
+
+            <summary>Workflow Event Log. Key is "DetailsID~AttachedToolID~Handle~Action~Timestamp". Value is data.</summary>
+
+            <remarks>Timestamp is in "O" format.</remarks>
+
+        </property>
+
+        <property name = "Sequence" Cref = "SortedList{Int32,String}?">
+
+            <summary>Workflow Sequence. Key is zero-based step index. Value is Handle.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <returns Cref = "CommandWorkflow">New CommandWorkflow.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorJson">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "CommandWorkflow">New CommandWorkflow.</returns>
+
+        </constructor>
+
+        <method name = "LogEvent">
+
+            <summary>Append an Event Log entry.</summary>
+
+            <param name = "action" Cref = "String?">Action name.</param>
+
+            <param name = "data" Cref = "String?">Event data.</param>
+
+            <returns Cref = "Boolean">True if appended.</returns>
+
+        </method>
+
+        <method name = "IParsable{CommandWorkflow}.Parse">
+
+            <summary>Parse CommandWorkflow.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandWorkflow">Parsed CommandWorkflow.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse CommandWorkflow.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "CommandWorkflow?">Parsed CommandWorkflow.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Object.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "CommandWorkflow">Output CommandWorkflow.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <class name = "CommandWorkflowEvent">
+
+        <main>
+
+            <summary>Parses and builds CommandWorkflow EventLog entries.</summary>
+
+        </main>
+
+        <property name = "Action" Cref = "String">
+
+            <summary>Workflow Action.</summary>
+
+        </property>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Workflow Event Data.</summary>
+
+        </property>
+
+        <property name = "DetailsID" Cref = "Guid">
+
+            <summary>Command Details ID.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String">
+
+            <summary>Command Handle.</summary>
+
+        </property>
+
+        <property name = "Time" Cref = "DateTimeOffset">
+
+            <summary>Timestamp in "O" format.</summary>
+
+        </property>
+
+        <property name = "ToolID" Cref = "Guid">
+
+            <summary>Attached Tool ID.</summary>
+
+        </property>
+
+        <method name = "CreateEventLogIndex">
+
+            <summary>Create an Event Log Index.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "action" Cref = "String?">Action name.</param>
+
+            <returns Cref = "String">Event Log Index.</returns>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "CommandWorkflowEvent?">A CommandWorkflowEvent.</param>
+
+            <param name = "b" Cref = "CommandWorkflowEvent?">Other CommandWorkflowEvent.</param>
+
+            <returns Cref = "Boolean">True if CommandWorkflowEvents are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "CommandWorkflowEvent?">A CommandWorkflowEvent.</param>
+
+            <param name = "b" Cref = "CommandWorkflowEvent?">Other CommandWorkflowEvent.</param>
+
+            <returns Cref = "Boolean">True if CommandWorkflowEvents are not equal.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse an Event Log Index string.</summary>
+
+            <param name = "input" Cref = "String?">Event Log Index ("DetailsID~AttachedToolID~Handle~Action~Timestamp").</param>
+
+            <returns Cref = "CommandWorkflowEvent">Parsed CommandWorkflowEvent.</returns>
+
+        </method>
+
+        <method name = "ParseLine">
+
+            <summary>Parse a full console/file log line containing an Event Log entry.</summary>
+
+            <param name = "line" Cref = "String?">Full log line (e.g. "[11:35:17 INF] [Command Workflow Event] &lt;Index&gt; &lt;Data&gt;").</param>
+
+            <returns Cref = "CommandWorkflowEvent">Parsed CommandWorkflowEvent.</returns>
+
+        </method>
+
+    </class>
+
+</CommandWorkflow>

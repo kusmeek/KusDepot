@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net48</TargetFramework>
+
+        <AssemblyName>KusDepot.Packages</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="images\gfxico.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+
+        <None Include="Clean-KusDepot.ps1" />
+
+        <None Include="Package-KusDepot.ps1" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.Azure.Functions.Worker" />
+
+        <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" />
+
+    </ItemGroup>
+
+</Project>

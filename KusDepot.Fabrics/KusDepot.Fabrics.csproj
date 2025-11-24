@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64;AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFrameworks>net9.0</TargetFrameworks>
+
+        <AssemblyName>KusDepot.Fabrics</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1716</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Diagram">
+
+        <None Include="ServiceInterfaces\ServiceInterfaces.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Documentation">
+
+        <Content Include="ActorIds\ActorIds.xml" />
+        <Content Include="ConfigurationFiles\AdminSilo.xml" />
+        <Content Include="ConfigurationFiles\appsettings.json" />
+        <Content Include="ConfigurationFiles\StartUpSilo.xml" />
+        <Content Include="EndpointLocators\EndpointLocators.xml" />
+        <Content Include="ServiceFactories\CatalogDB\CatalogDBFactory.xml" />
+        <Content Include="ServiceFactories\CatalogDB\ICatalogDBFactory.xml" />
+        <Content Include="ServiceInterfaces\Blob\IBlob.xml" />
+        <Content Include="ServiceInterfaces\CatalogDB\ICatalogDB.xml" />
+        <Content Include="ServiceInterfaces\CoreCache\ICoreCache.xml" />
+        <Content Include="ServiceInterfaces\DataConfigs\IDataConfigs.xml" />
+        <Content Include="ServiceInterfaces\Management\IManagement.xml" />
+        <Content Include="ServiceInterfaces\Secure\ISecure.xml" />
+        <Content Include="ServiceInterfaces\ToolActor\IToolActor.xml" />
+        <Content Include="ServiceInterfaces\Web\CatalogAPI\CatalogAPI.json" />
+        <Content Include="ServiceInterfaces\Web\DataControlAPI\DataControlAPI.json" />
+        <Content Include="ServiceLocators\ServiceLocators.xml" />
+        <Content Include="StorageSilo\StorageSilo.xml" />
+        <Content Include="TraceUtility\TraceUtility.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Services\KusDepot.Services.csproj" />
+
+    </ItemGroup>
+
+</Project>

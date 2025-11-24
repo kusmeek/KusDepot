@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<ActorIds>
+
+    <class name = "ActorIds">
+
+        <main>
+
+            <summary>Actor Identifiers.</summary>
+
+            <remarks>Defines ActorIds for well-known services.</remarks>
+
+        </main>
+
+        <property name = "CoreCache" Cref = "ActorId"><summary>CoreCache ActorId.</summary></property>
+
+        <property name = "DataConfiguration" Cref = "ActorId"><summary>DataConfiguration ActorId.</summary></property>
+
+        <property name = "Universe" Cref = "ActorId"><summary>Universe ActorId.</summary></property>
+
+    </class>
+
+</ActorIds>

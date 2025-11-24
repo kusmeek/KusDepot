@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="KusDepot.DataType" ApplicationTypeVersion="0.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters />
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="BlobPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CatalogPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CatalogDBPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CoreCachePkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="DataConfigsPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="DataControlPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="MgmtPkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="SecurePkg" ServiceManifestVersion="0.0.1" />
+  </ServiceManifestImport>
+</ApplicationManifest>

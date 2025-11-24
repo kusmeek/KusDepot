@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest ApplicationTypeName="KusDepot.ToolServiceHostType"
+                     ApplicationTypeVersion="0.0.1"
+                     xmlns="http://schemas.microsoft.com/2011/01/fabric"
+                     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <Parameters></Parameters>
+
+    <ServiceManifestImport>
+
+        <ServiceManifestRef ServiceManifestName="ToolServiceHostPkg" ServiceManifestVersion="0.0.1" />
+
+        <ConfigOverrides />
+
+    </ServiceManifestImport>
+
+</ApplicationManifest>

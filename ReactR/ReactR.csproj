@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <StartAction>Program</StartAction>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileContext>.</DockerfileContext>
+
+        <DockerfileTag>kusdepotreactr</DockerfileTag>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <UserSecretsId>327d3f11-50a7-4056-902c-578c18088721</UserSecretsId>
+
+        <StartProgram>$(MSBuildProjectDirectory)\target\release\KusDepot-ReactR.exe</StartProgram>
+
+    </PropertyGroup>
+
+    <Target Name="CopyShapeApiProto" BeforeTargets="Build">
+
+        <Copy SourceFiles="..\ReactG\shapeapi\shapeapi.proto" DestinationFolder="proto\" />
+
+    </Target>
+
+    <Target Name="CargoBuild" AfterTargets="Build" Condition="'$(ContainerBuild)' != 'true'">
+
+        <Exec Command="cargo build --release" />
+
+    </Target>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+    </ItemGroup>
+
+</Project>

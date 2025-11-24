@@ -1,0 +1,411 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandDetails>
+
+    <class name = "CommandDetails">
+
+        <main>
+
+            <summary>Details for execution of a Command.</summary>
+
+        </main>
+
+        <field name = "arguments" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Command Arguments.</summary>
+
+        </field>
+
+        <field name = "handle" Cref = "String?">
+
+            <summary>Command Handle.</summary>
+
+        </field>
+
+        <field name = "id" Cref = "Guid?">
+
+            <summary>Command ID.</summary>
+
+        </field>
+
+        <field name = "workflow" Cref = "CommandWorkflow?">
+
+            <summary>Command Workflow.</summary>
+
+        </field>
+
+        <property name = "Arguments" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Command Arguments.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String?">
+
+            <summary>Command Handle.</summary>
+
+        </property>
+
+        <property name = "ID" Cref = "Guid?">
+
+            <summary>Command ID.</summary>
+
+        </property>
+
+        <property name = "Workflow" Cref = "CommandWorkflow?">
+
+            <summary>Command Workflow.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "arguments" Cref = "Dictionary{String,Object?}?">Arguments.</param>
+
+            <param name = "handle" Cref = "String?">Handle.</param>
+
+            <param name = "id" Cref = "Guid?">Identifier.</param>
+
+            <param name = "workflow" Cref = "CommandWorkflow?">Workflow.</param>
+
+            <returns Cref = "CommandDetails">New CommandDetails.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Construct CommandDetails.</summary>
+
+            <returns Cref = "CommandDetails">New CommandDetails.</returns>
+
+        </method>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "MakeReady">
+
+            <summary>Checks for empty Handle and sets Arguments[AttachedToolID] to the caller's ID.</summary>
+
+            <param name = "tool" Cref = "ITool">Executing Tool.</param>
+
+            <returns Cref = "Boolean">True if CommandDetails is ready.</returns>
+
+        </method>
+
+        <method name = "IParsable{CommandDetails}.Parse">
+
+            <summary>Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandDetails">Parsed CommandDetails.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandDetails?">Parsed CommandDetails.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "key" Cref = "CommandDetails">Output CommandDetails.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <class name = "CommandDetailsExtensions">
+
+        <main>
+
+            <summary>Defines CommandDetails extension methods.</summary>
+
+        </main>
+
+        <method name = "CreateActivity">
+
+            <summary>Create an Activity from these details.</summary>
+
+            <returns Cref = "Activity?">New Activity.</returns>
+
+        </method>
+
+        <method name = "GetAccessKey">
+
+            <summary>Get AccessKey.</summary>
+
+            <returns Cref = "AccessKey?">AccessKey.</returns>
+
+        </method>
+
+        <method name = "GetArgument">
+
+            <summary>Get an Argument.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <returns Cref = "Object?">Argument.</returns>
+
+        </method>
+
+        <method name = "GetArgumentType">
+
+            <summary>Get an Argument.</summary>
+
+            <typeparam name = "TResult">Type of Argument.</typeparam>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <returns Cref = "TResult?">Argument.</returns>
+
+        </method>
+
+        <method name = "GetArgumentWeb">
+
+            <summary>Get an Argument.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb?">Command Details.</param>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <returns Cref = "String?">Argument.</returns>
+
+        </method>
+
+        <method name = "SetAccessKey">
+
+            <summary>Set AccessKey.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "overwrite" Cref = "Boolean?">True to overwrite argument.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetAccessKeyWeb">
+
+            <summary>Set AccessKey.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb">Command Details.</param>
+
+            <param name = "key" Cref = "AccessKeyWeb?">Access Key.</param>
+
+            <param name = "overwrite" Cref = "Boolean?">True to overwrite argument.</param>
+
+            <returns Cref = "CommandDetailsWeb">The given CommandDetailsWeb.</returns>
+
+        </method>
+
+        <method name = "SetArgument">
+
+            <summary>Set an Argument.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <param name = "argument" Cref = "Object?">Argument Value.</param>
+
+            <param name = "overwrite" Cref = "Boolean?">True to overwrite argument.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetArgumentWeb">
+
+            <summary>Set an Argument.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb">Command Details.</param>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <param name = "argument" Cref = "Object?">Argument Value.</param>
+
+            <param name = "overwrite" Cref = "Boolean?">True to overwrite argument.</param>
+
+            <returns Cref = "CommandDetailsWeb">The given CommandDetailsWeb.</returns>
+
+        </method>
+
+        <method name = "SetHandle">
+
+            <summary>Set Handle.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "handle?" Cref = "String?">Handle.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetHandleWeb">
+
+            <summary>Set Handle.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb">Command Details.</param>
+
+            <param name = "handle?" Cref = "String?">Handle.</param>
+
+            <returns Cref = "CommandDetailsWeb">The given CommandDetailsWeb.</returns>
+
+        </method>
+
+        <method name = "SetID">
+
+            <summary>Set ID.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetIDWeb">
+
+            <summary>Set ID.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb">Command Details.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <returns Cref = "CommandDetailsWeb">The given CommandDetailsWeb.</returns>
+
+        </method>
+
+        <method name = "SetLogger">
+
+            <summary>Set Logger.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetWorkflow">
+
+            <summary>Set Workflow.</summary>
+
+            <param name = "details" Cref = "CommandDetails">Command Details.</param>
+
+            <param name = "workflow" Cref = "CommandWorkflow?">Workflow.</param>
+
+            <returns Cref = "CommandDetails">The given CommandDetails.</returns>
+
+        </method>
+
+        <method name = "SetWorkflowWeb">
+
+            <summary>Set Workflow.</summary>
+
+            <param name = "details" Cref = "CommandDetailsWeb">Command Details.</param>
+
+            <param name = "workflow" Cref = "CommandWorkflow?">Workflow.</param>
+
+            <returns Cref = "CommandDetailsWeb">The given CommandDetailsWeb.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "CommandDetailsWeb">
+
+        <main>
+
+            <summary>CommandDetails Web Interoperations.</summary>
+
+        </main>
+
+        <property name = "Arguments" Cref = "Dictionary{String,String?}?">
+
+            <summary>Arguments.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String?">
+
+            <summary>Handle.</summary>
+
+        </property>
+
+        <property name = "ID" Cref = "Guid?">
+
+            <summary>ID.</summary>
+
+        </property>
+
+        <property name = "Workflow" Cref = "CommandWorkflow?">
+
+            <summary>Workflow.</summary>
+
+        </property>
+
+        <method name = "ToCommandDetails">
+
+            <summary>Convert To CommandDetails.</summary>
+
+            <returns Cref = "CommandDetails?">A CommandDetails.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse CommandDetailsWeb.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "CommandDetailsWeb?">Parsed CommandDetailsWeb.</returns>
+
+        </method>
+
+    </record>
+
+</CommandDetails>

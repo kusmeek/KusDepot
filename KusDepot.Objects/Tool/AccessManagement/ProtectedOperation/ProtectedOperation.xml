@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+<ProtectedOperation>
+  <class name="ProtectedOperation">
+    <main>
+      <summary>Defines numeric operation indices used for permission bitmap.</summary>
+      <remarks>
+        <para>The constants in this class form the mapping between protected operation names and their integer indices in the permission bitmap issued inside access tokens.</para>
+        <list type="bullet">
+          <item><description>Append-only: never reorder or reuse an index value once published.</description></item>
+          <item><description>Indices are consumed by the access token issuer when constructing the permission bitmap.</description></item>
+          <item><description>Authorization checks resolve a caller member name to one of these index values (see <see cref="ProtectedOperationResolver"/>).</description></item>
+        </list>
+      </remarks>
+    </main>
+  </class>
+</ProtectedOperation>

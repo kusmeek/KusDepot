@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CatalogClient>
+
+    <class name = "CatalogClient">
+
+        <main>
+
+            <summary>Catalog Client.</summary>
+
+        </main>
+
+        <field name = "Client" Cref = "RestClient">
+
+            <summary>Rest Client.</summary>
+
+        </field>
+
+        <field name = "Auth" Cref = "JwtAuthenticator">
+
+            <summary>JWT Authenticator.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "endpoint" Cref = "String">Service Endpoint.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Authentication Certificate. Requires Extension Oid 2.5.29.32.853207195657.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <returns Cref = "CatalogClient">New CatalogClient.</returns>
+
+        </constructor>
+
+    </class>
+
+</CatalogClient>

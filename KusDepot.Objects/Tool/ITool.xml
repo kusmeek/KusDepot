@@ -1,0 +1,865 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ITool>
+
+    <interface name = "ITool">
+
+        <main>
+
+            <summary>Tool Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the Tool.</remarks>
+
+        </main>
+
+        <method name = "Activate">
+
+            <summary>Activate Tool.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">True if Tool activated successfully.</returns>
+
+        </method>
+
+        <method name = "AddActivity">
+
+            <summary>Add an Activity.</summary>
+
+            <param name = "activity" Cref = "Activity?">The Activity.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Activity added successfully.</returns>
+
+        </method>
+
+        <method name = "AddDataItems">
+
+            <summary>Add DataItems.</summary>
+
+            <param name = "data" Cref = "IEnumerable{DataItem}?">DataItems.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if DataItems added successfully.</returns>
+
+        </method>
+
+        <method name = "AddInput">
+
+            <summary>Queue an Input.</summary>
+
+            <param name = "input" Cref = "Object?">Input.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Input added to queue successfully.</returns>
+
+        </method>
+
+        <method name = "AddInstance">
+
+            <summary>Add Tool to Instances.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Tool added to Instances successfully.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add an Output.</summary>
+
+            <param name = "id" Cref = "Guid?">Identifier.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Output added successfully.</returns>
+
+        </method>
+
+        <method name = "CheckOwner">
+
+            <summary>Check ownership of Tool.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if key belongs to Tool Owner.</returns>
+
+        </method>
+
+        <method name = "CreateManagementKey">
+
+            <summary>Create a ManagementKey.</summary>
+
+            <param name = "subject" Cref = "String?">Subject of certificate key.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "ManagementKey?">Management Key.</returns>
+
+        </method>
+
+        <method name = "CreateOwnerKey">
+
+            <summary>Create an OwnerKey.</summary>
+
+            <param name = "subject" Cref = "String?">Subject of certificate key.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "OwnerKey?">OwnerKey.</returns>
+
+        </method>
+
+        <method name = "Deactivate">
+
+            <summary>Deactivate Tool.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">True if Tool Deactivated.</returns>
+
+        </method>
+
+        <method name = "DisableKusDepotExceptions">
+
+            <summary>Disable KusDepot exceptions via Settings.NoExceptions.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if exceptions suppressed.</returns>
+
+        </method>
+
+        <method name = "DisableMyExceptions">
+
+            <summary>Disable Object's exceptions.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Object's exceptions suppressed.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "DisposeAsync">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "EnableKusDepotExceptions">
+
+            <summary>Enable KusDepot exceptions via Settings.NoExceptions.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if exceptions are thrown.</returns>
+
+        </method>
+
+        <method name = "EnableMyExceptions">
+
+            <summary>Enable Object's exceptions.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if exceptions are thrown by this Object.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommand">
+
+            <summary>Execute Command synchronously.</summary>
+
+            <remarks>Usage of background tasks/threads is unrestricted.</remarks>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Guid?">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommandAsync">
+
+            <summary>Execute Command asynchronously.</summary>
+
+            <param name = "details" Cref = "CommandDetails?">Command Details.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Guid?}">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommandCab">
+
+            <summary>Execute Command synchronously.</summary>
+
+            <remarks>Usage of background tasks/threads is unrestricted.</remarks>
+
+            <param name = "cab" Cref = "KusDepotCab?">Command Details Cab.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Guid?">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "ExecuteCommandCabAsync">
+
+            <summary>Execute Command asynchronously.</summary>
+
+            <param name = "cab" Cref = "KusDepotCab?">Command Details Cab.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Guid?}">Identifier of generated Activity or null if Handle not registered, Command cannot currently execute, or Arguments not accepted.</returns>
+
+        </method>
+
+        <method name = "GetAccessManager">
+
+            <summary>Get AccessManager.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IAccessManager?">Access Manager.</returns>
+
+        </method>
+
+        <method name = "GetActivities">
+
+            <summary>Returns Current Activities.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "List{Activity}?">Current Activities.</returns>
+
+        </method>
+
+        <method name = "GetCommands">
+
+            <summary>Get Commands.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Dictionary{String,ICommand}?">Registered Commands.</returns>
+
+        </method>
+
+        <method name = "GetCommandTypes">
+
+            <summary>Get Registered Command Handles and Implementing Type Names.</summary>
+
+            <returns Cref = "Dictionary{String,String}?">Registered Command Handles and Implementing Type Names.</returns>
+
+        </method>
+
+        <method name = "GetConfiguration">
+
+            <summary>Get Configuration.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IConfiguration?">Configuration. Lock object before modifying.</returns>
+
+        </method>
+
+        <method name = "GetDataDescriptors">
+
+            <summary>Get Descriptors of DataItems.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IList{Descriptor}?">Descriptors.</returns>
+
+        </method>
+
+        <method name = "GetDataItem">
+
+            <summary>Get DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "DataItem?">DataItem.</returns>
+
+        </method>
+
+        <method name = "GetDataItems">
+
+            <summary>Get All DataItems.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "HashSet{DataItem}?">All DataItems.</returns>
+
+        </method>
+
+        <method name = "GetDisposed">
+
+            <summary>Get Disposed.</summary>
+
+            <returns Cref = "Boolean">Disposed Status.</returns>
+
+        </method>
+
+        <method name = "GetHostedServices">
+
+            <summary>Returns Hosted Services.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IList{IHostedService}?">Hosted Services.</returns>
+
+        </method>
+
+        <method name = "GetInput">
+
+            <summary>Returns Next Tool Input.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Object?">Next Input.</returns>
+
+        </method>
+
+        <method name = "GetInputs">
+
+            <summary>Returns Tool Inputs.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Queue{Object}?">Inputs.</returns>
+
+        </method>
+
+        <method name = "GetLifeCycleState">
+
+            <summary>Get LifeCycleState of Tool.</summary>
+
+            <returns Cref = "LifeCycleState">LifeCycleState.</returns>
+
+        </method>
+
+        <method name = "GetOutput">
+
+            <summary>Retrieve an Output. Use RemoveOutput to remove from Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Object?">Output.</returns>
+
+        </method>
+
+        <method name = "GetOutputType">
+
+            <summary>Retrieve an Output. Use RemoveOutput to remove from Tool.</summary>
+
+            <typeparam name = "TResult">Type of Output.</typeparam>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "TResult?">Output.</returns>
+
+        </method>
+
+        <method name = "GetOutputIDs">
+
+            <summary>Returns Output Identifiers.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IList{Guid}?">Tool Output IDs.</returns>
+
+        </method>
+
+        <method name = "GetOutputAsync">
+
+            <summary>Retrieve an Output. Use RemoveOutput or GetRemoveOutputAsync to remove from Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">Timeout.</param>
+
+            <param name = "interval" Cref = "Int32?">Output polling frequency.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Object?">Output.</returns>
+
+        </method>
+
+        <method name = "GetRemoveOutput">
+
+            <summary>Retrieve and Remove an Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Object?">Output.</returns>
+
+        </method>
+
+        <method name = "GetRemoveOutputAsync">
+
+            <summary>Retrieve and Remove an Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">Timeout.</param>
+
+            <param name = "interval" Cref = "Int32?">Output polling frequency.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Object?">Output.</returns>
+
+        </method>
+
+        <method name = "GetStatus">
+
+            <summary>Returns Current Status.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Dictionary{String,Object?}?">Current Status.</returns>
+
+        </method>
+
+        <method name = "GetToolServices">
+
+            <summary>Get ToolServices.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IServiceProvider?">ToolServices.</returns>
+
+        </method>
+
+        <method name = "GetToolServiceScope">
+
+            <summary>Get Tool Service Scope.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IServiceScope?">Service Scope.</returns>
+
+        </method>
+
+        <method name = "GetWorkingSet">
+
+            <summary>Get Working Set.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "ConcurrentDictionary{String,Object?}?">Working Set.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Context.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Object Initialized successfully.</returns>
+
+        </method>
+
+        <method name = "IsHostingServiceInstance">
+
+            <summary>Determine if Tool is hosting a service instance.</summary>
+
+            <param name = "serviceinstance" Cref = "IHostedService?">Service Instance.</param>
+
+            <param name = "caller" Cref = "ITool?">Caller.</param>
+
+            <returns Cref = "Boolean">True if HostedServices contains the specified service.</returns>
+
+        </method>
+
+        <method name = "IsHostingServiceType">
+
+            <summary>Determine if Tool is hosting a service that can be assigned to the specified type.</summary>
+
+            <param name = "servicetype" Cref = "Type?">Service Type.</param>
+
+            <param name = "caller" Cref = "ITool?">Caller.</param>
+
+            <returns Cref = "Boolean">True if HostedServices contains a service with the specified interface.</returns>
+
+        </method>
+
+        <method name = "IsHostingServiceGeneric">
+
+            <summary>Determine if Tool is hosting a service that can be assigned to the specified type.</summary>
+
+            <typeparam name = "TService">Service Type.</typeparam>
+
+            <returns Cref = "Boolean">True if HostedServices contains a service with the specified interface.</returns>
+
+        </method>
+
+        <method name = "KusDepotExceptionsEnabled">
+
+            <summary>Current exception configuration in Settings.NoExceptions.</summary>
+
+            <returns Cref = "Boolean">True if exceptions are thrown.</returns>
+
+        </method>
+
+        <method name = "MaskCommandTypes">
+
+            <summary>Mask CommandTypes from Registry.</summary>
+
+            <param name = "mask" Cref = "Boolean">True to Enable.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Mask successfully updated.</returns>
+
+        </method>
+
+        <method name = "MaskHostedServices">
+
+            <summary>Mask Hosted Services from IsHosting.</summary>
+
+            <param name = "mask" Cref = "Boolean">True to Enable.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Mask successfully updated.</returns>
+
+        </method>
+
+        <method name = "RegisterCommand">
+
+            <summary>Register a Command.</summary>
+
+            <param name = "handle" Cref = "String?">Command Handle (Method/Operation ID).</param>
+
+            <param name = "command" Cref = "ICommand?">Command.</param>
+
+            <param name = "dynamic" Cref = "Boolean">True if Tool is already Active.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was registered successfully.</returns>
+
+        </method>
+
+        <method name = "RegisterManager">
+
+            <summary>Register a Manager.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Manager Registered.</returns>
+
+        </method>
+
+        <method name = "ReleaseOwnership">
+
+            <summary>Release ownership of Tool.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if ownership released successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveActivity">
+
+            <summary>Remove an Activity.</summary>
+
+            <param name = "activity" Cref = "Activity?">The Activity.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Activity removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveDataItem">
+
+            <summary>Remove a DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Item.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if DataItem was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveOutput">
+
+            <summary>Remove an Output.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Output.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Output was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveStatus">
+
+            <summary>Remove a Status Object.</summary>
+
+            <param name = "index" Cref = "String?">Status Index.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Status Object was removed successfully.</returns>
+
+        </method>
+
+        <method name = "RequestAccess">
+
+            <summary>Request Access.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Access Request.</param>
+
+            <returns Cref = "AccessKey?">An Access Key.</returns>
+
+        </method>
+
+        <method name = "RevokeAccess">
+
+            <summary>Revoke Access.</summary>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "Boolean">True if AccessKey revoked.</returns>
+
+        </method>
+
+        <method name = "SetID">
+
+            <summary>Set ID.</summary>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">Returns true if ID was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetMyHostKey">
+
+            <summary>Set MyHostKey.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Key was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetStatus">
+
+            <summary>Set a Status.</summary>
+
+            <param name = "index" Cref = "String?">Status Index.</param>
+
+            <param name = "status" Cref = "Object?">Status Object.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Status Object was set successfully.</returns>
+
+        </method>
+
+        <method name = "StartingAsync">
+
+            <summary>IHostedLifecycleService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Starting Task.</returns>
+
+        </method>
+
+        <method name = "StartAsync">
+
+            <summary>IHostedService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Starting Task.</returns>
+
+        </method>
+
+        <method name = "StartedAsync">
+
+            <summary>IHostedLifecycleService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Started Task.</returns>
+
+        </method>
+
+        <method name = "StartHostAsync">
+
+            <summary>Start IHostedLifecycleServices.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">Timeout.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">StartHos Task.</returns>
+
+        </method>
+
+        <method name = "StopHostAsync">
+
+            <summary>Stop IHostedLifecycleServices.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">Timeout.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">StopHost Task.</returns>
+
+        </method>
+
+        <method name = "StoppingAsync">
+
+            <summary>IHostedLifecycleService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Stopping Task.</returns>
+
+        </method>
+
+        <method name = "StopAsync">
+
+            <summary>IHostedService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Stopping Task.</returns>
+
+        </method>
+
+        <method name = "StoppedAsync">
+
+            <summary>IHostedLifecycleService.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task">Stopped Task.</returns>
+
+        </method>
+
+        <method name = "TakeOwnership">
+
+            <summary>Take ownership of Tool.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if ownership taken successfully.</returns>
+
+        </method>
+
+        <method name = "UnRegisterCommand">
+
+            <summary>UnRegister a Command.</summary>
+
+            <param name = "handle" Cref = "String">Command Handle (Names,Verbs).</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was unregistered successfully.</returns>
+
+        </method>
+
+        <method name = "UnRegisterManager">
+
+            <summary>UnRegister a Manager.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Manager UnRegistered.</returns>
+
+        </method>
+
+        <method name = "UpdateInputs">
+
+            <summary>Update Inputs.</summary>
+
+            <param name = "inputs" Cref = "IEnumerable{Object}?">Updated Inputs.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Boolean">True if Inputs were updated successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</ITool>

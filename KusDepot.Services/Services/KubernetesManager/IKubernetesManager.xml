@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IKubernetesManager>
+
+    <interface name = "IKubernetesManager">
+
+        <main>
+
+            <summary>Kubernetes Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Kubernetes Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IKubernetesManager>

@@ -1,0 +1,201 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataSetItem>
+
+    <class name = "DataSetItem">
+
+        <main>
+
+            <summary>A Set of DataItems.</summary>
+
+            <remarks>This item stores a set of DataItems.</remarks>
+
+        </main>
+
+        <content name = "Content" Cref = "HashSet{DataItem}?">
+
+            <summary>Item Data.</summary>
+
+        </content>
+
+        <field name = "Sync" Cref = "ItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "DataSetItem">New DataSetItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "IEnumerable{DataItem}?">Item Data.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "DataSetItem">DataSetItem.</returns>
+
+        </constructor>
+
+        <method name = "AddDataItems">
+
+            <summary>Add DataItems.</summary>
+
+            <param name = "data" Cref = "IEnumerable{DataItems}?">DataItems.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if DataItems added successfully.</returns>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "DataSetItem?">A DataSetItem.</param>
+
+            <param name = "b" Cref = "DataSetItem?">Other DataSetItem.</param>
+
+            <returns Cref = "Boolean">True if GenericItems are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "DataSetItem?">A DataSetItem.</param>
+
+            <param name = "b" Cref = "DataSetItem?">Other DataSetItem.</param>
+
+            <returns Cref = "Boolean">True if GenericItems are not equal.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "DataSetItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <returns Cref = "ImmutableList{DataItem}?">Content.</returns>
+
+        </method>
+
+        <method name = "GetDataItem">
+
+            <summary>Get DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "DataItem?">DataItem.</returns>
+
+        </method>
+
+        <method name = "GetDataItems">
+
+            <summary>Get All DataItems.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "HashSet{DataItem}?">All DataItems.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse DataSetItem.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataSetItem?">Parsed DataSetItem.</returns>
+
+        </method>
+
+        <method name = "RemoveDataItem">
+
+            <summary>Remove a DataItem.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of Item.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if DataItem was removed successfully.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "IEnumerable{DataItem}?">Content.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <method name = "ZeroDataInMemoryOnly">
+
+            <summary>Securely erases only the in-memory plaintext data fields.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">Management Key.</param>
+
+            <param name = "requirelocks" Cref = "Boolean">True to require synchronization locks.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the data was successfully zeroed; otherwise, false.</returns>
+
+            <remarks>Does not affect encrypted data or file-based content.</remarks>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</DataSetItem>

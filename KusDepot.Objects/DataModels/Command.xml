@@ -1,0 +1,113 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Command>
+
+    <record name = "Command">
+
+        <main>
+
+            <summary>Represents Command records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "CommandHandle" Cref = "String?"><summary>CommandHandle.</summary></property>
+
+        <property name = "CommandSpecifications" Cref = "String?"><summary>CommandSpecifications.</summary></property>
+
+        <property name = "CommandType" Cref = "String?"><summary>Command Implementing Type.</summary></property>
+
+        <property name = "ContentHash" Cref = "String?"><summary>ContentHash.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "ObjectType" Cref = "String?"><summary>ObjectType.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "CommandQuery">
+
+        <main>
+
+            <summary>Supports querying Command records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "Application" Cref = "String?"><summary>Application.</summary></property>
+
+        <property name = "ApplicationVersion" Cref = "String?"><summary>ApplicationVersion.</summary></property>
+
+        <property name = "BornOn" Cref = "String?"><summary>BornOn.</summary></property>
+
+        <property name = "CommandHandle" Cref = "String?"><summary>CommandHandle.</summary></property>
+
+        <property name = "CommandSpecifications" Cref = "String?"><summary>CommandSpecifications.</summary></property>
+
+        <property name = "CommandType" Cref = "String?"><summary>Command Implementing Type.</summary></property>
+
+        <property name = "ContentHash" Cref = "String?"><summary>ContentHash.</summary></property>
+
+        <property name = "ContentStreamed" Cref = "Boolean?"><summary>ContentStreamed.</summary></property>
+
+        <property name = "DistinguishedName" Cref = "String?"><summary>DistinguishedName.</summary></property>
+
+        <property name = "FILE" Cref = "String?"><summary>FILE.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>ID.</summary></property>
+
+        <property name = "Modified" Cref = "String?"><summary>Modified.</summary></property>
+
+        <property name = "Name" Cref = "String?"><summary>Name.</summary></property>
+
+        <property name = "Notes" Cref = "String[]?"><summary>Notes.</summary></property>
+
+        <property name = "ObjectType" Cref = "String?"><summary>ObjectType.</summary></property>
+
+        <property name = "ServiceVersion" Cref = "String?"><summary>ServiceVersion.</summary></property>
+
+        <property name = "Size" Cref = "String?"><summary>Size.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+        <property name = "Version" Cref = "String?"><summary>Version.</summary></property>
+
+    </record>
+
+    <record name = "CommandResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "Commands" Cref = "Command[]"><summary>Matching records.</summary></property>
+
+    </record>
+
+</Command>

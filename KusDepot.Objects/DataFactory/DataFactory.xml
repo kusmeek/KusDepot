@@ -1,0 +1,197 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFactory>
+
+    <class name = "DataFactory">
+
+        <main>
+
+            <summary>DataItem Factory.</summary>
+
+        </main>
+
+        <method name = "CreateBinaryItem">
+
+            <summary>Create BinaryItem.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Item Content.</param>
+
+            <param name = "dllpaths" Cref = "IEnumerable{String}?">Paths to DLLs for content assembly metadata.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "BinaryItem">BinaryItem.</returns>
+
+        </method>
+
+        <method name = "CreateCodeItem">
+
+            <summary>Create CodeItem.</summary>
+
+            <param name = "content" Cref = "String?">Item Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "CodeItem">CodeItem.</returns>
+
+        </method>
+
+        <method name = "CreateDataSetItem">
+
+            <summary>Create DataSetItem.</summary>
+
+            <param name = "content" Cref = "IEnumerable{DataItem}?">Item Data.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "DataSetItem">DataSetItem.</returns>
+
+        </method>
+
+        <method name = "CreateGenericItem">
+
+            <summary>Create GenericItem.</summary>
+
+            <param name = "content" Cref = "IEnumerable{Object}?">Item Data.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <returns Cref = "GenericItem">GenericItem.</returns>
+
+        </method>
+
+        <method name = "CreateGuidReferenceItem">
+
+            <summary>Create GuidReferenceItem.</summary>
+
+            <param name = "content" Cref = "Guid?">Item Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <returns Cref = "GuidReferenceItem">GuidReferenceItem.</returns>
+
+        </method>
+
+        <method name = "CreateMSBuildItem">
+
+            <summary>Create MSBuildItem.</summary>
+
+            <param name = "content" Cref = "String?">Item Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <returns Cref = "MSBuildItem">MSBuildItem.</returns>
+
+        </method>
+
+        <method name = "CreateMultiMediaItem">
+
+            <summary>Create MultiMediaItem.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Media Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Media ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "artists" Cref = "IEnumerable{String}?">Media Artists.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Media Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "title" Cref = "String?">Media Title.</param>
+
+            <param name = "type" Cref = "String?">Media DataType.</param>
+
+            <param name = "year" Cref = "Int32?">Media Year.</param>
+
+            <returns Cref = "MultiMediaItem">MultiMediaItem.</returns>
+
+        </method>
+
+        <method name = "CreateTextItem">
+
+            <summary>Create TextItem.</summary>
+
+            <param name = "content" Cref = "String?">Item Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Item ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Item Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "type" Cref = "String?">Item Type.</param>
+
+            <param name = "language" Cref = "String?">Content Language.</param>
+
+            <returns Cref = "TextItem">TextItem.</returns>
+
+        </method>
+
+    </class>
+
+</DataFactory>

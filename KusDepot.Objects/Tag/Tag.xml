@@ -1,0 +1,1476 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Tag>
+
+    <class name = "ArchitectureType">
+
+        <main>
+
+            <summary>Instruction Set.</summary>
+
+            <remarks>The presence of these tags indicates non-exclusive operational compatibility.</remarks>
+
+        </main>
+
+        <value name = "ARM" Cref = "String">
+
+            <summary>ARM 32bit.</summary>
+
+        </value>
+
+        <value name = "ARM64" Cref = "String">
+
+            <summary>ARM64.</summary>
+
+        </value>
+
+        <value name = "POWER" Cref = "String">
+
+            <summary>IBM/OpenPOWER.</summary>
+
+        </value>
+
+        <value name = "X64" Cref = "String">
+
+            <summary>AMD64.</summary>
+
+        </value>
+
+        <value name = "X86" Cref = "String">
+
+            <summary>Intel x86 32bit.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "BrowserType">
+
+        <main>
+
+            <summary>Web Browser.</summary>
+
+            <remarks>The presence of these tags indicates non-exclusive operational compatibility.</remarks>
+
+        </main>
+
+        <value name = "Brave" Cref = "String">
+
+            <summary>Brave.</summary>
+
+        </value>
+
+        <value name = "Chrome" Cref = "String">
+
+            <summary>Chrome.</summary>
+
+        </value>
+
+        <value name = "Edge" Cref = "String">
+
+            <summary>Edge.</summary>
+
+        </value>
+
+        <value name = "Firefox" Cref = "String">
+
+            <summary>Firefox.</summary>
+
+        </value>
+
+        <value name = "Opera" Cref = "String">
+
+            <summary>Opera.</summary>
+
+        </value>
+
+        <value name = "Safari" Cref = "String">
+
+            <summary>Safari.</summary>
+
+        </value>
+
+        <value name = "Shift" Cref = "String">
+
+            <summary>Shift.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "DatabaseType">
+
+        <main>
+
+            <summary>Data Infrastructure.</summary>
+
+            <remarks>These tags indicate dependence on or compatibility with supporting storage services.</remarks>
+
+        </main>
+
+        <value name = "AzureSQL" Cref = "String">
+
+            <summary>AzureSQL.</summary>
+
+        </value>
+
+        <value name = "AzureBlob" Cref = "String">
+
+            <summary>AzureBlob.</summary>
+
+        </value>
+
+        <value name = "AzureCosmos" Cref = "String">
+
+            <summary>AzureCosmos.</summary>
+
+        </value>
+
+        <value name = "AzureDataLake" Cref = "String">
+
+            <summary>AzureDataLake.</summary>
+
+        </value>
+
+        <value name = "MicrosoftFabric" Cref = "String">
+
+            <summary>MicrosoftFabric.</summary>
+
+        </value>
+
+        <value name = "SQLServer" Cref = "String">
+
+            <summary>SQLServer.</summary>
+
+        </value>
+
+        <value name = "AmazonS3" Cref = "String">
+
+            <summary>AmazonS3.</summary>
+
+        </value>
+
+        <value name = "GoogleAlloyDB" Cref = "String">
+
+            <summary>GoogleAlloyDB.</summary>
+
+        </value>
+
+        <value name = "GoogleBigtable" Cref = "String">
+
+            <summary>GoogleBigtable.</summary>
+
+        </value>
+
+        <value name = "GoogleSpanner" Cref = "String">
+
+            <summary>GoogleSpanner.</summary>
+
+        </value>
+
+        <value name = "OracleCloud" Cref = "String">
+
+            <summary>OracleCloud.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "DeploymentType">
+
+        <main>
+
+            <summary>Deployment.</summary>
+
+            <remarks>These tags indicate compatible, intended, or required deployment infrastructure or modality.</remarks>
+
+        </main>
+
+        <value name = "AzureAutomationDeployment" Cref = "String">
+
+            <summary>Azure Automation.</summary>
+
+        </value>
+
+        <value name = "AzureFunctionDeployment" Cref = "String">
+
+            <summary>Azure Function.</summary>
+
+        </value>
+
+        <value name = "BinaryDeployment" Cref = "String">
+
+            <summary>Normal PE/ELF.</summary>
+
+        </value>
+
+        <value name = "ContainerDeployment" Cref = "String">
+
+            <summary>Docker Image.</summary>
+
+        </value>
+
+        <value name = "DaprActor" Cref = "String">
+
+            <summary>Dapr Actor.</summary>
+
+        </value>
+
+        <value name = "EnclaveDeployment" Cref = "String">
+
+            <summary>Secure Enclave.</summary>
+
+        </value>
+
+        <value name = "InternalDeployment" Cref = "String">
+
+            <summary>Internal Non-Public.</summary>
+
+        </value>
+
+        <value name = "Kubernetes" Cref = "String">
+
+            <summary>Kubernetes.</summary>
+
+        </value>
+
+        <value name = "ObfuscatedDeployment" Cref = "String">
+
+            <summary>Obfuscated Instructions.</summary>
+
+        </value>
+
+        <value name = "PackageDeployment" Cref = "String">
+
+            <summary>NuGet.</summary>
+
+        </value>
+
+        <value name = "PublicDeployment" Cref = "String">
+
+            <summary>GitHub.</summary>
+
+        </value>
+
+        <value name = "ReliableActor" Cref = "String">
+
+            <summary>Service Fabric Reliable Actor.</summary>
+
+        </value>
+
+        <value name = "ReliableService" Cref = "String">
+
+            <summary>Service Fabric Reliable Service.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "FrameworkVersionType">
+
+        <main>
+
+            <summary>Framework-Version.</summary>
+
+            <remarks>These tags indicate required or compatible framework and version.</remarks>
+
+        </main>
+
+        <value name = "Angular" Cref = "String">
+
+            <summary>Angular.</summary>
+
+        </value>
+
+        <value name = "net4" Cref = "String">
+
+            <summary>.NET 4.</summary>
+
+        </value>
+
+        <value name = "net5" Cref = "String">
+
+            <summary>.NET 5.</summary>
+
+        </value>
+
+        <value name = "net6" Cref = "String">
+
+            <summary>.NET 6.</summary>
+
+        </value>
+
+        <value name = "net7" Cref = "String">
+
+            <summary>.NET 7.</summary>
+
+        </value>
+
+        <value name = "net8" Cref = "String">
+
+            <summary>.NET 8.</summary>
+
+        </value>
+
+        <value name = "net9" Cref = "String">
+
+            <summary>.NET 9.</summary>
+
+        </value>
+
+        <value name = "net10" Cref = "String">
+
+            <summary>.NET 10.</summary>
+
+        </value>
+
+        <value name = "React" Cref = "String">
+
+            <summary>React.</summary>
+
+        </value>
+
+        <value name = "Vue" Cref = "String">
+
+            <summary>Vue.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "HardwareType">
+
+        <main>
+
+            <summary>Hardware.</summary>
+
+            <remarks>These tags indicate compatibility with general classes of compute which are determined by capabilities
+            such as memory capacity, processor core count, UI, portability and timing constraints.</remarks>
+
+        </main>
+
+        <value name = "Desktop" Cref = "String">
+
+            <summary>Desktop.</summary>
+
+        </value>
+
+        <value name = "Drone" Cref = "String">
+
+            <summary>Drone.</summary>
+
+        </value>
+
+        <value name = "IoT" Cref = "String">
+
+            <summary>Internet of Things.</summary>
+
+        </value>
+
+        <value name = "Laptop" Cref = "String">
+
+            <summary>Laptop.</summary>
+
+        </value>
+
+        <value name = "Server" Cref = "String">
+
+            <summary>Server.</summary>
+
+        </value>
+
+        <value name = "Smartphone" Cref = "String">
+
+            <summary>Smartphone.</summary>
+
+        </value>
+
+        <value name = "Surface" Cref = "String">
+
+            <summary>Surface.</summary>
+
+        </value>
+
+        <value name = "Tablet" Cref = "String">
+
+            <summary>Tablet.</summary>
+
+        </value>
+
+        <value name = "ThinClient" Cref = "String">
+
+            <summary>Thin Client.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "HostType">
+
+        <main>
+
+            <summary>Runtime Host.</summary>
+
+            <remarks>These tags indicate compatibility with or dependence on runtime hosts.</remarks>
+
+        </main>
+
+        <value name = "Core" Cref = "String">
+
+            <summary>Core.</summary>
+
+        </value>
+
+        <value name = "Deno" Cref = "String">
+
+            <summary>Deno.</summary>
+
+        </value>
+
+        <value name = "Full" Cref = "String">
+
+            <summary>Full.</summary>
+
+        </value>
+
+        <value name = "Mono" Cref = "String">
+
+            <summary>Mono.</summary>
+
+        </value>
+
+        <value name = "Node" Cref = "String">
+
+            <summary>Node.</summary>
+
+        </value>
+
+        <value name = "OpenJ9" Cref = "String">
+
+            <summary>OpenJ9.</summary>
+
+        </value>
+
+        <value name = "OpenJDK" Cref = "String">
+
+            <summary>OpenJDK.</summary>
+
+        </value>
+
+        <value name = "V8" Cref = "String">
+
+            <summary>V8.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "Language">
+
+        <main>
+
+            <summary>ISO 639-3.</summary>
+
+            <remarks>These tags indicate text or subtitle language.</remarks>
+
+        </main>
+
+        <value name = "ara" Cref = "String">
+
+            <summary>Arabic.</summary>
+
+        </value>
+
+        <value name = "arz" Cref = "String">
+
+            <summary>Egyptian Arabic.</summary>
+
+        </value>
+
+        <value name = "ces" Cref = "String">
+
+            <summary>Czech.</summary>
+
+        </value>
+
+        <value name = "dan" Cref = "String">
+
+            <summary>Danish.</summary>
+
+        </value>
+
+        <value name = "deu" Cref = "String">
+
+            <summary>German.</summary>
+
+        </value>
+
+        <value name = "ell" Cref = "String">
+
+            <summary>Greek.</summary>
+
+        </value>
+
+        <value name = "eng" Cref = "String">
+
+            <summary>English.</summary>
+
+        </value>
+
+        <value name = "spa" Cref = "String">
+
+            <summary>Spanish.</summary>
+
+        </value>
+
+        <value name = "fas" Cref = "String">
+
+            <summary>Persian.</summary>
+
+        </value>
+
+        <value name = "fin" Cref = "String">
+
+            <summary>Finnish.</summary>
+
+        </value>
+
+        <value name = "fra" Cref = "String">
+
+            <summary>French.</summary>
+
+        </value>
+
+        <value name = "gle" Cref = "String">
+
+            <summary>Irish.</summary>
+
+        </value>
+
+        <value name = "heb" Cref = "String">
+
+            <summary>Hebrew.</summary>
+
+        </value>
+
+        <value name = "hin" Cref = "String">
+
+            <summary>Hindi.</summary>
+
+        </value>
+
+        <value name = "hun" Cref = "String">
+
+            <summary>Hungarian.</summary>
+
+        </value>
+
+        <value name = "ita" Cref = "String">
+
+            <summary>Italian.</summary>
+
+        </value>
+
+        <value name = "jpn" Cref = "String">
+
+            <summary>Japanese.</summary>
+
+        </value>
+
+        <value name = "kor" Cref = "String">
+
+            <summary>Korean.</summary>
+
+        </value>
+
+        <value name = "ktu" Cref = "String">
+
+            <summary>Kituba.</summary>
+
+        </value>
+
+        <value name = "lit" Cref = "String">
+
+            <summary>Lithuanian.</summary>
+
+        </value>
+
+        <value name = "lin" Cref = "String">
+
+            <summary>Lingala.</summary>
+
+        </value>
+
+        <value name = "lua" Cref = "String">
+
+            <summary>Luba-Kasai.</summary>
+
+        </value>
+
+        <value name = "mkd" Cref = "String">
+
+            <summary>Macedonian.</summary>
+
+        </value>
+
+        <value name = "mon" Cref = "String">
+
+            <summary>Mongolian.</summary>
+
+        </value>
+
+        <value name = "msa" Cref = "String">
+
+            <summary>Malay.</summary>
+
+        </value>
+
+        <value name = "nob" Cref = "String">
+
+            <summary>Norwegian.</summary>
+
+        </value>
+
+        <value name = "nde" Cref = "String">
+
+            <summary>Ndebele.</summary>
+
+        </value>
+
+        <value name = "nld" Cref = "String">
+
+            <summary>Dutch.</summary>
+
+        </value>
+
+        <value name = "nya" Cref = "String">
+
+            <summary>Nyanja.</summary>
+
+        </value>
+
+        <value name = "pan" Cref = "String">
+
+            <summary>Panjabi.</summary>
+
+        </value>
+
+        <value name = "pol" Cref = "String">
+
+            <summary>Polish.</summary>
+
+        </value>
+
+        <value name = "por" Cref = "String">
+
+            <summary>Portuguese.</summary>
+
+        </value>
+
+        <value name = "rus" Cref = "String">
+
+            <summary>Russian.</summary>
+
+        </value>
+
+        <value name = "sag" Cref = "String">
+
+            <summary>Sango.</summary>
+
+        </value>
+
+        <value name = "san" Cref = "String">
+
+            <summary>Sanskrit.</summary>
+
+        </value>
+
+        <value name = "slv" Cref = "String">
+
+            <summary>Slovenian.</summary>
+
+        </value>
+
+        <value name = "sna" Cref = "String">
+
+            <summary>Shona.</summary>
+
+        </value>
+
+        <value name = "swa" Cref = "String">
+
+            <summary>Swahili.</summary>
+
+        </value>
+
+        <value name = "swe" Cref = "String">
+
+            <summary>Swedish.</summary>
+
+        </value>
+
+        <value name = "tha" Cref = "String">
+
+            <summary>Thai.</summary>
+
+        </value>
+
+        <value name = "tsn" Cref = "String">
+
+            <summary>Setswana.</summary>
+
+        </value>
+
+        <value name = "tur" Cref = "String">
+
+            <summary>Turkish.</summary>
+
+        </value>
+
+        <value name = "uig" Cref = "String">
+
+            <summary>Uighur.</summary>
+
+        </value>
+
+        <value name = "ukr" Cref = "String">
+
+            <summary>Ukrainian.</summary>
+
+        </value>
+
+        <value name = "vie" Cref = "String">
+
+            <summary>Vietnamese.</summary>
+
+        </value>
+
+        <value name = "xho" Cref = "String">
+
+            <summary>Xhosa.</summary>
+
+        </value>
+
+        <value name = "zho" Cref = "String">
+
+            <summary>Chinese.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "OperatingSystemType">
+
+        <main>
+
+            <summary>Operating System.</summary>
+
+            <remarks>These tags indicate compatibility with or dependence on an operating system.</remarks>
+
+        </main>
+
+        <value name = "Android" Cref = "String">
+
+            <summary>Android.</summary>
+
+        </value>
+
+        <value name = "HoloLens" Cref = "String">
+
+            <summary>HoloLens.</summary>
+
+        </value>
+
+        <value name = "iOS" Cref = "String">
+
+            <summary>iOS.</summary>
+
+        </value>
+
+        <value name = "Linux" Cref = "String">
+
+            <summary>Linux.</summary>
+
+        </value>
+
+        <value name = "Macintosh" Cref = "String">
+
+            <summary>Macintosh.</summary>
+
+        </value>
+
+        <value name = "Windows" Cref = "String">
+
+            <summary>Windows Client.</summary>
+
+        </value>
+
+        <value name = "WindowsServer" Cref = "String">
+
+            <summary>Windows Server.</summary>
+
+        </value>
+
+        <value name = "WindowsServerNano" Cref = "String">
+
+            <summary>Windows Server Nano.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "PlatformType">
+
+        <main>
+
+            <summary>IaaS/PaaS/SaaS Provider.</summary>
+
+            <remarks>These tags indicate compatibility with or dependence on a service provider.</remarks>
+
+        </main>
+
+        <value name = "Azure" Cref = "String">
+
+            <summary>Azure.</summary>
+
+        </value>
+
+        <value name = "Amazon" Cref = "String">
+
+            <summary>Amazon.</summary>
+
+        </value>
+
+        <value name = "Google" Cref = "String">
+
+            <summary>Google.</summary>
+
+        </value>
+
+        <value name = "Meta" Cref = "String">
+
+            <summary>Meta.</summary>
+
+        </value>
+
+        <value name = "TwitchTV" Cref = "String">
+
+            <summary>TwitchTV.</summary>
+
+        </value>
+
+        <value name = "YouTubeTV" Cref = "String">
+
+            <summary>YouTubeTV.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "ServiceReference">
+
+        <main>
+
+            <summary>KusDepot Service.</summary>
+
+            <remarks>Internal References.</remarks>
+
+        </main>
+
+        <value name = "Blob" Cref = "String">
+
+            <summary>Blob.</summary>
+
+        </value>
+
+        <value name = "Catalog" Cref = "String">
+
+            <summary>Catalog.</summary>
+
+        </value>
+
+        <value name = "CatalogDB" Cref = "String">
+
+            <summary>CatalogDB.</summary>
+
+        </value>
+
+        <value name = "CoreCache" Cref = "String">
+
+            <summary>CoreCache.</summary>
+
+        </value>
+
+        <value name = "DataConfigs" Cref = "String">
+
+            <summary>DataConfigs.</summary>
+
+        </value>
+
+        <value name = "DaprActor" Cref = "String">
+
+            <summary>DaprActor.</summary>
+
+        </value>
+
+        <value name = "DaprSupervisor" Cref = "String">
+
+            <summary>DaprSupervisor.</summary>
+
+        </value>
+
+        <value name = "DataControl" Cref = "String">
+
+            <summary>DataControl.</summary>
+
+        </value>
+
+        <value name = "Management" Cref = "String">
+
+            <summary>Management.</summary>
+
+        </value>
+
+        <value name = "Secure" Cref = "String">
+
+            <summary>Secure.</summary>
+
+        </value>
+
+        <value name = "ToolActor" Cref = "String">
+
+            <summary>ToolActor.</summary>
+
+        </value>
+
+        <value name = "ToolFabric" Cref = "String">
+
+            <summary>ToolFabric.</summary>
+
+        </value>
+
+        <value name = "ToolGrain" Cref = "String">
+
+            <summary>ToolGrain.</summary>
+
+        </value>
+
+        <value name = "ToolService" Cref = "String">
+
+            <summary>ToolService.</summary>
+
+        </value>
+
+        <value name = "ToolWorkflow" Cref = "String">
+
+            <summary>ToolWorkflow.</summary>
+
+        </value>
+
+    </class>
+
+    <class name = "UsageType">
+
+        <main>
+
+            <summary>Purpose/Role/Service.</summary>
+
+            <remarks>These tags indicate an implementation of, a component of, or an augmentation of a utility.</remarks>
+
+        </main>
+
+        <value name = "Adapter" Cref = "String">
+
+            <summary>Adapter.</summary>
+
+        </value>
+
+        <value name = "Agent" Cref = "String">
+
+            <summary>Agent.</summary>
+
+        </value>
+
+        <value name = "Algorithm" Cref = "String">
+
+            <summary>Algorithm.</summary>
+
+        </value>
+
+        <value name = "APIServer" Cref = "String">
+
+            <summary>APIServer.</summary>
+
+        </value>
+
+        <value name = "AppProxy" Cref = "String">
+
+            <summary>AppProxy.</summary>
+
+        </value>
+
+        <value name = "AppServer" Cref = "String">
+
+            <summary>AppServer.</summary>
+
+        </value>
+
+        <value name = "Architecture" Cref = "String">
+
+            <summary>Architecture.</summary>
+
+        </value>
+
+        <value name = "ASPNETServer" Cref = "String">
+
+            <summary>ASPNETServer.</summary>
+
+        </value>
+
+        <value name = "BlazorServer" Cref = "String">
+
+            <summary>BlazorServer.</summary>
+
+        </value>
+
+        <value name = "BuildServer" Cref = "String">
+
+            <summary>BuildServer.</summary>
+
+        </value>
+
+        <value name = "Cache" Cref = "String">
+
+            <summary>Cache.</summary>
+
+        </value>
+
+        <value name = "ClientManagement" Cref = "String">
+
+            <summary>ClientManagement.</summary>
+
+        </value>
+
+        <value name = "Cluster" Cref = "String">
+
+            <summary>Cluster.</summary>
+
+        </value>
+
+        <value name = "ClusterNode" Cref = "String">
+
+            <summary>ClusterNode.</summary>
+
+        </value>
+
+        <value name = "Command" Cref = "String">
+
+            <summary>Command.</summary>
+
+        </value>
+
+        <value name = "Contract" Cref = "String">
+
+            <summary>Contract.</summary>
+
+        </value>
+
+        <value name = "Corporation" Cref = "String">
+
+            <summary>Corporation.</summary>
+
+        </value>
+
+        <value name = "Database" Cref = "String">
+
+            <summary>Database.</summary>
+
+        </value>
+
+        <value name = "Decision" Cref = "String">
+
+            <summary>Decision.</summary>
+
+        </value>
+
+        <value name = "Department" Cref = "String">
+
+            <summary>Department.</summary>
+
+        </value>
+
+        <value name = "DHCPServer" Cref = "String">
+
+            <summary>DHCPServer.</summary>
+
+        </value>
+
+        <value name = "DomainController" Cref = "String">
+
+            <summary>DomainController.</summary>
+
+        </value>
+
+        <value name = "DNSServer" Cref = "String">
+
+            <summary>DNSServer.</summary>
+
+        </value>
+
+        <value name = "Emulator" Cref = "String">
+
+            <summary>Emulator.</summary>
+
+        </value>
+
+        <value name = "Event" Cref = "String">
+
+            <summary>Event.</summary>
+
+        </value>
+
+        <value name = "FederationServer" Cref = "String">
+
+            <summary>FederationServer.</summary>
+
+        </value>
+
+        <value name = "FSFile" Cref = "String">
+
+            <summary>FSFile.</summary>
+
+        </value>
+
+        <value name = "FSDirectory" Cref = "String">
+
+            <summary>FSDirectory.</summary>
+
+        </value>
+
+        <value name = "Firewall" Cref = "String">
+
+            <summary>Firewall.</summary>
+
+        </value>
+
+        <value name = "FTPServer" Cref = "String">
+
+            <summary>FTPServer.</summary>
+
+        </value>
+
+        <value name = "Gateway" Cref = "String">
+
+            <summary>Gateway.</summary>
+
+        </value>
+
+        <value name = "Generator" Cref = "String">
+
+            <summary>Generator.</summary>
+
+        </value>
+
+        <value name = "IntegrationLaboratory" Cref = "String">
+
+            <summary>IntegrationLaboratory.</summary>
+
+        </value>
+
+        <value name = "Key" Cref = "String">
+
+            <summary>Key.</summary>
+
+        </value>
+
+        <value name = "L2Router" Cref = "String">
+
+            <summary>L2Router.</summary>
+
+        </value>
+
+        <value name = "L3Router" Cref = "String">
+
+            <summary>L3Router.</summary>
+
+        </value>
+
+        <value name = "LiveSignal" Cref = "String">
+
+            <summary>LiveSignal.</summary>
+
+        </value>
+
+        <value name = "LoadBalancer" Cref = "String">
+
+            <summary>LoadBalancer.</summary>
+
+        </value>
+
+        <value name = "Lock" Cref = "String">
+
+            <summary>Lock.</summary>
+
+        </value>
+
+        <value name = "ManagementServer" Cref = "String">
+
+            <summary>ManagementServer.</summary>
+
+        </value>
+
+        <value name = "MediaStreamingServer" Cref = "String">
+
+            <summary>MediaStreamingServer.</summary>
+
+        </value>
+
+        <value name = "Message" Cref = "String">
+
+            <summary>Message.</summary>
+
+        </value>
+
+        <value name = "Model" Cref = "String">
+
+            <summary>Model.</summary>
+
+        </value>
+
+        <value name = "Monitor" Cref = "String">
+
+            <summary>Monitor.</summary>
+
+        </value>
+
+        <value name = "Network" Cref = "String">
+
+            <summary>Network.</summary>
+
+        </value>
+
+        <value name = "Objective" Cref = "String">
+
+            <summary>Objective.</summary>
+
+        </value>
+
+        <value name = "OCSPResponder" Cref = "String">
+
+            <summary>OCSPResponder.</summary>
+
+        </value>
+
+        <value name = "Orchestrator" Cref = "String">
+
+            <summary>Orchestrator.</summary>
+
+        </value>
+
+        <value name = "OrganizationalUnit" Cref = "String">
+
+            <summary>OrganizationalUnit.</summary>
+
+        </value>
+
+        <value name = "Parser" Cref = "String">
+
+            <summary>Parser.</summary>
+
+        </value>
+
+        <value name = "PCITransactionHandler" Cref = "String">
+
+            <summary>PCITransactionHandler.</summary>
+
+        </value>
+
+        <value name = "PKICAServer" Cref = "String">
+
+            <summary>PKICAServer.</summary>
+
+        </value>
+
+        <value name = "PKICMPServer" Cref = "String">
+
+            <summary>PKICMPServer.</summary>
+
+        </value>
+
+        <value name = "PKIRootServer" Cref = "String">
+
+            <summary>PKIRootServer.</summary>
+
+        </value>
+
+        <value name = "Plan" Cref = "String">
+
+            <summary>Plan.</summary>
+
+        </value>
+
+        <value name = "Policy" Cref = "String">
+
+            <summary>Policy.</summary>
+
+        </value>
+
+        <value name = "PrintServer" Cref = "String">
+
+            <summary>PrintServer.</summary>
+
+        </value>
+
+        <value name = "ProductArtifact" Cref = "String">
+
+            <summary>ProductArtifact.</summary>
+
+        </value>
+
+        <value name = "ProtocolProxyServer" Cref = "String">
+
+            <summary>ProtocolProxyServer.</summary>
+
+        </value>
+
+        <value name = "Query" Cref = "String">
+
+            <summary>Query.</summary>
+
+        </value>
+
+        <value name = "Renderer" Cref = "String">
+
+            <summary>Renderer.</summary>
+
+        </value>
+
+        <value name = "Request" Cref = "String">
+
+            <summary>Request.</summary>
+
+        </value>
+
+        <value name = "Response" Cref = "String">
+
+            <summary>Response.</summary>
+
+        </value>
+
+        <value name = "Result" Cref = "String">
+
+            <summary>Result.</summary>
+
+        </value>
+
+        <value name = "ReverseProxyServer" Cref = "String">
+
+            <summary>ReverseProxyServer.</summary>
+
+        </value>
+
+        <value name = "RoboticProcessAutomation" Cref = "String">
+
+            <summary>RoboticProcessAutomation.</summary>
+
+        </value>
+
+        <value name = "SANServer" Cref = "String">
+
+            <summary>SANServer.</summary>
+
+        </value>
+
+        <value name = "SAWorkstation" Cref = "String">
+
+            <summary>Secure Admin Workstation.</summary>
+
+        </value>
+
+        <value name = "Scheduler" Cref = "String">
+
+            <summary>Scheduler.</summary>
+
+        </value>
+
+        <value name = "ServerManagement" Cref = "String">
+
+            <summary>ServerManagement.</summary>
+
+        </value>
+
+        <value name = "SessionCoordinator" Cref = "String">
+
+            <summary>SessionCoordinator.</summary>
+
+        </value>
+
+        <value name = "SSASInstance" Cref = "String">
+
+            <summary>SSASInstance.</summary>
+
+        </value>
+
+        <value name = "Task" Cref = "String">
+
+            <summary>Task.</summary>
+
+        </value>
+
+        <value name = "Translator" Cref = "String">
+
+            <summary>Translator.</summary>
+
+        </value>
+
+        <value name = "Visualizer" Cref = "String">
+
+            <summary>Visualizer.</summary>
+
+        </value>
+
+        <value name = "VPNServer" Cref = "String">
+
+            <summary>VPNServer.</summary>
+
+        </value>
+
+        <value name = "VSProject" Cref = "String">
+
+            <summary>VSProject.</summary>
+
+        </value>
+
+        <value name = "VSSolution" Cref = "String">
+
+            <summary>VSSolution.</summary>
+
+        </value>
+
+        <value name = "WebServer" Cref = "String">
+
+            <summary>WebServer.</summary>
+
+        </value>
+
+        <value name = "WebSocketServer" Cref = "String">
+
+            <summary>WebSocketServer.</summary>
+
+        </value>
+
+        <value name = "Window" Cref = "String">
+
+            <summary>Window.</summary>
+
+        </value>
+
+        <value name = "Workflow" Cref = "String">
+
+            <summary>Workflow.</summary>
+
+        </value>
+
+    </class>
+
+</Tag>

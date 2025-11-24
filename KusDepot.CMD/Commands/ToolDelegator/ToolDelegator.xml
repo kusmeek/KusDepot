@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolDelegator>
+
+    <class name = "ToolDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a Tool.</summary>
+
+        </main>
+
+        <field name = "Target">
+
+            <summary>Target Tool.</summary>
+
+            <returns Cref = "ITool">Tool delegatee.</returns>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "target" Cref = "ITool">Target Tool.</param>
+
+            <returns Cref = "ToolDelegator">New ToolDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</ToolDelegator>

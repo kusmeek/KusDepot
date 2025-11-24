@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DependencyInjection>
+
+    <class name = "DependencyInjection">
+
+        <main>
+
+            <summary>Dependency Injection Extensions.</summary>
+
+        </main>
+
+        <method name = "AddKusDepotToolInstance">
+
+            <summary>Add Tool to Services.</summary>
+
+            <param name = "services" Cref = "IServiceCollection">Services.</param>
+
+            <param name = "tool" Cref = "ITool">Tool.</param>
+
+            <returns Cref = "IServiceCollection">Services.</returns>
+
+        </method>
+
+        <method name = "AddKusDepotToolFactory">
+
+            <summary>Add Tool to Services.</summary>
+
+            <param name = "services" Cref = "IServiceCollection">Services.</param>
+
+            <param name = "toolfactory" Cref = "Func{ITool}">Implementation Factory.</param>
+
+            <returns Cref = "IServiceCollection">Services.</returns>
+
+        </method>
+
+        <method name="AddSingletonWithInterfaces_T">
+
+            <summary>Registers a singleton service of type T and all its implemented interfaces.</summary>
+
+            <typeparam name="T">The type of the service to register.</typeparam>
+
+            <param name="services">The IServiceCollection to add the service to.</param>
+
+            <returns>The IServiceCollection so that additional calls can be chained.</returns>
+
+        </method>
+
+        <method name="AddScopedWithInterfaces_T">
+
+            <summary>Registers a scoped service of type T and all its implemented interfaces.</summary>
+
+            <typeparam name="T">The type of the service to register.</typeparam>
+
+            <param name="services">The IServiceCollection to add the service to.</param>
+
+            <returns>The IServiceCollection so that additional calls can be chained.</returns>
+
+        </method>
+
+        <method name="AddTransientWithInterfaces_T">
+
+            <summary>Registers a transient service of type T and all its implemented interfaces.</summary>
+
+            <typeparam name="T">The type of the service to register.</typeparam>
+
+            <param name="services">The IServiceCollection to add the service to.</param>
+
+            <returns>The IServiceCollection so that additional calls can be chained.</returns>
+
+        </method>
+
+        <method name="AddWithInterfaces_T">
+
+            <summary>Registers a service of type T and all its implemented interfaces with a specified lifetime.</summary>
+
+            <typeparam name="T">The type of the service to register.</typeparam>
+
+            <param name="services">The IServiceCollection to add the service to.</param>
+
+            <param name="lifetime">The lifetime of the service.</param>
+
+            <returns>The IServiceCollection so that additional calls can be chained.</returns>
+
+        </method>
+
+        <method name="AddSingletonWithInterfaces_T_instance">
+
+            <summary>Registers a singleton service with a specific instance of type T and all its implemented interfaces.</summary>
+
+            <typeparam name="T">The type of the service to register.</typeparam>
+
+            <param name="services">The IServiceCollection to add the service to.</param>
+
+            <param name="instance">The instance of the service to register.</param>
+
+            <returns>The IServiceCollection so that additional calls can be chained.</returns>
+
+        </method>
+
+    </class>
+
+</DependencyInjection>

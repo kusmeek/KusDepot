@@ -1,0 +1,29 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ServiceContainerAttribute>
+
+    <class name = "ServiceContainerAttribute">
+
+        <main>
+
+            <summary>Associates Services and implementing types with containing assemblies.</summary>
+
+        </main>
+
+        <property name = "Type" Cref = "Type">
+
+            <summary>Implementing type.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "type" Cref = "Type">Implementing Type.</param>
+
+        </constructor>
+
+    </class>
+
+</ServiceContainerAttribute>

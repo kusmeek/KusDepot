@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolBuilderContext>
+
+    <class name = "ToolBuilderContext">
+
+        <main>
+
+            <summary>ToolBuilder Context.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "toolproperties" Cref = "Dictionary{Object,Object}">Initial Properties.</param>
+
+            <returns Cref = "ToolBuilderContext">New ToolBuilderContext.</returns>
+
+        </constructor>
+
+        <property name = "ToolProperties">
+
+            <summary>ToolBuilder Properties.</summary>
+
+            <returns Cref = "Dictionary{Object,Object}">ToolBuilder Properties.</returns>
+
+        </property>
+
+        <property name = "Configuration">
+
+            <summary>ToolBuilder Configuration.</summary>
+
+            <returns Cref = "IConfiguration?">ToolBuilder Configuration.</returns>
+
+        </property>
+
+    </class>
+
+</ToolBuilderContext>

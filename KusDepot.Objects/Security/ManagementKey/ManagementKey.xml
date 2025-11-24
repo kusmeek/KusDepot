@@ -1,0 +1,105 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ManagementKey>
+
+    <class name = "ManagementKey">
+
+        <main>
+
+            <summary>Management Key.</summary>
+
+        </main>
+
+        <property name = "CanSign" Cref = "Boolean">
+
+            <summary>True if the key can be used for digital signatures.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String?">
+
+            <summary>Thumbprint.</summary>
+
+        </property>
+
+        <method name = "EqualsObject">
+
+            <summary>Determine equality.</summary>
+
+            <param name = "other" Cref = "Object?">Other Object.</param>
+
+            <returns Cref = "Boolean">True if Objects are equal.</returns>
+
+        </method>
+
+        <method name = "IEquatable{ManagementKey}.Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "ManagementKey?">Other ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if ManagementKeys are equal.</returns>
+
+        </method>
+
+        <method name = "ParseAny">
+
+            <summary>Parse ManagementKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ManagementKey?">Output ManagementKey.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ManagementKey.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ManagementKey?">Parsed ManagementKey.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ManagementKey.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+    <record name = "ManagementKeyWeb">
+
+        <main>
+
+            <summary>ManagementKey Web Interoperations.</summary>
+
+        </main>
+
+        <property name = "Thumbprint" Cref = "String?">
+
+            <summary>Thumbprint.</summary>
+
+        </property>
+
+    </record>
+
+</ManagementKey>

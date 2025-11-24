@@ -1,0 +1,31 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolReference>
+
+    <class name = "ToolReference">
+
+        <main>
+
+            <summary>Tool Reference.</summary>
+
+        </main>
+
+        <property name = "Key">
+
+            <summary>Tool Key</summary>
+
+            <returns Cref = "AccessKey?">Access Key.</returns>
+
+        </property>
+
+        <property name = "Tool">
+
+            <summary>Tool Reference</summary>
+
+            <returns Cref = "ITool?">Tool.</returns>
+
+        </property>
+
+    </class>
+
+</ToolReference>

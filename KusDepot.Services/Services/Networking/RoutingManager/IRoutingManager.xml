@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IRoutingManager>
+
+    <interface name = "IRoutingManager">
+
+        <main>
+
+            <summary>Routing Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Routing Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IRoutingManager>

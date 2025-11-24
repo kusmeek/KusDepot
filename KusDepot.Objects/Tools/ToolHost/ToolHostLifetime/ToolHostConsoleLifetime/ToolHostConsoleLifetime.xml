@@ -1,0 +1,35 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostConsoleLifetime>
+
+    <class name = "ToolHostConsoleLifetime">
+
+        <main>
+
+            <summary>ToolHost Console Lifetime.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name= "lifeid" Cref= "Guid">LifeID</param>
+
+            <param name="toolhost" Cref="IToolHost?">ToolHost</param>
+
+            <returns Cref = "ToolHostConsoleLifetime">New ToolHostConsoleLifetime.</returns>
+
+        </constructor>
+
+        <property name = "ToolHost">
+
+            <summary>ToolHost</summary>
+
+            <returns Cref ="IToolHost?"></returns>
+
+        </property>
+
+    </class>
+
+</ToolHostConsoleLifetime>

@@ -1,0 +1,87 @@
+﻿<Project>
+
+    <PropertyGroup Label = "Analysis">
+
+        <WarningLevel>9999</WarningLevel>
+
+        <LangVersion>preview</LangVersion>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+
+        <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+        <ILLinkTreatWarningsAsErrors>True</ILLinkTreatWarningsAsErrors>
+
+        <MSBuildTreatWarningsAsErrors>False</MSBuildTreatWarningsAsErrors>
+
+        <AnalysisModeSecurity>preview-all</AnalysisModeSecurity>
+
+        <AnalysisLevelSecurity>preview-all</AnalysisLevelSecurity>
+
+        <AnalysisModePerformance>preview-all</AnalysisModePerformance>
+
+        <AnalysisModeReliability>preview-all</AnalysisModeReliability>
+
+        <AnalysisModeGlobalization>preview-all</AnalysisModeGlobalization>
+
+        <AnalysisModeMaintainability>preview-all</AnalysisModeMaintainability>
+
+        <AnalysisModeInteroperability>preview-all</AnalysisModeInteroperability>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Config">
+
+        <Nullable>Enable</Nullable>
+
+        <Deterministic>True</Deterministic>
+
+        <ImplicitUsings>False</ImplicitUsings>
+
+        <GenerateFullPaths>True</GenerateFullPaths>
+
+        <ChecksumAlgorithm>SHA256</ChecksumAlgorithm>
+
+        <EnableDefaultItems>True</EnableDefaultItems>
+
+        <EnableDefaultCompileItems>True</EnableDefaultCompileItems>
+
+        <EnableDefaultContentItems>True</EnableDefaultContentItems>
+
+        <SuppressNETCoreSdkPreviewMessage>True</SuppressNETCoreSdkPreviewMessage>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Assembly">
+
+        <Product>KusDepot</Product>
+
+        <FileVersion>0.0.0.4</FileVersion>
+
+        <SignAssembly>False</SignAssembly>
+
+        <ProductVersion>0.0.0.4</ProductVersion>
+
+        <Description>"Science Kit"</Description>
+
+        <AssemblyVersion>0.0.0.4</AssemblyVersion>
+
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+
+        <InformationalVersion>0.0.0.4</InformationalVersion>
+
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+
+        <Copyright>https://github.com/kusmeek/KusDepot</Copyright>
+
+        <CopyDebugSymbolFilesFromPackages>True</CopyDebugSymbolFilesFromPackages>
+
+    </PropertyGroup>
+
+</Project>

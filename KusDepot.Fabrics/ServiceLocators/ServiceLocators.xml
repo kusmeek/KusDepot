@@ -1,0 +1,41 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<ServiceLocators>
+
+    <class name = "ServiceLocators">
+
+        <main>
+
+            <summary>Service Locators.</summary>
+
+            <remarks>Defines Service Fabric names.</remarks>
+
+        </main>
+
+        <property name = "BlobService" Cref = "Uri"><summary>Blob fabric name.</summary></property>
+
+        <property name = "CatalogService" Cref = "Uri"><summary>Catalog fabric name.</summary></property>
+
+        <property name = "CatalogDBService" Cref = "Uri"><summary>CatalogDB fabric name.</summary></property>
+
+        <property name = "CoreCacheService" Cref = "Uri"><summary>CoreCache fabric name.</summary></property>
+
+        <property name = "DataConfigsService" Cref = "Uri"><summary>DataConfiguration fabric name.</summary></property>
+
+        <property name = "DataControlService" Cref = "Uri"><summary>DataControl fabric name.</summary></property>
+
+        <property name = "ManagementService" Cref = "Uri"><summary>Management fabric name.</summary></property>
+
+        <property name = "SecureService" Cref = "Uri"><summary>Secure fabric name.</summary></property>
+
+        <property name = "TempDBService" Cref = "Uri"><summary>TempDB fabric name.</summary></property>
+
+        <property name = "ToolActorService" Cref = "Uri"><summary>ToolActor fabric name.</summary></property>
+
+        <property name = "ToolFabricService" Cref = "Uri"><summary>ToolFabric fabric name.</summary></property>
+
+        <property name = "WatchService" Cref = "Uri"><summary>Watch fabric name.</summary></property>
+
+    </class>
+
+</ServiceLocators>

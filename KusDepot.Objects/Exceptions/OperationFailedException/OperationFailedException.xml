@@ -1,0 +1,47 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OperationFailedException>
+
+    <class name = "OperationFailedException">
+
+        <main>
+
+            <summary>Operation Failed Exception.</summary>
+
+            <remarks>An Operation Failed.</remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageConstructor">
+
+            <summary>Constructor With Message.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor> 
+
+        <constructor name = "MessageInnerExceptionConstructor">
+
+            <summary>Constructor With Message And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "innerException" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor>
+
+    </class>
+
+</OperationFailedException>

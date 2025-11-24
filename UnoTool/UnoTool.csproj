@@ -1,0 +1,41 @@
+﻿<Project Sdk="Uno.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <ImplicitUsings>Enable</ImplicitUsings>
+
+        <UnoSingleProject>True</UnoSingleProject>
+
+        <GenerateLibraryLayout>True</GenerateLibraryLayout>
+
+        <TargetFrameworks>net10.0;net10.0-ios;net10.0-maccatalyst;net10.0-android;net10.0-windows10.0.19041;net10.0-browserwasm;net10.0-desktop</TargetFrameworks>
+
+        <!-- <UnoFeatures></UnoFeatures> -->
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1024</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+
+        <PackageReference Include="Serilog" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+    </ItemGroup>
+
+</Project>

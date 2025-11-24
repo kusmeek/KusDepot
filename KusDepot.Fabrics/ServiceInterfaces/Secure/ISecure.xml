@@ -1,0 +1,69 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ISecure>
+
+    <interface name = "ISecure">
+
+        <main>
+
+            <summary>The Secure service defines the System Administrator and validates authorization tokens with access roles.</summary>
+
+            <remarks>Initial configuration is defined in AdminFilePath.</remarks>
+
+        </main>
+
+        <method name = "IsAdmin">
+
+            <summary>Determines if caller is System Admin.</summary>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Token possesses Admin.All role.</returns>
+
+        </method>
+
+        <method name = "SetAdmin">
+
+            <summary>Update administrative configuration.</summary>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "tenantid" Cref = "String">Administration Tenant.</param>
+
+            <param name = "clientid" Cref = "String">Administration Application/Client ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if administrative configuration successfully updated.</returns>
+
+        </method>
+
+        <method name = "ValidateTokenVerifyRole">
+
+            <summary>Determines if a token is valid, unexpired, and contains specified role.</summary>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "role" Cref = "String">Role to verify.</param>
+
+            <param name = "tenantid" Cref = "String">Administration Tenant.</param>
+
+            <param name = "clientid" Cref = "String">Administration Application/Client ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if administrative configuration successfully updated.</returns>
+
+        </method>
+
+    </interface>
+
+</ISecure>

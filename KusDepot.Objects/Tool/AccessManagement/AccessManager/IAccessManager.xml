@@ -1,0 +1,143 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessManager>
+
+    <interface name = "IAccessManager">
+
+        <main>
+
+            <summary>Access Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the Access Manager.</remarks>
+
+        </main>
+
+        <method name = "AccessCheck">
+
+            <summary>Determine if key grants access to operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Tool Operation Name.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "DestroySecrets">
+
+            <summary>Destroy Access Manager Secrets.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if secrets destroyed.</returns>
+
+        </method>
+
+        <method name = "ExportAccessManagerState">
+
+            <summary>Export Access Manager State.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "AccessManagerState?">An Access Manager State object.</returns>
+
+        </method>
+
+        <method name = "ImportAccessManagementKeys">
+
+            <summary>Import Access Management Keys.</summary>
+
+            <param name = "state" Cref = "AccessManagerState?">Access Manager State.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if keys imported.</returns>
+
+        </method>
+
+        <method name = "GenerateClientKey">
+
+            <summary>Generate a ClientKey.</summary>
+
+            <returns Cref = "ClientKey?">A Client Key.</returns>
+
+        </method>
+
+        <method name = "GenerateCommandKey">
+
+            <summary>Generate a CommandKey.</summary>
+
+            <param name = "command" Cref = "ICommand?">Command.</param>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "CommandKey?">A Command Key.</returns>
+
+        </method>
+
+        <method name = "GenerateHostedServiceKey">
+
+            <summary>Generate a HostedService Key.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "MyHostKey?">A Hosted Service Key.</returns>
+
+        </method>
+
+        <method name = "GenerateExecutiveKey">
+
+            <summary>Generate an ExecutiveKey.</summary>
+
+            <returns Cref = "ExecutiveKey?">An Executive Key.</returns>
+
+        </method>
+
+        <method name = "GenerateHostKey">
+
+            <summary>Generate a HostKey.</summary>
+
+            <returns Cref = "HostKey?">A Host Key.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Access Manager.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "Boolean">True if Access Manager successfully Initialized..</returns>
+
+        </method>
+
+        <method name = "RequestAccess">
+
+            <summary>Request Access.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Access Request.</param>
+
+            <returns Cref = "AccessKey?">An Access Key.</returns>
+
+        </method>
+
+        <method name = "RevokeAccess">
+
+            <summary>Revoke Access.</summary>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "Boolean">True if AccessKey revoked.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessManager>

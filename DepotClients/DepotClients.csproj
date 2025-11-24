@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net9.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.Clients</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <NoWarn>CA1031;CA1716;CA1822;CA2007;CA5399</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Diagram">
+
+      <None Include="DepotClients.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Documentation">
+
+        <Content Include="ServiceClients\CatalogClient\CatalogClient.xml" />
+
+        <Content Include="ServiceClients\DataControlClient\DataControlClient.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="RestSharp" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Services\KusDepot.Services.csproj" />
+
+    </ItemGroup>
+
+</Project>

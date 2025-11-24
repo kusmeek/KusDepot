@@ -1,0 +1,55 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolBuilderFactory>
+
+    <class name = "ToolBuilderFactory">
+
+        <main>
+
+            <summary>Tool Builder Factory.</summary>
+
+        </main>
+
+        <method name = "CreateAspireHostBuilder">
+
+            <summary>Create Aspire Host Builder.</summary>
+
+            <returns Cref = "IToolAspireHostBuilder">Tool Aspire Host Builder.</returns>
+
+        </method>
+
+        <method name = "CreateBuilder">
+
+            <summary>Create a ToolBuilder.</summary>
+
+            <returns Cref = "IToolBuilder">A ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "CreateGenericHostBuilder">
+
+            <summary>Create a ToolGenericHostBuilder.</summary>
+
+            <returns Cref = "IToolGenericHostBuilder">A ToolGenericHostBuilder.</returns>
+
+        </method>
+
+        <method name = "CreateHostBuilder">
+
+            <summary>Create a ToolHostBuilder.</summary>
+
+            <returns Cref = "IToolHostBuilder">A ToolHostBuilder.</returns>
+
+        </method>
+
+        <method name = "CreateWebHostBuilder">
+
+            <summary>Create Web Application Host Builder.</summary>
+
+            <returns Cref = "IToolWebHostBuilder">Tool Web Host Builder.</returns>
+
+        </method>
+
+    </class>
+
+</ToolBuilderFactory>

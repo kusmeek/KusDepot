@@ -1,0 +1,14 @@
+﻿global using System;
+global using Dapr.Actors;
+global using Dapr.Actors.Runtime;
+global using System.Threading.Tasks;
+global using static KusDepot.Utility;
+global using static KusDepot.Settings;
+global using static System.Environment;
+global using System.Collections.Generic;
+global using Microsoft.Extensions.Logging;
+global using static KusDepot.LifeCycleState;
+global using Microsoft.Extensions.Configuration;
+global using static System.Globalization.CultureInfo;
+global using static KusDepot.DaprActors.DaprActorStrings;
+global using System.Security.Cryptography.X509Certificates;

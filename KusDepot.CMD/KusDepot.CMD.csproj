@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>KusDepot.Commands</AssemblyName>
+
+        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>IDE0270</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+      <Content Include="Commands\CommandDelegator\CommandDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegator\ConsoleDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\DynamicDelegator\DynamicDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ToolDelegator\ToolDelegator.xml" Pack="false" />
+
+      <Content Include="ObjectStrings\ObjectStrings.xml" Pack="false" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CliWrap" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="NuGet">
+
+        <Title>KusDepot</Title>
+
+        <IsPackable>True</IsPackable>
+
+        <Authors>Mike Abrahams</Authors>
+
+        <PackageTags>KusDepot</PackageTags>
+
+        <RepositoryType>git</RepositoryType>
+
+        <PackageIcon>gfxico.png</PackageIcon>
+
+        <PackageId>KusDepot.Commands</PackageId>
+
+        <PackageVersion>0.0.4-pre</PackageVersion>
+
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+
+        <Description>KusDepot Solution</Description>
+
+        <ContentTargetFolders>\</ContentTargetFolders>
+
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+        <IncludeContentInPack>true</IncludeContentInPack>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Copyright>Copyright © 2025 Michael Abrahams</Copyright>
+
+        <RepositoryUrl>https://github.com/kusmeek/KusDepot</RepositoryUrl>
+
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Readme">
+
+        <None Include="..\Readme.md" Pack="true" PackagePath="\" />
+
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,44 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataPort>
+
+    <class name = "DataPort">
+
+        <main>
+
+            <summary>Data Import/Export.</summary>
+
+            <remarks>The DataPort creates Items from the file system and creates files
+            from the content of Items.</remarks>
+
+        </main>
+
+        <method name = "Export">
+
+            <summary>Export Item.</summary>
+
+            <param name = "path" Cref = "String?">Path.</param>
+
+            <param name = "item" Cref = "DataItem?">DataItem.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Item exported successfully.</returns>
+
+        </method>
+
+        <method name = "Import">
+
+            <summary>Import Item.</summary>
+
+            <param name = "path" Cref = "String?">Path.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataItem?}?">Task which returns a DataItem.</returns>
+
+        </method>
+
+    </class>
+
+</DataPort>

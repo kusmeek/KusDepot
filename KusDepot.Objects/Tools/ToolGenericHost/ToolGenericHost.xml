@@ -1,0 +1,99 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolGenericHost>
+
+    <class name = "ToolGenericHost">
+
+        <main>
+
+            <summary>A Program Unit.</summary>
+
+        </main>
+
+        <property name = "Host">
+
+            <summary>Host.</summary>
+
+            <returns Cref = "IHost?">Host.</returns>
+
+        </property>
+
+        <property name = "HostKey">
+
+            <summary>Hosting Key.</summary>
+
+            <returns Cref = "HostKey?">Host Key.</returns>
+
+        </property>
+
+        <property name = "HostManagerKey">
+
+            <summary>Host ManagerKey.</summary>
+
+            <returns Cref = "ManagerKey?">Host Manager Key.</returns>
+
+        </property>
+
+        <property name = "LifeSync">
+
+            <summary>LifeSync.</summary>
+
+            <returns Cref = "SemaphoreSlim?">LifeSync.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "data" Cref = "IEnumerable{DataItem}?">Data.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Services.</param>
+
+            <param name = "commands" Cref = "IEnumerable{Meta{ICommand}}?">Commands.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "host" Cref = "IHost?">Host</param>
+
+            <param name = "lifeid" Cref = "Guid?">LifeID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <returns Cref = "ToolGenericHost">New ToolGenericHost.</returns>
+
+        </constructor>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "ToolGenericHost">New ToolGenericHost.</returns>
+
+        </constructor>
+
+        <method name = "LockHost">
+
+            <summary>Lock Host.</summary>
+
+            <returns Cref = "Boolean">True if Host Locked.</returns>
+
+        </method>
+
+        <method name = "RequestHostKey">
+
+            <summary>Request AccessKeys to Host.</summary>
+
+            <returns Cref = "Boolean">True if AccessKey acquired.</returns>
+
+        </method>
+
+    </class>
+
+</ToolGenericHost>

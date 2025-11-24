@@ -1,0 +1,361 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MultiMediaItem>
+
+    <class name = "MultiMediaItem">
+
+        <main>
+
+            <summary>Audio | Image | Video.</summary>
+
+            <remarks>This item wraps a live stream and/or contains media images or samples for consumption.</remarks>
+
+        </main>
+
+        <field name = "Artists" Cref = "HashSet{String}?">
+
+            <summary>Artists and Authors.</summary>
+
+        </field>
+
+        <field name = "Bitrate" Cref = "Double?">
+
+            <summary>Media Bitrate.</summary>
+
+        </field>
+
+        <content name = "Content" Cref = "Byte[]?">
+
+            <summary>Item Content.</summary>
+
+        </content>
+
+        <field name = "Duration" Cref = "Decimal?">
+
+            <summary>RealTime PlayBack Span in Unspecified Units.</summary>
+
+        </field>
+
+        <field name = "Framerate" Cref = "Single?">
+
+            <summary>Media Framerate.</summary>
+
+        </field>
+
+        <field name = "Language" Cref = "String?">
+
+            <summary>Current Language.</summary>
+
+        </field>
+
+        <field name = "Source" Cref = "Stream?">
+
+            <summary>Internet Data-Source.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "MultiMediaItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "Title" Cref = "String?">
+
+            <summary>Media Title.</summary>
+
+        </field>
+
+        <field name = "UseSourceStream" Cref = "Boolean">
+
+            <summary>Determines if Source is returned by GetContentStream.</summary>
+
+        </field>
+
+        <field name = "Year" Cref = "Int32?">
+
+            <summary>Year.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "MultiMediaItem">New MultiMediaItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Media Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Media ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "artists" Cref = "IEnumerable{String}?">Media Artists.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Media Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "title" Cref = "String?">Media Title.</param>
+
+            <param name = "type" Cref = "String?">Media DataType.</param>
+
+            <param name = "year" Cref = "Int32?">Media Year.</param>
+
+            <returns Cref = "MultiMediaItem">MultiMediaItem.</returns>
+
+        </constructor>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "MultiMediaItem?">A MultiMediaItem.</param>
+
+            <param name = "b" Cref = "MultiMediaItem?">Other MultiMediaItem.</param>
+
+            <returns Cref = "Boolean">True if MultiMediaItems are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "MultiMediaItem?">A MultiMediaItem.</param>
+
+            <param name = "b" Cref = "MultiMediaItem?">Other MultiMediaItem.</param>
+
+            <returns Cref = "Boolean">True if MultiMediaItems are not equal.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "MultiMediaItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetArtists">
+
+            <summary>Get Artists.</summary>
+
+            <returns Cref = "HashSet{String}?">Artists.</returns>
+
+        </method>
+
+        <method name = "GetBitrate">
+
+            <summary>Get Bitrate.</summary>
+
+            <returns Cref = "Double?">Bitrate.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <returns Cref = "Byte[]?">Content.</returns>
+
+        </method>
+
+        <method name = "GetDuration">
+
+            <summary>Get Duration.</summary>
+
+            <returns Cref = "Decimal?">Duration.</returns>
+
+        </method>
+
+        <method name = "GetFramerate">
+
+            <summary>Get Framerate.</summary>
+
+            <returns Cref = "Single?">Framerate.</returns>
+
+        </method>
+
+        <method name = "GetLanguage">
+
+            <summary>Get Language.</summary>
+
+            <returns Cref = "String?">Language.</returns>
+
+        </method>
+
+        <method name = "GetSource">
+
+            <summary>Get Source.</summary>
+
+            <returns Cref = "Stream?">Source.</returns>
+
+        </method>
+
+        <method name = "GetTitle">
+
+            <summary>Get Title.</summary>
+
+            <returns Cref = "String?">Title.</returns>
+
+        </method>
+
+        <method name = "GetUseSourceStream">
+
+            <summary>Get UseSourceStream.</summary>
+
+            <returns Cref = "Boolean">UseSourceStream.</returns>
+
+        </method>
+
+        <method name = "GetYear">
+
+            <summary>Get Year.</summary>
+
+            <returns Cref = "Int32?">Year.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse MultiMediaItem.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "MultiMediaItem?">Parsed MultiMediaItem.</returns>
+
+        </method>
+
+        <method name = "SetArtists">
+
+            <summary>Set Artists.</summary>
+
+            <param name = "artists" Cref = "IEnumerable{String}?">Artists.</param>
+
+            <returns Cref = "Boolean">True if Artists was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetBitrate">
+
+            <summary>Set Bitrate.</summary>
+
+            <param name = "bitrate" Cref = "Double?">Bitrate.</param>
+
+            <returns Cref = "Boolean">True if Bitrate was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Content.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetDuration">
+
+            <summary>Set Duration.</summary>
+
+            <param name = "duration" Cref = "Decimal?">Duration.</param>
+
+            <returns Cref = "Boolean">True if Duration was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetFramerate">
+
+            <summary>Set Framerate.</summary>
+
+            <param name = "framerate" Cref = "Single?">Framerate.</param>
+
+            <returns Cref = "Boolean">True if Framerate was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetLanguage">
+
+            <summary>Set Language.</summary>
+
+            <param name = "language" Cref = "String?">Language.</param>
+
+            <returns Cref = "Boolean">Returns true if Language was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetSource">
+
+            <summary>Set Source.</summary>
+
+            <param name = "source" Cref = "Stream?">Source.</param>
+
+            <returns Cref = "Boolean">Returns true if Source was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetTitle">
+
+            <summary>Set Title.</summary>
+
+            <param name = "title" Cref = "String?">Title.</param>
+
+            <returns Cref = "Boolean">Returns true if Title was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetUseSourceStream">
+
+            <summary>Set UseSourceStream.</summary>
+
+            <param name = "use" Cref = "Boolean">True to return Source from GetContentStream.</param>
+
+            <returns Cref = "Boolean">New value of UseSourceStream.</returns>
+
+        </method>
+
+        <method name = "SetYear">
+
+            <summary>Set Year.</summary>
+
+            <param name = "year" Cref = "Int32?">Year.</param>
+
+            <returns Cref = "Boolean">Returns true if Year was set successfully.</returns>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</MultiMediaItem>

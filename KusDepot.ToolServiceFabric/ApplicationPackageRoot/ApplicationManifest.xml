@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="KusDepot.ToolServiceFabricType" ApplicationTypeVersion="0.0.1" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters />
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ToolFabricPkg" ServiceManifestVersion="0.0.1" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+</ApplicationManifest>

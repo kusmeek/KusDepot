@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?> 
+<ProtectedOperationResolver>
+  <class name="ProtectedOperationResolver">
+    <main>
+      <summary>Resolves operation names to protected operation indices.</summary>
+      <remarks>
+        <para>This resolver maps the string name of a protected method to the corresponding integer constant defined in <see cref="ProtectedOperation"/>.</para>
+        <para>Usage Flow:</para>
+        <list type="number">
+          <item><description>Caller invokes a secured method with an <c>AccessKey</c>.</description></item>
+          <item><description>The method's access check supplies its own name implicitly.</description></item>
+          <item><description><see cref="ResolveIndex"/> produces the integer index or -1.</description></item>
+          <item><description>Bit test performed against the permission bitmap inside the decrypted token.</description></item>
+        </list>
+      </remarks>
+    </main>
+    <method name="ResolveIndex">
+      <summary>Map an operation name to its protected operation index.</summary>
+      <param name="operationname" Cref="System.ReadOnlySpan{System.Char}">Operation name (case-sensitive).</param>
+      <returns Cref="System.Int32">Index (≥0) on success; -1 if unknown.</returns>
+      <remarks>
+        <list type="bullet">
+          <item><description>A return value of -1 MUST be treated as an authorization failure.</description></item>
+        </list>
+      </remarks>
+    </method>
+  </class>
+</ProtectedOperationResolver>

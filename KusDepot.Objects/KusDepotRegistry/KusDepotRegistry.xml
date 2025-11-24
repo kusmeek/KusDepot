@@ -1,0 +1,27 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<KusDepotRegistry>
+
+    <class name = "KusDepotRegistry">
+
+        <main>
+
+            <summary>In-Process Object Registry.</summary>
+
+        </main>
+
+        <property name = "Commands" Cref = "Dictionary{String,HashSet{ITool}}?">
+
+            <summary>In-Process Command Registry.</summary>
+
+        </property>
+
+        <method name = "UpdateCommandRegistry">
+
+            <summary>Updates Command Registry.</summary>
+
+        </method>
+
+    </class>
+
+</KusDepotRegistry>

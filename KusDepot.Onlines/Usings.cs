@@ -1,0 +1,16 @@
+﻿global using System;
+global using Aspire.Hosting;
+global using Orleans.Hosting;
+global using System.Threading;
+global using System.Reflection;
+global using System.Threading.Tasks;
+global using Microsoft.SemanticKernel;
+global using System.Collections.Generic;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
+global using ModelContextProtocol.Protocol;
+global using Microsoft.Extensions.Logging;
+global using static KusDepot.ExceptionStrings;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;

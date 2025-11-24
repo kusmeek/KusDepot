@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IUserInterfaceManager>
+
+    <interface name = "IUserInterfaceManager">
+
+        <main>
+
+            <summary>User Interface Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a User Interface Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IUserInterfaceManager>

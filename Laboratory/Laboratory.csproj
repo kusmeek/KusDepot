@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64</Platforms>
+
+        <OutputType>Exe</OutputType>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.AzureOpenAI" />
+
+        <PackageReference Include="Microsoft.SemanticKernel.Core" />
+
+        <PackageReference Include="Serilog.Extensions.Logging" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <ProjectReference Include="..\KusDepot.AIO\KusDepot.AIO.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Onlines\KusDepot.Onlines.csproj" />
+
+    </ItemGroup>
+
+</Project>

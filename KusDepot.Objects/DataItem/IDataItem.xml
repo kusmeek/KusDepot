@@ -1,0 +1,215 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataItem>
+
+    <interface name = "IDataItem">
+
+        <main>
+
+            <summary>DataItem Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of DataItems.</remarks>
+
+        </main>
+
+        <method name = "CheckDataHash">
+
+            <summary>Verify the secure hash for this item. This does not check digital signatures.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the current data matches the stored hash; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ClearEncryptedData">
+
+            <summary>Clear Encrypted Data in Memory.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if decryption is successful; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "DecryptData">
+
+            <summary>Decrypt Content.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if decryption is successful; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "EncryptData">
+
+            <summary>Encrypt Content.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The management key to use for encryption and signing.</param>
+
+            <param name = "sign" Cref = "Boolean">True to sign the encrypted data.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if encryption is successful; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "GetContentStream">
+
+            <summary>Opens a Stream from the FILE path. The Object's Content field is ignored.</summary>
+
+            <returns Cref = "Stream?">Content Stream.</returns>
+
+        </method>
+
+        <method name = "GetContentStreamed">
+
+            <summary>Get ContentStreamed.</summary>
+
+            <returns Cref = "Boolean">True if the Object's Content is Streamed from FILE. Use GetContentStream instead of GetContent.</returns>
+
+        </method>
+
+        <method name = "GetDataContent">
+
+            <summary>Get DataItem Content.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataContent?}">DataItem Content.</returns>
+
+        </method>
+
+        <method name = "GetDataEncrypted">
+
+            <summary>Get DataEncrypt.</summary>
+
+            <returns Cref = "Boolean">True if data is encrypted.</returns>
+
+        </method>
+
+        <method name = "GetDataEncryptInfo">
+
+            <summary>Get DataEncryptInfo.</summary>
+
+            <returns Cref = "DataEncryptInfo?">DataEncrypt Information.</returns>
+
+        </method>
+
+        <method name = "GetDataMasked">
+
+            <summary>Get DataMask.</summary>
+
+            <returns Cref = "Boolean">True if data is masked.</returns>
+
+        </method>
+
+        <method name = "GetType">
+
+            <summary>Get Type.</summary>
+
+            <returns Cref = "String?">Type.</returns>
+
+        </method>
+
+        <method name = "MaskData">
+
+            <summary>Mask Content.</summary>
+
+            <param name = "mask" Cref = "Boolean">True to Enable.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <return Cref = "Boolean">True if Data Content masked.</return>
+
+        </method>
+
+        <method name = "SetContentStreamed">
+
+            <summary>Streaming Switch.</summary>
+
+            <param name = "streamed" Cref = "Boolean">True to enable.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if ContentStreamed and SecureHash set successfully.</returns>
+
+        </method>
+
+        <method name = "SetType">
+
+            <summary>Set Type.</summary>
+
+            <param name = "type" Cref = "String?">DataType.cs.</param>
+
+            <returns Cref = "Boolean">Returns true if Type was set successfully.</returns>
+
+        </method>
+
+        <method name = "SignData">
+
+            <summary>Digitally sign the hash for the specified field using the provided ManagementKey.</summary>
+
+            <param name = "field" Cref = "String?">The field to sign (e.g., "Content", "EncryptedData", "HashCode").</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The ManagementKey containing the certificate for signing.</param>
+
+            <returns Cref = "String?">The key string used to store the signature, or null if signing failed.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if Object successfully written to file.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Object.</returns>
+
+        </method>
+
+        <method name = "VerifyData">
+
+            <summary>Verify the digital signature for the specified field using the provided ManagementKey.</summary>
+
+            <param name = "field" Cref = "String?">The field to verify.</param>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The ManagementKey containing the certificate for verification.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "ZeroData">
+
+            <summary>Zeros the data content of the item.</summary>
+
+            <remarks>Does NOT securely erase data on physical media.</remarks>
+
+            <param name = "managementkey" Cref = "ManagementKey?">The ManagementKey to authorize the operation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the data was successfully zeroed; otherwise, false.</returns>
+
+        </method>
+
+    </interface>
+
+</IDataItem>

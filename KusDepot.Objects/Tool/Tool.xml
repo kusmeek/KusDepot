@@ -1,0 +1,589 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Tool>
+
+    <class name = "Tool">
+
+        <main>
+
+            <summary>Tool.</summary>
+
+            <remarks>
+                The Tool is a foundation for business workflows. It stores DataItems and hosts Services and Commands, which define
+                specialized compartmentalized functionality. Configuration, Inputs, Outputs, Logger, Status, and WorkingSet are
+                available, as well as an Access Manager and Dependency Injection Container.
+            </remarks>
+
+        </main>
+
+        <field name = "AccessManager" Cref = "IAccessManager?">
+
+            <summary>Access Manager.</summary>
+
+        </field>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "CommandManagerKey" Cref = "ManagerKey?">
+
+            <summary>Commands ManagerKey.</summary>
+
+        </field>
+
+        <field name = "CommandKeys" Cref = "Dictionary{ICommand,AccessKey}?">
+
+            <summary>Command AccessKeys.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "Dictionary{String,ICommand}?">
+
+            <summary>Command Handle (Method/Operation ID) and Initialized plugin.</summary>
+
+        </field>
+
+        <field name = "CommandTypes" Cref = "Dictionary{String,String}?">
+
+            <summary>Command Handle (Method/Operation ID) and FullName of Implementing Type.</summary>
+
+        </field>
+
+        <field name = "CommandTypesMasked" Cref = "Boolean">
+
+            <summary>Registry Commands Mask.</summary>
+
+        </field>
+
+        <field name = "Configuration" Cref = "IConfiguration?">
+
+            <summary>Tool Configuration.</summary>
+
+        </field>
+
+        <property name = "ConfigurationData">
+
+            <summary>Serialized Configuration.</summary>
+
+            <returns Cref = "String?">Serialized Tool Configuration.</returns>
+
+        </property>
+
+        <field name = "Data" Cref = "HashSet{DataItem}?">
+
+            <summary>Tool Data.</summary>
+
+        </field>
+
+        <field name = "Disposed" Cref = "Boolean">
+
+            <summary>Disposed status.</summary>
+
+        </field>
+
+        <field name = "HostedServices" Cref = "List{IHostedService}?">
+
+            <summary>Hosted Services.</summary>
+
+        </field>
+
+        <field name = "HostedServicesMasked" Cref = "Boolean">
+
+            <summary>Hosted Services Mask.</summary>
+
+        </field>
+
+        <field name = "HostingManagerKey" Cref = "ManagerKey?">
+
+            <summary>Hosting ManagerKey.</summary>
+
+        </field>
+
+        <field name = "HostingKeys" Cref = "Dictionary{ITool,AccessKey}?">
+
+            <summary>AccessKeys to Hosted Services.</summary>
+
+        </field>
+
+        <field name = "HostingOptions" Cref = "ToolHostOptions?">
+
+            <summary>Hosting Options.</summary>
+
+        </field>
+
+        <field name = "Inputs" Cref = "Queue{Object}?">
+
+            <summary>Tool Inputs.</summary>
+
+        </field>
+
+        <property name = "Instances">
+
+            <summary>Tool Instances.</summary>
+
+            <returns Cref = "Dictionary{Guid,ITool}">Tool Instances.</returns>
+
+        </property>
+
+        <field name = "LifeState" Cref = "LifeCycleStateMachine?">
+
+            <summary>IHostedLifecycleService.</summary>
+
+        </field>
+
+        <field name = "Logger" Cref = "ILogger?">
+
+            <summary>Logger.</summary>
+
+        </field>
+
+        <field name = "MyHostKey" Cref = "AccessKey?">
+
+            <summary>Access Key to ToolHost Services and ToolServices.</summary>
+
+        </field>
+
+        <field name = "Outputs" Cref = "Dictionary{Guid,Object?}?">
+
+            <summary>Tool Outputs.</summary>
+
+        </field>
+
+        <field name = "OwnerSecret" Cref = "Byte[]?">
+
+            <summary>Owner Secret.</summary>
+
+        </field>
+
+        <field name = "SelfAccessKey" Cref = "AccessKey?">
+
+            <summary>Access Key to Self.</summary>
+
+        </field>
+
+        <field name = "SelfManagerKey" Cref = "ManagementKey?">
+
+            <summary>Management Key to Self.</summary>
+
+        </field>
+
+        <field name = "Status" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Current Status.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "ToolSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "ToolServices" Cref = "IServiceProvider?">
+
+            <summary>ServiceProvider.</summary>
+
+        </field>
+
+        <field name = "ToolServiceScope" Cref = "AsyncServiceScope?">
+
+            <summary>ServiceScope.</summary>
+
+        </field>
+
+        <field name = "WorkingSet">
+
+            <summary>Tool Working Set.</summary>
+
+            <returns Cref = "ConcurrentDictionary{String,Object?}">Tool Working Set.</returns>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <constructor name = "StaticConstructor">
+
+            <summary>Static Constructor.</summary>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "data" Cref = "IEnumerable{DataItem}?">Data.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Services.</param>
+
+            <param name = "commands" Cref = "IEnumerable{Meta{ICommand}}?">Commands.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <finalizer name = "Finalizer">
+
+            <summary>Tool Finalizer.</summary>
+
+        </finalizer>
+
+        <method name = "AccessCheck">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Operation Name.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "AddInstance">
+
+            <summary>Add a Tool to Instances.</summary>
+
+            <param name = "tool" Cref = "Tool?">Tool.</param>
+
+            <returns Cref = "Boolean">True if Tool added to Instances.</returns>
+
+        </method>
+
+        <method name = "Dispose_NoSync_AccessKey">
+
+            <summary>Dispose of Tool without waiting for the dispose lock.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "Dispose_NoSync">
+
+            <summary>Dispose of Tool without waiting for the dispose lock.</summary>
+
+        </method>
+
+        <method name = "DisposeCore">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "disposing" Cref = "Boolean">Disposing.</param>
+
+        </method>
+
+        <method name = "DisposeAsync_NoSync_AccessKey">
+
+            <summary>Asynchronously dispose of Tool without waiting for the dispose lock.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "DisposeAsync_NoSync">
+
+            <summary>Asynchronously dispose of Tool without waiting for the dispose lock.</summary>
+
+        </method>
+
+        <method name = "DisposeAsyncCore">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "disposing" Cref = "Boolean">Disposing.</param>
+
+        </method>
+
+        <method name = "DisposedCheck">
+
+            <summary>Check if Tool is disposed.</summary>
+
+            <exception cref="ObjectDisposedException">Thrown if Tool is disposed.</exception>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "Tool?">A Tool.</param>
+
+            <param name = "b" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "Tool?">A Tool.</param>
+
+            <param name = "b" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are not equal.</returns>
+
+        </method>
+
+        <method name = "CompareTo">
+
+            <summary>IComparable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Int32">Comparison Result.</returns>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are equal.</returns>
+
+        </method>
+
+        <method name = "GetConfiguration">
+
+            <summary>Get Configuration.</summary>
+
+            <returns Cref = "IConfiguration?">Configuration.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetHost">
+
+            <summary>Determines which Tool is hosting a service, if any.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Service Instance.</param>
+
+            <returns Cref = "ITool?">Tool.</returns>
+
+        </method>
+
+        <method name = "GetToolHost">
+
+            <summary>Determines which ToolHost is hosting a service, if any.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Service Instance.</param>
+
+            <returns Cref = "IToolHost?">ToolHost.</returns>
+
+        </method>
+
+        <method name = "GetInstance">
+
+            <summary>Get a Tool from Instances.</summary>
+
+            <param name = "id" Cref = "Guid?">Tool ID.</param>
+
+            <returns Cref = "Tool?">Tool.</returns>
+
+        </method>
+
+        <method name = "GetInstanceIDs">
+
+            <summary>Get IDs of all Tools in Instances.</summary>
+
+            <returns Cref = "IList{Guid}?">Tool IDs</returns>
+
+        </method>
+
+        <method name = "GetLogger">
+
+            <summary>Get Tool Logger.</summary>
+
+            <returns Cref = "ILogger?">Logger.</returns>
+
+        </method>
+
+        <method name = "GetOutput_NoSync">
+
+            <summary>Get an output without locking.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of the output to get.</param>
+
+            <returns Cref = "Object?">The output object, or null if not found.</returns>
+
+        </method>
+
+        <method name = "GetOutputIDs_NoSync">
+
+            <summary>Get output IDs without locking.</summary>
+
+            <returns Cref = "List{Guid}?">A list of output IDs, or null if there are no outputs.</returns>
+
+        </method>
+
+        <method name = "InitializeAccessManagement">
+
+            <summary>Initialize Access Management.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <returns Cref = "Boolean">True if Access Management successfully initialized.</returns>
+
+        </method>
+
+        <method name = "InitializeToolServices">
+
+            <summary>Initialize ToolServices and ToolServiceScope from ToolServiceProvider.</summary>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Tool ServiceProvider.</param>
+
+            <returns Cref = "Boolean">True if ToolServices initialized.</returns>
+
+        </method>
+
+        <method name = "IssueMyHostKeys">
+
+            <summary>Issue MyHostKeys to Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if Keys successfully distributed.</returns>
+
+        </method>
+
+        <method name = "LockHostedServices">
+
+            <summary>Lock Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if all Hosted Services Locked.</returns>
+
+        </method>
+
+        <method name = "ModifiedNow">
+
+            <summary>Set Last Modified Time to DateTimeOffset.Now.</summary>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+        <method name = "RegisterCommands">
+
+            <summary>Register injected Commands.</summary>
+
+            <param name = "commands" Cref = "IEnumerable{Meta{ICommand}}?">Command.</param>
+
+            <returns Cref = "Boolean">True if Commands successfully registered.</returns>
+
+        </method>
+
+        <method name = "RemoveInstance">
+
+            <summary>Remove a Tool from Instances.</summary>
+
+            <param name = "tool" Cref = "Tool?">Tool.</param>
+
+            <returns Cref = "Boolean">True if Tool removed from Instances.</returns>
+
+        </method>
+
+        <method name = "ResolveHostedServices">
+
+            <summary>Resolve Hosted Services from Service Provider.</summary>
+
+            <returns Cref = "Boolean">True if Hosted Services resolved.</returns>
+
+        </method>
+
+        <method name = "RequestHostingKeys">
+
+            <summary>Request AccessKeys to Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if AccessKeys acquired.</returns>
+
+        </method>
+
+        <method name = "ResolveLogger">
+
+            <summary>Resolve Logger if not given.</summary>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <returns Cref = "Boolean">True if Logger set successfully.</returns>
+
+        </method>
+
+        <method name = "SetConfiguration">
+
+            <summary>Set Configuration.</summary>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <returns Cref = "Boolean">Returns true if Configuration set successfully.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Returns a serialized Descriptor.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "String">Output.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Tool.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "tool" Cref = "Tool">Output Tool.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+        <property name = "ExtensionData">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</Tool>
