@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest Name="ToolServiceHostPkg"
+                 Version="0.0.1"
+                 xmlns="http://schemas.microsoft.com/2011/01/fabric"
+                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <ServiceTypes>
+        <StatelessServiceType ServiceTypeName="ToolServiceHostType" UseImplicitHost="true" />
+    </ServiceTypes>
+
+    <CodePackage Name="Code" Version="0.0.1">
+        <EntryPoint>
+            <ExeHost>
+                <Program>KusDepot.ToolService.exe</Program>
+                    <ConsoleRedirection FileRetentionCount="100" FileMaxSizeInKb="204080"/>
+            </ExeHost>
+        </EntryPoint>
+    </CodePackage>
+
+    <ConfigPackage Name="Config" Version="0.0.1" />
+
+    <Resources>
+        <Endpoints>
+            <Endpoint Name="ToolServiceHostTypeEndpoint"/>
+        </Endpoints>
+    </Resources>
+
+</ServiceManifest>

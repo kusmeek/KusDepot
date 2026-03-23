@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ActivityState>
+
+    <enum name = "ActivityState">
+
+        <main>
+
+            <summary>Represents the execution state of an Activity, derived from Task status and ActivityRecord.</summary>
+
+        </main>
+
+        <field name = "None">
+
+            <summary>No task or record is available for this Activity.</summary>
+
+        </field>
+
+        <field name = "Success">
+
+            <summary>The ActivityRecord indicates successful completion.</summary>
+
+        </field>
+
+        <field name = "Completed">
+
+            <summary>The Activity's task completed successfully but no explicit ActivityRecord was set.</summary>
+
+        </field>
+
+        <field name = "CompletedFreeMode">
+
+            <summary>The Activity ran in free mode and has completed with a final record.</summary>
+
+        </field>
+
+        <field name = "Failed">
+
+            <summary>The ActivityRecord indicates failure.</summary>
+
+        </field>
+
+        <field name = "Running">
+
+            <summary>The Activity's task is currently running and no final record has been set.</summary>
+
+        </field>
+
+        <field name = "RunningFreeMode">
+
+            <summary>The Activity is running in free mode without a final record.</summary>
+
+        </field>
+
+        <field name = "Canceled">
+
+            <summary>The Activity was canceled and the task is no longer running.</summary>
+
+        </field>
+
+        <field name = "CanceledRunning">
+
+            <summary>The Activity was canceled, but the task continues to run.</summary>
+
+        </field>
+
+        <field name = "TimedOut">
+
+            <summary>The Activity timed out and the task is no longer running.</summary>
+
+        </field>
+
+        <field name = "TimedOutRunning">
+
+            <summary>The Activity timed out, but the task continues to run.</summary>
+
+        </field>
+
+        <field name = "Faulted">
+
+            <summary>The Activity's task faulted or the ActivityRecord indicates a failure.</summary>
+
+        </field>
+
+    </enum>
+
+</ActivityState>

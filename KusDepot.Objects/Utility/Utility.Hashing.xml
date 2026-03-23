@@ -1,0 +1,217 @@
+<Utility>
+
+    <class name = "Utility">
+
+        <field name = "HashingCycleMarker">
+
+            <summary>Marker used when a cycle is encountered during graph serialization.</summary>
+
+        </field>
+
+        <field name = "HashingNullMarker">
+
+            <summary>Marker used when a null value is encountered during graph serialization.</summary>
+
+        </field>
+
+        <field name = "HashingReferenceMarker">
+
+            <summary>Marker used when an already-completed object reference is encountered again during graph serialization.</summary>
+
+        </field>
+
+        <method name = "GenerateDeterministicHashCode">
+
+            <summary>Generate a deterministic hash code for an object graph.</summary>
+
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+
+            <returns Cref = "Int32">Deterministic graph-identity hash code.</returns>
+
+        </method>
+
+        <method name = "GenerateDeterministicHashCodeAsync">
+
+            <summary>Generate a deterministic hash code for an object graph.</summary>
+
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Int32}">Deterministic graph-identity hash code.</returns>
+
+        </method>
+
+        <method name = "CompareByteArrays">
+
+            <summary>Compare two byte arrays lexicographically.</summary>
+
+            <param name = "a" Cref = "Byte[]">First byte array.</param>
+
+            <param name = "b" Cref = "Byte[]">Second byte array.</param>
+
+            <returns Cref = "Int32">Comparison result.</returns>
+
+        </method>
+
+        <method name = "IsUnorderedCollection">
+
+            <summary>Determine whether a type represents an unordered collection for hashing purposes.</summary>
+
+            <param name = "type" Cref = "Type">Collection type.</param>
+
+            <returns Cref = "Boolean">True when enumeration order should be normalized before hashing.</returns>
+
+        </method>
+
+        <method name = "IsUnorderedDictionary">
+
+            <summary>Determine whether a type represents an unordered dictionary for hashing purposes.</summary>
+
+            <param name = "type" Cref = "Type">Dictionary type.</param>
+
+            <returns Cref = "Boolean">True when entry order should be normalized before hashing.</returns>
+
+        </method>
+
+        <method name = "CreateCycleBytes">
+
+            <summary>Create the serialized marker bytes for an in-progress object reference.</summary>
+
+            <param name = "input" Cref = "Object">In-progress object.</param>
+
+            <returns Cref = "Byte[]">Cycle marker payload.</returns>
+
+        </method>
+
+        <method name = "CreateReferenceBytes">
+
+            <summary>Create the serialized marker bytes for a completed object reference.</summary>
+
+            <param name = "input" Cref = "Byte[]">Completed serialized bytes.</param>
+
+            <returns Cref = "Byte[]">Reference marker payload.</returns>
+
+        </method>
+
+        <method name = "GenerateDeterministicHashCodeCore">
+
+            <summary>Generate a deterministic graph-identity hash code using a shared serialization pipeline.</summary>
+
+            <param name = "obj" Cref = "Object">Object graph root.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Int32">Deterministic graph-identity hash code.</returns>
+
+        </method>
+
+        <method name = "GetDeterministicBytesCore">
+
+            <summary>Serialize an object graph into deterministic bytes while preserving graph identity.</summary>
+
+            <param name = "input" Cref = "Object?">Current graph node.</param>
+
+            <param name = "processing" Cref = "HashSet{Object}">Objects currently being processed.</param>
+
+            <param name = "completed" Cref = "Dictionary{Object,Byte[]}">Objects already serialized.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic serialized bytes for the current node.</returns>
+
+        </method>
+
+        <method name = "GetDictionaryBytes">
+
+            <summary>Serialize a dictionary into deterministic bytes with normalized entry ordering.</summary>
+
+            <param name = "input" Cref = "System.Collections.IDictionary">Dictionary value.</param>
+
+            <param name = "processing" Cref = "HashSet{Object}">Objects currently being processed.</param>
+
+            <param name = "completed" Cref = "Dictionary{Object,Byte[]}">Objects already serialized.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic serialized bytes for the dictionary.</returns>
+
+        </method>
+
+        <method name = "GetArrayBytes">
+
+            <summary>Serialize an array into deterministic bytes.</summary>
+
+            <param name = "input" Cref = "Array">Array value.</param>
+
+            <param name = "processing" Cref = "HashSet{Object}">Objects currently being processed.</param>
+
+            <param name = "completed" Cref = "Dictionary{Object,Byte[]}">Objects already serialized.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic serialized bytes for the array.</returns>
+
+        </method>
+
+        <method name = "GetEnumerableBytes">
+
+            <summary>Serialize an enumerable into deterministic bytes.</summary>
+
+            <param name = "input" Cref = "System.Collections.IEnumerable">Enumerable value.</param>
+
+            <param name = "processing" Cref = "HashSet{Object}">Objects currently being processed.</param>
+
+            <param name = "completed" Cref = "Dictionary{Object,Byte[]}">Objects already serialized.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic serialized bytes for the enumerable.</returns>
+
+        </method>
+
+        <method name = "GetObjectBytes">
+
+            <summary>Serialize a reflected object into deterministic bytes.</summary>
+
+            <param name = "input" Cref = "Object">Object value.</param>
+
+            <param name = "processing" Cref = "HashSet{Object}">Objects currently being processed.</param>
+
+            <param name = "completed" Cref = "Dictionary{Object,Byte[]}">Objects already serialized.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic serialized bytes for the object.</returns>
+
+        </method>
+
+        <method name = "GetSortKeyBytes">
+
+            <summary>Serialize a value into deterministic bytes for sorting in unordered hashing scenarios.</summary>
+
+            <param name = "input" Cref = "Object?">Value to normalize.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic sort key bytes.</returns>
+
+        </method>
+
+        <method name = "GetSortKeyBytesPair">
+
+            <summary>Create deterministic sort key bytes for a dictionary entry.</summary>
+
+            <param name = "key" Cref = "Object?">Dictionary key.</param>
+
+            <param name = "value" Cref = "Object?">Dictionary value.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic sort key bytes for the entry.</returns>
+
+        </method>
+
+    </class>
+
+</Utility>

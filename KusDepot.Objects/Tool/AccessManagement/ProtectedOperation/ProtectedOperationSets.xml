@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProtectedOperationSets>
+  <class name="ProtectedOperationSets">
+    <main>
+      <summary>Predefined protected operation index sets for key issuance profiles.</summary>
+      <remarks>
+        <para>These static arrays define the operation indices embedded into access tokens for different key categories (Client, Service, Command, Host, MyHost, Executive).</para>
+        <para>Guidelines:</para>
+        <list type="bullet">
+          <item><description>Values reference constants in <see cref="ProtectedOperation"/>.</description></item>
+        </list>
+      </remarks>
+    </main>
+    <field name="Executive" Cref="ImmutableArray{Int32}">
+      <summary>All privileged operations.</summary>
+    </field>
+    <field name="Client" Cref="ImmutableArray{Int32}">
+      <summary>Client operations.</summary>
+    </field>
+    <field name="Service" Cref="ImmutableArray{Int32}">
+      <summary>Service operations.</summary>
+    </field>
+    <field name="Command" Cref="ImmutableArray{Int32}">
+      <summary>Command execution operations.</summary>
+    </field>
+    <field name="Host" Cref="ImmutableArray{Int32}">
+      <summary>Host lifecycle control operations.</summary>
+    </field>
+    <field name="MyHost" Cref="ImmutableArray{Int32}">
+      <summary>Internal hosted service operations.</summary>
+    </field>
+  </class>
+</ProtectedOperationSets>

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <NoWarn>CA1515;CA1822;CA1031;IDE0051;IDE0052;IDE0060</NoWarn>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Remove="Components\Pages\MakeTool.razor" />
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <ProjectReference Include="..\KusDepot.BLDRS\KusDepot.BLDRS.csproj" />
+
+    </ItemGroup>
+
+</Project>

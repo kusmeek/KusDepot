@@ -1,0 +1,57 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ServiceReference>
+
+    <class name = "ServiceReference">
+
+        <main>
+
+            <summary>Service Reference.</summary>
+
+        </main>
+
+        <field name = "key">
+
+            <summary>Security Key backing field.</summary>
+
+            <returns Cref = "SecurityKey?">Key.</returns>
+
+        </field>
+
+        <field name = "service">
+
+            <summary>Service backing field.</summary>
+
+            <returns Cref = "IHostedService?">Service Instance.</returns>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Initialize a ServiceReference.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Service instance.</param>
+
+            <param name = "key" Cref = "SecurityKey?">Security key.</param>
+
+        </constructor>
+
+        <property name = "Key">
+
+            <summary>A Security Key</summary>
+
+            <returns Cref = "SecurityKey?">Key.</returns>
+
+        </property>
+
+        <property name = "Service">
+
+            <summary>Service</summary>
+
+            <returns Cref = "IHostedService?">Service Instance.</returns>
+
+        </property>
+
+    </class>
+
+</ServiceReference>

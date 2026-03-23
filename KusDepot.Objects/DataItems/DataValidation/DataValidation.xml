@@ -1,0 +1,68 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataValidation>
+
+    <class name = "DataValidation">
+
+        <main>
+
+            <summary>Data item type validation data and helpers.</summary>
+
+        </main>
+
+        <field name = "BinaryItemValidDataTypes" Cref = "ImmutableArray{String?}">
+            <summary>Valid DataTypes for BinaryItems.</summary>
+        </field>
+
+        <field name = "CodeItemValidDataTypes" Cref = "ImmutableArray{String?}">
+            <summary>Valid DataTypes for CodeItems.</summary>
+        </field>
+
+        <field name = "TextItemValidDataTypes" Cref = "ImmutableArray{String?}">
+            <summary>Valid DataTypes for TextItems.</summary>
+        </field>
+
+        <field name = "MultiMediaItemValidDataTypes" Cref = "ImmutableArray{String?}">
+            <summary>Valid DataTypes for MultiMediaItems.</summary>
+        </field>
+
+        <method name = "IsValidBinaryDataType">
+            <summary>Returns true if the given type is valid for a BinaryItem.</summary>
+            <param name = "type" Cref="String?">DataType.cs</param>
+            <returns>True if valid; otherwise false.</returns>
+        </method>
+
+        <method name = "IsValidCodeDataType">
+            <summary>Returns true if the given type is valid for a CodeItem.</summary>
+            <param name = "type" Cref="String?">DataType.cs</param>
+            <returns>True if valid; otherwise false.</returns>
+        </method>
+
+        <method name = "IsValidTextDataType">
+            <summary>Returns true if the given type is valid for a TextItem.</summary>
+            <param name = "type" Cref="String?">DataType.cs</param>
+            <returns>True if valid; otherwise false.</returns>
+        </method>
+
+        <method name = "IsValidMultiMediaDataType">
+            <summary>Returns true if the given type is valid for a MultiMediaItem.</summary>
+            <param name = "type" Cref="String?">DataType.cs</param>
+            <returns>True if valid; otherwise false.</returns>
+        </method>
+
+        <method name = "IsDataTypeChangeAllowed">
+            <summary>Returns true if changing the type is allowed for the specified item instance.</summary>
+            <param name = "item" Cref="DataItem?">The data item instance.</param>
+            <returns>True if change is allowed; otherwise false.</returns>
+        </method>
+
+        <method name = "IsValid">
+            <summary>Returns true if the given type value is valid for the specified item instance.</summary>
+            <param name = "item" Cref="DataItem?">The data item instance.</param>
+            <param name = "type" Cref="String?">DataType.cs</param>
+            <returns>True if valid; otherwise false.</returns>
+        </method>
+
+    </class>
+
+</DataValidation>

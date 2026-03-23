@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ReflectionBindingScore>
+
+    <class name = "ReflectionBindingScore">
+
+        <main>
+
+            <summary>Shared candidate scoring helper for reflected member selection.</summary>
+
+        </main>
+
+        <method name = "Compare">
+
+            <summary>Compare candidate score against current best score.</summary>
+
+            <param name = "length" Cref = "Int32">Candidate parameter count.</param>
+            <param name = "exact" Cref = "Int32">Candidate exact-match score.</param>
+            <param name = "assignable" Cref = "Int32">Candidate assignable-match score.</param>
+            <param name = "isstatic" Cref = "Boolean">True when candidate is static.</param>
+            <param name = "bestLength" Cref = "Int32">Current best parameter count.</param>
+            <param name = "bestExact" Cref = "Int32">Current best exact-match score.</param>
+            <param name = "bestAssignable" Cref = "Int32">Current best assignable-match score.</param>
+            <param name = "bestStatic" Cref = "Boolean?">Current best static flag.</param>
+            <param name = "preferInstanceOnTie" Cref = "Boolean">Prefer instance over static when all scores tie.</param>
+
+            <returns Cref = "Int32">1 when candidate is better, -1 when worse, 0 when tied/ambiguous.</returns>
+
+        </method>
+
+    </class>
+
+</ReflectionBindingScore>

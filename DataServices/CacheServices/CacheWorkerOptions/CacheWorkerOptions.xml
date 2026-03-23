@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CacheWorkerOptions>
+
+    <class name = "CacheWorkerOptions">
+
+        <main>
+
+            <summary>Configuration options for the CoreCache background worker.</summary>
+
+            <remarks>Controls concurrency, retry behavior, queue capacity, and cache timeouts used by CacheWorker.</remarks>
+
+        </main>
+
+        <property name = "CacheTimeoutSeconds">
+
+            <summary>Maximum time in seconds to wait for a cache write to complete.</summary>
+
+            <returns Cref = "Int32">Cache write timeout in seconds.</returns>
+
+        </property>
+
+        <property name = "Capacity">
+
+            <summary>Maximum number of pending cache item requests allowed in the queue.</summary>
+
+            <returns Cref = "Int32">Queue capacity.</returns>
+
+        </property>
+
+        <property name = "MaxAgeMinutes">
+
+            <summary>Maximum age in minutes a queued request may reach before it is discarded.</summary>
+
+            <returns Cref = "Int32">Maximum request age in minutes.</returns>
+
+        </property>
+
+        <property name = "MaxConcurrency">
+
+            <summary>Maximum number of concurrent cache write operations performed by the worker.</summary>
+
+            <returns Cref = "Int32">Maximum degree of parallelism.</returns>
+
+        </property>
+
+        <property name = "MaxJitterMilliseconds">
+
+            <summary>Upper bound of random jitter applied to retry delays.</summary>
+
+            <returns Cref = "Int32">Maximum jitter in milliseconds.</returns>
+
+        </property>
+
+        <property name = "MaxRetries">
+
+            <summary>Maximum number of retry attempts for a failed cache write.</summary>
+
+            <returns Cref = "Int32">Maximum retry count.</returns>
+
+        </property>
+
+        <property name = "MinJitterMilliseconds">
+
+            <summary>Lower bound of random jitter applied to retry delays.</summary>
+
+            <returns Cref = "Int32">Minimum jitter in milliseconds.</returns>
+
+        </property>
+
+        <property name = "RetryBaseDelayMilliseconds">
+
+            <summary>Base delay in milliseconds used for computing retry backoff.</summary>
+
+            <returns Cref = "Int32">Base retry delay in milliseconds.</returns>
+
+        </property>
+
+    </class>
+
+</CacheWorkerOptions>

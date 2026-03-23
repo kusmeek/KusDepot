@@ -1,0 +1,15 @@
+﻿global using Aspire.Hosting;
+global using KusDepot.Exceptions;
+global using KusDepot.Logging;
+global using KusDepot.Reflection;
+global using KusDepot.Security;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using System;
+global using System.Collections.Generic;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using static KusDepot.Exceptions.SyncTimeoutException;
+global using static KusDepot.Settings;
+global using static KusDepot.Strings.ExceptionStrings;
+global using static System.Threading.Monitor;

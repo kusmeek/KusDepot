@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryCommandObserver>
+
+    <class name = "BinaryCommandObserver">
+
+        <main>
+
+            <summary>Observer for binary standard output and error from a CliWrap Command.</summary>
+
+        </main>
+
+        <field name = "OnStarted" Cref = "Func{StartedCommandEvent,Task}">
+
+            <summary>Callback invoked when the command starts.</summary>
+
+        </field>
+
+        <field name = "OnStdOut" Cref = "Func{Stream,Task}">
+
+            <summary>Callback invoked with a Stream for standard output.</summary>
+
+        </field>
+
+        <field name = "OnStdErr" Cref = "Func{Stream,Task}">
+
+            <summary>Callback invoked with a Stream for standard error.</summary>
+
+        </field>
+
+        <field name = "OnExited" Cref = "Func{ExitedCommandEvent,Task}">
+
+            <summary>Callback invoked when the command exits.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "BinaryCommandObserver">New BinaryCommandObserver.</returns>
+
+        </constructor>
+
+    </class>
+
+</BinaryCommandObserver>

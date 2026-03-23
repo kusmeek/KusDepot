@@ -1,0 +1,10 @@
+{
+  "inputs": [],
+  "servers": {
+    "toolpod": {
+      "type": "sse",
+      "url": "http://localhost:48086",
+      "headers": {}
+    }
+  }
+}

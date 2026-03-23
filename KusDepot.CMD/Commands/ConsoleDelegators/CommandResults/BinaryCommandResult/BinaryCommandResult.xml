@@ -1,0 +1,71 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryCommandResult>
+
+    <class name = "BinaryCommandResult">
+
+        <main>
+
+            <summary>Binary buffered result of a command execution, with standard output and error bytes.</summary>
+
+        </main>
+
+        <property name = "StandardOutputBytes">
+
+            <summary>Binary standard output data produced by the underlying process.</summary>
+
+            <returns Cref = "Byte[]">Standard output bytes.</returns>
+
+        </property>
+
+        <property name = "StandardErrorBytes">
+
+            <summary>Binary standard error data produced by the underlying process.</summary>
+
+            <returns Cref = "Byte[]">Standard error bytes.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "exitcode" Cref = "Int32">Process exit code.</param>
+
+            <param name = "starttime" Cref = "DateTimeOffset">Process start time.</param>
+
+            <param name = "exittime" Cref = "DateTimeOffset">Process exit time.</param>
+
+            <param name = "standardoutputbytes" Cref = "Byte[]">Binary standard output data.</param>
+
+            <param name = "standarderrorbytes" Cref = "Byte[]">Binary standard error data.</param>
+
+            <returns Cref = "BinaryCommandResult">New BinaryCommandResult.</returns>
+
+        </constructor>
+
+        <method name = "Deconstruct">
+
+            <summary>Deconstructs the result into its most important components.</summary>
+
+            <param name = "exitcode" Cref = "Int32">Process exit code.</param>
+
+            <param name = "standardoutputbytes" Cref = "Byte[]">Binary standard output data.</param>
+
+            <param name = "standarderrorbytes" Cref = "Byte[]">Binary standard error data.</param>
+
+        </method>
+
+        <method name = "ImplicitBytes">
+
+            <summary>Converts the result to a Byte[] value that corresponds to the StandardOutputBytes property.</summary>
+
+            <param name = "result" Cref = "BinaryCommandResult">BinaryCommandResult to convert.</param>
+
+            <returns Cref = "Byte[]">Binary standard output data.</returns>
+
+        </method>
+
+    </class>
+
+</BinaryCommandResult>

@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc -I./proto --python_out=./reactp --grpc_python_out=./reactp ./proto/shapeapi.proto

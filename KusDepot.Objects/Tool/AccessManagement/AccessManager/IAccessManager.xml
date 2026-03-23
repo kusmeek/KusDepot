@@ -1,0 +1,111 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessManager>
+
+    <interface name = "IAccessManager">
+
+        <main>
+
+            <summary>Access Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the Access Manager.</remarks>
+
+        </main>
+
+        <method name = "AccessCheck">
+
+            <summary>Determine if key grants access to operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Tool Operation Name.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "DestroySecrets">
+
+            <summary>Destroy Access Manager Secrets.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if secrets destroyed.</returns>
+
+        </method>
+
+        <method name = "ExportAccessManagerState">
+
+            <summary>Export Access Manager State.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "AccessManagerState?">An Access Manager State object.</returns>
+
+        </method>
+
+        <method name = "GenerateAccessKey">
+
+            <summary>Generate an AccessKey of the requested type for the supplied subject and permission set.</summary>
+
+            <typeparam name = "TKey">Concrete AccessKey type to generate.</typeparam>
+
+            <param name = "subject" Cref = "String?">Subject string to bind into the issued token.</param>
+
+            <param name = "operationset" Cref = "ImmutableArray{Int32}?">Operations to authorize. Null is normalized to an empty set.</param>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "TKey">Generated AccessKey, or null if generation fails or the requested type is unsupported.</returns>
+
+        </method>
+
+        <method name = "ImportAccessManagementKeys">
+
+            <summary>Import Access Management Keys from a matching Access Manager State.</summary>
+
+            <param name = "state" Cref = "AccessManagerState?">Access Manager State.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if keys imported.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Access Manager.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "Boolean">True if Access Manager successfully Initialized..</returns>
+
+        </method>
+
+        <method name = "RequestAccess">
+
+            <summary>Request Access.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Access Request.</param>
+
+            <returns Cref = "AccessKey?">An Access Key.</returns>
+
+        </method>
+
+        <method name = "RevokeAccess">
+
+            <summary>Revoke Access.</summary>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "Boolean">True if AccessKey revoked.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessManager>

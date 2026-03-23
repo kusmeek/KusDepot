@@ -1,0 +1,35 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SyncNode>
+
+    <class name = "SyncNode">
+
+        <main>
+
+            <summary>SyncNode.</summary>
+
+            <remarks>Synchronization objects for the object's public properties.</remarks>
+
+        </main>
+
+        <field name = "ID" Cref = "Object">
+
+            <summary>ID Sync Object.</summary>
+
+        </field>
+
+        <field name = "Locked" Cref = "Object">
+
+            <summary>Locked Sync Object.</summary>
+
+        </field>
+
+        <field name = "Secrets" Cref = "Object">
+
+            <summary>Secrets Sync Object.</summary>
+
+        </field>
+
+    </class>
+
+</SyncNode>

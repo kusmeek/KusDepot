@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryCommandRunner>
+
+    <class name = "BinaryCommandRunner">
+
+        <main>
+
+            <summary>Runs the command and binds binary CliWrap output and error streams to <see cref="BinaryCommandObserver"/> callbacks.</summary>
+
+        </main>
+
+        <field name = "observer" Cref = "BinaryCommandObserver">
+
+            <summary>Binary Command Observer used to receive notifications and data.</summary>
+
+        </field>
+
+        <field name = "buffered" Cref = "Boolean">
+
+            <summary>Indicates whether RunAsync will return a <see cref="BinaryCommandResult"/> with binary output buffers.</summary>
+
+        </field>
+
+        <field name = "StdOutPipe" Cref = "Pipe">
+
+            <summary>Pipe that receives standard output bytes from the CliWrap command.</summary>
+
+        </field>
+
+        <field name = "StdErrPipe" Cref = "Pipe">
+
+            <summary>Pipe that receives standard error bytes from the CliWrap command.</summary>
+
+        </field>
+
+        <field name = "StdOut" Cref = "Stream">
+
+            <summary>Stream view over the StdOutPipe reader, passed to the BinaryCommandObserver and used for buffering.</summary>
+
+        </field>
+
+        <field name = "StdErr" Cref = "Stream">
+
+            <summary>Stream view over the StdErrPipe reader, passed to the BinaryCommandObserver and used for buffering.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Initializes a new BinaryCommandRunner with the specified observer and buffering behavior.</summary>
+
+            <param name = "observer" Cref = "BinaryCommandObserver">Binary Command Observer.</param>
+
+            <param name = "buffered" Cref = "Boolean">True to return a <see cref="BinaryCommandResult"/> with binary output; false to stream output to the observer.</param>
+
+            <returns Cref = "BinaryCommandRunner">New BinaryCommandRunner.</returns>
+
+        </constructor>
+
+        <method name = "CreateStdOutTarget">
+
+            <summary>Creates a PipeTarget that copies standard output bytes into the StdOutPipe.</summary>
+
+            <returns Cref = "PipeTarget">PipeTarget that writes stdout into the pipe.</returns>
+
+        </method>
+
+        <method name = "CreateStdErrTarget">
+
+            <summary>Creates a PipeTarget that copies standard error bytes into the StdErrPipe.</summary>
+
+            <returns Cref = "PipeTarget">PipeTarget that writes stderr into the pipe.</returns>
+
+        </method>
+
+        <method name = "RunAsync">
+
+            <summary>Runs the specified CliWrap command, wiring its output and error streams into the observer and returning the final result.</summary>
+
+            <param name = "command" Cref = "CliWrap.Command">CliWrap command to execute.</param>
+
+            <param name = "ct" Cref = "CancellationToken">Forceful cancellation token for the command.</param>
+
+            <param name = "gt" Cref = "CancellationToken">Graceful cancellation token for the command.</param>
+
+            <returns Cref = "Task{CommandResult?}">Task that produces a <see cref="CommandResult"/> when the command and observer processing have completed.</returns>
+
+        </method>
+
+        <method name = "CreateBufferedResultAsync">
+
+            <summary>Creates a <see cref="BinaryCommandResult"/> by reading all remaining data from the stdout and stderr streams.</summary>
+
+            <param name = "baseresult" Cref = "CommandResult">Base command result to augment with binary output.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token used when reading the streams.</param>
+
+            <returns Cref = "Task{BinaryCommandResult}">Task producing the buffered binary command result.</returns>
+
+        </method>
+
+    </class>
+
+</BinaryCommandRunner>

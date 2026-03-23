@@ -1,0 +1,53 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<EndpointLocators>
+
+    <class name = "EndpointLocators">
+
+        <main>
+
+            <summary>Endpoint Locators.</summary>
+
+            <remarks>Defines properties to lookup URLs for well-known services.</remarks>
+
+        </main>
+
+        <property name = "CatalogService" Cref = "String"><summary>Catalog URL.</summary></property>
+
+        <property name = "DataControlService" Cref = "String"><summary>DataControlService URL.</summary></property>
+
+        <property name = "ToolFabricService" Cref = "String"><summary>ToolFabricService URL.</summary></property>
+
+        <method name = "GetCatalogServiceAsync">
+
+            <summary>Get Catalog URL.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{String}">Catalog URL.</returns>
+
+        </method>
+
+        <method name = "GetDataControlServiceAsync">
+
+            <summary>Get DataControlService URL.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{String}">DataControlService URL.</returns>
+
+        </method>
+
+        <method name = "GetToolFabricServiceAsync">
+
+            <summary>Get ToolFabricService URL.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{String}">ToolFabricService URL.</returns>
+
+        </method>
+
+    </class>
+
+</EndpointLocators>

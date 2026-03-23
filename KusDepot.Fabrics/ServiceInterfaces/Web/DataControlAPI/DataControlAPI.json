@@ -1,0 +1,554 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DataControl | DataControl",
+    "version": "1.0.0"
+  },
+  "servers": [],
+  "paths": {
+    "/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "ID"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Get/{id}": {
+      "get": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataControlDownload"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "ID"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetStream/{id}": {
+      "get": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetStream",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "ID"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Store": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "Store",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataControlUpload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/StoreStream": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "StoreStream",
+        "parameters": [
+          {
+            "name": "DataControlUpload",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/DataControlUpload"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
+              "schema": {
+                "type": "string",
+                "description": "Content Stream",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DataControlDownload": {
+        "type": "object",
+        "properties": {
+          "Object": {
+            "type": "string"
+          },
+          "ObjectSHA512": {
+            "type": "string"
+          },
+          "StreamSHA512": {
+            "type": "string"
+          }
+        }
+      },
+      "DataControlUpload": {
+        "type": "object",
+        "properties": {
+          "Descriptor": {
+            "$ref": "#/components/schemas/Descriptor"
+          },
+          "Object": {
+            "type": "string"
+          },
+          "ObjectSHA512": {
+            "type": "string"
+          },
+          "StreamSHA512": {
+            "type": "string"
+          }
+        },
+        "nullable": true
+      },
+      "Descriptor": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Artist": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "Commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TupleOfstringAndstringAndstring"
+            },
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "LiveStream": {
+            "type": "boolean"
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "Services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TupleOfstringAndstring"
+            },
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          },
+          "Year": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Stream": {
+        "type": "string",
+        "format": "binary"
+      },
+      "TupleOfstringAndstring": {
+        "required": [
+          "Item1",
+          "Item2"
+        ],
+        "type": "object",
+        "properties": {
+          "Item1": {
+            "type": "string",
+            "nullable": true
+          },
+          "Item2": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "TupleOfstringAndstringAndstring": {
+        "required": [
+          "Item1",
+          "Item2",
+          "Item3"
+        ],
+        "type": "object",
+        "properties": {
+          "Item1": {
+            "type": "string",
+            "nullable": true
+          },
+          "Item2": {
+            "type": "string",
+            "nullable": true
+          },
+          "Item3": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "DataControl"
+    }
+  ]
+}

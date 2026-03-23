@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFrameworks>net9.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <Content Include="Services\AzureResourcesManager\IAzureResourcesManager.xml" Pack="false" />
+
+        <Content Include="Services\CatalogClientBase\ICatalogClientBase.xml" Pack="false" />
+
+        <Content Include="Services\CredentialManager\ICredentialManager.xml" Pack="false" />
+
+        <Content Include="Services\DaprSupervisor\IDaprSupervisor.xml" Pack="false" />
+
+        <Content Include="Services\DatabaseManager\IDatabaseManager.xml" Pack="false" />
+
+        <Content Include="Services\DataControlClientBase\IDataControlClientBase.xml" Pack="false" />
+
+        <Content Include="Services\DeviceManager\IDeviceManager.xml" Pack="false" />
+
+        <Content Include="Services\DockerManager\IDockerManager.xml" Pack="false" />
+
+        <Content Include="Services\HyperVManager\IHyperVManager.xml" Pack="false" />
+
+        <Content Include="Services\KubernetesManager\IKubernetesManager.xml" Pack="false" />
+
+        <Content Include="Services\MappedMemoryManager\IMappedMemoryManager.xml" Pack="false" />
+
+        <Content Include="Services\Messaging\MessagingComponent\IMessagingComponent.xml" Pack="false" />
+
+        <Content Include="Services\Messaging\MessagingManager\IMessagingManager.xml" Pack="false" />
+
+        <Content Include="Services\NamedPipeManager\INamedPipeManager.xml" Pack="false" />
+
+        <Content Include="Services\Networking\FirewallManager\IFirewallManager.xml" Pack="false" />
+
+        <Content Include="Services\Networking\RoutingManager\IRoutingManager.xml" Pack="false" />
+
+        <Content Include="Services\Networking\SocketManager\ISocketManager.xml" Pack="false" />
+
+        <Content Include="Services\Networking\TAPManager\ITAPManager.xml" Pack="false" />
+
+        <Content Include="Services\SemanticKernelFactory\ISemanticKernelFactory.xml" Pack="false" />
+
+        <Content Include="Services\ServiceFabricManager\IServiceFabricManager.xml" Pack="false" />
+
+        <Content Include="Services\ToolClientFactory\IToolClientFactory.xml" Pack="false" />
+
+        <Content Include="Services\ToolGrainBase\IToolGrainBase.xml" Pack="false" />
+
+        <Content Include="Services\UpdateManager\IUpdateManager.xml" Pack="false" />
+
+        <Content Include="Services\UserInterface\IUserInterfaceManager.xml" Pack="false" />
+
+        <Content Include="Services\UserInterface\WindowManager\IWindowManager.xml" Pack="false" />
+
+        <Content Include="Services\WorkflowManager\IWorkflowManager.xml" Pack="false" />
+
+    </ItemGroup>
+
+</Project>

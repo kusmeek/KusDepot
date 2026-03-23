@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CacheManager>
+
+    <class name = "CacheManager">
+
+        <main>
+
+            <summary>Implements ICacheManager using CoreCache and a background queue.</summary>
+
+        </main>
+
+        <field name = "Queue">
+
+            <summary>Background queue used to enqueue cache item requests.</summary>
+
+            <returns Cref = "CacheQueue">The cache item queue.</returns>
+
+        </field>
+
+        <field name = "CoreCache">
+
+            <summary>CoreCache service.</summary>
+
+            <returns Cref = "ICoreCache">The CoreCache service instance.</returns>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new CacheManager.</summary>
+
+            <param name = "queue" Cref = "CacheQueue">Background cache item queue.</param>
+
+            <param name = "corecachefactory" Cref = "ICoreCacheFactory">Factory used to create CoreCache service instances.</param>
+
+        </constructor>
+
+    </class>
+
+</CacheManager>

@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IServiceFabricManager>
+
+    <interface name = "IServiceFabricManager">
+
+        <main>
+
+            <summary>Service Fabric Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Service Fabric Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IServiceFabricManager>

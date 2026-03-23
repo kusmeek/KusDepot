@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.3" />
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+
+        <AssemblyName>KusDepot.Builders.Aspire</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>ASPIRE002;CS1591</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="ToolBuilderFactoryExtensions\ToolBuilderFactoryExtensions.cs" />
+
+        <Compile Include="ToolBuilders\ToolAspireHostBuilder\IToolAspireHostBuilder.cs" />
+
+        <Compile Include="ToolBuilders\ToolAspireHostBuilder\ToolAspireHostBuilder.cs" />
+
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <IsAspireHost>False</IsAspireHost>
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+        <Content Include="ToolBuilderFactoryExtensions\ToolBuilderFactoryExtensions.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolAspireHostBuilder\IToolAspireHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolAspireHostBuilder\ToolAspireHostBuilder.xml" Pack="false" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Diagram">
+
+        <Content Include="Builders.cd" Pack="false" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+
+        <ProjectReference Include="..\KusDepot.BLDRS\KusDepot.BLDRS.csproj" IsAspireProjectResource="false" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="NuGet">
+
+        <Title>KusDepot</Title>
+
+        <IsPackable>True</IsPackable>
+
+        <Authors>Mike Abrahams</Authors>
+
+        <PackageTags>KusDepot</PackageTags>
+
+        <RepositoryType>git</RepositoryType>
+
+        <PackageIcon>gfxico.png</PackageIcon>
+
+        <PackageVersion>0.0.7-pre</PackageVersion>
+
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+
+        <Description>KusDepot Solution</Description>
+
+        <ContentTargetFolders>\</ContentTargetFolders>
+
+        <PackageId>KusDepot.Builders.Aspire</PackageId>
+
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+        <IncludeContentInPack>True</IncludeContentInPack>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Copyright>Copyright © 2026 Michael Abrahams</Copyright>
+
+        <RepositoryUrl>https://github.com/kusmeek/KusDepot</RepositoryUrl>
+
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Readme">
+
+        <None Include="..\Readme.md" Pack="true" PackagePath="\" />
+
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+
+    </ItemGroup>
+
+</Project>

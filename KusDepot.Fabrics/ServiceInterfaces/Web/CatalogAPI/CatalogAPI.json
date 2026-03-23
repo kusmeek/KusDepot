@@ -1,0 +1,1179 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Catalog | Catalog",
+    "version": "1.0.0"
+  },
+  "servers": [],
+  "paths": {
+    "/Catalog/Elements": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchElements",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ElementQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ElementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ElementResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Services": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchServices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Commands": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchCommands",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Media": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchMedia",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Notes": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchNotes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoteQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Tags": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "operationId": "SearchTags",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagQuery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Command": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandHandle": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandSpecifications": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "CommandQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandHandle": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandSpecifications": {
+            "type": "string",
+            "nullable": true
+          },
+          "CommandType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "CommandResponse": {
+        "type": "object",
+        "properties": {
+          "Commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Command"
+            }
+          }
+        }
+      },
+      "Element": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ElementQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "ElementResponse": {
+        "type": "object",
+        "properties": {
+          "Elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Element"
+            }
+          }
+        }
+      },
+      "Media": {
+        "type": "object",
+        "properties": {
+          "Album": {
+            "type": "string",
+            "nullable": true
+          },
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "Artist": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Year": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "MediaQuery": {
+        "type": "object",
+        "properties": {
+          "Album": {
+            "type": "string",
+            "nullable": true
+          },
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "Artist": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Year": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "MediaResponse": {
+        "type": "object",
+        "properties": {
+          "Media": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Media"
+            }
+          }
+        }
+      },
+      "NoteQuery": {
+        "type": "object",
+        "properties": {
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "NoteResponse": {
+        "type": "object",
+        "properties": {
+          "IDs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceInterfaces": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ServiceQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "BornOn": {
+            "type": "string",
+            "nullable": true
+          },
+          "ContentStreamed": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "DistinguishedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "FILE": {
+            "type": "string",
+            "nullable": true
+          },
+          "ID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Modified": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ObjectType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceInterfaces": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceVersion": {
+            "type": "string",
+            "nullable": true
+          },
+          "Size": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "ServiceResponse": {
+        "type": "object",
+        "properties": {
+          "Services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          }
+        }
+      },
+      "TagQuery": {
+        "type": "object",
+        "properties": {
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "nullable": true
+      },
+      "TagResponse": {
+        "type": "object",
+        "properties": {
+          "IDs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Catalog"
+    }
+  ]
+}

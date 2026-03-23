@@ -1,0 +1,13 @@
+﻿global using NFluent;
+global using NUnit.Framework;
+global using System;
+global using System.Collections.Generic;
+global using System.Diagnostics;
+global using System.Fabric;
+global using System.Linq;
+global using System.Runtime.CompilerServices;
+global using System.Security.Cryptography.X509Certificates;
+global using System.ServiceModel;
+global using System.ServiceModel.Channels;
+global using System.Threading;
+global using System.Xml;

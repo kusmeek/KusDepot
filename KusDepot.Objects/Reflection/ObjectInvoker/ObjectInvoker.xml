@@ -1,0 +1,463 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ObjectInvoker>
+
+    <class name = "ObjectInvoker">
+
+        <main>
+
+            <summary>Invokes properties and methods on a configured instance or target type using reflection.</summary>
+
+        </main>
+
+        <field name = "Sync" Cref = "Object">
+
+            <summary>Synchronization object for invoker state and member access.</summary>
+
+        </field>
+
+        <field name = "Instance" Cref = "Object?">
+
+            <summary>Current target instance.</summary>
+
+        </field>
+
+        <field name = "TargetType" Cref = "Type?">
+
+            <summary>Optional target type used when static members are enabled and no instance is set.</summary>
+
+        </field>
+
+        <field name = "AllowStaticMembers" Cref = "Boolean">
+
+            <summary>True when static properties and methods are eligible for selection.</summary>
+
+        </field>
+
+        <property name = "Value" Cref = "Object?">
+
+            <summary>Current target instance value.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "Type?">
+
+            <summary>Current target type (instance type when available, otherwise configured static target type).</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless constructor.</summary>
+
+            <returns Cref = "ObjectInvoker">New invoker instance.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Create an invoker preconfigured with target instance.</summary>
+
+            <param name = "instance" Cref = "Object?">Target instance.</param>
+
+            <returns Cref = "ObjectInvoker">Invoker instance.</returns>
+
+        </method>
+
+        <method name = "CreateType">
+
+            <summary>Create an invoker preconfigured with target type.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <returns Cref = "ObjectInvoker">Invoker instance.</returns>
+
+        </method>
+
+        <method name = "CreateGeneric">
+
+            <summary>Create an invoker preconfigured with generic target type.</summary>
+
+            <typeparam name = "T">Target type.</typeparam>
+
+            <returns Cref = "ObjectInvoker">Invoker instance.</returns>
+
+        </method>
+
+        <method name = "SetInstance">
+
+            <summary>Set target instance.</summary>
+
+            <param name = "instance" Cref = "Object?">Target instance.</param>
+
+            <returns Cref = "Boolean">True when accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetType">
+
+            <summary>Set target type for static-member invocation.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <returns Cref = "Boolean">True when accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetAllowStaticMembers">
+
+            <summary>Enable or disable static member invocation.</summary>
+
+            <param name = "enable" Cref = "Boolean">True to enable static members.</param>
+
+            <returns Cref = "Boolean">True when state update succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "WithInstance">
+
+            <summary>Fluent pass-through to set target instance.</summary>
+
+            <param name = "instance" Cref = "Object?">Target instance.</param>
+
+            <returns Cref = "ObjectInvoker">Current invoker instance.</returns>
+
+        </method>
+
+        <method name = "WithType">
+
+            <summary>Fluent pass-through to set target type.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <returns Cref = "ObjectInvoker">Current invoker instance.</returns>
+
+        </method>
+
+        <method name = "WithTypeGeneric">
+
+            <summary>Fluent pass-through to set generic target type.</summary>
+
+            <typeparam name = "T">Target type.</typeparam>
+
+            <returns Cref = "ObjectInvoker">Current invoker instance.</returns>
+
+        </method>
+
+        <method name = "WithAllowStaticMembers">
+
+            <summary>Fluent pass-through to toggle static member invocation.</summary>
+
+            <param name = "enable" Cref = "Boolean">True to enable static members.</param>
+
+            <returns Cref = "ObjectInvoker">Current invoker instance.</returns>
+
+        </method>
+
+        <method name = "GetField">
+
+            <summary>Get public field value by exact name.</summary>
+
+            <param name = "name" Cref = "String?">Field name.</param>
+
+            <returns Cref = "Object?">Field value or null.</returns>
+
+            <remarks>Prefers instance field over static field when both match and static members are enabled.</remarks>
+
+        </method>
+
+        <method name = "SetField">
+
+            <summary>Set public field value by exact name.</summary>
+
+            <param name = "name" Cref = "String?">Field name.</param>
+
+            <param name = "value" Cref = "Object?">Field value.</param>
+
+            <returns Cref = "Boolean">True when field was set; otherwise false.</returns>
+
+            <remarks>Prefers instance field over static field when both match and static members are enabled. Read-only and literal fields are not settable.</remarks>
+
+        </method>
+
+        <method name = "GetProperty">
+
+            <summary>Get public property value by exact name.</summary>
+
+            <param name = "name" Cref = "String?">Property name.</param>
+
+            <returns Cref = "Object?">Property value or null.</returns>
+
+            <remarks>Prefers instance property over static property when both match and static members are enabled.</remarks>
+
+        </method>
+
+        <method name = "SetProperty">
+
+            <summary>Set public property value by exact name.</summary>
+
+            <param name = "name" Cref = "String?">Property name.</param>
+
+            <param name = "value" Cref = "Object?">Property value.</param>
+
+            <returns Cref = "Boolean">True when property was set; otherwise false.</returns>
+
+            <remarks>Prefers instance property over static property when both match and static members are enabled.</remarks>
+
+        </method>
+
+        <method name = "Invoke">
+
+            <summary>Invoke public method by exact name.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <returns Cref = "Object?">Method return value or null.</returns>
+
+            <remarks>Supports optional parameters, params-array expansion, and ref/out parameter binding. Prefers instance methods over static methods on tie when static members are enabled. Updated ref/out argument values are not accessible through this method; use InvokeDetailed for post-invocation argument state.</remarks>
+
+        </method>
+
+        <method name = "InvokeDetailed">
+
+            <summary>Invoke public method by exact name and return detailed invocation result including post-invocation argument state.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <returns Cref = "InvocationResult?">Invocation result containing return value, post-invocation arguments with updated ref/out values, selected method, and by-ref parameter indices. Null on failure.</returns>
+
+            <remarks>Supports optional parameters, params-array expansion, and ref/out parameter binding. The returned Arguments array is always a new array; the caller's input array is never mutated. Out parameters may be omitted from args and are auto-filled. Ref parameters require a supplied value.</remarks>
+
+        </method>
+
+        <method name = "InvokeAsync">
+
+            <summary>Invoke public method by exact name with async unwrapping support.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "ValueTask{Object?}">Result value or null.</returns>
+
+            <remarks>Unwraps Task, Task{T}, ValueTask, and ValueTask{T} return shapes. Supports ref/out parameter binding but updated argument values are not accessible; use InvokeDetailedAsync for post-invocation argument state.</remarks>
+
+        </method>
+
+        <method name = "InvokeDetailedAsync">
+
+            <summary>Invoke public method by exact name with async unwrapping support and return detailed invocation result.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "ValueTask{InvocationResult?}">Invocation result containing return value, post-invocation arguments with updated ref/out values, selected method, and by-ref parameter indices. Null on failure.</returns>
+
+            <remarks>Unwraps Task, Task{T}, ValueTask, and ValueTask{T} return shapes. The returned Arguments array is always a new array; the caller's input array is never mutated. Out parameters may be omitted from args and are auto-filled. Ref parameters require a supplied value.</remarks>
+
+        </method>
+
+        <method name = "InvokeStatic">
+
+            <summary>Invoke a public static method by exact name on the configured target type.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <returns Cref = "Object?">Method return value or null.</returns>
+
+            <remarks>Requires TargetType to be set and Instance to be null. Only static methods are considered; instance methods are excluded from selection. Supports optional parameters, params-array expansion, and ref/out parameter binding.</remarks>
+
+        </method>
+
+        <method name = "InvokeStaticAsync">
+
+            <summary>Invoke a public static method by exact name on the configured target type with async unwrapping support.</summary>
+
+            <param name = "name" Cref = "String?">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "ValueTask{Object?}">Result value or null.</returns>
+
+            <remarks>Requires TargetType to be set and Instance to be null. Only static methods are considered; instance methods are excluded from selection. Unwraps Task, Task{T}, ValueTask, and ValueTask{T} return shapes.</remarks>
+
+        </method>
+
+        <method name = "NormalizeAsyncResult">
+
+            <summary>Normalize async method result payloads to invoker return conventions.</summary>
+
+            <param name = "value" Cref = "Object?">Raw result value.</param>
+
+            <returns Cref = "Object?">Normalized value; maps framework void-task markers to null.</returns>
+
+        </method>
+
+        <method name = "GetTargetTypeNoSync">
+
+            <summary>Resolve effective invocation target type without acquiring synchronization.</summary>
+
+            <returns Cref = "Type?">Instance type when instance exists; otherwise configured static target type when static access is enabled; else null.</returns>
+
+        </method>
+
+        <method name = "TryFindField">
+
+            <summary>Find a matching public field by exact name and writability requirements.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <param name = "name" Cref = "String">Field name.</param>
+
+            <param name = "writable" Cref = "Boolean">Require writable field.</param>
+
+            <param name = "allowstatic" Cref = "Boolean">Allow static fields.</param>
+
+            <param name = "field" Cref = "FieldInfo?">Selected field output.</param>
+
+            <returns Cref = "Boolean">True when field selection succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryFindProperty">
+
+            <summary>Find a matching public property by exact name and accessor requirements.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <param name = "name" Cref = "String">Property name.</param>
+
+            <param name = "readable" Cref = "Boolean">Require readable accessor.</param>
+
+            <param name = "writable" Cref = "Boolean">Require writable accessor.</param>
+
+            <param name = "allowstatic" Cref = "Boolean">Allow static properties.</param>
+
+            <param name = "property" Cref = "PropertyInfo?">Selected property output.</param>
+
+            <returns Cref = "Boolean">True when property selection succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySelectMethod">
+
+            <summary>Select best matching public method for provided name and arguments.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <param name = "name" Cref = "String">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <param name = "allowstatic" Cref = "Boolean">Allow static methods.</param>
+
+            <param name = "method" Cref = "MethodInfo?">Selected method output.</param>
+
+            <param name = "invoke" Cref = "Object?[]?">Selected invocation arguments output.</param>
+
+            <returns Cref = "Boolean">True when a non-ambiguous candidate is selected; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySelectStaticMethod">
+
+            <summary>Select best matching public static method for provided name and arguments. Instance methods are excluded from selection.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <param name = "name" Cref = "String">Method name.</param>
+
+            <param name = "args" Cref = "Object?[]?">Arguments.</param>
+
+            <param name = "method" Cref = "MethodInfo?">Selected method output.</param>
+
+            <param name = "invoke" Cref = "Object?[]?">Selected invocation arguments output.</param>
+
+            <returns Cref = "Boolean">True when a non-ambiguous static candidate is selected; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryCreateInvokeArgs">
+
+            <summary>Create invoke argument list for method candidates, including params-array expansion.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Method parameters.</param>
+
+            <param name = "args" Cref = "Object?[]">Provided arguments.</param>
+
+            <param name = "invoke" Cref = "Object?[]?">Invocation arguments output.</param>
+
+            <param name = "exact" Cref = "Int32">Exact-match score output.</param>
+
+            <param name = "assignable" Cref = "Int32">Assignable-match score output.</param>
+
+            <returns Cref = "Boolean">True when candidate can be invoked; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryBindLeadingParameters">
+
+            <summary>Bind fixed parameters that precede a params-array tail.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Method parameters.</param>
+
+            <param name = "args" Cref = "Object?[]">Provided arguments.</param>
+
+            <param name = "last" Cref = "Int32">Index of params-array parameter.</param>
+
+            <param name = "target" Cref = "Object?[]">Invocation argument buffer.</param>
+
+            <param name = "exact" Cref = "Int32">Exact-match score accumulator.</param>
+
+            <param name = "assignable" Cref = "Int32">Assignable-match score accumulator.</param>
+
+            <returns Cref = "Boolean">True when leading parameters bind successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryBindParamsTail">
+
+            <summary>Bind params-array tail from either explicit array input or packed trailing arguments.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Method parameters.</param>
+
+            <param name = "args" Cref = "Object?[]">Provided arguments.</param>
+
+            <param name = "last" Cref = "Int32">Index of params-array parameter.</param>
+
+            <param name = "target" Cref = "Object?[]">Invocation argument buffer.</param>
+
+            <param name = "exact" Cref = "Int32">Exact-match score accumulator.</param>
+
+            <param name = "assignable" Cref = "Int32">Assignable-match score accumulator.</param>
+
+            <returns Cref = "Boolean">True when params tail binds successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetByRefIndices">
+
+            <summary>Collect parameter indices that are ref or out.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Method parameters.</param>
+
+            <returns Cref = "Int32[]">Array of by-ref parameter indices. Empty when no by-ref parameters exist.</returns>
+
+        </method>
+
+    </class>
+
+</ObjectInvoker>

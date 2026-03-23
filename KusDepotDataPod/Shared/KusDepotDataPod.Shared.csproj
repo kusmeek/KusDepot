@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <Platforms>AnyCPU</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>DataPodServices.Shared</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.Orleans.Core.Abstractions" />
+
+        <ProjectReference Include="..\..\DataServices\DataServices.csproj" />
+
+        <ProjectReference Include="..\..\KusDepot.BLDRS\KusDepot.BLDRS.csproj" />
+
+    </ItemGroup>
+
+</Project>

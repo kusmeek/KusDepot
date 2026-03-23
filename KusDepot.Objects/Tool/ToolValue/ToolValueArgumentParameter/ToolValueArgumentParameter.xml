@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueArgumentParameter>
+
+    <record name = "ToolValueArgumentParameter">
+
+        <main>
+
+            <summary>Terminal constructor parameter envelope for a buildable ToolValue argument.</summary>
+
+        </main>
+
+        <property name = "Index" Cref = "Int32">
+
+            <summary>Parameter index.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "String?">
+
+            <summary>Parameter type name.</summary>
+
+        </property>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Parameter parse data.</summary>
+
+        </property>
+
+    </record>
+
+</ToolValueArgumentParameter>

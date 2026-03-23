@@ -1,0 +1,31 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolAspireHostBuilder>
+
+    <class name = "ToolAspireHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Aspire Tools.</summary>
+
+        </main>
+
+        <method name = "configuretoolaspirehost">
+
+            <summary>Execute Tool Aspire Host Configuration Actions.</summary>
+
+            <param name = "toolaspirehost" Cref = "IToolAspireHost">Built ToolAspireHost.</param>
+
+        </method>
+
+        <method name = "ConfigureToolAspireHost_NoSync">
+
+            <summary>Add a tool Aspire host configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolAspireHost}">Configuration action.</param>
+
+        </method>
+
+    </class>
+
+</ToolAspireHostBuilder>

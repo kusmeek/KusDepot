@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<FaultedCommandResult>
+
+    <class name = "FaultedCommandResult">
+
+        <main>
+
+            <summary>Faulted Command Result.</summary>
+
+            <remarks>Represents a command result for a failed console operation.</remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a FaultedCommandResult.</summary>
+
+            <param name = "exitcode" Cref = "Int32">Exit code of the failed command.</param>
+
+            <remarks>Initializes the base CommandResult with the specified exit code and default start/exit times.</remarks>
+
+        </constructor>
+
+    </class>
+
+</FaultedCommandResult>

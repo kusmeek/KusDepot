@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CacheRecords>
+
+    <record name = "CacheItemRequest">
+
+        <main>
+
+            <summary>Represents a cache item write request queued for background processing.</summary>
+
+            <remarks>Used by CacheQueue and CacheWorker to coordinate deferred cache storage operations.</remarks>
+
+        </main>
+
+        <field name = "ID">
+
+            <summary>Identifier of the cache entry.</summary>
+
+            <returns Cref = "String?">Object ID.</returns>
+
+        </field>
+
+        <field name = "Item">
+
+            <summary>Serialized cache value.</summary>
+
+            <returns Cref = "String?">Serialized Object.</returns>
+
+        </field>
+
+        <field name = "TraceId">
+
+            <summary>Diagnostic trace identifier associated with the request.</summary>
+
+            <returns Cref = "String?">Diagnostic Trace ID.</returns>
+
+        </field>
+
+        <field name = "SpanId">
+
+            <summary>Diagnostic span identifier associated with the request.</summary>
+
+            <returns Cref = "String?">Diagnostic Span ID.</returns>
+
+        </field>
+
+        <field name = "EnqueuedAt">
+
+            <summary>Timestamp when the request was enqueued.</summary>
+
+            <returns Cref = "DateTimeOffset">Enqueue time.</returns>
+
+        </field>
+
+        <field name = "RetryCount">
+
+            <summary>Number of times this request has been retried.</summary>
+
+            <returns Cref = "Int32">Retry count.</returns>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new CacheItemRequest.</summary>
+
+            <param name = "id" Cref = "String?">Identifier of the cache entry.</param>
+
+            <param name = "item" Cref = "String?">Serialized cache value.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <param name = "enqueuedat" Cref = "DateTimeOffset">Timestamp when the request was enqueued.</param>
+
+            <param name = "retrycount" Cref = "Int32">Number of times this request has been retried.</param>
+
+        </constructor>
+
+    </record>
+
+</CacheRecords>

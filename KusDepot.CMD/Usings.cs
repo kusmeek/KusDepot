@@ -1,0 +1,17 @@
+﻿global using CliWrap;
+global using CliWrap.Buffered;
+global using CliWrap.EventStream;
+global using CliWrap.Exceptions;
+global using KusDepot.Security;
+global using System;
+global using System.Globalization;
+global using System.IO;
+global using System.IO.Pipelines;
+global using System.Text;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using static KusDepot.Commands.ObjectStrings;
+global using static KusDepot.Logging.LoggerExtensions;
+global using static KusDepot.Strings.ExceptionStrings;
+global using static KusDepot.Settings;
+global using static KusDepot.Utilities.Utility;

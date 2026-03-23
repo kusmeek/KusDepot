@@ -1,0 +1,128 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Settings>
+
+    <class name = "Settings">
+
+        <main>
+
+            <summary>Configuration.</summary>
+
+            <remarks>
+                Settings defines method synchronization timeout, exception behavior, compression buffers, default timeouts,
+                data import thresholds, and data security constant keys.
+            </remarks>
+
+        </main>
+
+        <field name = "CompressionBufferSize" Cref = "Int32">
+
+            <summary>Buffer size used for utility compression.</summary>
+
+        </field>
+
+        <field name = "ConversionBufferSize" Cref = "Int32">
+
+            <summary>Buffer size used for utility conversion.</summary>
+
+        </field>
+
+        <property name = "ConfigurationDataEnvironmentVariable" Cref = "String">
+
+            <summary>Serialized ToolConfiguration Environment Variable Name.</summary>
+
+        </property>
+
+        <property name = "ConfigurationPathEnvironmentVariable" Cref = "String">
+
+            <summary>ToolConfiguration File Path Environment Variable Name.</summary>
+
+        </property>
+
+        <property name = "ConsoleStopHostTimeout" Cref = "TimeSpan">
+
+            <summary>Default Console Host Stop Timeout.</summary>
+
+        </property>
+
+        <property name = "DataImportBufferLimit" Cref = "Int32">
+
+            <summary>The default size in bytes (2GB) beyond which content will be streamed from file.</summary>
+
+        </property>
+
+        <property name = "DataEncryptionConcurrency" Cref = "Int32">
+
+            <summary>The degree of concurrency for encryption and decryption operations.</summary>
+
+        </property>
+
+        <field name = "DataSecurityEDKey" Cref = "String">
+
+            <summary>Data Security EncryptedData Key.</summary>
+
+        </field>
+
+        <field name = "DataSecurityHCKey" Cref = "String">
+
+            <summary>Data Security HashCode Key.</summary>
+
+        </field>
+
+        <field name = "DataSecurityCNKey" Cref = "String">
+
+            <summary>Data Security Content Key.</summary>
+
+        </field>
+
+        <field name = "DefaultCryptoChunkPower" Cref = "Int32">
+
+            <summary>Default Cryptography Chunk Size Power.</summary>
+
+        </field>
+
+        <property name = "ExecuteCommandTimeout" Cref = "TimeSpan">
+
+            <summary>Command Execution Timeout.</summary>
+
+        </property>
+
+        <property name = "GetOutputInterval" Cref = "Int32">
+
+            <summary>GetOutput Interval.</summary>
+
+        </property>
+
+        <property name = "GetOutputTimeout" Cref = "TimeSpan">
+
+            <summary>GetOutput Timeout.</summary>
+
+        </property>
+
+        <property name = "HostStopTimeout" Cref = "TimeSpan">
+
+            <summary>ToolHost Stop Timeout.</summary>
+
+        </property>
+
+        <property name = "NoExceptions" Cref = "Boolean">
+
+            <summary>Default exception setting.</summary>
+
+        </property>
+
+        <property name = "SyncTime" Cref = "TimeSpan">
+
+            <summary>Method Synchronization Timeout.</summary>
+
+        </property>
+
+        <field name = "ZeroMemoryBufferSize" Cref = "Int32">
+
+            <summary>Size in bytes of empty buffer used to zero memory streams.</summary>
+
+        </field>
+
+    </class>
+
+</Settings>

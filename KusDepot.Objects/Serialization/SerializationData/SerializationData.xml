@@ -1,0 +1,65 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SerializationData>
+
+    <class name = "SerializationData">
+
+        <main>
+
+            <summary>Information used during DataContract serialization operations.</summary>
+
+        </main>
+
+        <property name = "NoExceptions">
+
+            <summary>Gets a value indicating whether exceptions should be suppressed for the current operation.</summary>
+
+        </property>
+
+        <property name = "TypeName">
+
+            <summary>The logical type name associated with the current serialization operation.</summary>
+
+        </property>
+
+        <property name = "ID">
+
+            <summary>Object identifier associated with the current serialization operation.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Initialize a SerializationData with explicit values.</summary>
+
+            <param name = "typename" Cref = "String">Logical type name for logging, if available.</param>
+
+            <param name = "id" Cref = "String">Optional identifier for logging, if available.</param>
+
+            <param name = "noexceptions" Cref = "Boolean">Effective NoExceptions flag for this operation.</param>
+
+        </constructor>
+
+        <method name = "ForType">
+
+            <summary>Create a SerializationData for static or type-only operations.</summary>
+
+            <param name = "type" Cref = "Type">Type to associate with the operation.</param>
+
+            <returns Cref = "SerializationData">A new SerializationData.</returns>
+
+        </method>
+
+        <method name = "ForCommon">
+
+            <summary>Create a SerializationData for an instance deriving from Common.</summary>
+
+            <param name = "instance" Cref = "Common">Instance providing type name, identifier, and exception behavior.</param>
+
+            <returns Cref = "SerializationData">A new SerializationData.</returns>
+
+        </method>
+
+    </class>
+
+</SerializationData>

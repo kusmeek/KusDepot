@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Interface Name="KusDepot.Builders.IToolAspireHostBuilder">
+    <Position X="6.75" Y="10.75" Width="5.75" />
+    <InheritanceLine Type="KusDepot.Builders.IToolBuilder" FixedFromPoint="true">
+      <Path>
+        <Point X="17.625" Y="8.305" />
+        <Point X="17.625" Y="10.375" />
+        <Point X="9.625" Y="10.375" />
+        <Point X="9.625" Y="10.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAABAAgAAAAKAAAAAAgAMAAABAA=</HashCode>
+      <FileName>ToolBuilders\ToolAspireHostBuilder\IToolAspireHostBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KusDepot.Builders.IToolHostBuilder">
+    <Position X="0.5" Y="10.75" Width="3.25" />
+    <InheritanceLine Type="KusDepot.Builders.IToolBuilder" FixedFromPoint="true">
+      <Path>
+        <Point X="17.625" Y="8.305" />
+        <Point X="17.625" Y="10.375" />
+        <Point X="2.125" Y="10.375" />
+        <Point X="2.125" Y="10.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="KusDepot.Builders.IToolGenericHostBuilder">
+    <Position X="14.75" Y="10.75" Width="5.75" />
+    <InheritanceLine Type="KusDepot.Builders.IToolBuilder" FixedFromPoint="true">
+      <Path>
+        <Point X="17.625" Y="8.305" />
+        <Point X="17.625" Y="10.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="KusDepot.Builders.IToolWebHostBuilder">
+    <Position X="24" Y="10.75" Width="5.75" />
+    <InheritanceLine Type="KusDepot.Builders.IToolBuilder" FixedFromPoint="true">
+      <Path>
+        <Point X="17.625" Y="8.305" />
+        <Point X="17.625" Y="10.375" />
+        <Point X="26.875" Y="10.375" />
+        <Point X="26.875" Y="10.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="KusDepot.Builders.IToolBuilder">
+    <Position X="13.75" Y="1.75" Width="7.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="KusDepot.Builders.ToolBuilderFactory">
+    <Position X="2.5" Y="3.25" Width="3.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

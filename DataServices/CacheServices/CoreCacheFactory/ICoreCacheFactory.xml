@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICoreCacheFactory>
+
+    <interface name = "ICoreCacheFactory">
+
+        <main>
+
+            <summary>CoreCacheFactory Interface.</summary>
+
+            <remarks>This interface defines the factory contract for creating ICoreCache instances.</remarks>
+
+        </main>
+
+        <method name = "Create">
+
+            <summary>Create an ICoreCache instance.</summary>
+
+            <returns Cref = "ICoreCache">CoreCache service instance.</returns>
+
+        </method>
+
+    </interface>
+
+</ICoreCacheFactory>

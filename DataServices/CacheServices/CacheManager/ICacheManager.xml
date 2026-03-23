@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICacheManager>
+
+    <interface name = "ICacheManager">
+
+        <main>
+
+            <summary>CacheManager Interface.</summary>
+
+            <remarks>This interface defines the operational contract for managing cache entries using the CoreCache service.</remarks>
+
+        </main>
+
+        <method name = "Delete">
+
+            <summary>Delete an Object from the cache.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object deleted successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if an Object exists in the cache.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "Get">
+
+            <summary>Retrieve an Object from the cache.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{String?}">The Object.</returns>
+
+        </method>
+
+        <method name = "Store">
+
+            <summary>Store an Object in the cache.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "it" Cref = "String?">Serialized Object.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object stored successfully.</returns>
+
+        </method>
+
+        <method name = "EnqueueItem">
+
+            <summary>Enqueue an Object for background cache storage.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "it" Cref = "String?">Serialized Object.</param>
+
+            <param name = "dt" Cref = "String?">Data type.</param>
+
+            <param name = "ds" Cref = "String?">Data source.</param>
+
+            <returns />
+
+        </method>
+
+    </interface>
+
+</ICacheManager>

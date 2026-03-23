@@ -1,0 +1,83 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandKey>
+
+    <class name = "CommandKey">
+
+        <main>
+
+            <summary>Command Access Key.</summary>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "CommandKey">New CommandKey.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "key" Cref = "Byte[]">Key.</param>
+
+            <param name = "id" Cref = "Guid?">Key ID.</param>
+
+            <returns Cref = "CommandKey">New CommandKey.</returns>
+
+        </constructor>
+
+        <method name = "Equals">
+
+            <summary>Determine equality.</summary>
+
+            <param name = "other" Cref = "CommandKey?">Other CommandKey.</param>
+
+            <returns Cref = "Boolean">True if CommandKeys are equal.</returns>
+
+        </method>
+
+        <method name = "IParsable{CommandKey}.Parse">
+
+            <summary>Parse CommandKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandKey">Parsed CommandKey.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse CommandKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandKey?">Parsed CommandKey.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse CommandKey.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "key" Cref = "CommandKey">Output CommandKey.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</CommandKey>

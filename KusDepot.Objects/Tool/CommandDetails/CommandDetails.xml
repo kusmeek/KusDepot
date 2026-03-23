@@ -1,0 +1,321 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandDetails>
+
+    <class name = "CommandDetails">
+
+        <main>
+
+            <summary>Details for execution of a Command.</summary>
+
+        </main>
+
+        <field name = "arguments" Cref = "Dictionary{String,Object?}?"><summary>Command Arguments.</summary>
+            <remarks>Names prefixed with exclamation mark (U+0021) are reserved for internal use.</remarks>
+        </field>
+
+        <field name = "handle" Cref = "String?"><summary>Command Handle.</summary></field>
+
+        <field name = "id" Cref = "Guid?"><summary>Command ID.</summary></field>
+
+        <field name = "workflow" Cref = "CommandWorkflow?"><summary>Command Workflow.</summary></field>
+
+        <property name = "Arguments" Cref = "Dictionary{String,Object?}?"><summary>Command Arguments.</summary>
+            <remarks>Names prefixed with exclamation mark (U+0021) are reserved for internal use.</remarks>
+        </property>
+
+        <property name = "MyArguments" Cref = "Dictionary{String,ToolValue?}?"><summary>ToolValue transport for command arguments.</summary></property>
+
+        <property name = "Handle" Cref = "String?"><summary>Command Handle.</summary></property>
+
+        <property name = "ID" Cref = "Guid?"><summary>Command ID.</summary></property>
+
+        <property name = "Workflow" Cref = "CommandWorkflow?"><summary>Command Workflow.</summary></property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "arguments" Cref = "Dictionary{String,Object?}?">Arguments.</param>
+
+            <param name = "handle" Cref = "String?">Handle.</param>
+
+            <param name = "id" Cref = "Guid?">Identifier.</param>
+
+            <param name = "workflow" Cref = "CommandWorkflow?">Workflow.</param>
+
+            <returns Cref = "CommandDetails">New CommandDetails.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Construct CommandDetails.</summary>
+
+            <returns Cref = "CommandDetails">New CommandDetails.</returns>
+
+        </method>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "MakeReady">
+
+            <summary>Checks for empty Handle and sets Arguments[AttachedToolID] to the caller's ID.</summary>
+
+            <param name = "tool" Cref = "ITool">Executing Tool.</param>
+
+            <returns Cref = "Boolean">True if CommandDetails is ready.</returns>
+
+        </method>
+
+        <method name = "GetAccessKey">
+
+            <summary>Get AccessKey.</summary>
+
+            <returns Cref = "AccessKey?">AccessKey.</returns>
+
+        </method>
+
+        <method name = "GetArgument">
+
+            <summary>Get an Argument.</summary>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <returns Cref = "Object?">Argument.</returns>
+
+        </method>
+
+        <method name = "GetArgumentType">
+
+            <summary>Get an Argument.</summary>
+
+            <typeparam name = "TResult">Type of Argument.</typeparam>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <returns Cref = "TResult?">Argument.</returns>
+
+        </method>
+
+        <method name = "GetCancel">
+
+            <summary>Get Cancel token.</summary>
+
+            <returns Cref = "CancellationToken">Configured token or <see cref="CancellationToken.None"/>.</returns>
+
+        </method>
+
+        <method name = "GetLogger">
+
+            <summary>Get Logger.</summary>
+
+            <returns Cref = "ILogger?">Logger.</returns>
+
+        </method>
+
+        <method name = "GetTimeout">
+
+            <summary>Get Timeout.</summary>
+
+            <returns Cref = "TimeSpan?">Configured Timeout.</returns>
+
+        </method>
+
+        <method name = "GetToolCancel">
+
+            <summary>Get the Tool cancellation token for asynchronous execution.</summary>
+
+            <returns Cref = "CancellationToken">The configured Tool cancellation token, or <see cref="CancellationToken.None"/>.</returns>
+
+        </method>
+
+        <method name = "PreserveActivity">
+
+            <summary>Set the PreserveActivity flag for this CommandDetails.</summary>
+
+            <param name = "preserve" Cref = "Boolean">True to preserve activity; false to clean up activity after execution. Default is <see langword="false"/>.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetAccessKey">
+
+            <summary>Set AccessKey.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetArgument">
+
+            <summary>Set an Argument.</summary>
+
+            <param name = "name" Cref = "String?">Argument Name.</param>
+
+            <param name = "argument" Cref = "Object?">Argument Value.</param>
+
+            <param name = "overwrite" Cref = "Boolean">True to overwrite argument.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetAttachedToolID">
+
+            <summary>Set the AttachedToolID argument.</summary>
+
+            <param name = "id" Cref = "Guid">Attached Tool ID.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetCancel">
+
+            <summary>Set Cancel token.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancel token.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetFreeMode">
+
+            <summary>Set the FreeMode flag for this CommandDetails.</summary>
+
+            <param name = "freemode" Cref = "Boolean">True to run the command in free mode; false for default behavior.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetHandle">
+
+            <summary>Set Handle.</summary>
+
+            <param name = "handle" Cref = "String?">Handle.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetID">
+
+            <summary>Set ID.</summary>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetInputStream">
+
+            <summary>Set InputStream argument.</summary>
+
+            <param name = "stream" Cref = "Stream?">Input Stream.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetLogger">
+
+            <summary>Set Logger.</summary>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetTimeout">
+
+            <summary>Set Timeout.</summary>
+
+            <param name = "timeout" Cref = "TimeSpan">Configured timeout.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetToolCancel">
+
+            <summary>Set the Tool cancellation token for asynchronous execution.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token to use for Tool execution.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "SetWorkflow">
+
+            <summary>Set Workflow.</summary>
+
+            <param name = "workflow" Cref = "CommandWorkflow?">Workflow.</param>
+
+            <returns Cref = "CommandDetails">The same CommandDetails instance.</returns>
+
+        </method>
+
+        <method name = "IParsable{CommandDetails}.Parse">
+
+            <summary>Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandDetails">Parsed CommandDetails.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "CommandDetails?">Parsed CommandDetails.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse CommandDetails.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "details" Cref = "CommandDetails">Output CommandDetails.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</CommandDetails>

@@ -1,0 +1,197 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<KeyMaker>
+
+    <class name = "KeyMaker">
+
+        <main>
+
+            <summary>Builder for producing security key instances.</summary>
+
+        </main>
+
+        <field name = "ID" Cref = "Guid?"><summary>Key ID.</summary></field>
+
+        <field name = "Key" Cref = "Byte[]?"><summary>Key material.</summary></field>
+
+        <field name = "Certificate" Cref = "X509Certificate2?"><summary>Certificate material.</summary></field>
+
+        <finalizer name = "Finalizer">
+
+            <summary>Finalizer.</summary>
+
+        </finalizer>
+
+        <method name = "AsClientKey">
+
+            <summary>Create a ClientKey.</summary>
+
+            <returns Cref = "ClientKey?">ClientKey.</returns>            
+
+        </method>
+
+        <method name = "AsCommandKey">
+
+            <summary>Create a CommandKey.</summary>
+
+            <returns Cref = "CommandKey?">CommandKey.</returns>            
+
+        </method>
+
+        <method name = "AsExecutiveKey">
+
+            <summary>Create an ExecutiveKey.</summary>
+
+            <returns Cref = "ExecutiveKey?">ExecutiveKey.</returns>            
+
+        </method>
+
+        <method name = "AsHostKey">
+
+            <summary>Create a HostKey.</summary>
+
+            <returns Cref = "HostKey?">HostKey.</returns>            
+
+        </method>
+
+        <method name = "AsManagerKey">
+
+            <summary>Create a ManagerKey.</summary>
+
+            <returns Cref = "ManagerKey?">ManagerKey.</returns>
+
+        </method>
+
+        <method name = "AsMyHostKey">
+
+            <summary>Create a MyHostKey.</summary>
+
+            <returns Cref = "MyHostKey?">MyHostKey.</returns>
+
+        </method>
+
+        <method name = "AsOwnerKey">
+
+            <summary>Create an OwnerKey.</summary>
+
+            <returns Cref = "OwnerKey?">OwnerKey.</returns>
+
+        </method>
+
+        <method name = "AsServiceKey">
+
+            <summary>Create a ServiceKey.</summary>
+
+            <returns Cref = "ServiceKey?">ServiceKey.</returns>            
+
+        </method>
+
+        <method name = "AsTokenKey">
+
+            <summary>Create a TokenKey.</summary>
+
+            <param name = "type" Cref = "TokenKeyType">Token classification.</param>
+
+            <returns Cref = "TokenKey?">TokenKey.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Factory method.</summary>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "ValidMaterial">
+
+            <summary>Validate current ID and key/certificate material.</summary>
+
+            <param name = "needskey" Cref = "Boolean">True when a key is required.</param>
+
+            <param name = "needscertificate" Cref = "Boolean">True when a certificate is required.</param>
+
+            <returns Cref = "Boolean">True when material is valid.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKey">
+
+            <summary>Set certificate material for owner/manager keys.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKeyName">
+
+            <summary>Lookup certificate in store by subject common name.</summary>
+
+            <param name = "location" Cref = "StoreLocation">Store Location.</param>
+
+            <param name = "store" Cref = "StoreName">Store Name.</param>
+
+            <param name = "name" Cref = "String">Subject Name.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKeyThumb">
+
+            <summary>Lookup certificate in store by thumbprint.</summary>
+
+            <param name = "location" Cref = "StoreLocation">Store Location.</param>
+
+            <param name = "store" Cref = "StoreName">Store Name.</param>
+
+            <param name = "thumbprint" Cref = "String">Thumbprint.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithID">
+
+            <summary>Use ID.</summary>
+
+            <param name = "id" Cref = "Guid">Identifier.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "AutoID">
+
+            <summary>Use a new automatically generated ID.</summary>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithKey">
+
+            <summary>Use key bytes.</summary>
+
+            <param name = "key" Cref = "ReadOnlySpan{Byte}">Key Bytes.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithRandomKey">
+
+            <summary>Use cryptographically strong random key bytes.</summary>
+
+            <param name = "size" Cref = "Int32">Key length in bytes.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+    </class>
+
+</KeyMaker>

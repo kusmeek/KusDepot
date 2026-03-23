@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Metal</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>LAMA0618</NoWarn>
+    
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <MetalamaAllowPreviewLanguageFeatures>True</MetalamaAllowPreviewLanguageFeatures>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Metalama.Framework" />
+
+    </ItemGroup>
+
+</Project>

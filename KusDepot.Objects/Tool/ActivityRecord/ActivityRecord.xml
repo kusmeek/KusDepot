@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ActivityRecord>
+  <class name="ActivityRecord">
+    <main>
+      <summary>A record describing the outcome of an Activity.</summary>
+    </main>
+    <constructor name="Constructor">
+      <summary>Initializes a new instance of the <see cref="ActivityRecord"/> class.</summary>
+      <param name="code">The <see cref="ActivityRecordCode"/> describing the outcome.</param>
+      <param name="message">Additional diagnostic information.</param>
+    </constructor>
+    <property name="Code">
+      <summary>Gets the <see cref="ActivityRecordCode"/> that describes the Activity outcome.</summary>
+    </property>
+    <property name="Message">
+      <summary>Gets an optional diagnostic message associated with the Activity outcome.</summary>
+    </property>
+    <property name="TimeStamp">
+      <summary>Gets the time when the Activity record was created.</summary>
+    </property>
+  </class>
+  <enum name="ActivityRecordCode">
+    <main>
+      <summary>Defines values that describe the outcome of an Activity.</summary>
+    </main>
+    <field name="Canceled">
+      <summary>The Activity was canceled.</summary>
+    </field>
+    <field name="Failed">
+      <summary>The Activity did not complete successfully.</summary>
+    </field>
+    <field name="Faulted">
+      <summary>The Activity encountered an error and was faulted.</summary>
+    </field>
+    <field name="None">
+      <summary>No specific outcome is recorded for the Activity.</summary>
+    </field>
+    <field name="Success">
+      <summary>The Activity completed successfully.</summary>
+    </field>
+    <field name="TimedOut">
+      <summary>The Activity did not complete before the configured timeout elapsed.</summary>
+    </field>
+  </enum>
+</ActivityRecord>

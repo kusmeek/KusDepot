@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DependencyInjection>
+
+    <class name = "DependencyInjection">
+
+        <main>
+
+            <summary>Provides extension methods to register CoreCache-related services.</summary>
+
+            <remarks>Registers the cache queue, background worker, and cache manager required for CoreCache operations.</remarks>
+
+        </main>
+
+        <method name = "AddCacheServices">
+
+            <summary>Register CoreCache cache services with the dependency injection container.</summary>
+
+            <param name = "services" Cref = "IServiceCollection">The service collection to add CoreCache services to.</param>
+
+            <returns Cref = "IServiceCollection">The service collection for chaining.</returns>
+
+        </method>
+
+    </class>
+
+</DependencyInjection>

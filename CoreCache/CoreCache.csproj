@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64</Platforms>
+
+        <OutputType>Exe</OutputType>
+
+        <TargetFramework>net9.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.CoreCache</AssemblyName>
+
+        <IsServiceFabricServiceProject>True</IsServiceFabricServiceProject>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <NoWarn>CA1001;CA1031;CA1724;CA1725;CA1812;CA1849;CA2007;IDE0052</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileTag>kusdepotcorecache</DockerfileTag>
+
+        <ServicePackagePath>PackageRoot</ServicePackagePath>
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <TargetLatestRuntimePatch>False</TargetLatestRuntimePatch>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+        <GenerateRuntimeConfigDevFile>True</GenerateRuntimeConfigDevFile>
+
+        <ServicePackagePrefix>$(MSBuildProjectName)</ServicePackagePrefix>
+
+        <UpdateServiceFabricManifestEnabled>True</UpdateServiceFabricManifestEnabled>
+
+        <FabActUtilWorkingDir>$(BaseIntermediateOutputPath)\FabActUtilTemp</FabActUtilWorkingDir>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Manifest and Settings">
+
+        <Content Include="PackageRoot\Config\Settings.xml" />
+
+        <Content Include="PackageRoot\ServiceManifest.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\.dockerignore" Link=".dockerignore">
+        <DependentUpon>$(DockerDefaultDockerfile)</DependentUpon>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+
+        <PackageReference Include="Microsoft.ServiceFabric.Actors" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
+
+        <PackageReference Include="StackExchange.Redis" />
+
+        <ProjectReference Include="..\KusDepot.Fabrics\KusDepot.Fabrics.csproj" />
+
+    </ItemGroup>
+
+</Project>

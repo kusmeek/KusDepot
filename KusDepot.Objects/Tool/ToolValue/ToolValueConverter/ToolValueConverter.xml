@@ -1,0 +1,222 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueConverter>
+
+    <class name = "ToolValueConverter">
+
+        <main>
+
+            <summary>Converts between runtime objects and ToolValue envelopes.</summary>
+
+        </main>
+
+        <field name = "Sync" Cref = "Lock">
+
+            <summary>Synchronization object for runtime converter registration updates.</summary>
+
+        </field>
+
+        <field name = "DefaultConverterRegistrations" Cref = "ToolValueConverterRegistration[]">
+
+            <summary>Default runtime converter registrations.</summary>
+
+        </field>
+
+        <field name = "ConverterRegistrations" Cref = "Dictionary{String,ToolValueConverterRegistration}">
+
+            <summary>Named runtime converter registrations.</summary>
+
+        </field>
+
+        <field name = "ConverterSnapshot" Cref = "ToolValueConverterRegistration[]">
+
+            <summary>Ordered snapshot used for lock-free conversion reads.</summary>
+
+        </field>
+
+        <method name = "GetConverterRegistrations">
+
+            <summary>Get the ordered runtime converter registrations.</summary>
+
+            <returns Cref = "ToolValueConverterRegistration[]">Ordered registrations.</returns>
+
+        </method>
+
+        <method name = "TryAddConverterRegistrationParts">
+
+            <summary>Try add a named runtime converter registration.</summary>
+
+            <param name = "name" Cref = "String?">Registration name.</param>
+
+            <param name = "order" Cref = "Int32">Runtime converter order.</param>
+
+            <param name = "converter" Cref = "IToolValueConverter?">Converter instance.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryAddConverterRegistration">
+
+            <summary>Try add a named runtime converter registration.</summary>
+
+            <param name = "registration" Cref = "ToolValueConverterRegistration?">Converter registration.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TrySetConverterRegistration">
+
+            <summary>Try add or replace a named runtime converter registration.</summary>
+
+            <param name = "registration" Cref = "ToolValueConverterRegistration?">Converter registration.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryRemoveConverterRegistration">
+
+            <summary>Try remove a named runtime converter registration.</summary>
+
+            <param name = "name" Cref = "String?">Registration name.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "ResetConverterRegistrations">
+
+            <summary>Reset the runtime converter registry to the default registrations.</summary>
+
+        </method>
+
+        <method name = "ToToolValue">
+
+            <summary>Convert Object to ToolValue.</summary>
+
+            <param name = "value" Cref = "Object?">Value.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "ToolValue?">Tool value.</returns>
+
+        </method>
+
+        <method name = "TryToToolValue">
+
+            <summary>Try convert Object to ToolValue.</summary>
+
+            <param name = "value" Cref = "Object?">Value.</param>
+
+            <param name = "result" Cref = "ToolValue?">Tool value.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "FromToolValue">
+
+            <summary>Convert ToolValue to Object.</summary>
+
+            <param name = "value" Cref = "ToolValue?">Tool value.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Object?">Value.</returns>
+
+        </method>
+
+        <method name = "TryFromToolValue">
+
+            <summary>Try convert ToolValue to Object.</summary>
+
+            <param name = "value" Cref = "ToolValue?">Tool value.</param>
+
+            <param name = "result" Cref = "Object?">Value.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "ToToolValues">
+
+            <summary>Convert Object dictionary to ToolValue dictionary.</summary>
+
+            <param name = "values" Cref = "IDictionary{String,Object?}?">Values.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Dictionary{String,ToolValue?}?">Tool values.</returns>
+
+        </method>
+
+        <method name = "TryToToolValues">
+
+            <summary>Try convert Object dictionary to ToolValue dictionary.</summary>
+
+            <param name = "values" Cref = "IDictionary{String,Object?}?">Values.</param>
+
+            <param name = "result" Cref = "Dictionary{String,ToolValue?}?">Tool values.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "FromToolValues">
+
+            <summary>Convert ToolValue dictionary to Object dictionary.</summary>
+
+            <param name = "values" Cref = "IDictionary{String,ToolValue?}?">Tool values.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Dictionary{String,Object?}?">Values.</returns>
+
+        </method>
+
+        <method name = "TryFromToolValues">
+
+            <summary>Try convert ToolValue dictionary to Object dictionary.</summary>
+
+            <param name = "values" Cref = "IDictionary{String,ToolValue?}?">Tool values.</param>
+
+            <param name = "result" Cref = "Dictionary{String,Object?}?">Values.</param>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "EnumerateConverters">
+
+            <summary>Enumerate per-call converters followed by the ordered runtime converter snapshot.</summary>
+
+            <param name = "converters" Cref = "IEnumerable{IToolValueConverter}?">Per-call converters.</param>
+
+            <returns Cref = "IEnumerable{IToolValueConverter}">Ordered converters.</returns>
+
+        </method>
+
+        <method name = "TryBuildOrderedSnapshot">
+
+            <summary>Try build an ordered registration snapshot and reject duplicate runtime orders.</summary>
+
+            <param name = "registrations" Cref = "IEnumerable{ToolValueConverterRegistration}?">Converter registrations.</param>
+
+            <param name = "snapshot" Cref = "ToolValueConverterRegistration[]?">Ordered snapshot.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+    </class>
+
+</ToolValueConverter>

@@ -1,0 +1,70 @@
+namespace KusDepot.Strings;
+
+public static partial class ExceptionStrings
+{
+    #pragma warning disable CS1591
+
+    public const String CheckDataHashFail           = @"CheckDataHash Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String CheckDataHashCoreFail       = @"CheckDataHashCore Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String CreateBinaryItemFail        = @"CreateBinaryItem Failed";
+    public const String CreateCodeItemFail          = @"CreateCodeItem Failed";
+    public const String CreateDataSetItemFail       = @"CreateDataSetItem Failed";
+    public const String CreateGenericItemFail       = @"CreateGenericItem Failed";
+    public const String CreateGuidReferenceItemFail = @"CreateGuidReferenceItem Failed";
+    public const String CreateMSBuildItemFail       = @"CreateMSBuildItem Failed";
+    public const String CreateMultiMediaItemFail    = @"CreateMultiMediaItem Failed";
+    public const String CreateTextItemFail          = @"CreateTextItem Failed";
+    public const String DecryptDataBufferFail       = @"DecryptDataBuffer Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String DecryptDataCoreFail         = @"DecryptDataCore Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String EncryptDataBufferFail       = @"EncryptDataBuffer Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String EncryptDataCoreFail         = @"EncryptDataCore Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetAllKeysFail              = @"GetAllKeys Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetArtistsFail              = @"GetArtists Failed [{@ObjectType}] [{@ToolID}]";
+    public const String GetBitrateFail              = @"GetBitrate Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetContentStreamFail        = @"GetContentStream Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetContentStreamedFail      = @"GetContentStreamed Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetDataContentFail          = @"GetDataContent Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetDataEncryptInfoFail      = @"GetDataEncryptInfo Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetDataEncryptedFail        = @"GetDataEncrypted Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetDataTypeFail             = @"GetDataType Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetDurationFail             = @"GetDuration Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetEncryptedDataFail        = @"GetEncryptedData Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetFramerateFail            = @"GetFramerate Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetLanguageFail             = @"GetLanguage Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetLinksFail                = @"GetLinks Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetNextFail                 = @"GetNext Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetPreviousFail             = @"GetPrevious Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetRequirementsFail         = @"GetRequirements Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetSecureHashesFail         = @"GetSecureHashes Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetSecureSignaturesFail     = @"GetSecureSignatures Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetSequenceFail             = @"GetSequence Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetSourceFail               = @"GetSource Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetTitleFail                = @"GetTitle Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetUndirectedLinksFail      = @"GetUndirectedLinks Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetUseSourceStreamFail      = @"GetUseSourceStream Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String GetYearFail                 = @"GetYear Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetArtistsFail              = @"SetArtists Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetBitrateFail              = @"SetBitrate Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetContentFail              = @"SetContent Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetContentStreamedFail      = @"SetContentStreamed Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetDataTypeFail             = @"SetDataType Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetDurationFail             = @"SetDuration Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetFILEFail                 = @"SetFILE Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetLanguageFail             = @"SetLanguage Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetNextFail                 = @"SetNext Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetPreviousFail             = @"SetPrevious Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetRequirementsFail         = @"SetRequirements Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetSourceFail               = @"SetSource Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetTitleFail                = @"SetTitle Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetUndirectedLinksFail      = @"SetUndirectedLinks Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetUseSourceStreamFail      = @"SetUseSourceStream Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SetYearFail                 = @"SetYear Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String SignDataFail                = @"SignData Failed";
+    public const String UpdateSecureHashFail        = @"UpdateSecureHash Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String UpdateSecureSignatureFail   = @"UpdateSecureSignature Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String VerifyDataCoreFail          = @"VerifyDataCore Failed";
+    public const String VerifyDataFail              = @"VerifyData Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String VerifySecureHashFail        = @"VerifySecureHash Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String VerifySecureSignatureFail   = @"VerifySecureSignature Failed [{@ObjectType}] [{@ObjectID}]";
+    public const String WipeDataInMemoryOnlyFail    = @"WipeDataInMemoryOnly Failed [{@ObjectType}] [{@ObjectID}]";
+}

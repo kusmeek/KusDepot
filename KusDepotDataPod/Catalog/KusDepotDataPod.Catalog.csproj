@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>x64</Platforms>
+
+        <OutputType>Exe</OutputType>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>KusDepotDataPod.Catalog</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA1001;CA1031;CA1812;CA1822;CA1849;CA2007;IDE0052</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <ServerGarbageCollection>True</ServerGarbageCollection>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate" />
+
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+
+        <PackageReference Include="Microsoft.Orleans.Runtime" />
+
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" />
+
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+
+        <PackageReference Include="Scalar.AspNetCore" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Enrichers.ClientInfo" />
+
+        <PackageReference Include="Serilog.Sinks.File" />
+
+        <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
+
+        <ProjectReference Include="..\Shared\KusDepotDataPod.Shared.csproj" />
+
+    </ItemGroup>
+
+</Project>

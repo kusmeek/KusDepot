@@ -1,0 +1,209 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<JsonUtility>
+
+    <class name = "JsonUtility">
+
+        <main>
+
+            <summary>System.Text.Json serialization utility.</summary>
+
+        </main>
+
+        <field name = "Options" Cref = "JsonSerializerOptions">
+
+            <summary>Serializer options used by the utility.</summary>
+
+        </field>
+
+        <method name = "Serialize">
+
+            <summary>Serialize a value to UTF-8 JSON bytes.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "value" Cref = "T">Value to serialize.</param>
+
+            <returns Cref = "Byte[]">UTF-8 JSON bytes.</returns>
+
+        </method>
+
+        <method name = "SerializeType">
+
+            <summary>Serialize a value to UTF-8 JSON bytes using an explicit runtime type.</summary>
+
+            <param name = "value" Cref = "Object">Value to serialize.</param>
+
+            <param name = "inputtype" Cref = "Type">Runtime type to serialize as.</param>
+
+            <returns Cref = "Byte[]">UTF-8 JSON bytes.</returns>
+
+        </method>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize a value from UTF-8 JSON bytes.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">UTF-8 JSON bytes.</param>
+
+            <returns Cref = "T">Deserialized value.</returns>
+
+        </method>
+
+        <method name = "DeserializeType">
+
+            <summary>Deserialize a value from UTF-8 JSON bytes using an explicit runtime type.</summary>
+
+            <param name = "input" Cref = "Byte[]">UTF-8 JSON bytes.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize as.</param>
+
+            <returns Cref = "Object">Deserialized value.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Deserialize a value from a JSON string.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "input" Cref = "String">JSON string.</param>
+
+            <returns Cref = "T">Deserialized value.</returns>
+
+        </method>
+
+        <method name = "ParseType">
+
+            <summary>Deserialize a value from a JSON string using an explicit runtime type.</summary>
+
+            <param name = "input" Cref = "String">JSON string.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize as.</param>
+
+            <returns Cref = "Object">Deserialized value.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize a value to a JSON string.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "value" Cref = "T">Value to serialize.</param>
+
+            <returns Cref = "String">JSON string.</returns>
+
+        </method>
+
+        <method name = "ToStringType">
+
+            <summary>Serialize a value to a JSON string using an explicit runtime type.</summary>
+
+            <param name = "value" Cref = "Object">Value to serialize.</param>
+
+            <param name = "inputtype" Cref = "Type">Runtime type to serialize as.</param>
+
+            <returns Cref = "String">JSON string.</returns>
+
+        </method>
+
+        <method name = "WriteIndented">
+
+            <summary>Serialize a value to an indented JSON string using an explicit runtime type.</summary>
+
+            <param name = "value" Cref = "Object">Value to serialize.</param>
+
+            <param name = "inputtype" Cref = "Type">Runtime type to serialize as.</param>
+
+            <returns Cref = "String">Indented JSON string.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to deserialize a value from a JSON string.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "input" Cref = "String">JSON string.</param>
+
+            <param name = "value" Cref = "T">Deserialized value.</param>
+
+            <returns Cref = "Boolean">True if parsing succeeded.</returns>
+
+        </method>
+
+        <method name = "TryParseType">
+
+            <summary>Try to deserialize a value from a JSON string using an explicit runtime type.</summary>
+
+            <param name = "input" Cref = "String">JSON string.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize as.</param>
+
+            <param name = "value" Cref = "Object">Deserialized value.</param>
+
+            <returns Cref = "Boolean">True if parsing succeeded.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Serialize a value to a file as UTF-8 JSON bytes.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "path" Cref = "String">Destination file path.</param>
+
+            <param name = "value" Cref = "T">Value to serialize.</param>
+
+            <returns Cref = "Boolean">True if the file was written successfully.</returns>
+
+        </method>
+
+        <method name = "ToFileType">
+
+            <summary>Serialize a value to a file as UTF-8 JSON bytes using an explicit runtime type.</summary>
+
+            <param name = "path" Cref = "String">Destination file path.</param>
+
+            <param name = "value" Cref = "Object">Value to serialize.</param>
+
+            <param name = "inputtype" Cref = "Type">Runtime type to serialize as.</param>
+
+            <returns Cref = "Boolean">True if the file was written successfully.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Deserialize a value from a UTF-8 JSON file.</summary>
+
+            <typeparam name = "T">Value type.</typeparam>
+
+            <param name = "path" Cref = "String">Source file path.</param>
+
+            <returns Cref = "T">Deserialized value.</returns>
+
+        </method>
+
+        <method name = "FromFileType">
+
+            <summary>Deserialize a value from a UTF-8 JSON file using an explicit runtime type.</summary>
+
+            <param name = "path" Cref = "String">Source file path.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize as.</param>
+
+            <returns Cref = "Object">Deserialized value.</returns>
+
+        </method>
+
+    </class>
+
+</JsonUtility>

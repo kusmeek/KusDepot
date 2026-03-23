@@ -1,0 +1,337 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolBuilder>
+
+    <interface name = "IToolBuilder">
+
+        <main>
+
+            <summary>ToolBuilder Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolBuilder.</remarks>
+
+        </main>
+
+        <property name = "ToolProperties">
+
+            <summary>ToolBuilder Shared Properties.</summary>
+
+            <returns Cref = "Dictionary{Object,Object}">ToolBuilder Properties.</returns>
+
+        </property>
+
+        <method name = "AutoStart">
+
+            <summary>Start Tool after Build.</summary>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "Build">
+
+            <summary>Build the Tool.</summary>
+
+            <returns Cref = "ITool">Tool.</returns>
+
+        </method>
+
+        <method name = "BuildAsync">
+
+            <summary>Build the Tool Async.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{ITool}">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "BuildGeneric">
+
+            <summary>Build the Tool.</summary>
+
+            <typeparam name = "TTool">A Type of Tool.</typeparam>
+
+            <returns Cref = "ITool">Tool of type specified.</returns>
+
+        </method>
+
+        <method name = "BuildAsyncGeneric">
+
+            <summary>Build the Tool Async.</summary>
+
+            <typeparam name = "TTool">A Type of Tool.</typeparam>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{TTool}">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "ConfigureServices">
+
+            <summary>Configure Hosted Services.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IServiceCollection}">Configuration Action.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "ConfigureTool">
+
+            <summary>Configure Tool.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,ITool}">Configuration Action.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolConfiguration">
+
+            <summary>Configure Tool.Configuration.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IConfigurationBuilder}">Configuration Action.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "EnableAllCommands">
+
+            <summary>Enable all Commands after Build.</summary>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterCommandInstance">
+
+            <summary>Register a Command Instance.</summary>
+
+            <param name = "handle" Cref = "String">Handle.</param>
+
+            <param name = "command" Cref = "ICommand">Command.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="CommandKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterCommandFactory">
+
+            <summary>Register a Command using a factory delegate.</summary>
+
+            <param name = "handle" Cref = "String">Handle.</param>
+
+            <param name = "factory" Cref = "Func{ICommand?}">Factory delegate that creates the command instance.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="CommandKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterCommandGenericType">
+
+            <summary>Register a Command Type.</summary>
+
+            <typeparam name = "TCommand">Command Type.</typeparam>
+
+            <param name = "handle" Cref = "String">Handle.</param>
+
+            <param name = "arguments" Cref = "Object?[]?">Optional constructor arguments for command creation.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="CommandKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterCommandType">
+
+            <summary>Register a Command Type.</summary>
+
+            <param name = "handle" Cref = "String">Handle.</param>
+
+            <param name = "commandtype" Cref = "Type">Command Type.</param>
+
+            <param name = "arguments" Cref = "Object?[]?">Optional constructor arguments for command creation.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="CommandKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterServiceInstance">
+
+            <summary>Register a named <see cref="IHostedService"/> instance.</summary>
+
+            <param name = "name" Cref = "String">Registration name used as the keyed service identifier.</param>
+
+            <param name = "service" Cref = "IHostedService">Hosted service instance.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterServiceFactory">
+
+            <summary>Register a named <see cref="IHostedService"/> using a factory delegate.</summary>
+
+            <param name = "name" Cref = "String">Registration name used as the keyed service identifier.</param>
+
+            <param name = "factory" Cref = "Func{IHostedService?}">Factory delegate that creates the hosted service instance.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterServiceType">
+
+            <summary>Register a named <see cref="IHostedService"/> by <see cref="Type"/>.</summary>
+
+            <param name = "name" Cref = "String">Registration name used as the keyed service identifier.</param>
+
+            <param name = "servicetype" Cref = "Type">A Type assignable to <see cref="IHostedService"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterServiceGenericType">
+
+            <summary>Register a named <see cref="IHostedService"/> by type parameter.</summary>
+
+            <typeparam name = "TService">A Type of <see cref="IHostedService"/>.</typeparam>
+
+            <param name = "name" Cref = "String">Registration name used as the keyed service identifier.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterToolInstance">
+
+            <summary>Register Tool Instance.</summary>
+
+            <param name = "tool" Cref = "ITool">An unlocked and unstarted Tool.</param>
+
+            <param name = "name" Cref = "String?">Optional registration name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="KusDepot.Security.MyHostKey"/>.</param>
+
+        </method>
+
+        <method name = "RegisterToolFactory">
+
+            <summary>Register a Tool using a factory delegate.</summary>
+
+            <param name = "factory" Cref = "Func{ITool?}">Factory delegate that creates the tool instance.</param>
+
+            <param name = "name" Cref = "String?">Optional registration name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="KusDepot.Security.MyHostKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterToolType">
+
+            <summary>Register a Tool by Type.</summary>
+
+            <param name = "tooltype" Cref = "Type">Tool Type.</param>
+
+            <param name = "arguments" Cref = "Object?[]?">Optional constructor arguments for tool creation.</param>
+
+            <param name = "name" Cref = "String?">Optional registration name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="KusDepot.Security.MyHostKey"/>.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "RegisterToolGenericType">
+
+            <summary>Register Tool Type.</summary>
+
+            <typeparam name = "TTool">A Type of Tool.</typeparam>
+
+            <param name = "name" Cref = "String?">Optional registration name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to the issued <see cref="KusDepot.Security.MyHostKey"/>.</param>
+
+        </method>
+
+        <method name = "RegisterToolTypeBulk">
+
+            <summary>Register multiple Tool instances by generated keys.</summary>
+
+            <typeparam name = "TTool">A Type of Tool.</typeparam>
+
+            <param name = "count" Cref = "Int32">Number of registrations to add.</param>
+
+            <param name = "namefactory" Cref = "Func{Int32,String}">Factory that generates a name for each index.</param>
+
+            <param name = "permissionsfactory" Cref = "Func{Int32,ImmutableArray{Int32}?}?">Optional factory that generates a protected-operation set for each index.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "Seal">
+
+            <summary>Lock Permanently.</summary>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "UseAccessManager">
+
+            <summary>Use Access Manager.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager">Access Manager.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "UseAccessManagerOpen">
+
+            <summary>Use Access Manager.</summary>
+
+            <typeparam name = "TAccessManager">Access Manager Type.</typeparam>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "UseLogger">
+
+            <summary>Use Logger.</summary>
+
+            <param name = "logger" Cref = "ILogger">Logger.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+        <method name = "UseServiceProvider">
+
+            <summary>Use an external ServiceProvider for the Tool.</summary>
+
+            <param name = "serviceprovider">The external ServiceProvider to use.</param>
+
+            <returns Cref = "IToolBuilder">ToolBuilder.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolBuilder>

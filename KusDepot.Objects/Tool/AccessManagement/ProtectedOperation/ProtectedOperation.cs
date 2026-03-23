@@ -1,0 +1,85 @@
+﻿namespace KusDepot.Security;
+
+/**<include file='ProtectedOperation.xml' path='ProtectedOperation/class[@name="ProtectedOperation"]/main/*'/>*/
+public static class ProtectedOperation
+{
+    #pragma warning disable CS1591
+    public const Int32 Activate                   = 0;
+    public const Int32 AddActivity                = 1;
+    public const Int32 AddDataItems               = 2;
+    public const Int32 AddHostedService           = 3;
+    public const Int32 AddInput                   = 4;
+    public const Int32 AddInstance                = 5;
+    public const Int32 AddOutput                  = 6;
+    public const Int32 AttachCommand              = 7;
+    public const Int32 ClearMyHostKey             = 8;
+    public const Int32 CreateManagementKey        = 9;
+    public const Int32 CreateOwnerKey             = 10;
+    public const Int32 Deactivate                 = 11;
+    public const Int32 DestroySecrets             = 12;
+    public const Int32 DetachCommand              = 13;
+    public const Int32 DisableAllCommands         = 14;
+    public const Int32 DisableCommand             = 15;
+    public const Int32 Dispose                    = 16;
+    public const Int32 EnableAllCommands          = 17;
+    public const Int32 EnableCommand              = 18;
+    public const Int32 ExecuteCommand             = 19;
+    public const Int32 ExportAccessManagerState   = 20;
+    public const Int32 GenerateAccessKey          = 21;
+    public const Int32 GetAccessManager           = 22;
+    public const Int32 GetActivities              = 23;
+    public const Int32 GetCommand                 = 24;
+    public const Int32 GetCommandDescriptor       = 25;
+    public const Int32 GetCommandDescriptors      = 26;
+    public const Int32 GetCommandHandles          = 27;
+    public const Int32 GetCommands                = 28;
+    public const Int32 GetConfiguration           = 29;
+    public const Int32 GetDataDescriptors         = 30;
+    public const Int32 GetDataItem                = 31;
+    public const Int32 GetDataItems               = 32;
+    public const Int32 GetHostedServiceNames      = 33;
+    public const Int32 GetHostedServices          = 34;
+    public const Int32 GetInput                   = 35;
+    public const Int32 GetInputs                  = 36;
+    public const Int32 GetOutput                  = 37;
+    public const Int32 GetOutputIDs               = 38;
+    public const Int32 GetRemoveOutput            = 39;
+    public const Int32 GetServices                = 40;
+    public const Int32 GetStatus                  = 41;
+    public const Int32 GetToolDescriptor          = 42;
+    public const Int32 GetToolServiceScope        = 43;
+    public const Int32 GetToolServices            = 44;
+    public const Int32 GetWorkingSet              = 45;
+    public const Int32 ImportAccessManagementKeys = 46;
+    public const Int32 Initialize                 = 47;
+    public const Int32 MaskCommandTypes           = 48;
+    public const Int32 MaskHostedServices         = 49;
+    public const Int32 MyExceptions               = 50;
+    public const Int32 RegisterCommand            = 51;
+    public const Int32 RegisterManager            = 52;
+    public const Int32 RemoveActivity             = 53;
+    public const Int32 RemoveDataItem             = 54;
+    public const Int32 RemoveHostedService        = 55;
+    public const Int32 RemoveOutput               = 56;
+    public const Int32 RemoveStatus               = 57;
+    public const Int32 SetID                      = 58;
+    public const Int32 SetMyHostKey               = 59;
+    public const Int32 SetStatus                  = 60;
+    public const Int32 StartAsync                 = 61;
+    public const Int32 StartedAsync               = 62;
+    public const Int32 StartingAsync              = 63;
+    public const Int32 StartHostAsync             = 64;
+    public const Int32 StopAsync                  = 65;
+    public const Int32 StoppedAsync               = 66;
+    public const Int32 StoppingAsync              = 67;
+    public const Int32 StopHostAsync              = 68;
+    public const Int32 ToStringOp                 = 69;
+    public const Int32 UnMaskCommandTypes         = 70;
+    public const Int32 UnMaskHostedServices       = 71;
+    public const Int32 UnRegisterCommand          = 72;
+    public const Int32 UnRegisterManager          = 73;
+    public const Int32 UpdateInputs               = 74;
+
+    public const Int32 ToolReserveStart           = 0;
+    public const Int32 ToolReserveEnd             = 255;
+}

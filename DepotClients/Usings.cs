@@ -1,0 +1,18 @@
+﻿global using KusDepot.Data.Models;
+global using KusDepot.Logging;
+global using KusDepot.Services;
+global using RestSharp;
+global using RestSharp.Authenticators;
+global using System;
+global using System.IO;
+global using System.Linq;
+global using System.Net.Http;
+global using System.Net.Http.Headers;
+global using System.Security.Cryptography;
+global using System.Security.Cryptography.X509Certificates;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using static KusDepot.Data.Clients.CatalogClientStrings;
+global using static KusDepot.Data.Clients.DataControlClientStrings;
+global using static KusDepot.Utilities.Utility;
+global using static KusDepot.Settings;

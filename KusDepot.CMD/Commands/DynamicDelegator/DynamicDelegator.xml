@@ -1,0 +1,53 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DynamicDelegator>
+
+    <class name = "DynamicDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a function <see cref="CommandExecutor"/>.</summary>
+
+        </main>
+
+        <property name = "CommandExecutor">
+
+            <summary>Command Execution Function.</summary>
+
+            <returns Cref = "Func{ITool,Activity,AccessKey,ValueTask{Activity?}}">Dynamic awaitable function.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,ValueTask{Activity?}}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorSync">
+
+            <summary>Constructor.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,Activity?}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorTask">
+
+            <summary>Constructor.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,Task{Activity?}}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</DynamicDelegator>

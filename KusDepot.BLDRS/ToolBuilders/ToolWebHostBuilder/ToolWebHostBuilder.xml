@@ -1,0 +1,51 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolWebHostBuilder>
+
+    <class name = "ToolWebHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Web Tools.</summary>
+
+        </main>
+
+        <field name = "ConfigureWebApplicationActions" Cref = "List{Action{WebApplication}}">
+
+            <summary>WebApplication Configuration Actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolWebHostActions" Cref = "List{Action{ToolBuilderContext,IToolWebHost}}">
+
+            <summary>ToolWebHost Configuration Actions.</summary>
+
+        </field>
+
+        <method name = "configurewebapplication">
+
+            <summary>Execute WebApplication Configuration Actions.</summary>
+
+            <param name = "webapplication" Cref = "WebApplication">Built WebApplication.</param>
+
+        </method>
+
+        <method name = "configuretoolwebhost">
+
+            <summary>Execute Tool Web Host Configuration Actions.</summary>
+
+            <param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+        </method>
+
+        <method name = "ConfigureToolWebHost_NoSync">
+
+            <summary>Add a tool web host configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolWebHost}">Configuration action.</param>
+
+        </method>
+
+    </class>
+
+</ToolWebHostBuilder>

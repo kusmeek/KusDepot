@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ToolValueGenericDataContractConverter>
+
+    <class name = "ToolValueGenericDataContractConverter">
+
+        <main>
+
+            <summary>Generic DataContract converter.</summary>
+
+        </main>
+
+        <method name = "IsSupportedType">
+
+            <summary>Determines whether a runtime type is supported.</summary>
+
+        </method>
+
+    </class>
+
+</ToolValueGenericDataContractConverter>

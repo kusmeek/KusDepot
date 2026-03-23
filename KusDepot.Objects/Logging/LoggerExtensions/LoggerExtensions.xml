@@ -1,0 +1,367 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LoggerExtensions>
+
+  <class name = "LoggerExtensions">
+
+    <main>
+
+      <summary>Extension methods for <see cref="Microsoft.Extensions.Logging.ILogger"/>.</summary>
+
+    </main>
+
+    <method name = "Critical_Id_Ex">
+
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Critical_Id">
+
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Critical_Ex">
+
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Critical">
+
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Debug_Id_Ex">
+
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Debug_Id">
+
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Debug_Ex">
+
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Debug">
+
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Error_Id_Ex">
+
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Error_Id">
+
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Error_Ex">
+
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Error">
+
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Fatal_Id_Ex">
+
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Fatal_Id">
+
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Fatal_Ex">
+
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Fatal">
+
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Information_Id_Ex">
+
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Information_Id">
+
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Information_Ex">
+
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Information">
+
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Trace_Id_Ex">
+
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Trace_Id">
+
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Trace_Ex">
+
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Trace">
+
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Verbose_Id_Ex">
+
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Verbose_Id">
+
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Verbose_Ex">
+
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Verbose">
+
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Warning_Id_Ex">
+
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>) with an <see cref="EventId"/> and an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Warning_Id">
+
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>) with an <see cref="EventId"/>.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "eventid" Cref = "EventId">Event identifier.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Warning_Ex">
+
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>) with an exception.</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "exception" Cref = "Exception">Exception to attach.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+    <method name = "Warning">
+
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>).</summary>
+
+      <param name = "logger" Cref = "Microsoft.Extensions.Logging.ILogger">Logger instance.</param>
+      <param name = "message" Cref = "String">Log message template.</param>
+      <param name = "args" Cref = "Object[]">Template argument values.</param>
+
+    </method>
+
+  </class>
+
+</LoggerExtensions>

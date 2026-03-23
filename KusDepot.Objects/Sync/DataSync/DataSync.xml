@@ -1,0 +1,23 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataSync>
+
+    <class name = "DataSync">
+
+        <main>
+
+            <summary>DataSync.</summary>
+
+            <remarks>Synchronization object for the object's public properties.</remarks>
+
+        </main>
+
+        <field name = "Data" Cref = "SemaphoreSlim">
+
+            <summary>Data Sync Object.</summary>
+
+        </field>
+
+    </class>
+
+</DataSync>

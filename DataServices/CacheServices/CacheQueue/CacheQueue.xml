@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CacheQueue>
+
+    <class name = "CacheQueue">
+
+        <main>
+
+            <summary>Provides a channel-based queue for cache item requests.</summary>
+
+            <remarks>Used by CacheManager and CacheWorker to coordinate background cache write operations.</remarks>
+
+        </main>
+
+        <property name = "ItemChannel">
+
+            <summary>Channel that transports CacheItemRequest messages.</summary>
+
+            <returns Cref = "Channel{CacheItemRequest}">The channel for cache item requests.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new CacheQueue with an unbounded channel.</summary>
+
+        </constructor>
+
+    </class>
+
+</CacheQueue>

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>DataServices</AssemblyName>
+
+        <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+      <Content Include="StorageSilo\StorageSilo.xml" />
+
+      <Content Include="TraceUtility\TraceUtility.xml" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Azure.Storage.Blobs" />
+
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+
+        <PackageReference Include="Microsoft.Orleans.Core.Abstractions" />
+
+        <PackageReference Include="Polly" />
+
+        <PackageReference Include="Serilog" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="KusDepot.Data.ICoreCache">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAAAQEAAAA=</HashCode>
+      <FileName>ServiceInterfaces\CoreCache\ICoreCache.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KusDepot.Data.IDataConfigs">
+    <Position X="5.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAgCAACAAA=</HashCode>
+      <FileName>ServiceInterfaces\DataConfigs\IDataConfigs.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KusDepot.Data.ICatalogDB">
+    <Position X="1.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAABAAACAAAAAABAAAIAAAAAAoAAAAAAEGCAA=</HashCode>
+      <FileName>ServiceInterfaces\CatalogDB\ICatalogDB.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

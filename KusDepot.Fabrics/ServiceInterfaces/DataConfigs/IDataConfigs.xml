@@ -1,0 +1,79 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataConfigs>
+
+    <interface name = "IDataConfigs">
+
+        <main>
+
+            <summary>The DataConfigs service manages StorageSilos and determines which a user may access.</summary>
+
+            <remarks>Tokens are obtained from Azure Enterprise Catalog Applications and should have a .Read or .Write role.</remarks>
+
+        </main>
+
+        <method name = "GetAuthorizedReadSilo">
+
+            <summary>Determines which Catalog user token may Read from.</summary>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{StorageSilo?}">StorageSilo for which token possesses a .Read role.</returns>
+
+        </method>
+
+        <method name = "GetAuthorizedWriteSilo">
+
+            <summary>Determines which Catalog user token may Write to.</summary>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{StorageSilo?}">StorageSilo for which token possesses a .Write role.</returns>
+
+        </method>
+
+        <method name = "GetStorageSilos">
+
+            <summary>Retrieves all StorageSilos.</summary>
+
+            <remarks>Caller must be System Admin. See Secure service.</remarks>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{HashSet{StorageSilo}?}">All StorageSilos.</returns>
+
+        </method>
+
+        <method name = "SetStorageSilos">
+
+            <summary>Replace all StorageSilos. Token must have Admin.All role.</summary>
+
+            <remarks>Caller must be System Admin. See Secure service.</remarks>
+
+            <param name = "silos" Cref = "Task{HashSet{StorageSilo}?}">StorageSilos.</param>
+
+            <param name = "token" Cref = "String">Authorization Token.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if all StorageSilos set successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</IDataConfigs>

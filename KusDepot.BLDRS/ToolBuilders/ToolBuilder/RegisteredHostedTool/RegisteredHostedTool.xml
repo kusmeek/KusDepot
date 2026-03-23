@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<RegisteredHostedTool>
+
+    <record name = "RegisteredHostedTool">
+
+        <main>
+
+            <summary>Hosted Tool registration.</summary>
+
+        </main>
+
+        <property name = "Tool" Cref = "ITool">
+
+            <summary>Hosted Tool instance.</summary>
+
+        </property>
+
+        <property name = "Name" Cref = "String?">
+
+            <summary>Optional hosted Tool registration name.</summary>
+
+        </property>
+
+        <property name = "Permissions" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Optional protected-operation set granted to the issued <see cref="KusDepot.Security.MyHostKey"/>.</summary>
+
+        </property>
+
+    </record>
+
+</RegisteredHostedTool>

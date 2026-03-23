@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDaprSupervisor>
+
+    <interface name = "IDaprSupervisor">
+
+        <main>
+
+            <summary>Dapr Supervisor Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Dapr Supervisor .</remarks>
+
+        </main>
+
+    </interface>
+
+</IDaprSupervisor>

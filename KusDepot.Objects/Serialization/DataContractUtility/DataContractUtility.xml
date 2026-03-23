@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataContractUtility>
+
+    <class name = "DataContractUtility">
+
+        <main>
+
+            <summary>DataContractSerializer utility methods.</summary>
+
+        </main>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize an Object from a Byte Array.</summary>
+
+            <typeparam name = "TResult">Type to Deserialize.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Input to Deserialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Serialization Data.</param>
+
+            <returns Cref = "TResult?">Deserialized Object.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Read an instance from the given file using DataContractSerializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "path" Cref = "String">Path to the file to read.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "TResult?">Instance of TResult if the file exists and deserialization succeeds; otherwise default.</returns>
+
+        </method>
+
+        <method name = "ParseBase64">
+
+            <summary>Deserialize an instance from a Base64-encoded binary XML string.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "String">Base64-encoded binary XML string.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "TResult?">Instance of TResult if parsing succeeds; otherwise null.</returns>
+
+        </method>
+
+        <method name = "ParseBase64Type">
+
+            <summary>Deserialize an instance from a Base64-encoded binary XML string using a runtime Type value.</summary>
+
+            <param name = "input" Cref = "String">Base64-encoded binary XML string.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "Object?">Instance of the requested runtime type if parsing succeeds; otherwise null.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize an instance to a binary buffer using the same DataContractSerializer configuration used by ToBase64String.</summary>
+
+            <param name = "instance" Cref = "Object">The object instance to serialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "Byte[]">Binary buffer representing the serialized instance.</returns>
+
+        </method>
+
+        <method name = "ToBase64String">
+
+            <summary>Serialize an instance to a Base64-encoded binary XML string using DataContractSerializer.</summary>
+
+            <param name = "instance" Cref = "Object">The object instance to serialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "String">Base64-encoded binary XML representation of the instance.</returns>
+
+            <remarks>The concrete runtime type of instance is used when constructing the underlying DataContractSerializer.</remarks>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write the specified instance to the given file using DataContractSerializer.</summary>
+
+            <param name = "path" Cref = "String">Destination file path.</param>
+
+            <param name = "instance" Cref = "Object">Object instance to serialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <returns Cref = "Boolean">True if the file was created and written successfully; false if the file already exists or an error occurred.</returns>
+
+        </method>
+
+        <method name = "TryParseBase64">
+
+            <summary>Attempt to deserialize an instance from a Base64-encoded binary XML string.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "String">Base64-encoded binary XML string.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <param name = "result" Cref = "TResult?">Deserialized instance if the operation succeeds; otherwise null.</param>
+
+            <returns Cref = "Boolean">True if parsing succeeded; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryParseBase64Type">
+
+            <summary>Attempt to deserialize an instance from a Base64-encoded binary XML string using a runtime Type value.</summary>
+
+            <param name = "input" Cref = "String">Base64-encoded binary XML string.</param>
+
+            <param name = "outputtype" Cref = "Type">Runtime type to deserialize.</param>
+
+            <param name = "data" Cref = "SerializationData">Context controlling logging and exception behavior.</param>
+
+            <param name = "result" Cref = "Object?">Deserialized instance if the operation succeeds; otherwise null.</param>
+
+            <returns Cref = "Boolean">True if parsing succeeded; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</DataContractUtility>

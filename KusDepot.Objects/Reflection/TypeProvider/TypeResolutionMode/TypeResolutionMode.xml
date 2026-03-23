@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TypeResolutionMode>
+
+    <enum name = "TypeResolutionMode">
+
+        <main>
+
+            <summary>Controls how <see cref="KusDepot.Reflection.TypeProvider"/> resolves runtime types.</summary>
+
+        </main>
+
+        <field name = "Hybrid">
+
+            <summary>Resolve matching types available in the default load context before isolated or supplied context resolution with configured sources.</summary>
+
+        </field>
+
+        <field name = "Isolated">
+
+            <summary>Resolve using only the isolated or supplied context and configured sources.</summary>
+
+        </field>
+
+    </enum>
+
+</TypeResolutionMode>

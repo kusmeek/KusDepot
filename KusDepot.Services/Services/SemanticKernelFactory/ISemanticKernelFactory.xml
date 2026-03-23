@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ISemanticKernelFactory>
+
+    <interface name = "ISemanticKernelFactory">
+
+        <main>
+
+            <summary>Semantic Kernel Factory Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Semantic Kernel Factory.</remarks>
+
+        </main>
+
+    </interface>
+
+</ISemanticKernelFactory>

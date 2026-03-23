@@ -1,0 +1,73 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICoreCache>
+
+    <interface name = "ICoreCache">
+
+        <main>
+
+            <summary>The CoreCache service stores recently accessed or stored data.</summary>
+
+        </main>
+
+        <method name = "Delete">
+
+            <summary>Deletes an Object.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object deleted successfully.</returns>
+
+        </method>
+
+        <method name = "Exists">
+
+            <summary>Determine if Object exists.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean?}">True if Object exists.</returns>
+
+        </method>
+
+        <method name = "Get">
+
+            <summary>Retrieve Object.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{String?}">The Object.</returns>
+
+        </method>
+
+        <method name = "Store">
+
+            <summary>Store an Object.</summary>
+
+            <param name = "id" Cref = "String?">Object ID.</param>
+
+            <param name = "it" Cref = "Byte[]?">Serialized Object.</param>
+
+            <param name = "traceid" Cref = "String?">Diagnostic Trace ID.</param>
+
+            <param name = "spanid" Cref = "String?">Diagnostic Span ID.</param>
+
+            <returns Cref = "Task{Boolean}">True if Object stored successfully.</returns>
+
+        </method>
+
+    </interface>
+
+</ICoreCache>

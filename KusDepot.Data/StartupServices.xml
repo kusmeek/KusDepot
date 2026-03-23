@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StartupServicesManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="Catalog_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="CatalogDBActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CatalogDBActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="CatalogDBActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="CoreCacheActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="CoreCacheActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CoreCacheActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataConfigsActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="DataConfigsActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataConfigsActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="DataControl_InstanceCount" DefaultValue="-1" />
+  </Parameters>
+  <Services>
+    <Service Name="Catalog" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="CatalogType" InstanceCount="[Catalog_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="CatalogDBActorService" GeneratedIdRef="2b96f415-8786-4858-b0e2-2459e848b85d|None">
+      <StatefulService ServiceTypeName="CatalogDBActorServiceType" TargetReplicaSetSize="[CatalogDBActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CatalogDBActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CatalogDBActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="CoreCacheActorService" GeneratedIdRef="890f11a8-866b-4450-b3ec-9721f5a4a094|Persisted" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="CoreCacheActorServiceType" TargetReplicaSetSize="[CoreCacheActorService_TargetReplicaSetSize]" MinReplicaSetSize="[CoreCacheActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CoreCacheActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="DataConfigsActorService" GeneratedIdRef="78eea333-c807-46a8-ab91-50246c3fc092|Persisted" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="DataConfigsActorServiceType" TargetReplicaSetSize="[DataConfigsActorService_TargetReplicaSetSize]" MinReplicaSetSize="[DataConfigsActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[DataConfigsActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="DataControl" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="DataControlType" InstanceCount="[DataControl_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+  </Services>
+</StartupServicesManifest>

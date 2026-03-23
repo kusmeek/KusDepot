@@ -1,0 +1,139 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CacheWorker>
+
+    <class name = "CacheWorker">
+
+        <main>
+
+            <summary>Background worker that processes queued cache item requests.</summary>
+
+            <remarks>Reads CacheItemRequest messages from CacheQueue and writes them to CoreCache with retry and backoff policies.</remarks>
+
+        </main>
+
+        <field name = "CoreCache">
+
+            <summary>CoreCache service instance used for cache operations.</summary>
+
+            <returns Cref = "ICoreCache?">The CoreCache instance or null if not yet resolved.</returns>
+
+        </field>
+
+        <field name = "Queue">
+
+            <summary>Queue that supplies cache item requests.</summary>
+
+            <returns Cref = "CacheQueue">The cache request queue.</returns>
+
+        </field>
+
+        <field name = "Options">
+
+            <summary>Configuration options controlling worker behavior.</summary>
+
+            <returns Cref = "CacheWorkerOptions">Worker configuration.</returns>
+
+        </field>
+
+        <field name = "CoreCacheFactory">
+
+            <summary>Factory used to create CoreCache instances.</summary>
+
+            <returns Cref = "ICoreCacheFactory">CoreCache factory.</returns>
+
+        </field>
+
+        <field name = "ProcessPolicy">
+
+            <summary>Retry policy applied to cache write operations.</summary>
+
+            <returns Cref = "AsyncRetryPolicy{Boolean}">Asynchronous retry policy.</returns>
+
+        </field>
+
+        <field name = "ItemBlock">
+
+            <summary>Action block that processes CacheItemRequest messages concurrently.</summary>
+
+            <returns Cref = "ActionBlock{CacheItemRequest}">Processing block.</returns>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new CacheWorker instance.</summary>
+
+            <param name = "corecachefactory" Cref = "ICoreCacheFactory">Factory used to create CoreCache instances.</param>
+
+            <param name = "queue" Cref = "CacheQueue">Queue providing cache item requests.</param>
+
+            <param name = "options" Cref = "IOptions{CacheWorkerOptions}">Worker configuration options.</param>
+
+        </constructor>
+
+        <method name = "ReadItemChannelAsync">
+
+            <summary>Continuously reads cache item requests from the queue and forwards them to the action block.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token that stops reading from the channel.</param>
+
+            <returns Cref = "Task">Task representing the channel read loop.</returns>
+
+        </method>
+
+        <method name = "ProcessItemRequestAsync">
+
+            <summary>Process a single CacheItemRequest.</summary>
+
+            <param name = "request" Cref = "CacheItemRequest">Cache item request to process.</param>
+
+            <returns Cref = "Task">Task representing the processing operation.</returns>
+
+        </method>
+
+        <method name = "ExecuteItemCoreCacheAsync">
+
+            <summary>Execute a cache write operation against CoreCache with timeout and retry.</summary>
+
+            <param name = "id" Cref = "String?">Identifier of the cache entry.</param>
+
+            <param name = "request" Cref = "CacheItemRequest">Cache item request containing data and diagnostics.</param>
+
+            <returns Cref = "Task{Boolean}">True if the operation completed without throwing inside the retry policy.</returns>
+
+        </method>
+
+        <method name = "GetRandomDelay">
+
+            <summary>Compute a random delay between the configured jitter bounds.</summary>
+
+            <returns Cref = "TimeSpan">Random delay value.</returns>
+
+        </method>
+
+        <method name = "ResolveCoreCache">
+
+            <summary>Resolve the CoreCache instance from the factory if it has not yet been created.</summary>
+
+        </method>
+
+        <field name = "CacheProcessFail">
+
+            <summary>Log message used when cache processing fails.</summary>
+
+            <returns Cref = "String">Error message text.</returns>
+
+        </field>
+
+        <field name = "ResolveCacheFail">
+
+            <summary>Log message used when CoreCache resolution fails.</summary>
+
+            <returns Cref = "String">Error message text.</returns>
+
+        </field>
+
+    </class>
+
+</CacheWorker>
