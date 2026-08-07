@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerSnapshot>
+
+    <class name = "AccessManagerSnapshot">
+
+        <main>
+
+            <summary>Filtered snapshot of an <see cref="AccessManager"/>.</summary>
+
+            <remarks>
+                <para>The snapshot contains the current tool manifest identity and zero or more resolved membership-entry groups keyed by subject.</para>
+            </remarks>
+
+        </main>
+
+        <field name = "accesskeys" Cref = "Dictionary{String,ImmutableArray{AccessManagerSnapshotEntry}}?">
+
+            <summary>Backing store for grouped resolved membership entries.</summary>
+
+        </field>
+
+        <property name = "AccessKeys" Cref = "Dictionary{String,ImmutableArray{AccessManagerSnapshotEntry}}?">
+
+            <summary>resolved membership entries grouped by subject.</summary>
+
+        </property>
+
+        <field name = "toolmanifestidentity" Cref = "ToolManifestIdentity?">
+
+            <summary>Backing store for the current tool manifest identity.</summary>
+
+        </field>
+
+        <property name = "ToolManifestIdentity" Cref = "ToolManifestIdentity?">
+
+            <summary>Current tool manifest identity captured with the snapshot.</summary>
+
+        </property>
+
+    </class>
+
+</AccessManagerSnapshot>

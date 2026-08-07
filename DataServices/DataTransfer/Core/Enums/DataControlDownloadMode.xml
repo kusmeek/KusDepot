@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlDownloadMode>
+
+	<enum name = "DataControlDownloadMode">
+		<main><summary>Client download mode used by the DataControl client helpers.</summary></main>
+		<value name = "Committed"><summary>Open a committed finite read session over published content.</summary></value>
+		<value name = "StagedFollow"><summary>Open a finite staged follower read session over a source segmented upload session.</summary></value>
+		<value name = "StreamFollow"><summary>Open a stream follower read session over a source stream transfer session.</summary></value>
+	</enum>
+
+</DataControlDownloadMode>

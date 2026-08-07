@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IMessagingComponent>
+
+    <interface name = "IMessagingComponent">
+
+        <main>
+
+            <summary>Messaging Component Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Messaging Component (Aggregator, Channel Adapter, Dynamic Router, Kafka / Service Bus Message Gateway, Service Activator, Process Manager). Channels bind to command handles.</remarks>
+
+        </main>
+
+    </interface>
+
+</IMessagingComponent>

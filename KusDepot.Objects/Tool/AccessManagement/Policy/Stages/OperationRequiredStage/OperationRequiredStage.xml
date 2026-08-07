@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OperationRequiredStage>
+
+    <class name = "OperationRequiredStage">
+
+        <main>
+
+            <summary>Operation-required access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when a protected operation is required but missing from the supplied policy context.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "OperationRequiredStage">
+
+            <summary>Singleton operation-required stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an operation-required access-policy stage.</summary>
+
+            <returns Cref = "OperationRequiredStage">Operation-required access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether a protected operation is present in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the protected operation is missing; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether a protected operation is present in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the protected operation is missing; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</OperationRequiredStage>

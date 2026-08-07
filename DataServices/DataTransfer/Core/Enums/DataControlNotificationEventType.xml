@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlNotificationEventType>
+
+	<enum name = "DataControlNotificationEventType">
+		<main><summary>Notification event type emitted by DataControl publishers to wake follow and resume workflows.</summary></main>
+		<value name = "DataAppended"><summary>New stream bytes became durably available for a followed transfer session.</summary></value>
+		<value name = "DataRealized"><summary>New segmented or staged-follow content became durably realized for a followed transfer session.</summary></value>
+		<value name = "TransferCompleted"><summary>The source transfer reached complete state and can wake followers to finish draining or transition their local state.</summary></value>
+		<value name = "TransferCommitted"><summary>The source transfer committed its final item state and can wake followers to reconcile and materialize the committed result.</summary></value>
+		<value name = "TransferAborted"><summary>The source transfer aborted and can wake followers to stop waiting and reconcile terminal state.</summary></value>
+	</enum>
+
+</DataControlNotificationEventType>

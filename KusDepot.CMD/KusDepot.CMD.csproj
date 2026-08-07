@@ -1,0 +1,105 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>KusDepot.Commands</AssemblyName>
+
+        <TargetFrameworks>net10.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CA2208;CS8002;IDE0270</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+      <Content Include="Commands\ConsoleDelegators\BinaryConsoleDelegator\BinaryConsoleDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\BinaryConsoleDelegator\BinaryCommandObserver\BinaryCommandObserver.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\CommandResults\BinaryCommandResult\BinaryCommandResult.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\BinaryConsoleDelegator\BinaryCommandRunner\BinaryCommandRunner.xml" Pack="false" />
+
+      <Content Include="Commands\CommandDelegator\CommandDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\ConsoleDelegator\ConsoleDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\ConsoleDelegator\ConsoleCommandObserver\ConsoleCommandObserver.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\ConsoleDelegator\ConsoleCommandObserver\ConsoleCommandObserverAdapter.xml" Pack="false" />
+
+      <Content Include="Commands\ConsoleDelegators\CommandDetailsExtensions\CommandDetailsExtensions.xml" Pack="false" />
+
+      <Content Include="Commands\DynamicDelegator\DynamicDelegator.xml" Pack="false" />
+
+      <Content Include="Commands\ToolDelegator\ToolDelegator.xml" Pack="false" />
+
+      <Content Include="ObjectStrings\ObjectStrings.xml" Pack="false" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="CliWrap" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="NuGet">
+
+        <Authors>KusDepot Solutions</Authors>
+
+        <ContentTargetFolders>\</ContentTargetFolders>
+
+        <Copyright>Copyright © 2026 KusDepot Solutions LLC</Copyright>
+
+        <Description>Basic Commands.</Description>
+
+        <IncludeContentInPack>True</IncludeContentInPack>
+
+        <IsPackable>True</IsPackable>
+
+        <PackageIcon>gfxico.png</PackageIcon>
+
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+
+        <PackageId>KusDepot.Commands</PackageId>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+        <PackageTags>KusDepot</PackageTags>
+
+        <PackageVersion>0.0.11-pre</PackageVersion>
+
+        <Title>KusDepot</Title>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Readme">
+
+        <None Include="Readme.md" Pack="true" PackagePath="\" />
+
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+
+    </ItemGroup>
+
+</Project>

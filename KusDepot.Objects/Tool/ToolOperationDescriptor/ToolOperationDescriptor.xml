@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolOperationDescriptor>
+
+    <record name = "ToolOperationDescriptor">
+
+        <main>
+
+            <summary>Tool Operation Descriptor.</summary>
+
+            <remarks>An immutable record describing one manifest-scoped tool operation.</remarks>
+
+        </main>
+
+        <property name = "Index" Cref = "Int32"><summary>Manifest-local operation index.</summary></property>
+
+        <property name = "MethodName" Cref = "String?"><summary>Tool method name associated with the operation index.</summary></property>
+
+        <property name = "Description" Cref = "String?"><summary>Operation description.</summary></property>
+
+        <method name = "Equals">
+
+            <summary>Determine whether this instance references the same ToolOperationDescriptor.</summary>
+
+            <param name = "other" Cref = "ToolOperationDescriptor?">Other ToolOperationDescriptor.</param>
+
+            <returns Cref = "Boolean">True if both references point to the same instance.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ToolOperationDescriptor.</summary>
+
+            <param name = "input" Cref = "String?">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "ToolOperationDescriptor">Output ToolOperationDescriptor.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "IParsable{ToolOperationDescriptor}.Parse">
+
+            <summary>Parse ToolOperationDescriptor.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ToolOperationDescriptor">Parsed ToolOperationDescriptor.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ToolOperationDescriptor.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "ToolOperationDescriptor?">Parsed ToolOperationDescriptor.</returns>
+
+        </method>
+
+    </record>
+
+</ToolOperationDescriptor>

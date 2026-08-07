@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ISecurityIdentityProvider>
+
+	<interface name = "ISecurityIdentityProvider">
+
+		<main>
+
+			<summary>Provides the effective local and signing identities for an object.</summary>
+
+		</main>
+
+		<method name = "TryGetLocalIdentity">
+
+			<summary>Attempt to get the effective local identity an object.</summary>
+
+			<param name = "identity" Cref = "DataSecurityObject">Resolved local identity when successful.</param>
+
+			<returns Cref = "Boolean">True when the local identity is available; otherwise false.</returns>
+
+		</method>
+
+		<method name = "TryGetSigningIdentity">
+
+			<summary>Attempt to get the effective signing identity an object.</summary>
+
+			<param name = "identity" Cref = "DataSecurityObject">Resolved signing identity when successful.</param>
+
+			<returns Cref = "Boolean">True when the signing identity is available; otherwise false.</returns>
+
+		</method>
+
+	</interface>
+
+</ISecurityIdentityProvider>

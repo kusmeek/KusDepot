@@ -1,0 +1,59 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LifeCycleState>
+
+    <enum name = "LifeCycleState">
+
+        <main>
+
+            <summary>Tool Lifecycle Status.</summary>
+
+            <remarks>IHostedLifecycleService.</remarks>
+
+        </main>
+
+        <value name = "Active">
+
+            <summary>The Tool has successfully started and is Active.</summary>
+
+        </value>
+
+        <value name = "InActive">
+
+            <summary>The Tool has successfully stopped and is InActive.</summary>
+
+        </value>
+
+        <value name = "Initialized">
+
+            <summary>The Tool has been Initialized.</summary>
+
+        </value>
+
+        <value name = "Error">
+
+            <summary>The lifecycle has been broken.</summary>
+
+        </value>
+
+        <value name = "Starting">
+
+            <summary>The Tool is Starting up.</summary>
+
+        </value>
+
+        <value name = "Stopping">
+
+            <summary>The Tool is Stopping.</summary>
+
+        </value>
+
+        <value name = "UnInitialized">
+
+            <summary>The Tool is UnInitialized.</summary>
+
+        </value>
+
+    </enum>
+
+</LifeCycleState>

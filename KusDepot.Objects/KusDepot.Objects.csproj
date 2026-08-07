@@ -1,0 +1,666 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup Label="Main">
+        <AssemblyName>KusDepot.Objects</AssemblyName>
+        <OutputType>Library</OutputType>
+        <TargetFrameworks>net10.0</TargetFrameworks>
+    </PropertyGroup>
+    <PropertyGroup Label="Analysis">
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+        <NoWarn>CA1001;CA1002;CA1024;CA1030;CA1031;CA1036;CA1051;CA1065;CA1068;CA1710;CA1711;CA1716;CA1720;CA1721;CA1724;CA1725;CA1816;CA1868;CA1869;CA2254;CS8002</NoWarn>
+    </PropertyGroup>
+    <ItemGroup Label="Code">
+        <Compile Include="Attributes\AccessCheckAttribute\AccessCheckAttribute.cs" />
+        <Compile Include="Attributes\CommandContainerAttribute\CommandContainerAttribute.cs" />
+        <Compile Include="Attributes\DataTagAttribute\DataTagAttribute.cs" />
+        <Compile Include="Attributes\DataTypeAttribute\DataTypeAttribute.cs" />
+        <Compile Include="Attributes\ServiceContainerAttribute\ServiceContainerAttribute.cs" />
+        <Compile Include="Attributes\ToolOperationAttribute\ToolOperationAttribute.cs" />
+        <Compile Include="Attributes\ToolManifestAssemblyAttribute\ToolManifestAssemblyAttribute.cs" />
+        <Compile Include="Attributes\ToolManifestAttribute\ToolManifestAttribute.cs" />
+        <Compile Include="CommandRegistry\CommandRegistry.cs" />
+        <Compile Include="Common\Common.cs" />
+        <Compile Include="Common\CommonIdentification\CommonIdentification.cs" />
+        <Compile Include="Common\CommonIdentification\CommonIdentificationData.cs" />
+        <Compile Include="Common\CommonIdentification\CommonIdentificationFactory.Constants.cs" />
+        <Compile Include="Common\CommonIdentification\CommonIdentificationFactory.cs" />
+        <Compile Include="Common\CommonIdentification\CommonIdentificationVerifier.cs" />
+        <Compile Include="Common\CommonSecret\CommonSecret.cs" />
+        <Compile Include="Common\CommonSecret\CommonSecret.Properties.cs" />
+        <Compile Include="Common\ICommon.cs" />
+        <Compile Include="Constants\BinarySizes.cs" />
+        <Compile Include="Constants\BufferSizes.cs" />
+        <Compile Include="Constants\CryptoConstants.cs" />
+        <Compile Include="Constants\SecurityConstants.cs" />
+        <Compile Include="Cryptography\CryptoCore\CryptoCore.cs" />
+        <Compile Include="Cryptography\DecryptionStream\DecryptionStream.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\EncryptionEnvelope.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\EncryptionEnvelope.Versioning.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Arrays.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Constants.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Helpers.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Records.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Spans.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Streams.cs" />
+        <Compile Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.Structs.cs" />
+        <Compile Include="DataFactory\DataFactory.cs" />
+        <Compile Include="DataItems\DataStreamItem\DataStreamItemEnums.cs" />
+        <Compile Include="DataItem\DataIsolation\DataIsolation.cs" />
+        <Compile Include="DataItem\DataIsolationMode\DataIsolationMode.cs" />
+        <Compile Include="DataItem\DataIsolationScope\DataIsolationScope.cs" />
+        <Compile Include="DataItem\DataItem.Crypto.cs" />
+        <Compile Include="DataItem\DataItem.cs" />
+        <Compile Include="DataItem\DataItem.Hashing.cs" />
+        <Compile Include="DataItem\DataItem.Security.cs" />
+        <Compile Include="DataItem\DataItem.Security.Protection.cs" />
+        <Compile Include="DataItem\DataItem.Serialization.cs" />
+        <Compile Include="DataItem\DataItem.Streams.cs" />
+        <Compile Include="DataItem\DataItem.Sync.cs" />
+        <Compile Include="DataItem\DataItemHelpers\DataItemHelpers.cs" />
+        <Compile Include="DataItem\HashingReadStream\HashingReadStream.cs" />
+        <Compile Include="DataItem\HashingWriteStream\HashingWriteStream.cs" />
+        <Compile Include="DataItem\IDataItem.cs" />
+        <Compile Include="DataItem\IDEquality\IDEquality.cs" />
+        <Compile Include="DataItem\LockState\LockState.cs" />
+        <Compile Include="DataItems\BinaryItem\BinaryItem.cs" />
+        <Compile Include="DataItems\CodeItem\CodeItem.cs" />
+        <Compile Include="DataItems\DataContent\DataContent.cs" />
+        <Compile Include="DataItems\DataSetItem\DataSetItem.cs" />
+        <Compile Include="DataItems\DataStreamItem\DataStreamItem.cs" />
+        <Compile Include="DataItems\DataValidation\DataValidation.cs" />
+        <Compile Include="DataItems\GenericItem\GenericItem.cs" />
+        <Compile Include="DataItems\GuidReferenceItem\GuidReferenceItem.cs" />
+        <Compile Include="DataItems\KeySet\KeySet.cs" />
+        <Compile Include="DataItems\MSBuildItem\MSBuildItem.cs" />
+        <Compile Include="DataItems\MultiMediaItem\MultiMediaItem.cs" />
+        <Compile Include="DataItems\TextItem\TextItem.cs" />
+        <Compile Include="DataModels\Command.cs" />
+        <Compile Include="DataModels\Element.cs" />
+        <Compile Include="DataModels\Media.cs" />
+        <Compile Include="DataModels\Note.cs" />
+        <Compile Include="DataModels\Service.cs" />
+        <Compile Include="DataModels\Tag.cs" />
+        <Compile Include="DataPort\DataPort.cs" />
+        <Compile Include="DataTags\DataTags.cs" />
+        <Compile Include="DataTypes\DataTypes.cs" />
+        <Compile Include="Descriptor\Descriptor.cs" />
+        <Compile Include="Exceptions\InitializationException\InitializationException.cs" />
+        <Compile Include="Exceptions\OperationFailedException\OperationFailedException.cs" />
+        <Compile Include="Exceptions\SecurityException\SecurityException.cs" />
+        <Compile Include="Exceptions\SyncTimeoutException\SyncTimeoutException.cs" />
+        <Compile Include="KusDepotCab\KusDepotCab.cs" />
+        <Compile Include="Logging\KusDepotLog\KusDepotLog.cs" />
+        <Compile Include="Logging\LoggerExtensions\LoggerExtensions.cs" />
+        <Compile Include="MetaBase\IMetaBase.cs" />
+        <Compile Include="MetaBase\MetaBase.Constants.cs" />
+        <Compile Include="MetaBase\MetaBase.cs" />
+        <Compile Include="MetaBase\MetaBase.Helpers.cs" />
+        <Compile Include="Reflection\ObjectBuilder\ObjectBuilder.cs" />
+        <Compile Include="Reflection\ObjectInvoker\InvocationResult\InvocationResult.cs" />
+        <Compile Include="Reflection\ObjectInvoker\ObjectInvoker.cs" />
+        <Compile Include="Reflection\ObjectParser\ObjectParser.cs" />
+        <Compile Include="Reflection\ReflectionBinding\ReflectionArgumentBinding.cs" />
+        <Compile Include="Reflection\ReflectionBinding\ReflectionBinding.cs" />
+        <Compile Include="Reflection\ReflectionBinding\ReflectionBindingScore.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeProvider.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeProvider.Helpers.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeProvider.Parsing.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeProvider.Resolution.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeRequest\TypeRequest.cs" />
+        <Compile Include="Reflection\TypeProvider\TypeResolutionMode\TypeResolutionMode.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldAssertionData\DataFieldAssertionData.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldAssertionFactory\DataFieldAssertionFactory.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldAssertionVerifier\DataFieldAssertionVerifier.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldAssertion\DataFieldAssertion.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldHashAlgorithm\DataFieldHashAlgorithm.cs" />
+        <Compile Include="Security\DataFieldAssertion\DataFieldState\DataFieldState.cs" />
+        <Compile Include="Security\DataItemSecurityContext\DataItemSecurityContext.cs" />
+        <Compile Include="Security\DataItemSecurityContext\DataItemSecurityContextBuilder.cs" />
+        <Compile Include="Security\DataItemSecurityContext\DataItemSecurityContextFactory.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\DataItemSecurityEnvelope.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\DataItemSecurityEnvelope.Versioning.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.Arrays.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.Constants.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.Helpers.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.Records.cs" />
+        <Compile Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.Streams.cs" />
+        <Compile Include="Security\DataProtectionInfo\DataProtectionAssertionSummary\DataProtectionAssertionSummary.cs" />
+        <Compile Include="Security\DataProtectionInfo\DataProtectionInfo.cs" />
+        <Compile Include="Security\DataProtectionInfo\DataProtectionRecipientSummary\DataProtectionRecipientSummary.cs" />
+        <Compile Include="Security\DataSecurityObject\DataSecurityObject.cs" />
+        <Compile Include="Security\DataSecurityRecipient\DataSecurityRecipient.cs" />
+        <Compile Include="Security\ISecurityIdentityDirectory\ISecurityIdentityDirectory.cs" />
+        <Compile Include="Security\ISecurityIdentityProvider\ISecurityIdentityProvider.cs" />
+        <Compile Include="Security\KeyMaker\KeyMaker.cs" />
+        <Compile Include="Security\KeyMaterial\KeyMaterial.cs" />
+        <Compile Include="Security\ManagementKey\ManagementKey.cs" />
+        <Compile Include="Security\ManagerKey\ManagerKey.cs" />
+        <Compile Include="Security\OwnerKey\OwnerKey.cs" />
+        <Compile Include="Security\SecurityKey\SecurityKey.cs" />
+        <Compile Include="Serialization\Buffers\BufferReader.cs" />
+        <Compile Include="Serialization\Buffers\BufferSpanReader.cs" />
+        <Compile Include="Serialization\Buffers\BufferWriter.cs" />
+        <Compile Include="Serialization\DataContractUtility\DataContractUtility.cs" />
+        <Compile Include="Serialization\JsonUtility\JsonContext\JsonContext.cs" />
+        <Compile Include="Serialization\JsonUtility\JsonUtility.cs" />
+        <Compile Include="Serialization\KnownTypes\KnownTypes.cs" />
+        <Compile Include="Serialization\OrleansUtility\OrleansUtility.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\ParsedSerializationHeader\ParsedSerializationHeader.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\SerializationEnvelope.Constants.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\SerializationEnvelope.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\SerializationEnvelope.Helpers.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\SerializationIdentity\SerializationIdentity.cs" />
+        <Compile Include="Serialization\SerializationEnvelope\SerializationKind\SerializationKind.cs" />
+        <Compile Include="Settings\Settings.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.AccessManagement.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.DataItem.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.Logging.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.Reflection.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.Serialization.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.Tool.cs" />
+        <Compile Include="Strings\ExceptionStrings\ExceptionStrings.ToolBuilder.cs" />
+        <Compile Include="Strings\ObjectStrings\ObjectStrings.cs" />
+        <Compile Include="Sync\DataSync\DataSync.cs" />
+        <Compile Include="Sync\MetaSync\MetaSync.cs" />
+        <Compile Include="Sync\SyncNode\SyncNode.cs" />
+        <Compile Include="Sync\ToolSync\ToolSync.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertion.Constants.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertion.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertion.Registry.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertion.Serialization.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertionEnvelope\AccessKeyAssertionEnvelope.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertionSummary\AccessKeyAssertionSummary.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\SamlAssertion\SamlAssertionSummary.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\TokenAssertion\TokenAssertion.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\TokenAssertion\TokenAssertionSummary.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Generation\AccessKeyAssertionGeneratorContext\AccessKeyAssertionGeneratorContext.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Generation\DefaultAccessKeyAssertionGenerator\DefaultAccessKeyAssertionGenerator.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAccessKeyAssertionGenerator\IAccessKeyAssertionGenerator.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAccessKeyAssertionGeneratorMode\IAccessKeyAssertionGeneratorMode.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAsyncAccessKeyAssertionGenerator\IAsyncAccessKeyAssertionGenerator.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyClaims\AccessKeyClaims.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyIssueOptions\AccessKeyIssueOptions.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecret.Constants.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecret.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecret.Helpers.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecret.Signatures.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecretCreateRequest\AccessKeySecretCreateRequest.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\ParsedAccessKeySecretEnvelope.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeySecret\ParsedAccessKeySecretPayload.cs" />
+        <Compile Include="Tool\AccessManagement\AccessKeyToken\AccessKeyToken.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessKeyIssuanceContext\AccessKeyIssuanceContext.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Async.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Fields.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Issuance.Async.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Issuance.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.KeyGeneration.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Manifest.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Membership.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Policy.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManager.Signatures.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerMembershipCatalog\AccessManagerMembershipCatalog.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerMembershipEntry\AccessManagerMembershipEntry.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerOptions\AccessManagerOptions.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerQuery\AccessManagerQuery.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerSnapshot\AccessManagerSnapshot.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\AccessManagerSnapshot\AccessManagerSnapshotEntry.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\IAccessManager.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\IssuedAccessKeyMaterial\IssuedAccessKeyMaterial.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\MembershipCache\MembershipCache.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\MembershipCache\MembershipCacheKey.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\MembershipToken\MembershipToken.cs" />
+        <Compile Include="Tool\AccessManagement\AccessManager\MembershipUpdateOperation\MembershipUpdateOperation.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\AccessKey\AccessKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\ClientKey\ClientKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\CommandKey\CommandKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\ExecutiveKey\ExecutiveKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\HostKey\HostKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\MyHostKey\MyHostKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\ServiceKey\ServiceKey.cs" />
+        <Compile Include="Tool\AccessManagement\Keys\TokenKey\TokenKey.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Engines\DefaultAccessPolicyEngine\DefaultAccessPolicyEngine.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Engines\IAccessPolicyEngine\IAccessPolicyEngine.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Engines\IAccessPolicyEngineMode\IAccessPolicyEngineMode.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Engines\IAsyncAccessPolicyEngine\IAsyncAccessPolicyEngine.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Engines\PipelineAccessPolicyEngine\PipelineAccessPolicyEngine.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Model\AccessPolicyContext\AccessPolicyContext.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Model\AccessPolicyDecision\AccessPolicyDecision.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Model\AccessPolicyDecision\AccessPolicyDecisionStrings.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Model\AccessPolicyMode\AccessPolicyMode.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Model\AccessPolicyRequestContext\AccessPolicyRequestContext.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\ClaimsRequiredStage\ClaimsRequiredStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\ExpiryStage\ExpiryStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\IAccessPolicyStage\IAccessPolicyStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\IAccessPolicyStageMode\IAccessPolicyStageMode.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\IAsyncAccessPolicyStage\IAsyncAccessPolicyStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\ManifestMatchStage\ManifestMatchStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\MembershipActiveStage\MembershipActiveStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\OperationAllowedStage\OperationAllowedStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\OperationRequiredStage\OperationRequiredStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\SubjectMatchStage\SubjectMatchStage.cs" />
+        <Compile Include="Tool\AccessManagement\Policy\Stages\SubjectRequiredStage\SubjectRequiredStage.cs" />
+        <Compile Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperation.cs" />
+        <Compile Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperationResolver.cs" />
+        <Compile Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperationSets.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\AccessRequest\AccessRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\AssertionRequests\AccessAssertionRequest\AccessAssertionRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\AssertionRequests\SamlAssertionRequest\SamlAssertionRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\AssertionRequests\TokenAssertionRequest\TokenAssertionRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\Credentials\AccessCredential\AccessCredential.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\Credentials\CertificateCredential\CertificateCredential.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\Credentials\JwtCredential\JwtCredential.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\Credentials\ManagementKeyCredential\ManagementKeyCredential.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\Credentials\TokenCredential\TokenCredential.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\HostRequest\HostRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\ManagementRequest\ManagementRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\ServiceRequest\ServiceRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Requests\StandardRequest\StandardRequest.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeyCertificateSignatureProcessor\AccessKeyCertificateSignatureProcessor.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeyInMemorySignatureMaterialStore\AccessKeyInMemorySignatureMaterialStore.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureAlgorithm\AccessKeySignatureAlgorithm.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureDescriptor\AccessKeySignatureDescriptor.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureInfo\AccessKeySignatureInfo.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureSigningContext\AccessKeySignatureSigningContext.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureSigningMaterial\AccessKeySignatureSigningMaterial.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureValidationContext\AccessKeySignatureValidationContext.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignatureVerificationMaterial\AccessKeySignatureVerificationMaterial.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\AccessKeySignerKeyIdFormat\AccessKeySignerKeyIdFormat.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAccessKeySignatureMaterialResolver\IAccessKeySignatureMaterialResolver.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAccessKeySignatureMaterialStore\IAccessKeySignatureMaterialStore.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAccessKeySignatureProcessor\IAccessKeySignatureProcessor.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAccessKeySignatureProcessorMode\IAccessKeySignatureProcessorMode.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAccessKeySigner\IAccessKeySigner.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\IAsyncAccessKeySignatureProcessor\IAsyncAccessKeySignatureProcessor.cs" />
+        <Compile Include="Tool\AccessManagement\Signatures\SignatureValidation\SignatureValidation.cs" />
+        <Compile Include="Tool\AccessManagement\ToolManifestRegistry\ToolManifestRegistry.cs" />
+        <Compile Include="Tool\AccessManagement\ToolManifestRegistry\ToolManifestRegistry.Records.cs" />
+        <Compile Include="Tool\Activity\Activity.cs" />
+        <Compile Include="Tool\ActivityRecord\ActivityRecord.cs" />
+        <Compile Include="Tool\ActivityState\ActivityState.cs" />
+        <Compile Include="Tool\Command\Command.cs" />
+        <Compile Include="Tool\Command\ICommand.cs" />
+        <Compile Include="Tool\CommandDescriptor\CommandDescriptor.cs" />
+        <Compile Include="Tool\CommandDetails\CommandDetails.cs" />
+        <Compile Include="Tool\CommandExecutionMode\CommandExecutionMode.cs" />
+        <Compile Include="Tool\CommandWorkflow\CommandWorkflow.cs" />
+        <Compile Include="Tool\ITool.cs" />
+        <Compile Include="Tool\LifeCycleStateMachine\LifeCycleState\LifeCycleState.cs" />
+        <Compile Include="Tool\LifeCycleStateMachine\LifeCycleStateMachine.cs" />
+        <Compile Include="Tool\ServiceReference\ServiceReference.cs" />
+        <Compile Include="Tool\Tool.Fields..cs" />
+        <Compile Include="Tool\Tool.cs" />
+        <Compile Include="Tool\Tool.Disposal.cs" />
+        <Compile Include="Tool\Tool.Lifecycle.cs" />
+        <Compile Include="Tool\ToolConfiguration\ToolConfiguration.cs" />
+        <Compile Include="Tool\ToolConnect\IToolConnect.cs" />
+        <Compile Include="Tool\ToolConnect\ToolConnect.cs" />
+        <Compile Include="Tool\ToolData\ToolData.cs" />
+        <Compile Include="Tool\ToolData\ToolInput\ToolInput.cs" />
+        <Compile Include="Tool\ToolData\ToolOutput\ToolOutput.cs" />
+        <Compile Include="Tool\ToolData\WorkflowExceptionData\WorkflowExceptionData.cs" />
+        <Compile Include="Tool\ToolDescriptor\ToolDescriptor.cs" />
+        <Compile Include="Tool\ToolOperationDescriptor\ToolOperationDescriptor.cs" />
+        <Compile Include="Tool\ToolManifest\ToolManifestIdentity\ToolManifestIdentity.cs" />
+        <Compile Include="Tool\ToolManifest\ToolManifest.cs" />
+        <Compile Include="Tool\ToolServiceProvider\ToolServiceProvider.cs" />
+        <Compile Include="Tool\ToolValue\ToolValue.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueArgument\ToolValueArgument.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueArgumentParameter\ToolValueArgumentParameter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueBuildConverter\ToolValueBuildConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueConfigurationConverter\ToolValueConfigurationConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueGenericDataContractConverter\ToolValueGenericDataContractConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueGenericJsonConverter\ToolValueGenericJsonConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueParseConverter\ToolValueParseConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueToolDataConverter\ToolValueToolDataConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueUnhandledWriteConverter\ToolValueUnhandledWriteConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\IToolValueConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\ToolValueConverter.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueConverter\ToolValueConverterRegistration\ToolValueConverterRegistration.cs" />
+        <Compile Include="Tool\ToolValue\ToolValueMode\ToolValueMode.cs" />
+        <Compile Include="Tools\ToolAspireHost\IToolAspireHost.cs" />
+        <Compile Include="Tools\ToolAspireHost\ToolAspireHost.cs" />
+        <Compile Include="Tools\ToolAspireHost\ToolAspireHost.Disposal.cs" />
+        <Compile Include="Tools\ToolAspireHost\ToolAspireHost.Lifecycle.cs" />
+        <Compile Include="Tools\ToolGenericHost\IToolGenericHost.cs" />
+        <Compile Include="Tools\ToolGenericHost\ToolGenericHost.cs" />
+        <Compile Include="Tools\ToolGenericHost\ToolGenericHost.Disposal.cs" />
+        <Compile Include="Tools\ToolGenericHost\ToolGenericHost.Lifecycle.cs" />
+        <Compile Include="Tools\ToolHost\IToolHost.cs" />
+        <Compile Include="Tools\ToolHost\ToolHost.cs" />
+        <Compile Include="Tools\ToolHost\ToolHost.Disposal.cs" />
+        <Compile Include="Tools\ToolHost\ToolHost.Lifecycle.cs" />
+        <Compile Include="Tools\ToolHost\ToolHostLifetime\IToolHostLifetime.cs" />
+        <Compile Include="Tools\ToolHost\ToolHostLifetime\ToolHostConsoleLifetime\ToolHostConsoleLifetime.cs" />
+        <Compile Include="Tools\ToolHost\ToolHostLifetime\ToolHostLifetime.cs" />
+        <Compile Include="Tools\ToolHost\ToolHostOptions\ToolHostOptions.cs" />
+        <Compile Include="Tools\ToolWebHost\IToolWebHost.cs" />
+        <Compile Include="Tools\ToolWebHost\ToolWebHost.cs" />
+        <Compile Include="Tools\ToolWebHost\ToolWebHost.Disposal.cs" />
+        <Compile Include="Tools\ToolWebHost\ToolWebHost.Lifecycle.cs" />
+        <Compile Include="Usings.cs" />
+        <Compile Include="Utility\Enums\DeterministicHashingProfile.cs" />
+        <Compile Include="Utility\Utility.Compression.cs" />
+        <Compile Include="Utility\Utility.Conversion.cs" />
+        <Compile Include="Utility\Utility.Cryptography.cs" />
+        <Compile Include="Utility\Utility.General.cs" />
+        <Compile Include="Utility\Utility.Hashing.cs" />
+        <Compile Include="Utility\Utility.Hashing.Helpers.cs" />
+        <Compile Include="Utility\Utility.Reflection.cs" />
+    </ItemGroup>
+    <PropertyGroup Label="ConfigEx">
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+        <EnableDefaultItems>False</EnableDefaultItems>
+        <EnableDynamicLoading>True</EnableDynamicLoading>
+        <IsTrimmable>False</IsTrimmable>
+    </PropertyGroup>
+    <ItemGroup Label="TrimmerRoots">
+        <TrimmerRootAssembly Include="KusDepot.Objects" />
+    </ItemGroup>
+    <ItemGroup Label="Diagram">
+		<Content Include="Objects.cd" Pack="false" />
+		<Content Include="ProgramUnits.cd" Pack="false" />
+    </ItemGroup>
+    <ItemGroup Label="Documentation">
+        <Content Include="Attributes\AccessCheckAttribute\AccessCheckAttribute.xml" Pack="false" />
+        <Content Include="Attributes\CommandContainerAttribute\CommandContainerAttribute.xml" Pack="false" />
+        <Content Include="Attributes\DataTagAttribute\DataTagAttribute.xml" Pack="false" />
+        <Content Include="Attributes\DataTypeAttribute\DataTypeAttribute.xml" Pack="false" />
+        <Content Include="Attributes\ServiceContainerAttribute\ServiceContainerAttribute.xml" Pack="false" />
+        <Content Include="Attributes\ToolManifestAssemblyAttribute\ToolManifestAssemblyAttribute.xml" Pack="false" />
+        <Content Include="Attributes\ToolManifestAttribute\ToolManifestAttribute.xml" Pack="false" />
+        <Content Include="Attributes\ToolOperationAttribute\ToolOperationAttribute.xml" Pack="false" />
+        <Content Include="CommandRegistry\CommandRegistry.xml" Pack="false" />
+        <Content Include="Common\Common.xml" Pack="false" />
+        <Content Include="Common\CommonIdentification\CommonIdentification.xml" Pack="false" />
+        <Content Include="Common\CommonIdentification\CommonIdentificationData.xml" Pack="false" />
+        <Content Include="Common\CommonIdentification\CommonIdentificationFactory.xml" Pack="false" />
+        <Content Include="Common\CommonIdentification\CommonIdentificationVerifier.xml" Pack="false" />
+        <Content Include="Common\CommonSecret\CommonSecret.xml" Pack="false" />
+        <Content Include="Common\ICommon.xml" Pack="false" />
+		<Content Include="Constants\BinarySizes.xml" Pack="false" />
+		<Content Include="Constants\BufferSizes.xml" Pack="false" />
+		<Content Include="Constants\CryptoConstants.xml" Pack="false" />
+		<Content Include="Constants\SecurityConstants.xml" Pack="false" />
+        <Content Include="Cryptography\CryptoCore\CryptoCore.xml" Pack="false" />
+        <Content Include="Cryptography\DecryptionStream\DecryptionStream.xml" Pack="false" />
+        <Content Include="Cryptography\EncryptionEnvelope\EncryptionEnvelope.xml" Pack="false" />
+        <Content Include="Cryptography\EncryptionEnvelope\Version1\EncryptionEnvelopeV1.xml" Pack="false" />
+        <Content Include="DataFactory\DataFactory.xml" Pack="false" />
+        <Content Include="DataItem\DataIsolation\DataIsolation.xml" Pack="false" />
+        <Content Include="DataItem\DataIsolationMode\DataIsolationMode.xml" Pack="false" />
+        <Content Include="DataItem\DataIsolationScope\DataIsolationScope.xml" Pack="false" />
+        <Content Include="DataItem\DataItem.xml" Pack="false" />
+        <Content Include="DataItem\DataItemHelpers\DataItemHelpers.xml" Pack="false" />
+		<Content Include="DataItem\HashingReadStream\HashingReadStream.xml" Pack="false" />
+        <Content Include="DataItem\HashingWriteStream\HashingWriteStream.xml" Pack="false" />
+        <Content Include="DataItem\IDataItem.xml" Pack="false" />
+        <Content Include="DataItem\IDEquality\IDEquality.xml" Pack="false" />
+        <Content Include="DataItem\LockState\LockState.xml" Pack="false" />
+        <Content Include="DataItems\BinaryItem\BinaryItem.xml" Pack="false" />
+        <Content Include="DataItems\CodeItem\CodeItem.xml" Pack="false" />
+        <Content Include="DataItems\DataContent\DataContent.xml" Pack="false" />
+        <Content Include="DataItems\DataSetItem\DataSetItem.xml" Pack="false" />
+        <Content Include="DataItems\DataStreamItem\DataStreamItem.xml" Pack="false" />
+		<Content Include="DataItems\DataStreamItem\DataStreamItemEnums.xml" Pack="false" />
+        <Content Include="DataItems\DataValidation\DataValidation.xml" Pack="false" />
+        <Content Include="DataItems\GenericItem\GenericItem.xml" Pack="false" />
+        <Content Include="DataItems\GuidReferenceItem\GuidReferenceItem.xml" Pack="false" />
+        <Content Include="DataItems\KeySet\KeySet.xml" Pack="false" />
+        <Content Include="DataItems\MSBuildItem\MSBuildItem.xml" Pack="false" />
+        <Content Include="DataItems\MultiMediaItem\MultiMediaItem.xml" Pack="false" />
+        <Content Include="DataItems\TextItem\TextItem.xml" Pack="false" />
+        <Content Include="DataModels\Command.xml" Pack="false" />
+        <Content Include="DataModels\Element.xml" Pack="false" />
+        <Content Include="DataModels\Media.xml" Pack="false" />
+        <Content Include="DataModels\Note.xml" Pack="false" />
+        <Content Include="DataModels\Service.xml" Pack="false" />
+        <Content Include="DataModels\Tag.xml" Pack="false" />
+        <Content Include="DataPort\DataPort.xml" Pack="false" />
+        <Content Include="DataTags\DataTags.xml" Pack="false" />
+        <Content Include="DataTypes\DataTypes.xml" Pack="false" />
+        <Content Include="Descriptor\Descriptor.xml" Pack="false" />
+        <Content Include="Exceptions\InitializationException\InitializationException.xml" Pack="false" />
+        <Content Include="Exceptions\OperationFailedException\OperationFailedException.xml" Pack="false" />
+        <Content Include="Exceptions\SecurityException\SecurityException.xml" Pack="false" />
+        <Content Include="Exceptions\SyncTimeoutException\SyncTimeoutException.xml" Pack="false" />
+        <Content Include="KusDepotCab\KusDepotCab.xml" Pack="false" />
+        <Content Include="Logging\KusDepotLog\KusDepotLog.xml" Pack="false" />
+        <Content Include="Logging\LoggerExtensions\LoggerExtensions.xml" Pack="false" />
+        <Content Include="MetaBase\IMetaBase.xml" Pack="false" />
+        <Content Include="MetaBase\MetaBase.xml" Pack="false" />
+        <Content Include="Reflection\ObjectBuilder\ObjectBuilder.xml" Pack="false" />
+        <Content Include="Reflection\ObjectInvoker\InvocationResult\InvocationResult.xml" Pack="false" />
+        <Content Include="Reflection\ObjectInvoker\ObjectInvoker.xml" Pack="false" />
+        <Content Include="Reflection\ObjectParser\ObjectParser.xml" Pack="false" />
+        <Content Include="Reflection\ReflectionBinding\ReflectionArgumentBinding.xml" Pack="false" />
+        <Content Include="Reflection\ReflectionBinding\ReflectionBinding.xml" Pack="false" />
+        <Content Include="Reflection\ReflectionBinding\ReflectionBindingScore.xml" Pack="false" />
+        <Content Include="Reflection\TypeProvider\TypeProvider.xml" Pack="false" />
+        <Content Include="Reflection\TypeProvider\TypeRequest\TypeRequest.xml" Pack="false" />
+        <Content Include="Reflection\TypeProvider\TypeResolutionMode\TypeResolutionMode.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldAssertion\DataFieldAssertion.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldAssertionData\DataFieldAssertionData.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldAssertionFactory\DataFieldAssertionFactory.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldAssertionVerifier\DataFieldAssertionVerifier.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldHashAlgorithm\DataFieldHashAlgorithm.xml" Pack="false" />
+        <Content Include="Security\DataFieldAssertion\DataFieldState\DataFieldState.xml" Pack="false" />
+        <Content Include="Security\DataItemSecurityContext\DataItemSecurityContext.xml" Pack="false" />
+        <Content Include="Security\DataItemSecurityContext\DataItemSecurityContextBuilder.xml" Pack="false" />
+        <Content Include="Security\DataItemSecurityContext\DataItemSecurityContextFactory.xml" Pack="false" />
+        <Content Include="Security\DataItemSecurityEnvelope\DataItemSecurityEnvelope.xml" Pack="false" />
+        <Content Include="Security\DataItemSecurityEnvelope\Version1\DataItemSecurityEnvelopeV1.xml" Pack="false" />
+        <Content Include="Security\DataProtectionInfo\DataProtectionAssertionSummary\DataProtectionAssertionSummary.xml" Pack="false" />
+        <Content Include="Security\DataProtectionInfo\DataProtectionInfo.xml" Pack="false" />
+        <Content Include="Security\DataProtectionInfo\DataProtectionRecipientSummary\DataProtectionRecipientSummary.xml" Pack="false" />
+        <Content Include="Security\DataSecurityObject\DataSecurityObject.xml" Pack="false" />
+        <Content Include="Security\DataSecurityRecipient\DataSecurityRecipient.xml" Pack="false" />
+        <Content Include="Security\ISecurityIdentityDirectory\ISecurityIdentityDirectory.xml" Pack="false" />
+        <Content Include="Security\ISecurityIdentityProvider\ISecurityIdentityProvider.xml" Pack="false" />
+        <Content Include="Security\KeyMaker\KeyMaker.xml" Pack="false" />
+        <Content Include="Security\KeyMaterial\KeyMaterial.xml" Pack="false" />
+        <Content Include="Security\ManagementKey\ManagementKey.xml" Pack="false" />
+        <Content Include="Security\ManagerKey\ManagerKey.xml" Pack="false" />
+        <Content Include="Security\OwnerKey\OwnerKey.xml" Pack="false" />
+        <Content Include="Security\SecurityKey\SecurityKey.xml" Pack="false" />
+        <Content Include="Serialization\Buffers\BufferReader.xml" Pack="false" />
+        <Content Include="Serialization\Buffers\BufferWriter.xml" Pack="false" />
+        <Content Include="Serialization\Buffers\BufferSpanReader.xml" Pack="false" />
+        <Content Include="Serialization\DataContractUtility\DataContractUtility.xml" Pack="false" />
+        <Content Include="Serialization\JsonUtility\JsonContext\JsonContext.xml" Pack="false" />
+        <Content Include="Serialization\JsonUtility\JsonUtility.xml" Pack="false" />
+        <Content Include="Serialization\KnownTypes\KnownTypes.xml" Pack="false" />
+        <Content Include="Serialization\OrleansUtility\OrleansUtility.xml" Pack="false" />
+        <Content Include="Serialization\SerializationEnvelope\ParsedSerializationHeader\ParsedSerializationHeader.xml" Pack="false" />
+        <Content Include="Serialization\SerializationEnvelope\SerializationEnvelope.xml" Pack="false" />
+        <Content Include="Serialization\SerializationEnvelope\SerializationIdentity\SerializationIdentity.xml" Pack="false" />
+        <Content Include="Serialization\SerializationEnvelope\SerializationKind\SerializationKind.xml" Pack="false" />
+        <Content Include="Settings\Settings.xml" Pack="false" />
+        <Content Include="Strings\ExceptionStrings\ExceptionStrings.xml" Pack="false" />
+        <Content Include="Strings\ObjectStrings\ObjectStrings.xml" Pack="false" />
+        <Content Include="Sync\DataSync\DataSync.xml" Pack="false" />
+        <Content Include="Sync\MetaSync\MetaSync.xml" Pack="false" />
+        <Content Include="Sync\SyncNode\SyncNode.xml" Pack="false" />
+        <Content Include="Sync\ToolSync\ToolSync.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertion.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertionEnvelope\AccessKeyAssertionEnvelope.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\AccessKeyAssertionSummary\AccessKeyAssertionSummary.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\SamlAssertion\SamlAssertionSummary.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\TokenAssertion\TokenAssertion.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Assertions\TokenAssertion\TokenAssertionSummary.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Generation\AccessKeyAssertionGeneratorContext\AccessKeyAssertionGeneratorContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Generation\DefaultAccessKeyAssertionGenerator\DefaultAccessKeyAssertionGenerator.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAccessKeyAssertionGenerator\IAccessKeyAssertionGenerator.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAccessKeyAssertionGeneratorMode\IAccessKeyAssertionGeneratorMode.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyAssertion\Generation\IAsyncAccessKeyAssertionGenerator\IAsyncAccessKeyAssertionGenerator.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyClaims\AccessKeyClaims.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyIssueOptions\AccessKeyIssueOptions.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecret.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeySecret\AccessKeySecretCreateRequest\AccessKeySecretCreateRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeySecret\ParsedAccessKeySecretEnvelope.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeySecret\ParsedAccessKeySecretPayload.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessKeyToken\AccessKeyToken.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessKeyIssuanceContext\AccessKeyIssuanceContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManager.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerMembershipCatalog\AccessManagerMembershipCatalog.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerMembershipEntry\AccessManagerMembershipEntry.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerOptions\AccessManagerOptions.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerQuery\AccessManagerQuery.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerSnapshot\AccessManagerSnapshot.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\AccessManagerSnapshot\AccessManagerSnapshotEntry.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\IAccessManager.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\IssuedAccessKeyMaterial\IssuedAccessKeyMaterial.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\MembershipCache\MembershipCache.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\MembershipCache\MembershipCacheKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\MembershipToken\MembershipToken.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\AccessManager\MembershipUpdateOperation\MembershipUpdateOperation.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\AccessKey\AccessKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\ClientKey\ClientKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\CommandKey\CommandKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\ExecutiveKey\ExecutiveKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\HostKey\HostKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\MyHostKey\MyHostKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\ServiceKey\ServiceKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Keys\TokenKey\TokenKey.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Engines\DefaultAccessPolicyEngine\DefaultAccessPolicyEngine.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Engines\IAccessPolicyEngine\IAccessPolicyEngine.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Engines\IAccessPolicyEngineMode\IAccessPolicyEngineMode.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Engines\IAsyncAccessPolicyEngine\IAsyncAccessPolicyEngine.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Engines\PipelineAccessPolicyEngine\PipelineAccessPolicyEngine.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Model\AccessPolicyContext\AccessPolicyContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Model\AccessPolicyDecision\AccessPolicyDecision.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Model\AccessPolicyDecision\AccessPolicyDecisionStrings.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Model\AccessPolicyMode\AccessPolicyMode.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Model\AccessPolicyRequestContext\AccessPolicyRequestContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\ClaimsRequiredStage\ClaimsRequiredStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\ExpiryStage\ExpiryStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\IAccessPolicyStage\IAccessPolicyStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\IAccessPolicyStageMode\IAccessPolicyStageMode.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\IAsyncAccessPolicyStage\IAsyncAccessPolicyStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\ManifestMatchStage\ManifestMatchStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\MembershipActiveStage\MembershipActiveStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\OperationAllowedStage\OperationAllowedStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\OperationRequiredStage\OperationRequiredStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\SubjectMatchStage\SubjectMatchStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Policy\Stages\SubjectRequiredStage\SubjectRequiredStage.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperation.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperationResolver.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\ProtectedOperation\ProtectedOperationSets.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\AccessRequest\AccessRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\AssertionRequests\AccessAssertionRequest\AccessAssertionRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\AssertionRequests\SamlAssertionRequest\SamlAssertionRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\AssertionRequests\TokenAssertionRequest\TokenAssertionRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\Credentials\AccessCredential\AccessCredential.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\Credentials\CertificateCredential\CertificateCredential.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\Credentials\JwtCredential\JwtCredential.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\Credentials\ManagementKeyCredential\ManagementKeyCredential.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\Credentials\TokenCredential\TokenCredential.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\HostRequest\HostRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\ManagementRequest\ManagementRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\ServiceRequest\ServiceRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Requests\StandardRequest\StandardRequest.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeyCertificateSignatureProcessor\AccessKeyCertificateSignatureProcessor.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeyInMemorySignatureMaterialStore\AccessKeyInMemorySignatureMaterialStore.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureAlgorithm\AccessKeySignatureAlgorithm.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureDescriptor\AccessKeySignatureDescriptor.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureInfo\AccessKeySignatureInfo.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureSigningContext\AccessKeySignatureSigningContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureSigningMaterial\AccessKeySignatureSigningMaterial.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureValidationContext\AccessKeySignatureValidationContext.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignatureVerificationMaterial\AccessKeySignatureVerificationMaterial.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\AccessKeySignerKeyIdFormat\AccessKeySignerKeyIdFormat.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAccessKeySignatureMaterialResolver\IAccessKeySignatureMaterialResolver.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAccessKeySignatureMaterialStore\IAccessKeySignatureMaterialStore.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAccessKeySignatureProcessor\IAccessKeySignatureProcessor.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAccessKeySignatureProcessorMode\IAccessKeySignatureProcessorMode.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAccessKeySigner\IAccessKeySigner.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\IAsyncAccessKeySignatureProcessor\IAsyncAccessKeySignatureProcessor.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\Signatures\SignatureValidation\SignatureValidation.xml" Pack="false" />
+        <Content Include="Tool\AccessManagement\ToolManifestRegistry\ToolManifestRegistry.xml" Pack="false" />
+        <Content Include="Tool\Activity\Activity.xml" Pack="false" />
+        <Content Include="Tool\ActivityRecord\ActivityRecord.xml" Pack="false" />
+        <Content Include="Tool\ActivityState\ActivityState.xml" Pack="false" />
+        <Content Include="Tool\Command\Command.xml" Pack="false" />
+        <Content Include="Tool\Command\ICommand.xml" Pack="false" />
+        <Content Include="Tool\CommandDescriptor\CommandDescriptor.xml" Pack="false" />
+        <Content Include="Tool\CommandDetails\CommandDetails.xml" Pack="false" />
+        <Content Include="Tool\CommandExecutionMode\CommandExecutionMode.xml" Pack="false" />
+        <Content Include="Tool\CommandWorkflow\CommandWorkflow.xml" Pack="false" />
+        <Content Include="Tool\ITool.xml" Pack="false" />
+        <Content Include="Tool\LifeCycleStateMachine\LifeCycleState\LifeCycleState.xml" Pack="false" />
+        <Content Include="Tool\LifeCycleStateMachine\LifeCycleStateMachine.xml" Pack="false" />
+        <Content Include="Tool\ServiceReference\ServiceReference.xml" Pack="false" />
+        <Content Include="Tool\Tool.xml" Pack="false" />
+        <Content Include="Tool\ToolConfiguration\ToolConfiguration.xml" Pack="false" />
+        <Content Include="Tool\ToolConnect\IToolConnect.xml" Pack="false" />
+        <Content Include="Tool\ToolConnect\ToolConnect.xml" Pack="false" />
+        <Content Include="Tool\ToolData\ToolData.xml" Pack="false" />
+        <Content Include="Tool\ToolData\ToolInput\ToolInput.xml" Pack="false" />
+        <Content Include="Tool\ToolData\ToolOutput\ToolOutput.xml" Pack="false" />
+        <Content Include="Tool\ToolData\WorkflowExceptionData\WorkflowExceptionData.xml" Pack="false" />
+        <Content Include="Tool\ToolDescriptor\ToolDescriptor.xml" Pack="false" />
+        <Content Include="Tool\ToolOperationDescriptor\ToolOperationDescriptor.xml" Pack="false" />
+        <Content Include="Tool\ToolManifest\ToolManifestIdentity\ToolManifestIdentity.xml" Pack="false" />
+        <Content Include="Tool\ToolManifest\ToolManifest.xml" Pack="false" />
+        <Content Include="Tool\ToolServiceProvider\ToolServiceProvider.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValue.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueArgument\ToolValueArgument.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueArgumentParameter\ToolValueArgumentParameter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueBuildConverter\ToolValueBuildConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueConfigurationConverter\ToolValueConfigurationConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueGenericDataContractConverter\ToolValueGenericDataContractConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueGenericJsonConverter\ToolValueGenericJsonConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueParseConverter\ToolValueParseConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueToolDataConverter\ToolValueToolDataConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\Converters\ToolValueUnhandledWriteConverter\ToolValueUnhandledWriteConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\IToolValueConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\ToolValueConverter.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueConverter\ToolValueConverterRegistration\ToolValueConverterRegistration.xml" Pack="false" />
+        <Content Include="Tool\ToolValue\ToolValueMode\ToolValueMode.xml" Pack="false" />
+        <Content Include="Tools\ToolAspireHost\IToolAspireHost.xml" Pack="false" />
+        <Content Include="Tools\ToolAspireHost\ToolAspireHost.xml" Pack="false" />
+        <Content Include="Tools\ToolGenericHost\IToolGenericHost.xml" Pack="false" />
+        <Content Include="Tools\ToolGenericHost\ToolGenericHost.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\IToolHost.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\ToolHost.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\ToolHostLifetime\IToolHostLifetime.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\ToolHostLifetime\ToolHostConsoleLifetime\ToolHostConsoleLifetime.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\ToolHostLifetime\ToolHostLifetime.xml" Pack="false" />
+        <Content Include="Tools\ToolHost\ToolHostOptions\ToolHostOptions.xml" Pack="false" />
+        <Content Include="Tools\ToolWebHost\IToolWebHost.xml" Pack="false" />
+        <Content Include="Tools\ToolWebHost\ToolWebHost.xml" Pack="false" />
+        <Content Include="Utility\Enums\DeterministicHashingProfile.xml" Pack="false" />
+        <Content Include="Utility\Utility.Hashing.xml" Pack="false" />
+        <Content Include="Utility\Utility.xml" Pack="false" />
+    </ItemGroup>
+    <ItemGroup Label="Packages or Projects">
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Orleans.Serialization" />
+        <PackageReference Include="System.Reflection.MetadataLoadContext" />
+        <ProjectReference Include="..\KusDepot.SourceGen\KusDepot.SourceGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+    <PropertyGroup Label="NuGet">
+        <Authors>KusDepot Solutions</Authors>
+        <ContentTargetFolders>\</ContentTargetFolders>
+        <Copyright>Copyright © 2026 KusDepot Solutions LLC</Copyright>
+        <Description>Program units, DataItems, base objects and utilities.</Description>
+        <IncludeContentInPack>True</IncludeContentInPack>
+        <IsPackable>True</IsPackable>
+        <PackageIcon>gfxico.png</PackageIcon>
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+        <PackageId>KusDepot.Objects</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <PackageTags>KusDepot</PackageTags>
+        <PackageVersion>0.0.11-pre</PackageVersion>
+        <Title>KusDepot</Title>
+    </PropertyGroup>
+    <ItemGroup Label="Readme">
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+        <None Include="Readme.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+</Project>
+

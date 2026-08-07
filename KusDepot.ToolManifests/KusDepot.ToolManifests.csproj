@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup Label="Main">
+        <AssemblyName>KusDepot.ToolManifests</AssemblyName>
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+        <IsRoslynComponent>True</IsRoslynComponent>
+        <OutputType>Library</OutputType>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup Label="Analysis">
+        <EnforceExtendedAnalyzerRules>True</EnforceExtendedAnalyzerRules>
+    </PropertyGroup>
+    <ItemGroup Label="Code">
+        <Compile Include="Analysis\ToolManifestAnalysisModels.cs" />
+        <Compile Include="Analysis\ToolManifestAnalysisService.cs" />
+        <Compile Include="Analysis\ToolManifestConventions.cs" />
+        <Compile Include="Analysis\ToolManifestManualManifestAnalysis.cs" />
+        <Compile Include="Analysis\ToolManifestNaming.cs" />
+        <Compile Include="Analysis\ToolManifestSymbolAnalysis.cs" />
+        <Compile Include="ToolManifestAnalyzer\ToolManifestAnalyzer.cs" />
+        <Compile Include="Diagnostics\ToolManifestDiagnostics.cs" />
+        <Compile Include="Models\ToolManifestModels.cs" />
+        <Compile Include="ToolManifestGenerator\ToolManifestGenerator.cs" />
+        <Compile Include="ToolManifestGenerator\ToolManifestGenerator.Emission.cs" />
+        <Compile Include="Usings.cs" />
+    </ItemGroup>
+    <ItemGroup Label="Documentation">
+      <Content Include="Analysis\ToolManifestAnalysis.xml" Pack="False" />
+      <Content Include="ToolManifestAnalyzer\ToolManifestAnalyzer.xml" Pack="False" />
+      <Content Include="Diagnostics\ToolManifestDiagnostics.xml" Pack="False" />
+      <Content Include="Models\ToolManifestModels.xml" Pack="False" />
+      <Content Include="ToolManifestGenerator\ToolManifestGenerator.xml" Pack="False" />
+    </ItemGroup>
+    <ItemGroup Label="AnalyzerReleaseTracking">
+        <AdditionalFiles Include="AnalyzerReleases.Shipped.md" />
+        <AdditionalFiles Include="AnalyzerReleases.Unshipped.md" />
+    </ItemGroup>
+    <ItemGroup Label="Packages or Projects">
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    </ItemGroup>
+    <PropertyGroup Label="NuGet">
+        <Authors>KusDepot Solutions</Authors>
+        <ContentTargetFolders>\</ContentTargetFolders>
+        <Copyright>Copyright © 2026 KusDepot Solutions LLC</Copyright>
+        <Description>Analyzers and source generator for KusDepot tool manifests and registry initialization code.</Description>
+        <IncludeContentInPack>True</IncludeContentInPack>
+        <IsPackable>True</IsPackable>
+        <PackageIcon>gfxico.png</PackageIcon>
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+        <PackageId>KusDepot.ToolManifests</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <PackageTags>KusDepot</PackageTags>
+        <PackageVersion>0.0.11-pre</PackageVersion>
+        <Title>KusDepot</Title>
+    </PropertyGroup>
+    <ItemGroup Label="Readme">
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+        <None Include="Readme.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ReflectionBinding>
+
+    <class name = "ReflectionBinding">
+
+        <main>
+
+            <summary>Shared reflection binding helpers used by reflection components.</summary>
+
+        </main>
+
+        <method name = "IsCompatible">
+
+            <summary>Evaluate argument compatibility against a parameter type.</summary>
+
+            <param name = "parametertype" Cref = "Type">Parameter type.</param>
+
+            <param name = "argument" Cref = "Object?">Argument value.</param>
+
+            <param name = "exact" Cref = "Boolean">True when argument type exactly equals parameter type.</param>
+
+            <returns Cref = "Boolean">True for exact or assignable compatibility; otherwise false.</returns>
+
+        </method>
+
+        <method name = "CanAssignNull">
+
+            <summary>Determine whether null can be assigned to a given type.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <returns Cref = "Boolean">True for reference or nullable value type; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetBindableType">
+
+            <summary>Normalize a parameter type for binding. Returns the element type for by-ref parameters; otherwise returns the parameter type unchanged.</summary>
+
+            <param name = "parametertype" Cref = "Type">Parameter type.</param>
+
+            <returns Cref = "Type">Bindable element type.</returns>
+
+        </method>
+
+        <method name = "IsOutParameter">
+
+            <summary>Determine whether a parameter is an out parameter (IsOut and IsByRef).</summary>
+
+            <param name = "parameter" Cref = "ParameterInfo">Parameter to classify.</param>
+
+            <returns Cref = "Boolean">True for out parameters; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsRefParameter">
+
+            <summary>Determine whether a parameter is a ref parameter (IsByRef and not IsOut).</summary>
+
+            <param name = "parameter" Cref = "ParameterInfo">Parameter to classify.</param>
+
+            <returns Cref = "Boolean">True for ref parameters; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryAutoFillOutParameter">
+
+            <summary>Create default invoke slot value for an unsupplied out parameter.</summary>
+
+            <param name = "elementtype" Cref = "Type">Element type of the out parameter (after by-ref normalization).</param>
+
+            <param name = "value" Cref = "Object?">Auto-filled value output. Null for reference types and Nullable; default(T) for non-nullable value types.</param>
+
+            <returns Cref = "Boolean">True when auto-fill succeeds; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</ReflectionBinding>

@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestAssemblyAttribute>
+
+    <class name = "ToolManifestAssemblyAttribute">
+
+        <main>
+
+            <summary>Metadata.</summary>
+
+            <remarks>Controls generation behavior for tool manifest initializer registration code.</remarks>
+
+        </main>
+
+        <property name = "RegisterModuleInitializer" Cref = "Boolean">
+
+            <summary>Gets or sets a value indicating whether the generated assembly should register and bind manifests from a module initializer.</summary>
+
+        </property>
+
+        <property name = "CompanionNamespace" Cref = "String">
+
+            <summary>Gets or sets the namespace used for the generated assembly manifest bootstrap companion type.</summary>
+
+            <remarks>When not supplied, generation falls back to the default generated assembly manifest namespace.</remarks>
+
+        </property>
+
+        <property name = "CompanionTypeName" Cref = "String">
+
+            <summary>Gets or sets the type name used for the generated assembly manifest bootstrap companion type.</summary>
+
+            <remarks>When not supplied, generation falls back to the default type name derived from the assembly name.</remarks>
+
+        </property>
+
+    </class>
+
+</ToolManifestAssemblyAttribute>

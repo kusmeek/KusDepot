@@ -1,0 +1,145 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>KusDepot.Builders</AssemblyName>
+
+        <TargetFrameworks>net10.0</TargetFrameworks>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CS1591;CS8002</NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Code">
+
+        <Compile Include="DependencyInjection\DependencyInjection.cs" />
+        <Compile Include="ToolBuilderFactory\ToolBuilderFactory.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\IToolBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\RegisteredCommand\RegisteredCommand.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\RegisteredHostedTool\RegisteredHostedTool.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolBuilder.RegisterCommand.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolBuilder.RegisterService.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolBuilder.RegisterTool.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolBuilderContext\ToolBuilderContext.cs" />
+        <Compile Include="ToolBuilders\ToolBuilder\ToolFactory\ToolFactory.cs" />
+        <Compile Include="ToolBuilders\ToolGenericHostBuilder\IToolGenericHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolGenericHostBuilder\ToolGenericHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolGenericHostBuilder\ToolGenericHostFactory\ToolGenericHostFactory.cs" />
+        <Compile Include="ToolBuilders\ToolHostBuilder\IToolHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolHostBuilder\ToolHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolHostBuilder\ToolHostFactory\ToolHostFactory.cs" />
+        <Compile Include="ToolBuilders\ToolWebHostBuilder\IToolWebHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolWebHostBuilder\ToolWebHostBuilder.cs" />
+        <Compile Include="ToolBuilders\ToolWebHostBuilder\ToolWebHostFactory\ToolWebHostFactory.cs" />
+        <Compile Include="Usings.cs" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <EnableDefaultItems>False</EnableDefaultItems>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Documentation">
+
+        <Content Include="DependencyInjection\DependencyInjection.xml" Pack="false" />
+
+        <Content Include="ToolBuilderFactory\ToolBuilderFactory.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\IToolBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\RegisteredCommand\RegisteredCommand.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\RegisteredHostedTool\RegisteredHostedTool.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\ToolBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\ToolBuilderContext\ToolBuilderContext.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolBuilder\ToolFactory\ToolFactory.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolGenericHostBuilder\IToolGenericHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolGenericHostBuilder\ToolGenericHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolGenericHostBuilder\ToolGenericHostFactory\ToolGenericHostFactory.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolHostBuilder\IToolHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolHostBuilder\ToolHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolHostBuilder\ToolHostFactory\ToolHostFactory.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolWebHostBuilder\IToolWebHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolWebHostBuilder\ToolWebHostBuilder.xml" Pack="false" />
+
+        <Content Include="ToolBuilders\ToolWebHostBuilder\ToolWebHostFactory\ToolWebHostFactory.xml" Pack="false" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <PropertyGroup Label="NuGet">
+
+        <Authors>KusDepot Solutions</Authors>
+
+        <ContentTargetFolders>\</ContentTargetFolders>
+
+        <Copyright>Copyright © 2026 KusDepot Solutions LLC</Copyright>
+
+        <Description>Program Unit Builders.</Description>
+
+        <IncludeContentInPack>True</IncludeContentInPack>
+
+        <IsPackable>True</IsPackable>
+
+        <PackageIcon>gfxico.png</PackageIcon>
+
+        <PackageIconUrl>gfxico.png</PackageIconUrl>
+
+        <PackageId>KusDepot.Builders</PackageId>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <PackageProjectUrl>https://github.com/kusmeek/KusDepot</PackageProjectUrl>
+
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+        <PackageTags>KusDepot</PackageTags>
+
+        <PackageVersion>0.0.11-pre</PackageVersion>
+
+        <Title>KusDepot</Title>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Readme">
+
+        <None Include="Readme.md" Pack="true" PackagePath="\" />
+
+        <None Include="..\KusDepot.Packages\images\gfxico.png" Pack="true" PackagePath="\" />
+
+    </ItemGroup>
+
+</Project>

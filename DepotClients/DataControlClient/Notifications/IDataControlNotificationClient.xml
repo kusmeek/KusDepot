@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<IDataControlNotificationClient>
+
+	<interface name="IDataControlNotificationClient">
+
+		<main>
+
+			<summary>Defines the notification wait contract used by DataControl client follow flows.</summary>
+
+		</main>
+
+		<method name="RegisterSubscriptionAsync">
+
+			<summary>Register a persistent notification subscription for the supplied follow-session identifiers and return a lifetime-owned wait handle.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical subscription describing the item, session, and source-session identifiers to observe.</param>
+
+			<param name="token" Cref="String?">Optional bearer token.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task{IDataControlNotificationSubscriptionHandle}">A task that completes with a persistent notification subscription handle bound to the supplied logical subscription.</returns>
+
+		</method>
+
+	</interface>
+
+</IDataControlNotificationClient>

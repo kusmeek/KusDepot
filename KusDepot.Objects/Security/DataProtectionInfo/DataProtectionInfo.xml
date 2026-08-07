@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionInfo>
+
+    <class name = "DataProtectionInfo">
+
+        <main>
+
+            <summary>Object-facing persisted summary metadata describing how a `DataItem` is currently protected.</summary>
+
+            <remarks>
+                This type stores stable summary information for inspection and orchestration while keeping transport-private envelope details outside the object model.
+
+                <para>`DataProtectionInfo` is summary metadata only. It intentionally excludes wrapped key material, nonce material, recipient-table transport records, chunk framing details, and other envelope-private cryptographic state.</para>
+
+                <para>The persisted shape is organized as: Version, ProtectedAt, ProtectedByObjectId, ProtectedByThumbprint, Purpose, Recipients, Assertions, HasMultipleRecipients, and ProtectionMode.</para>
+
+                <para>The `Assertions` collection represents the active current-state assertions associated with the present protection state. It is not intended to store assertion history.</para>
+            </remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Initialize a new empty `DataProtectionInfo` value.</summary>
+
+            <returns Cref = "DataProtectionInfo">A new empty protection-info value.</returns>
+
+        </constructor>
+
+        <property name = "Version" Cref = "Byte">
+
+            <summary>Protection metadata version.</summary>
+
+        </property>
+
+        <property name = "ProtectedAt" Cref = "DateTimeOffset">
+
+            <summary>Instant when the current protection state was created.</summary>
+
+        </property>
+
+        <property name = "ProtectedByObjectId" Cref = "Guid?">
+
+            <summary>Optional object identifier of the actor that protected the current data state.</summary>
+
+        </property>
+
+        <property name = "ProtectedByThumbprint" Cref = "String?">
+
+            <summary>Optional certificate thumbprint of the actor that protected the current data state.</summary>
+
+        </property>
+
+        <property name = "Purpose" Cref = "String?">
+
+            <summary>Optional descriptive purpose metadata associated with the current protection state.</summary>
+
+        </property>
+
+        <property name = "Recipients" Cref = "ImmutableArray{DataProtectionRecipientSummary}">
+
+            <summary>Recipient summaries for the current protection state.</summary>
+
+        </property>
+
+        <property name = "Assertions" Cref = "ImmutableArray{DataProtectionAssertionSummary}">
+
+            <summary>Active assertion summaries associated with the current protection state.</summary>
+
+        </property>
+
+        <property name = "HasMultipleRecipients" Cref = "Boolean">
+
+            <summary>True when the current protection state targets more than one recipient.</summary>
+
+        </property>
+
+        <property name = "ProtectionMode" Cref = "String?">
+
+            <summary>Optional descriptive mode string for the current protection state.</summary>
+
+        </property>
+
+    </class>
+
+</DataProtectionInfo>

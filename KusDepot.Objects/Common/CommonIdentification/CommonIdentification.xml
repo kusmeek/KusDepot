@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommonIdentification>
+  <record name="CommonIdentification">
+    <main>
+      <summary>Serializable signed common-identification artifact.</summary>
+    </main>
+
+    <property name="EnvelopeVersion" Cref="Byte"><summary>Serialized envelope version for the signed artifact.</summary></property>
+    <property name="SignatureAlgorithm" Cref="Byte"><summary>Serialized signature algorithm discriminator for the signed artifact.</summary></property>
+    <property name="Data" Cref="CommonIdentificationData"><summary>Canonical identification data covered by the embedded signature.</summary></property>
+    <property name="Signature" Cref="Byte[]"><summary>Embedded signature bytes protecting the canonical <see cref="P:KusDepot.CommonIdentification.Data"/> payload.</summary></property>
+  </record>
+</CommonIdentification>

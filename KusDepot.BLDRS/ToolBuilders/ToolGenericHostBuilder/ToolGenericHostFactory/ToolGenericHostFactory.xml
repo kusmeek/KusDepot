@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolGenericHostFactory>
+
+    <delegate name = "ToolGenericHostFactory">
+
+        <main>
+
+            <summary>Factory delegate for constructing a ToolGenericHost. Provides the builder-resolved values that correspond to the primary ToolGenericHost constructor parameters.</summary>
+
+            <typeparam name = "TToolGenericHost">A Type of ToolGenericHost.</typeparam>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Service Provider.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "host" Cref = "IHost?">Host.</param>
+
+            <param name = "lifeid" Cref = "Guid?">Lifetime ID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">Logger Factory.</param>
+
+            <returns Cref = "TToolGenericHost">ToolGenericHost of type specified.</returns>
+
+        </main>
+
+    </delegate>
+
+</ToolGenericHostFactory>

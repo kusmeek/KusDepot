@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ISegmentedTransferStorage>
+  <interface name="ISegmentedTransferStorage">
+	<main>
+	  <summary>Provides file-system staging operations for segmented transfer sessions.</summary>
+	</main>
+	<method name="GetSessionPaths">
+		<summary>Resolve conventional paths for a session.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<returns Cref="SegmentedTransferStorageSessionPaths">Resolved session paths.</returns>
+	</method>
+	<method name="CreateSession">
+		<summary>Create the staging artifacts for a new session.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Initial manifest.</param>
+		<param name="objectpayload" Cref="Byte[]">Serialized object payload.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{SegmentedTransferStorageSessionPaths?}">Resolved session paths when creation succeeds.</returns>
+	</method>
+	<method name="LoadManifest">
+		<summary>Load the persisted manifest for a session.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{DataItemTransferManifest?}">Loaded manifest.</returns>
+	</method>
+	<method name="SaveManifest">
+		<summary>Persist the manifest for a session.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Manifest to persist.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Boolean}">True when saved successfully.</returns>
+	</method>
+	<method name="ReadObjectPayload">
+		<summary>Read the serialized object payload for a session.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Byte[]?}">Serialized object payload.</returns>
+	</method>
+	<method name="WriteRange">
+		<summary>Write a payload range into the staged sparse stream file.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<param name="range" Cref="DataItemTransferRange">Target byte range.</param>
+		<param name="payload" Cref="Stream">Readable payload stream positioned at the first byte to write.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{SegmentedTransferWriteResult}">Detailed outcome of the attempted staged range write.</returns>
+	</method>
+	<method name="ReadRange">
+		<summary>Read a realized payload range from the staged sparse stream file.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<param name="range" Cref="DataItemTransferRange">Requested byte range.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Stream?}">Readable stream covering the returned payload range.</returns>
+	</method>
+	<method name="DeleteSession">
+		<summary>Delete all staged artifacts for a session.</summary>
+		<param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Boolean}">True when the staged session is deleted or no longer exists.</returns>
+	</method>
+  </interface>
+</ISegmentedTransferStorage>

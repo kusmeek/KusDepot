@@ -1,0 +1,57 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolConnect>
+
+    <interface name = "IToolConnect">
+
+        <main>
+
+            <summary>ToolConnect Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolConnect.</remarks>
+
+        </main>
+
+        <property name = "Tool">
+
+            <summary>Tool Reference</summary>
+
+            <returns Cref = "ITool?">Tool.</returns>
+
+        </property>
+
+        <property name = "ToolAspireHost">
+
+            <summary>ToolAspireHost Reference</summary>
+
+            <returns Cref = "IToolAspireHost?">ToolAspireHost.</returns>
+
+        </property>
+
+        <property name = "ToolHost">
+
+            <summary>ToolHost Reference</summary>
+
+            <returns Cref = "IToolHost?">ToolHost.</returns>
+
+        </property>
+
+        <property name = "ToolGenericHost">
+
+            <summary>ToolGenericHost Reference</summary>
+
+            <returns Cref = "IToolGenericHost?">ToolGenericHost.</returns>
+
+        </property>
+
+        <property name = "ToolWebHost">
+
+            <summary>ToolWebHost Reference</summary>
+
+            <returns Cref = "IToolWebHost?">ToolWebHost.</returns>
+
+        </property>
+
+    </interface>
+
+</IToolConnect>

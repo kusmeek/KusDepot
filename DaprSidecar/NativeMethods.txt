@@ -1,0 +1,6 @@
+ADDRESS_FAMILY
+GetExtendedTcpTable
+OpenProcess
+TCP_TABLE_CLASS
+TerminateProcess
+WIN32_ERROR

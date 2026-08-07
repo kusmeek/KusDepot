@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<SegmentDownloadInfo>
+
+	<record name="SegmentDownloadInfo">
+
+		<main>
+
+			<summary>Stores the result of a segmented download request.</summary>
+
+		</main>
+
+		<property name="StatusCode" Cref="HttpStatusCode">
+
+			<summary>HTTP status code returned by the DataControl endpoint.</summary>
+
+		</property>
+
+		<property name="Footer" Cref="TransferSegmentFooter">
+
+			<summary>Parsed trailing footer describing the streamed segment response.</summary>
+
+		</property>
+
+		<property name="Payload" Cref="Byte[]">
+
+			<summary>Downloaded segment payload bytes.</summary>
+
+		</property>
+
+		<property name="Content" Cref="String">
+
+			<summary>Raw response content for non-success or non-envelope cases.</summary>
+
+		</property>
+
+	</record>
+
+</SegmentDownloadInfo>

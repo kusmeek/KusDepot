@@ -1,0 +1,24 @@
+<CommandDetailsExtensions>
+  <class name="CommandDetailsExtensions">
+    <main>
+      <summary>Command Details Extensions.</summary>
+    </main>
+
+    <method name="SetBinaryConsoleObserver">
+      <summary>Set BinaryCommandObserver argument on CommandDetails.</summary>
+      <param name="details" Cref="CommandDetails">Command Details.</param>
+      <param name="observer" Cref="BinaryCommandObserver?">Observer instance.</param>
+      <param name="overwrite" Cref="Boolean">True to overwrite any existing observer argument.</param>
+      <returns Cref="CommandDetails">The given CommandDetails.</returns>
+    </method>
+
+    <method name="SetConsoleObserver">
+      <summary>Set ConsoleCommandObserver argument on CommandDetails.</summary>
+      <param name="details" Cref="CommandDetails">Command Details.</param>
+      <param name="observer" Cref="ConsoleCommandObserver?">Observer instance.</param>
+      <param name="overwrite" Cref="Boolean">True to overwrite any existing observer argument.</param>
+      <returns Cref="CommandDetails">The given CommandDetails.</returns>
+    </method>
+
+  </class>
+</CommandDetailsExtensions>

@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferObjectInfo>
+
+	<record name = "DataItemTransferObjectInfo">
+
+		<main><summary>Small descriptive summary of the serialized data item associated with a transfer.</summary></main>
+
+		<property name = "ObjectType" Cref = "String?"><summary>CLR object type name summary.</summary></property>
+		<property name = "DataType" Cref = "String?"><summary>Data type summary.</summary></property>
+		<property name = "Name" Cref = "String?"><summary>Data item name summary.</summary></property>
+		<property name = "ContentStreamed" Cref = "Boolean?"><summary>Whether the data item uses streamed content.</summary></property>
+
+	</record>
+
+</DataItemTransferObjectInfo>

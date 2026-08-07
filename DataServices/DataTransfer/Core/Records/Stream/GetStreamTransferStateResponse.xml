@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GetStreamTransferStateResponse>
+
+	<record name = "GetStreamTransferStateResponse">
+		<main><summary>Response containing the current state of a stream-transfer session.</summary></main>
+		<property name = "State" Cref = "DataStreamTransferState"><summary>Current transfer state.</summary></property>
+	</record>
+
+</GetStreamTransferStateResponse>

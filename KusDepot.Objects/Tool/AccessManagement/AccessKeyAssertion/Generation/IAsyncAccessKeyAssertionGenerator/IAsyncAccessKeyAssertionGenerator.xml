@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAsyncAccessKeyAssertionGenerator>
+
+    <interface name = "IAsyncAccessKeyAssertionGenerator">
+
+        <main>
+
+            <summary>Async access-key assertion generator contract.</summary>
+
+            <remarks>
+                Generates zero or more access-key assertions asynchronously for an approved issuance flow using the assertion-generator context supplied by an access manager.
+            </remarks>
+
+        </main>
+
+        <method name = "GenerateAsync">
+
+            <summary>Generate access-key assertions asynchronously for an approved issuance flow.</summary>
+
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous generation flow.</param>
+
+            <returns Cref = "ValueTask{ImmutableArray{AccessKeyAssertion}}">Generated access-key assertions, or an empty array when no assertions are produced.</returns>
+
+        </method>
+
+    </interface>
+
+</IAsyncAccessKeyAssertionGenerator>

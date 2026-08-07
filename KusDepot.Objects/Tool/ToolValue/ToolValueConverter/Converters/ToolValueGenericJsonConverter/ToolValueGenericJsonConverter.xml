@@ -1,0 +1,19 @@
+<ToolValueGenericJsonConverter>
+
+    <class name = "ToolValueGenericJsonConverter">
+
+        <main>
+
+            <summary>Generic JSON converter.</summary>
+
+        </main>
+
+        <method name = "IsSupportedType">
+
+            <summary>Determines whether a runtime type is supported .</summary>
+
+        </method>
+
+    </class>
+
+</ToolValueGenericJsonConverter>

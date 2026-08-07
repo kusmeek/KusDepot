@@ -1,0 +1,309 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemSecurityEnvelope>
+
+    <class name = "DataItemSecurityEnvelope">
+
+        <record name = "DataItemSecurityEnvelopeArrayHashResult">
+
+            <summary>Internal result carrier for in-memory `DataItem` envelope operations that produce both the transformed buffer and its SHA-512 hash in one pass.</summary>
+
+        </record>
+
+        <main>
+
+            <summary>Dedicated versioned transport envelope for `DataItem` protection.</summary>
+
+            <remarks>
+                This envelope is specific to `DataItem` security and remains separate from the general-purpose `EncryptionEnvelope`.
+            </remarks>
+
+        </main>
+
+        <method name = "DecryptArray">
+
+            <summary>Decrypt an in-memory `DataItem` security envelope by dispatching to the codec for the detected envelope version.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized `DataItem` security envelope bytes.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <returns Cref = "Byte[]?">Recovered plaintext, or null if the input is invalid or unsupported.</returns>
+
+        </method>
+
+        <method name = "DecryptArrayWithHash">
+
+            <summary>Decrypt an in-memory `DataItem` security envelope and return both the recovered plaintext and its SHA-512 hash.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized `DataItem` security envelope bytes.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <returns Cref = "DataItemSecurityEnvelopeArrayHashResult?">Recovered plaintext and its hash, or null if the input is invalid or unsupported.</returns>
+
+        </method>
+
+        <method name = "DecryptArrayWithHashAsync">
+
+            <summary>Decrypt an in-memory `DataItem` security envelope asynchronously and return both the recovered plaintext and its SHA-512 hash.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized `DataItem` security envelope bytes.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Recovered plaintext and its hash, or null if the input is invalid or unsupported.</returns>
+
+        </method>
+
+        <method name = "DecryptArrayAsync">
+
+            <summary>Decrypt an in-memory `DataItem` security envelope asynchronously by dispatching to the codec for the detected envelope version.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized `DataItem` security envelope bytes.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Recovered plaintext, or null if the input is invalid or unsupported.</returns>
+
+        </method>
+
+        <method name = "EncryptArrayWithHash">
+
+            <summary>Encrypt an in-memory payload and return both the serialized `DataItem` security envelope and its SHA-512 hash.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <returns Cref = "DataItemSecurityEnvelopeArrayHashResult?">Serialized envelope and its hash, or null if encryption fails.</returns>
+
+        </method>
+
+        <method name = "EncryptArrayWithHashAsync">
+
+            <summary>Encrypt an in-memory payload asynchronously and return both the serialized `DataItem` security envelope and its SHA-512 hash.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Serialized envelope and its hash, or null if encryption fails.</returns>
+
+        </method>
+
+        <method name = "DecryptStream">
+
+            <summary>Decrypt a `DataItem` security envelope stream using the codec for the detected envelope version.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing the serialized envelope.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream for recovered plaintext.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <returns Cref = "Boolean">True if decryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "DecryptStreamAsync">
+
+            <summary>Decrypt a `DataItem` security envelope stream asynchronously using the codec for the detected envelope version.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing the serialized envelope.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream for recovered plaintext.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the private key used for recipient unwrap and content decryption.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True if decryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "EncryptArray">
+
+            <summary>Encrypt an in-memory payload using the current `DataItem` security envelope write codec.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <returns Cref = "Byte[]?">Serialized envelope.</returns>
+
+        </method>
+
+        <method name = "EncryptArrayAsync">
+
+            <summary>Encrypt an in-memory payload asynchronously using the current `DataItem` security envelope write codec.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Serialized envelope.</returns>
+
+        </method>
+
+        <method name = "EncryptStream">
+
+            <summary>Encrypt a stream using the current `DataItem` security envelope write codec.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing plaintext.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream for the serialized envelope.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <returns Cref = "Boolean">True if encryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "EncryptStreamAsync">
+
+            <summary>Encrypt a stream asynchronously using the current `DataItem` security envelope write codec.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing plaintext.</param>
+
+            <param name = "output" Cref = "Stream?">Output stream for the serialized envelope.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object for the envelope context.</param>
+
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True if encryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetEncryptedCapacity">
+
+            <summary>Estimate the serialized envelope size for the current `DataItem` security envelope write codec.</summary>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients that will appear in the envelope recipient table.</param>
+
+            <param name = "plaintextlength" Cref = "Int64">Plaintext length in bytes.</param>
+
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+
+            <returns Cref = "Int32?">Estimated envelope size in bytes, or null if the requested layout is invalid.</returns>
+
+        </method>
+
+        <method name = "GetEnvelopeVersionArray">
+
+            <summary>Extract the leading envelope version byte from an array input.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized envelope bytes.</param>
+
+            <returns Cref = "Byte?">Detected envelope version byte, or null if unavailable.</returns>
+
+        </method>
+
+        <method name = "GetEnvelopeVersionSpan">
+
+            <summary>Extract the leading envelope version byte from a span input.</summary>
+
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Serialized envelope bytes.</param>
+
+            <returns Cref = "Byte?">Detected envelope version byte, or null if unavailable.</returns>
+
+        </method>
+
+        <method name = "GetEnvelopeVersionStream">
+
+            <summary>Read and return the leading envelope version byte from a stream input.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing serialized envelope bytes.</param>
+
+            <returns Cref = "Byte?">Detected envelope version byte, or null if unavailable.</returns>
+
+        </method>
+
+        <method name = "GetEnvelopeVersionStreamAsync">
+
+            <summary>Read and return the leading envelope version byte from a stream input asynchronously.</summary>
+
+            <param name = "input" Cref = "Stream?">Input stream containing serialized envelope bytes.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Byte?}">Detected envelope version byte, or null if unavailable.</returns>
+
+        </method>
+
+        <method name = "IsSupportedVersion">
+
+            <summary>Determine whether an envelope version byte is supported by the current `DataItem` security envelope fa�ade.</summary>
+
+            <param name = "version" Cref = "Byte">Envelope version byte.</param>
+
+            <returns Cref = "Boolean">True if the version is supported; otherwise false.</returns>
+
+        </method>
+
+        <field name = "EnvelopeVersion1">
+
+            <summary>Serialized envelope version identifier for the V1 `DataItem` security codec.</summary>
+
+        </field>
+
+    </class>
+
+</DataItemSecurityEnvelope>

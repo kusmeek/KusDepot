@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <Platforms>AnyCPU</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn></NoWarn>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+		
+		<PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Services\KusDepot.Services.csproj" />
+
+    </ItemGroup>
+
+</Project>

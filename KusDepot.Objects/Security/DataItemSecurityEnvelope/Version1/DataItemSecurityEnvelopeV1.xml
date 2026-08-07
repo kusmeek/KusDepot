@@ -1,0 +1,386 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemSecurityEnvelopeV1>
+
+    <class name = "DataItemSecurityEnvelopeV1">
+
+        <main>
+
+            <summary>Version 1 codec for the dedicated `DataItem` security envelope.</summary>
+
+            <remarks>
+                V1 is a `DataItem`-specific transport format with a fixed header, a recipient table, an always-present root context hash, and chunked authenticated content encryption.
+
+                <para>The serialized layout is fixed for V1 and is divided into three parts: a fixed header, a recipient table, and a chunked ciphertext body.</para>
+
+                <para>The fixed header is ordered as: Version, Flags, AlgorithmSuite, ChunkSizePower, RecipientCount, RecipientTableLength, OriginalLength, and RootContextHash.</para>
+
+                <para>The recipient table stores one or more recipient entries. Each recipient entry is ordered as: RecipientFlags, ThumbprintLength, Thumbprint, optional RecipientObjectId, optional RecipientPublicKeyHash, WrappedMaterialLength, and WrappedMaterial.</para>
+
+                <para>The body is a sequence of chunk records ordered as: PlainLength, CipherLength, Ciphertext, TagLength, and Tag.</para>
+            </remarks>
+
+        </main>
+
+        <field name = "AlgorithmSuiteRsaOaepSha512Aes256Gcm">
+            <summary>Algorithm suite discriminator for RSA-OAEP-SHA512 with AES-256-GCM.</summary>
+        </field>
+        <field name = "AesKeySize"><summary>Content-encryption key size in bytes.</summary></field>
+        <field name = "BaseNonceSeedSize"><summary>Base nonce seed size in bytes.</summary></field>
+        <field name = "ChunkLengthBlockSize"><summary>Serialized size of the per-chunk plaintext and ciphertext length block.</summary></field>
+        <field name = "DefaultChunkSizePower"><summary>Default chunk-size exponent for the envelope.</summary></field>
+        <field name = "EnvelopeMetadataHashSize"><summary>Serialized size of the authenticated envelope metadata hash stored in the fixed header.</summary></field>
+        <field name = "FixedHeaderSize"><summary>Fixed serialized size of the V1 envelope header.</summary></field>
+        <field name = "GuidSize"><summary>Serialized size of a Guid value when present in the recipient table.</summary></field>
+        <field name = "MaxChunkSizePower"><summary>Maximum supported chunk-size exponent.</summary></field>
+        <field name = "MinChunkSizePower"><summary>Minimum supported chunk-size exponent.</summary></field>
+        <field name = "PublicKeyHashSize"><summary>Serialized size of the recipient public-key hash hint.</summary></field>
+        <field name = "RecipientCountSize"><summary>Serialized size of the recipient count field.</summary></field>
+        <field name = "RecipientObjectIdFlag"><summary>Recipient-entry flag indicating the presence of an object identifier.</summary></field>
+        <field name = "RecipientPublicKeyHashFlag"><summary>Recipient-entry flag indicating the presence of a public-key hash hint.</summary></field>
+        <field name = "RecipientTableLengthSize"><summary>Serialized size of the recipient table length field.</summary></field>
+        <field name = "RootContextHashSize"><summary>Serialized size of the always-present root context hash.</summary></field>
+        <field name = "TagSize"><summary>AES-GCM tag size in bytes.</summary></field>
+        <field name = "TagSizeLengthFieldSize"><summary>Serialized size of the per-chunk tag-length field.</summary></field>
+        <field name = "Version"><summary>Envelope version byte for V1.</summary></field>
+        <field name = "WrappedMaterialSize"><summary>Size of the wrapped content-encryption material in bytes.</summary></field>
+
+        <record name = "RecipientEntry">
+            <summary>Parsed recipient entry describing one unwrap target in the envelope recipient table.</summary>
+        </record>
+        <record name = "Header">
+            <summary>Parsed fixed header for the `DataItemSecurityEnvelopeV1` codec.</summary>
+        </record>
+        <record name = "DecryptionChunk">
+            <summary>Internal work item used during chunk decryption.</summary>
+        </record>
+        <record name = "DecryptedChunk">
+            <summary>Internal work item carrying recovered plaintext for ordered stream writes.</summary>
+        </record>
+        <record name = "EncryptionChunk">
+            <summary>Internal work item used during chunk encryption.</summary>
+        </record>
+        <record name = "EncryptedChunk">
+            <summary>Internal work item carrying encrypted chunk records for ordered stream writes.</summary>
+        </record>
+
+        <method name = "GetEncryptedCapacity">
+            <summary>Estimate the serialized envelope size for a V1 `DataItem` security envelope.</summary>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients that will appear in the recipient table.</param>
+            <param name = "plaintextlength" Cref = "Int64">Plaintext length in bytes.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref = "Int32?">Estimated envelope size in bytes, or null if the requested layout is invalid.</returns>
+        </method>
+
+        <method name = "CreateHeader">
+            <summary>Create the canonical fixed header description for a V1 `DataItem` security envelope.</summary>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients that will appear in the recipient table.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "originallength" Cref = "UInt64">Original plaintext length.</param>
+            <param name = "chunksizepower" Cref = "Byte">Chunk-size exponent.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes.</param>
+            <returns Cref = "Header">Canonical header description.</returns>
+        </method>
+
+        <method name = "GetRecipientTableLength">
+            <summary>Compute the serialized size of the V1 recipient table.</summary>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients that will appear in the recipient table.</param>
+            <returns Cref = "Int32">Serialized recipient table size in bytes.</returns>
+        </method>
+
+        <method name = "BuildPerChunkAad">
+            <summary>Build the canonical per-chunk authenticated-data hash for a single ciphertext record from the root-context hash, authenticated metadata hash, chunk index, and plaintext length.</summary>
+            <param name = "header" Cref = "Header">Parsed fixed header for the current envelope.</param>
+            <param name = "chunkindex" Cref = "UInt32">Zero-based chunk index.</param>
+            <param name = "plainlength" Cref = "UInt32">Plaintext byte length of the chunk.</param>
+            <param name = "aadout" Cref = "Span{Byte}">Destination span for the computed per-chunk AAD hash.</param>
+            <returns Cref = "Boolean">True when the per-chunk AAD hash was built successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "BuildPerChunkAadCore">
+            <summary>Build the canonical per-chunk authenticated-data hash directly from root-context and authenticated envelope metadata hashes.</summary>
+            <param name = "rootcontexthash" Cref = "ReadOnlySpan{Byte}">Canonical root-context hash stored in the fixed header.</param>
+            <param name = "envelopemetadatahash" Cref = "ReadOnlySpan{Byte}">Authenticated envelope metadata hash to bind into per-chunk AAD.</param>
+            <param name = "chunkindex" Cref = "UInt32">Zero-based chunk index.</param>
+            <param name = "plainlength" Cref = "UInt32">Plaintext byte length of the chunk.</param>
+            <param name = "aadout" Cref = "Span{Byte}">Destination span for the computed per-chunk AAD hash.</param>
+            <returns Cref = "Boolean">True when the per-chunk AAD hash was built successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "ComputeRecipientTableHash">
+            <summary>Compute the canonical hash of the serialized recipient table so recipient metadata can be authenticated as a whole.</summary>
+            <param name = "recipienttable" Cref = "ReadOnlySpan{Byte}">Serialized recipient-table bytes.</param>
+            <param name = "hashout" Cref = "Span{Byte}">Destination span for the computed recipient-table hash.</param>
+            <returns Cref = "Boolean">True when the recipient-table hash was computed successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "ComputeEnvelopeMetadataHash">
+            <summary>Compute the canonical authenticated metadata hash for the envelope from stable transport values, the root-context hash already embedded in the header, and the recipient-table hash.</summary>
+            <param name = "header" Cref = "Header">Parsed fixed header for the current envelope.</param>
+            <param name = "recipienttablehash" Cref = "ReadOnlySpan{Byte}">Canonical recipient-table hash.</param>
+            <param name = "metadatahashout" Cref = "Span{Byte}">Destination span for the computed metadata hash.</param>
+            <returns Cref = "Boolean">True when the envelope metadata hash was computed successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "ComputeRecipientFlags">
+            <summary>Compute the serialized recipient flags for a runtime recipient description.</summary>
+            <param name = "recipient" Cref = "DataSecurityRecipient">Recipient to encode into the recipient table.</param>
+            <returns Cref = "Byte">Recipient flags describing which optional fields are present.</returns>
+        </method>
+
+        <method name = "DeriveNonce">
+            <summary>Derive the per-chunk AES-GCM nonce from the shared key material, base nonce seed, and chunk index.</summary>
+            <param name = "aeskey" Cref = "ReadOnlySpan{Byte}">Shared content-encryption key bytes.</param>
+            <param name = "basenonceseed" Cref = "ReadOnlySpan{Byte}">Shared base nonce seed bytes.</param>
+            <param name = "chunkindex" Cref = "UInt64">Zero-based chunk index.</param>
+            <param name = "nonceout" Cref = "Span{Byte}">Destination span for the derived nonce.</param>
+            <returns Cref = "Boolean">True when the nonce was derived successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "GetMemoryStreamArray">
+            <summary>Return the exact byte content of a memory stream, reusing the underlying array when possible.</summary>
+            <param name = "stream" Cref = "MemoryStream">Source memory stream.</param>
+            <returns Cref = "Byte[]">Exact byte content of the memory stream.</returns>
+        </method>
+
+        <method name = "GetRecipientEntryLength">
+            <summary>Compute the serialized size of a parsed recipient entry.</summary>
+            <param name = "recipient" Cref = "RecipientEntry">Parsed recipient entry.</param>
+            <returns Cref = "Int32">Serialized recipient-entry size in bytes.</returns>
+        </method>
+
+        <method name = "GetRecipientEntryLengthRecipient">
+            <summary>Compute the serialized size of a runtime recipient before it is written into the recipient table.</summary>
+            <param name = "recipient" Cref = "DataSecurityRecipient">Runtime recipient description.</param>
+            <returns Cref = "Int32">Serialized recipient-entry size in bytes.</returns>
+        </method>
+
+		<method name = "GetWrappedMaterialLength">
+			<summary>Compute the length of the wrapped material for a given certificate.</summary>
+			<param name = "certificate" Cref = "X509Certificate2">Certificate containing the RSA public key.</param>
+			<returns Cref = "Int32?">Length of the wrapped material in bytes, or null if the certificate does not have a valid RSA public key.</returns>
+		</method>
+
+        <method name = "NormalizeThumbprint">
+            <summary>Normalize a certificate thumbprint into the canonical uppercase no-whitespace form used by the envelope.</summary>
+            <param name = "thumbprint" Cref = "String?">Thumbprint value to normalize.</param>
+            <returns Cref = "String?">Normalized thumbprint, or null when the input is missing.</returns>
+        </method>
+
+        <method name = "ReadExact">
+            <summary>Read exactly the requested number of bytes from a stream into a destination span.</summary>
+            <param name = "stream" Cref = "Stream">Source stream.</param>
+            <param name = "buffer" Cref = "Span{Byte}">Destination span that must be filled.</param>
+            <returns Cref = "Boolean">True when the destination span was filled completely; otherwise false.</returns>
+        </method>
+
+        <method name = "ReadExactAsync">
+            <summary>Read exactly the requested number of bytes from a stream into a destination memory region asynchronously.</summary>
+            <param name = "stream" Cref = "Stream">Source stream.</param>
+            <param name = "buffer" Cref = "Memory{Byte}">Destination memory that must be filled.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Boolean}">True when the destination memory was filled completely; otherwise false.</returns>
+        </method>
+
+        <method name = "SerializeHeader">
+            <summary>Serialize a parsed V1 header description into the fixed 82-byte header layout.</summary>
+            <param name = "header" Cref = "Header">Header description to serialize.</param>
+            <returns Cref = "Byte[]">Serialized fixed header bytes.</returns>
+        </method>
+
+        <method name = "SerializeRecipientTable">
+            <summary>Serialize the recipient table by wrapping the shared content-encryption material once per recipient.</summary>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients to write into the recipient table.</param>
+            <param name = "wrappedmaterial" Cref = "ReadOnlySpan{Byte}">Shared content-encryption material to wrap for each recipient.</param>
+            <returns Cref = "Byte[]">Serialized recipient-table bytes.</returns>
+        </method>
+
+        <method name = "TryValidateEnvelopeMetadata">
+            <summary>Validate the authenticated envelope metadata after parsing the header and recipient table but before decrypting chunk content.</summary>
+            <param name = "header" Cref = "Header">Parsed fixed header.</param>
+            <param name = "recipienttable" Cref = "ReadOnlySpan{Byte}">Serialized recipient-table bytes exactly as stored in the envelope.</param>
+            <param name = "expectedmetadatahash" Cref = "ReadOnlySpan{Byte}">Expected authenticated envelope metadata hash.</param>
+            <returns Cref = "Boolean">True when the authenticated envelope metadata matches the serialized envelope state; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetRemainingMemory">
+            <summary>Attempt to expose the unread portion of a memory-backed stream as `ReadOnlyMemory&lt;byte&gt;` without copying.</summary>
+            <param name = "stream" Cref = "Stream?">Source stream.</param>
+            <param name = "memory" Cref = "ReadOnlyMemory{Byte}">Unread portion of the underlying memory buffer when successful.</param>
+            <returns Cref = "Boolean">True when the unread content can be exposed without copying; otherwise false.</returns>
+        </method>
+
+        <method name = "TryParseHeader">
+            <summary>Parse the fixed V1 header layout from an input span.</summary>
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Input span beginning at the envelope header.</param>
+            <param name = "header" Cref = "Header">Parsed fixed header.</param>
+            <returns Cref = "Boolean">True when the fixed header parsed successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryParseRecipientTable">
+            <summary>Parse the V1 recipient table from a serialized input span.</summary>
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Serialized recipient-table bytes.</param>
+            <param name = "recipientcount" Cref = "UInt16">Expected recipient-entry count.</param>
+            <param name = "recipients" Cref = "ImmutableArray{RecipientEntry}">Parsed recipient entries.</param>
+            <returns Cref = "Boolean">True when the recipient table parsed successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryResolveRecipientMaterial">
+            <summary>Attempt to unwrap the shared content-encryption material for a matching recipient using the supplied private certificate.</summary>
+            <param name = "recipients" Cref = "ImmutableArray{RecipientEntry}">Parsed recipient entries from the envelope.</param>
+            <param name = "certificate" Cref = "X509Certificate2">Certificate containing the private key used for unwrap attempts.</param>
+            <param name = "aeskey" Cref = "Byte[]?">Recovered AES content-encryption key bytes.</param>
+            <param name = "basenonceseed" Cref = "Byte[]?">Recovered base nonce seed bytes.</param>
+            <returns Cref = "Boolean">True when one recipient entry was successfully unwrapped; otherwise false.</returns>
+        </method>
+
+        <method name = "TryValidateRootContext">
+            <summary>Validate the caller-supplied canonical root context against the hash embedded in the envelope header.</summary>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Caller-supplied canonical root context bytes.</param>
+            <param name = "expectedhash" Cref = "ReadOnlySpan{Byte}">Expected root-context hash from the envelope header.</param>
+            <returns Cref = "Boolean">True when the supplied root context matches the embedded hash; otherwise false.</returns>
+        </method>
+
+        <method name = "DecryptArray">
+            <summary>Decrypt an in-memory V1 `DataItem` security envelope.</summary>
+            <param name = "input" Cref = "Byte[]?">Serialized envelope bytes.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <returns Cref = "Byte[]?">Recovered plaintext.</returns>
+        </method>
+
+        <method name = "DecryptArrayAsync">
+            <summary>Decrypt an in-memory V1 `DataItem` security envelope asynchronously.</summary>
+            <param name = "input" Cref = "Byte[]?">Serialized envelope bytes.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Byte[]?}">Recovered plaintext.</returns>
+        </method>
+
+        <method name = "DecryptArrayWithHash">
+            <summary>Decrypt an in-memory V1 `DataItem` security envelope and return plaintext together with its computed hash.</summary>
+            <param name = "input" Cref = "Byte[]?">Serialized envelope bytes.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <returns Cref = "DataItemSecurityEnvelopeArrayHashResult?">Recovered plaintext and computed plaintext hash.</returns>
+        </method>
+
+        <method name = "DecryptArrayWithHashAsync">
+            <summary>Decrypt an in-memory V1 `DataItem` security envelope asynchronously and return plaintext together with its computed hash.</summary>
+            <param name = "input" Cref = "Byte[]?">Serialized envelope bytes.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Recovered plaintext and computed plaintext hash.</returns>
+        </method>
+
+        <method name = "EncryptArray">
+            <summary>Encrypt an in-memory payload into a V1 `DataItem` security envelope.</summary>
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref = "Byte[]?">Serialized envelope.</returns>
+        </method>
+
+        <method name = "EncryptArrayAsync">
+            <summary>Encrypt an in-memory payload into a V1 `DataItem` security envelope asynchronously.</summary>
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Byte[]?}">Serialized envelope.</returns>
+        </method>
+
+        <method name = "EncryptArrayWithHash">
+            <summary>Encrypt an in-memory payload into a V1 `DataItem` security envelope and return ciphertext together with the computed plaintext hash.</summary>
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref = "DataItemSecurityEnvelopeArrayHashResult?">Serialized envelope bytes and computed plaintext hash.</returns>
+        </method>
+
+        <method name = "EncryptArrayWithHashAsync">
+            <summary>Encrypt an in-memory payload into a V1 `DataItem` security envelope asynchronously and return ciphertext together with the computed plaintext hash.</summary>
+            <param name = "input" Cref = "Byte[]?">Plaintext payload.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Serialized envelope bytes and computed plaintext hash.</returns>
+        </method>
+
+        <method name = "DecryptStream">
+            <summary>Decrypt a V1 `DataItem` security envelope stream.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing the envelope.</param>
+            <param name = "output" Cref = "Stream?">Output stream for recovered plaintext.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <returns Cref = "Boolean">True if decryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name = "DecryptStreamAsync">
+            <summary>Decrypt a V1 `DataItem` security envelope stream asynchronously.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing the envelope.</param>
+            <param name = "output" Cref = "Stream?">Output stream for recovered plaintext.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Boolean}">True if decryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name = "DecryptStreamAsyncCore">
+            <summary>Perform asynchronous V1 stream decryption using the chunked TPL Dataflow pipeline.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing the envelope.</param>
+            <param name = "output" Cref = "Stream?">Output stream for recovered plaintext.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing recipient private key material.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes expected by the envelope.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Boolean}">True when the stream was decrypted successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "EncryptStream">
+            <summary>Encrypt a stream into a V1 `DataItem` security envelope.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing plaintext.</param>
+            <param name = "output" Cref = "Stream?">Output stream for the serialized envelope.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlySpan{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref = "Boolean">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name = "EncryptStreamAsync">
+            <summary>Encrypt a stream into a V1 `DataItem` security envelope asynchronously.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing plaintext.</param>
+            <param name = "output" Cref = "Stream?">Output stream for the serialized envelope.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Boolean}">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name = "EncryptStreamAsyncCore">
+            <summary>Perform asynchronous V1 stream encryption using the chunked TPL Dataflow pipeline.</summary>
+            <param name = "input" Cref = "Stream?">Input stream containing plaintext.</param>
+            <param name = "output" Cref = "Stream?">Output stream for the serialized envelope.</param>
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipients for the envelope.</param>
+            <param name = "issuer" Cref = "DataSecurityObject?">Optional local issuing object.</param>
+            <param name = "rootcontext" Cref = "ReadOnlyMemory{Byte}">Canonical root context bytes to bind into the envelope.</param>
+            <param name = "chunksizepower" Cref = "Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Boolean}">True when the stream was encrypted successfully; otherwise false.</returns>
+        </method>
+
+    </class>
+
+</DataItemSecurityEnvelopeV1>

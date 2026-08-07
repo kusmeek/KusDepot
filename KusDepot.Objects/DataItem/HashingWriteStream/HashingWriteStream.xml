@@ -1,0 +1,188 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<HashingWriteStream>
+
+    <class name = "HashingWriteStream">
+
+        <main>
+
+            <summary>Writable stream wrapper that hashes every written byte while forwarding operations to an underlying destination stream.</summary>
+
+        </main>
+
+        <field name = "Destination" Cref = "Stream">
+
+            <summary>The underlying destination stream that receives forwarded write operations.</summary>
+
+        </field>
+
+        <field name = "Hash" Cref = "IncrementalHash">
+
+            <summary>The incremental SHA-512 hash state fed by each forwarded write.</summary>
+
+        </field>
+
+        <field name = "LeaveOpen" Cref = "Boolean">
+
+            <summary>True when the underlying destination stream should remain open when this wrapper is disposed.</summary>
+
+        </field>
+
+        <field name = "Finalized" Cref = "Boolean">
+
+            <summary>True once the current hash value has been finalized and retrieved.</summary>
+
+        </field>
+		
+		<field name = "disposed" Cref = "Boolean"><summary>Tracks whether the stream has been disposed.</summary></field>
+		
+
+        <constructor name = "Constructor">
+
+            <summary>Create a hashing write wrapper over an existing destination stream.</summary>
+
+            <param name = "destination" Cref = "Stream">The destination stream that receives forwarded writes.</param>
+
+            <param name = "leaveopen" Cref = "Boolean">True to leave the destination stream open when the hashing wrapper is disposed; otherwise false.</param>
+
+        </constructor>
+
+        <method name = "GetHashAndReset">
+
+            <summary>Finalize and return the current SHA-512 digest for all bytes written so far.</summary>
+
+            <returns Cref = "Byte[]">The finalized SHA-512 digest.</returns>
+
+        </method>
+
+        <property name = "CanRead" Cref = "Boolean">
+
+            <summary>Gets a value indicating whether the underlying destination stream supports reading.</summary>
+
+        </property>
+
+        <property name = "CanSeek" Cref = "Boolean">
+
+            <summary>Gets a value indicating whether the underlying destination stream supports seeking.</summary>
+
+        </property>
+
+        <property name = "CanWrite" Cref = "Boolean">
+
+            <summary>Gets a value indicating whether the underlying destination stream supports writing.</summary>
+
+        </property>
+
+        <property name = "Length" Cref = "Int64">
+
+            <summary>Gets the length of the underlying destination stream.</summary>
+
+        </property>
+
+        <property name = "Position" Cref = "Int64">
+
+            <summary>Gets or sets the current position within the underlying destination stream.</summary>
+
+        </property>
+
+        <method name = "Flush">
+
+            <summary>Flush the underlying destination stream.</summary>
+
+        </method>
+
+        <method name = "FlushAsync">
+
+            <summary>Asynchronously flush the underlying destination stream.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A task that completes when the underlying flush operation completes.</returns>
+
+        </method>
+
+        <method name = "Read">
+
+            <summary>Read from the underlying destination stream.</summary>
+
+            <param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+
+            <param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+
+            <param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+
+            <returns Cref = "Int32">The number of bytes read from the underlying destination stream.</returns>
+
+        </method>
+
+        <method name = "Seek">
+
+            <summary>Change the position within the underlying destination stream.</summary>
+
+            <param name = "offset" Cref = "Int64">Byte offset relative to <c>origin</c>.</param>
+
+            <param name = "origin" Cref = "SeekOrigin">Reference point used to obtain the new position.</param>
+
+            <returns Cref = "Int64">The new position within the underlying destination stream.</returns>
+
+        </method>
+
+        <method name = "SetLength">
+
+            <summary>Set the length of the underlying destination stream.</summary>
+
+            <param name = "value" Cref = "Int64">The desired length of the stream.</param>
+
+        </method>
+
+        <method name = "Write">
+
+            <summary>Write bytes to the underlying destination stream and append them to the incremental SHA-512 state.</summary>
+
+            <param name = "buffer" Cref = "Byte[]">Source buffer containing bytes to write.</param>
+
+            <param name = "offset" Cref = "Int32">Start offset in the source buffer.</param>
+
+            <param name = "count" Cref = "Int32">Number of bytes to write.</param>
+
+        </method>
+
+        <method name = "WriteByte">
+
+            <summary>Write a single byte to the underlying destination stream and append it to the incremental SHA-512 state.</summary>
+
+            <param name = "value" Cref = "Byte">The byte value to write.</param>
+
+        </method>
+
+        <method name = "WriteAsync">
+
+            <summary>Asynchronously write bytes to the underlying destination stream and append them to the incremental SHA-512 state.</summary>
+
+            <param name = "buffer" Cref = "Byte[]">Source buffer containing bytes to write.</param>
+
+            <param name = "offset" Cref = "Int32">Start offset in the source buffer.</param>
+
+            <param name = "count" Cref = "Int32">Number of bytes to write.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A task that completes when the write operation and hash append complete.</returns>
+
+        </method>
+
+        <method name = "WriteAsyncMemory">
+
+            <summary>Asynchronously write memory-backed bytes to the underlying destination stream and append them to the incremental SHA-512 state.</summary>
+
+            <param name = "buffer" Cref = "ReadOnlyMemory{Byte}">Source memory containing bytes to write.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "ValueTask">A task-like value that completes when the write operation and hash append complete.</returns>
+
+        </method>
+
+    </class>
+
+</HashingWriteStream>

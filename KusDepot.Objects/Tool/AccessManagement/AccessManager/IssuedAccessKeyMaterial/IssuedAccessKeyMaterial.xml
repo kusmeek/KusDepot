@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IssuedAccessKeyMaterial>
+
+    <class name = "IssuedAccessKeyMaterial">
+
+        <main>
+
+            <summary>Internal issued access-key material produced after successful issuance and membership-state updates but before concrete key-instance construction.</summary>
+
+        </main>
+
+        <property name = "Assertions" Cref = "ImmutableArray{AccessKeyAssertion}">
+
+            <summary>Generated access-key assertions associated with the approved issuance flow.</summary>
+
+        </property>
+
+        <property name = "Ciphertext" Cref = "Byte[]">
+
+            <summary>Encrypted access-key payload used to construct the concrete key instance.</summary>
+
+        </property>
+
+        <property name = "CacheKey" Cref = "MembershipCacheKey?">
+
+            <summary>Derived membership-cache identity for the issued ciphertext envelope when it could be created; otherwise null.</summary>
+
+        </property>
+
+        <property name = "ManifestIdentity" Cref = "ToolManifestIdentity">
+
+            <summary>Manifest identity used during issuance.</summary>
+
+        </property>
+
+        <property name = "Membership" Cref = "MembershipToken?">
+
+            <summary>Resolved membership metadata when it could be reconstructed from the issued ciphertext; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Issued membership subject.</summary>
+
+        </property>
+
+        <property name = "Token" Cref = "AccessKeyToken">
+
+            <summary>Issued token identity.</summary>
+
+        </property>
+
+    </class>
+
+</IssuedAccessKeyMaterial>

@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConsoleCommandObserverAdapter>
+
+    <class name = "ConsoleCommandObserverAdapter">
+
+        <main>
+
+            <summary>Adapts CliWrap Command events to a ConsoleCommandObserver.</summary>
+
+            <remarks>Implements IObserver{CommandEvent} and coordinates completion for observed Commands.</remarks>
+
+        </main>
+
+        <field name = "observer">
+
+            <summary>Observer that handles streamed Command events.</summary>
+
+            <returns Cref = "ConsoleCommandObserver">Console Command Observer.</returns>
+
+        </field>
+
+        <field name = "source">
+
+            <summary>TaskCompletionSource used to signal CommandResult completion.</summary>
+
+            <returns Cref = "Task{CommandResult?}">Completion Task source.</returns>
+
+        </field>
+
+        <property name = "Completion">
+
+            <summary>Task that completes when the observed Command finishes.</summary>
+
+            <returns Cref = "Task{CommandResult?}">Command completion Task.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "observer" Cref = "ConsoleCommandObserver">Observer delegates.</param>
+
+            <returns Cref = "ConsoleCommandObserverAdapter">New ConsoleCommandObserverAdapter.</returns>
+
+        </constructor>
+
+    </class>
+
+</ConsoleCommandObserverAdapter>

@@ -1,0 +1,472 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlClient>
+
+    <class name = "DataControlClient">
+
+        <main>
+
+            <summary>DataControl Client.</summary>
+
+        </main>
+
+        <field name = "Client" Cref = "RestClient">
+
+            <summary>Rest Client.</summary>
+
+        </field>
+
+        <field name = "DefaultToken" Cref = "String?">
+
+            <summary>Default Authorization Token.</summary>
+
+        </field>
+
+        <field name = "Auth" Cref = "JwtAuthenticator">
+
+            <summary>JWT Authenticator.</summary>
+
+        </field>
+
+        <field name = "disposed" Cref = "Int32">
+
+            <summary>Disposal state flag.</summary>
+
+        </field>
+
+        <field name = "NotificationClient" Cref = "SignalRDataControlNotificationClient">
+
+            <summary>Internal notification transport used to wait for follow-session wake hints.</summary>
+
+        </field>
+
+        <property name = "EndPoint" Cref = "String">
+
+            <summary>Service EndPoint.</summary>
+
+        </property>
+
+        <property name = "Certificate" Cref = "X509Certificate2">
+
+            <summary>Client Certificate.</summary>
+
+        </property>
+
+        <property name = "WorkingDirectoryOptions" Cref = "DataControlClientWorkingDirectoryOptions">
+
+            <summary>Options that control where segmented transfer working directories are created and persisted.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "endpoint" Cref = "String">Service Endpoint.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Authentication Certificate. Requires Extension Oid 2.5.29.32.853207196923.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <returns Cref = "DataControlClient">New DataControlClient.</returns>
+
+        </constructor>
+
+        <method name = "ResolveToken">
+
+            <summary>Resolve the authorization token to use for a request, falling back to the default token if none is provided.</summary>
+
+            <param name = "token" Cref = "String?">Optional token to use for the request.</param>
+
+            <returns Cref = "String?">The resolved token.</returns>
+
+        </method>
+
+        <method name = "DisposeCore">
+
+            <summary>Release the managed resources used by the client through the synchronous disposal path.</summary>
+
+        </method>
+
+        <method name = "DisposeAsyncCore">
+
+            <summary>Release the managed resources used by the client through the asynchronous disposal path.</summary>
+
+            <returns Cref = "ValueTask">A value task that completes when asynchronous disposal of notification resources has finished.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Dispose the client and synchronously release any notification transport resources.</summary>
+
+        </method>
+
+        <method name = "DisposeAsync">
+
+            <summary>Dispose the client and asynchronously release any notification transport resources.</summary>
+
+            <returns Cref = "ValueTask">A value task that completes when all disposable client resources have been released.</returns>
+
+        </method>
+
+        <method name = "RegisterFollowSubscriptionAsync">
+
+            <summary>Register a persistent follow-session notification subscription when the supplied download session can be mapped to a logical follow subscription.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Download session whose item, session, and source-session identities determine the persistent notification subscription.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for the notification connection.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IDataControlNotificationSubscriptionHandle?}">A task that completes with a persistent follow notification subscription handle when the session requires one; otherwise null.</returns>
+
+        </method>
+
+        <method name = "CreateDownloadSessionAsync">
+
+            <summary>Create a download session wrapper and, when applicable, attach a persistent follow notification subscription owned for the object lifetime of the session.</summary>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Local working directory storage backing the download session.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for authenticated service calls and notification registration.</param>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Current persisted session metadata and transfer state snapshot.</param>
+
+            <param name = "completionmode" Cref = "StreamCompletionMode">Configured completion behavior for stream-follow downloads.</param>
+
+            <param name = "maxbytes" Cref = "Int64?">Optional maximum number of bytes the stream-follow helper should realize before stopping.</param>
+
+            <param name = "followstream" Cref = "BufferedFollowStream?">Optional buffered follow stream used for stream-follow downloads.</param>
+
+            <param name = "liveitem" Cref = "DataStreamItem?">Optional live item being downloaded in the session.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession}">A task that completes with a download session wrapper bound to any required persistent follow notification subscription.</returns>
+
+        </method>
+
+        <method name = "TryPromoteStreamFollowToCommittedDownload">
+
+            <summary>Attempt to promote a local stream-follow download session into a committed segmented download session by opening the committed download view for the same item and migrating the locally realized stream prefix into the replacement working directory state.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Current local stream-follow session metadata and persisted state.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working directory storage that holds the local stream-follow session files to migrate.</param>
+
+            <param name = "completionmode" Cref = "StreamCompletionMode">Completion behavior to apply to the replacement committed download session.</param>
+
+            <param name = "maxbytes" Cref = "Int64?">Optional byte cap to carry into the replacement committed download session.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for service calls.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A task that completes with a committed replacement download session when promotion succeeds; otherwise null.</returns>
+
+        </method>
+
+        <method name = "PrepareFiniteUploadSource">
+
+            <summary>Prepare a finite source description for segmented upload, preferring a stable explicit file-backed source and otherwise producing a working-copy-backed source when needed.</summary>
+
+            <param name = "item" Cref = "DataItem">Finite item whose content stream should be prepared for upload.</param>
+
+            <param name = "options" Cref = "DataControlUploadOptions">Client upload options that may override the temporary staging path.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{PreparedUploadSource?}">A task that completes with a prepared upload source descriptor, optional stream, and any precomputed final full-stream hash metadata, or null when the item has no usable finite source.</returns>
+
+        </method>
+
+        <method name = "DownloadStreamTransferSegmentToStreamResponse">
+
+            <summary>Read a stream-transfer envelope from an HTTP response and copy the payload into the provided destination stream.</summary>
+
+            <param name = "response" Cref = "HttpResponseMessage">HTTP response containing the stream-transfer envelope or an error payload.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the downloaded payload bytes.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{StreamSegmentDownloadInfo?}">A task that completes with the parsed stream-transfer download information, or null when the envelope cannot be validated.</returns>
+
+        </method>
+
+        <method name = "DownloadStreamTransferSegmentToStreamRequest">
+
+            <summary>Issue a stream-transfer request and stream the returned payload directly into the provided destination stream.</summary>
+
+            <param name = "request" Cref = "GetStreamTransferSegmentRequest">Stream-transfer request describing the target extent to download.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the downloaded payload bytes.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for the request.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{StreamSegmentDownloadInfo?}">A task that completes with the parsed stream-transfer download information, or null when the request or envelope processing fails.</returns>
+
+        </method>
+
+        <method name = "DownloadTransferSegmentToStreamResponse">
+
+            <summary>Read a segmented transfer envelope from an HTTP response and copy the payload into the provided destination stream.</summary>
+
+            <param name = "response" Cref = "HttpResponseMessage">HTTP response containing the segmented transfer envelope or an error payload.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the downloaded payload bytes.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{SegmentDownloadInfo?}">A task that completes with the parsed segment download information, or null when the envelope cannot be validated.</returns>
+
+        </method>
+
+        <method name = "DownloadTransferSegmentToStreamRequest">
+
+            <summary>Issue a segmented transfer request and stream the returned payload directly into the provided destination stream.</summary>
+
+            <param name = "request" Cref = "GetTransferSegmentRequest">Segment request describing the target range to download.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the downloaded payload bytes.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for the request.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{SegmentDownloadInfo?}">A task that completes with the parsed segment download information, or null when the request or envelope processing fails.</returns>
+
+        </method>
+
+        <method name = "ReadExactlyAsync">
+
+            <summary>Read exactly the requested number of bytes from a stream into the provided buffer.</summary>
+
+            <param name = "input" Cref = "Stream">Source stream to read from.</param>
+
+            <param name = "buffer" Cref = "Memory{Byte}">Destination buffer that must be filled completely.</param>
+
+            <param name = "cancellationToken" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "ValueTask{Boolean}">A task that completes with true when the full buffer is filled, or false when the stream ends early.</returns>
+
+        </method>
+
+        <method name = "CreateSessionManager">
+
+            <summary>Create the internal session manager used to inspect and mutate persisted local transfer sessions.</summary>
+
+            <returns Cref = "DataControlClientSessionManager">Session manager scoped to the current working-directory options.</returns>
+
+        </method>
+
+        <method name = "ResumeCommittedDownload">
+
+            <summary>Resume a committed segmented download session by validating local metadata and reopening a fresh committed remote session.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Persisted local session metadata.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to validate persisted local artifacts.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions">Resume options controlling completion behavior for the reconstructed session.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for remote reopen operations.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A resumed committed download session, or null when validation or reopen fails.</returns>
+
+        </method>
+
+        <method name = "ResumeSegmentedFollowDownload">
+
+            <summary>Resume a segmented follow download session from local working-directory state, reopening the existing remote follower when possible, accepting any server-side promotion to committed mode, and otherwise replacing it with a fresh follower session while preserving usable local state.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Persisted local session metadata.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to validate persisted local artifacts.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions">Resume options controlling completion behavior for the reconstructed session.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for remote reopen or replacement follower operations.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A resumed segmented follow session, or null when local validation fails and no usable session can be reconstructed.</returns>
+
+        </method>
+
+        <method name = "ResumeStreamFollowDownload">
+
+            <summary>Resume a stream-follow download session from local buffered state, reopening the existing remote follower when possible, otherwise replacing it with a fresh follower session, and finally promoting to a committed download when live follow can no longer be re-established while preserving usable local content.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Persisted local session metadata.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to validate persisted local artifacts.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions">Resume options controlling completion behavior and future live rebinding.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used for remote reopen or replacement follower operations.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A resumed stream-follow session, or null when local validation fails and no usable session can be reconstructed.</returns>
+
+        </method>
+
+        <method name = "TryPromoteStreamFollowResumeToCommittedDownload">
+
+            <summary>Attempt to replace a persisted stream-follow session with a committed segmented download for the same item while preserving the locally downloaded contiguous stream prefix.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Persisted local stream-follow session metadata.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to read the local stream prefix and migrate the resumed session identity.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions">Resume options controlling completion behavior for the promoted committed session.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token used to open the replacement committed session.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A committed segmented download session bound to the existing local session identity, or null when promotion cannot be completed safely.</returns>
+
+        </method>
+
+        <method name = "CreateResumedStreamFollowSession">
+
+            <summary>Create a client-facing stream-follow download session from locally persisted state, optionally rebinding a live <see cref="DataStreamItem"/> when requested.</summary>
+
+            <param name = "session" Cref = "DataControlTransferSessionInfo">Persisted local session metadata.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to read local stream-follow artifacts.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions">Resume options controlling completion behavior and optional live rebinding.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token retained by the resumed session for later remote follow operations.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A reconstructed stream-follow download session, or null when the local buffered state cannot be reopened.</returns>
+
+        </method>
+
+        <method name = "ValidateSegmentedDownloadObjectPayload">
+
+            <summary>Validate that the locally persisted segmented download object payload still matches the expected object hash recorded in transfer state.</summary>
+
+            <param name = "state" Cref = "DataItemTransferState">Persisted segmented transfer state to validate against.</param>
+
+            <param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">Working-directory storage used to read the persisted object payload.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the local object payload exists and matches the expected hash.</returns>
+
+        </method>
+
+    </class>
+
+    <class name = "SegmentedTransferEnvelopeContent">
+
+        <main>
+
+            <summary>Wraps segmented transfer request metadata and payload streams as an HTTP content envelope for upload operations.</summary>
+
+        </main>
+
+        <field name = "Metadata">
+
+            <summary>Request metadata serialized into the segmented transfer envelope header.</summary>
+
+        </field>
+
+        <field name = "Payload">
+
+            <summary>Readable payload stream written into the envelope body.</summary>
+
+        </field>
+
+        <field name = "PayloadLength">
+
+            <summary>Declared number of payload bytes that belong to the envelope body.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create HTTP content that serializes metadata and payload as a segmented transfer envelope.</summary>
+
+			<param name ="metadatabytes" Cref = "Byte[]">Request metadata to serialize into the envelope header.</param>
+
+            <param name = "payload" Cref = "Stream">Readable payload stream to include in the envelope body.</param>
+
+            <param name = "payloadlength" Cref = "Int64">Declared number of payload bytes to write from the payload stream.</param>
+
+        </constructor>
+
+    </class>
+
+	<record name = "PreparedUploadSource">
+
+		<main>
+
+            <summary>Represents the prepared finite source chosen for a segmented upload session before local persistence metadata is written.</summary>
+			
+		</main>
+		
+		<property name ="Source" Cref = "Stream?">
+			
+            <summary>Readable source stream when the prepared source still needs a working-directory copy to be written locally.</summary>
+			
+		</property>
+		
+		<property name ="Descriptor" Cref = "DataControlTransferSourceDescriptor">
+			
+            <summary>Descriptor that captures how the upload source should be reopened across session refresh and process restart.</summary>
+			
+		</property>
+		
+		<property name ="Length" Cref = "Int64">
+			
+            <summary>Total finite content length represented by the prepared source.</summary>
+			
+		</property>
+		
+		<constructor name = "Constructor">
+			
+            <summary>Create a prepared segmented-upload source description.</summary>
+
+			<param name ="source" Cref = "Stream?">
+				
+                <summary>Readable source stream when local staging still needs to be written.</summary>
+			
+			</param>
+
+			<param name ="descriptor" Cref = "DataControlTransferSourceDescriptor">
+				
+                <summary>Descriptor that records the chosen source kind and reopen metadata.</summary>
+		
+			</param>
+
+			<param name ="length" Cref = "Int64">
+				
+                <summary>Total finite content length represented by the prepared source.</summary>
+			
+			</param>
+			
+			<param name ="finalstreamsha512" Cref = "Byte[]?">
+				
+                <summary>SHA512 hash of the final stream content represented by the prepared source.</summary>
+			
+			</param>
+			
+		</constructor>
+		
+	</record>
+	
+
+</DataControlClient>

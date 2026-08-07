@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IWorkflowManager>
+
+    <interface name = "IWorkflowManager">
+
+        <main>
+
+            <summary>Workflow Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Workflow Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IWorkflowManager>

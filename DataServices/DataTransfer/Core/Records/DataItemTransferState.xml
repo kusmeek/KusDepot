@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferState>
+
+	<record name = "DataItemTransferState">
+
+		<main><summary>Current state view of a staged segmented transfer session.</summary></main>
+
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "SourceSessionID" Cref = "Guid?"><summary>Optional source session identifier for follower read sessions.</summary></property>
+		<property name = "ObjectSHA512" Cref = "Byte[]"><summary>SHA-512 of the serialized object payload.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>SHA-512 of the complete stream payload.</summary></property>
+		<property name = "StreamLength" Cref = "Int64"><summary>Declared stream length in bytes.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Current transfer status.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode"><summary>Current transfer session mode.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Monotonic transfer state version.</summary></property>
+		<property name = "Created" Cref = "DateTimeOffset"><summary>Creation timestamp.</summary></property>
+		<property name = "Updated" Cref = "DateTimeOffset"><summary>Last update timestamp.</summary></property>
+		<property name = "RealizedBytes" Cref = "Int64"><summary>Total realized byte count.</summary></property>
+		<property name = "RemainingBytes" Cref = "Int64"><summary>Total missing byte count.</summary></property>
+		<property name = "RealizedRanges" Cref = "DataItemTransferRange[]"><summary>Realized byte ranges.</summary></property>
+		<property name = "MissingRanges" Cref = "DataItemTransferRange[]"><summary>Missing byte ranges.</summary></property>
+		<property name = "SegmentSizePolicy" Cref = "DataItemTransferSegmentSizePolicy"><summary>Advertised segment size guidance.</summary></property>
+		<property name = "ObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional descriptive object summary.</summary></property>
+		<property name = "FaultMessage" Cref = "String?"><summary>Optional transfer fault detail.</summary></property>
+
+	</record>
+
+</DataItemTransferState>

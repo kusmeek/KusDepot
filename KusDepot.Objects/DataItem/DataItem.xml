@@ -1,0 +1,1259 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItem>
+
+    <class name = "DataItem">
+
+        <main>
+
+            <summary>Data Abstraction.</summary>
+
+            <remarks>This is the foundation of all storage items.</remarks>
+
+        </main>
+
+        <field name = "ContentStreamed" Cref = "Boolean">
+
+            <summary>True if the Object's data is streamed. Use GetContentStream instead of GetContent.</summary>
+
+        </field>
+
+
+        <field name = "DataEncrypted" Cref = "Boolean">
+
+            <summary>Data Encrypted.</summary>
+
+        </field>
+
+        <field name = "DataProtectionInfo" Cref = "DataProtectionInfo?">
+
+            <summary>Current object-facing protection summary metadata.</summary>
+
+            <remarks>Preferred replacement for legacy `DataEncryptInfo` metadata.</remarks>
+
+        </field>
+
+        <field name = "DataEncryptInfo" Cref = "DataEncryptInfo?">
+
+            <summary>Legacy encryption metadata retained only for compatibility with older in-memory and serialized flows.</summary>
+
+        </field>
+
+        <field name = "DataType" Cref = "String?">
+
+            <summary>DataType.cs.</summary>
+
+            <remarks>The format of the item Content.</remarks>
+
+        </field>
+
+        <field name = "EncryptedData" Cref = "Byte[]?">
+
+            <summary>This DataItem in encrypted form.</summary>
+
+        </field>
+
+        <field name = "CachedHashCode" Cref = "Int32">
+
+            <summary>Cached `GetHashCode()` value for the current in-memory item state.</summary>
+
+        </field>
+
+        <field name = "FieldIntegrityHashes" Cref = "Dictionary{String,Byte[]}?">
+
+            <summary>Persisted field integrity hashes for hash-only integrity scenarios.</summary>
+
+            <remarks>Stores current fallback integrity baselines for fields that do not currently rely on an active field assertion.</remarks>
+
+        </field>
+
+        <field name = "HashCodeCached" Cref = "Boolean">
+
+            <summary>True when <see cref="CachedHashCode"/> reflects the current in-memory item state.</summary>
+
+        </field>
+
+        <field name = "FieldAssertions" Cref = "Dictionary{String,Byte[]}?">
+
+            <summary>Persisted serialized field assertions keyed by field name.</summary>
+
+            <remarks>Stores the active current-state `DataFieldAssertion` payload for asserted fields.</remarks>
+
+        </field>
+
+        <field name = "Sync" Cref = "DataSync">
+
+            <summary>Synchronization Object.</summary>
+
+        </field>
+
+        <field name = "SyncLockCount" Cref = "Int64">
+
+            <summary>Global counter used to issue synchronization lock order tokens.</summary>
+
+        </field>
+
+        <field name = "SyncLockOrder" Cref = "Int64">
+
+            <summary>Immutable per-instance token used for cross-object synchronization lock order.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "CheckDataHashCore">
+
+            <summary>Core hash verification logic for data integrity.</summary>
+
+            <param name = "data" Cref = "Byte[]?">The in-memory content to verify.</param>
+
+            <param name = "stream" Cref = "Stream?">The content stream to verify.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the current data matches the stored hash for the current state.</returns>
+
+        </method>
+
+        <method name = "ClearHashCodeCache_NoSync">
+
+            <summary>Invalidate the current cached `GetHashCode()` value without acquiring additional synchronization locks.</summary>
+
+        </method>
+
+        <method name = "BuildCanonicalEnvelopeRootContext">
+
+            <summary>Build the canonical caller-derived root-context bytes used to bind `DataItem` envelope operations.</summary>
+
+            <param name = "fieldstate" Cref = "DataFieldState">Protected field-state classification to bind into the canonical root context.</param>
+
+            <returns Cref = "Byte[]?">Canonical root-context bytes, or null when the current `DataItem` identity is unavailable.</returns>
+
+        </method>
+
+        <method name = "GetCachedHashCode_NoSync">
+
+            <summary>Return the current cached `GetHashCode()` value, computing and caching it when needed.</summary>
+
+            <returns Cref = "Int32">The current cached hash code value.</returns>
+
+        </method>
+
+        <method name = "GetCachedHashCode_NoSyncAsync">
+
+            <summary>Return the current cached `GetHashCode()` value asynchronously, computing and caching it when needed.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Int32}">The current cached hash code value.</returns>
+
+        </method>
+
+        <method name = "GetAuthorizationCertificate">
+
+            <summary>Serialize the local authorization certificate from the supplied security context.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context providing the local certificate.</param>
+
+            <returns Cref = "Byte[]?">The serialized authorization certificate, or null when no local certificate is available.</returns>
+
+        </method>
+
+        <method name = "ModifiedNow">
+
+            <summary>Update the modified timestamp and invalidate the current cached `GetHashCode()` value.</summary>
+
+            <returns Cref = "Boolean">True when the modified timestamp update succeeds.</returns>
+
+        </method>
+
+        <method name = "CheckManager">
+
+            <summary>Check whether the supplied security context satisfies the current manager authorization requirements.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context providing the local certificate for authorization checks.</param>
+
+            <returns Cref = "Boolean">True if the supplied security context authorizes the operation.</returns>
+
+        </method>
+
+        <method name = "CheckDataHashCoreUtf16">
+
+            <summary>Core hash verification logic for data integrity.</summary>
+
+            <param name = "data" Cref = "String?">The in-memory content to verify.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the current data matches the stored hash for the current state.</returns>
+
+        </method>
+
+        <method name = "Clone">
+
+            <summary>Clone Item.</summary>
+
+            <returns Cref = "DataItem?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "CloneOpen">
+
+            <summary>Clone Item.</summary>
+
+            <typeparam name = "TResult">Type to Clone.</typeparam>
+
+            <returns Cref = "TResult?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "Clone_NoSync">
+
+            <summary>Clone Item without acquiring synchronization locks.</summary>
+
+            <returns Cref = "DataItem?">Cloned Item.</returns>
+
+        </method>
+
+        <method name = "DecryptDataBuffer">
+
+            <summary>Decrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to decrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <returns Cref = "Byte[]?">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptDataBufferAsync">
+
+            <summary>Decrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to decrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Decrypted Data.</returns>
+
+        </method>
+
+        <method name = "DecryptDataBufferWithHash">
+
+            <summary>Decrypt an in-memory payload and return both plaintext bytes and the computed plaintext hash.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to decrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Decryption result containing plaintext bytes and the computed plaintext hash.</returns>
+
+        </method>
+
+        <method name = "ApplyAssertionState">
+
+            <summary>Apply the current assertion policy for a field after its secure hash has been updated.</summary>
+
+            <param name = "field" Cref = "String">Field key whose active assertion state is being updated.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Current security context controlling whether active assertions are required.</param>
+
+            <returns Cref = "Boolean">True when the active assertion state is valid for the field; otherwise false.</returns>
+
+        </method>
+
+        <method name = "BuildProtectionInfo">
+
+            <summary>Create current-state `DataProtectionInfo` summary metadata for the active protected representation.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext">Security context used to populate issuer, recipient, and purpose summary metadata.</param>
+
+            <param name = "fieldstate" Cref = "DataFieldState">Current protected field representation state.</param>
+
+            <returns Cref = "DataProtectionInfo">Current-state protection summary metadata.</returns>
+
+        </method>
+
+        <method name = "ClearAssertion">
+
+            <summary>Remove the active assertion entry for a field from the current-state assertion store.</summary>
+
+            <param name = "field" Cref = "String">Field key whose active assertion should be removed.</param>
+
+        </method>
+
+        <method name = "GetProtectionAssertions">
+
+            <summary>Project the current-state assertion store into `DataProtectionAssertionSummary` values.</summary>
+
+            <returns Cref = "ImmutableArray{DataProtectionAssertionSummary}">Current-state assertion summaries.</returns>
+
+        </method>
+
+        <method name = "GetProtectionRecipients">
+
+            <summary>Project the current security context recipient set into `DataProtectionRecipientSummary` values.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext">Security context used to resolve current protection recipients.</param>
+
+            <returns Cref = "ImmutableArray{DataProtectionRecipientSummary}">Current protection recipient summaries.</returns>
+
+        </method>
+
+        <method name = "ValidateDataCore">
+
+            <summary>Validate the active current-state field for this item.</summary>
+
+            <remarks>Base behavior validates `EncryptedData` when the item is protected, otherwise it validates clear `Content`.</remarks>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used to resolve signer identity and validate the active field state.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the current active field state validates successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "CreateBuffer">
+
+            <summary>Create an in-memory buffer sized for the current operation when a positive capacity is known.</summary>
+
+            <param name = "capacity" Cref = "Int32">The initial buffer capacity. Values less than or equal to zero use the default memory stream growth behavior.</param>
+
+            <returns Cref = "MemoryStream">A writable in-memory buffer.</returns>
+
+        </method>
+
+
+        <method name = "HashDataChunked">
+
+            <summary>Hash an in-memory byte sequence.</summary>
+
+            <param name = "data" Cref = "ReadOnlySpan{Byte}">The in-memory byte sequence to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">The SHA-512 digest for the supplied byte sequence.</returns>
+
+        </method>
+
+
+        <method name = "WriteGuidBytes">
+
+            <summary>Write Guid content into a caller-owned byte buffer.</summary>
+
+            <param name = "value" Cref = "Guid">Guid content.</param>
+
+            <param name = "buffer" Cref = "Span{Byte}">Destination buffer.</param>
+
+        </method>
+
+
+        <method name = "HashGuid">
+
+            <summary>Hash Guid content without allocating a Guid byte array.</summary>
+
+            <param name = "value" Cref = "Guid">Guid content.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">The SHA-512 digest for the supplied Guid.</returns>
+
+        </method>
+
+        <method name = "HashGuidSpan">
+
+            <summary>Hash Guid content directly into a caller-provided SHA-512 destination buffer.</summary>
+
+            <param name = "value" Cref = "Guid">Guid content.</param>
+
+            <param name = "destination" Cref = "Span{Byte}">Destination buffer that receives the 64-byte SHA-512 digest.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+        </method>
+
+        <method name = "ReadHashPrefixInt32">
+
+            <summary>Read the first four bytes of a hash as an <see cref="Int32"/> value without allocating.</summary>
+
+            <param name = "hash" Cref = "ReadOnlySpan{Byte}">Hash bytes whose leading four bytes are interpreted as an integer.</param>
+
+            <returns Cref = "Int32">The integer represented by the first four bytes of the supplied hash.</returns>
+
+        </method>
+
+        <method name = "AppendHashedInt32">
+
+            <summary>Hash a 32-bit value into a fixed-size digest and append that digest to an existing incremental hash.</summary>
+
+            <param name = "hash" Cref = "IncrementalHash">The incremental hash that receives the hashed integer digest.</param>
+
+            <param name = "value" Cref = "Int32">The 32-bit value to hash and append.</param>
+
+        </method>
+
+        <method name = "DecryptToStream">
+
+            <summary>Decrypt an in-memory encrypted payload directly into a caller-owned destination stream.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Encrypted in-memory data to decrypt.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the decrypted payload.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True when decryption succeeds and the destination contains the decrypted payload.</returns>
+
+        </method>
+
+        <method name = "DecryptToStreamStream">
+
+            <summary>Decrypt a readable source stream directly into a caller-owned destination stream.</summary>
+
+            <param name = "data" Cref = "Stream?">Readable encrypted source stream to decrypt.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the decrypted payload.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True when decryption succeeds and the destination contains the decrypted payload.</returns>
+
+        </method>
+
+        <method name = "DecryptFileToHash">
+
+            <summary>Decrypt a streamed content file in place while computing the SHA-512 digest of the transformed destination bytes during the write pass.</summary>
+
+            <param name = "file" Cref = "String?">FILE path backing the streamed content.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for decryption.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">The SHA-512 digest of the decrypted file when the in-place replacement succeeds.</returns>
+
+        </method>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize Object.</summary>
+
+            <typeparam name = "TResult">Type to deserialize.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Input to deserialize.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "TResult">Output Object.</returns>
+
+        </method>
+
+        <method name = "DeserializeMemoryStream">
+
+            <summary>Deserialize an item directly from an in-memory stream buffer.</summary>
+
+            <typeparam name = "TResult">Type to deserialize.</typeparam>
+
+            <param name = "input" Cref = "MemoryStream">In-memory stream containing the serialized object payload.</param>
+
+            <returns Cref = "TResult">Output Object.</returns>
+
+        </method>
+
+        <method name = "DeserializeAny">
+
+            <summary>Deserialize Object.</summary>
+
+            <param name = "input" Cref = "Byte[]">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataItem?">Output Object.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBuffer">
+
+            <summary>Encrypt a Data Buffer.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "TryResolveRecipient">
+
+            <summary>Resolve a recipient descriptor into a concrete recipient certificate record.</summary>
+
+            <param name = "recipient" Cref = "DataSecurityRecipient">The recipient descriptor to resolve.</param>
+
+            <param name = "knownobjects" Cref = "Dictionary{Guid,DataSecurityObject}">Known objects keyed by object identifier.</param>
+
+            <param name = "directory" Cref = "ISecurityIdentityDirectory?">Optional identity directory used when the recipient is not already fully materialized.</param>
+
+            <param name = "resolved" Cref = "DataSecurityRecipient">Receives the resolved recipient when resolution succeeds.</param>
+
+            <returns Cref = "Boolean">True if the recipient could be resolved to a usable certificate record.</returns>
+
+        </method>
+
+        <method name = "ResolveRecipients">
+
+            <summary>Resolve the current security context recipient set into concrete recipient certificate records.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext">The security context providing known objects, explicit recipients, and directory access.</param>
+
+            <returns Cref = "ImmutableArray{DataSecurityRecipient}?">The resolved recipient set, or null when resolution fails.</returns>
+
+        </method>
+
+        <method name = "EncryptToStream">
+
+            <summary>Encrypt a readable source stream directly into a caller-owned destination stream.</summary>
+
+            <param name = "data" Cref = "Stream?">Readable source stream to encrypt.</param>
+
+            <param name = "destination" Cref = "Stream">Destination stream that receives the encrypted payload.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True when encryption succeeds and the destination contains the encrypted payload.</returns>
+
+        </method>
+
+        <method name = "EncryptFileToHash">
+
+            <summary>Encrypt a streamed content file in place while computing the SHA-512 digest of the transformed destination bytes during the write pass.</summary>
+
+            <param name = "file" Cref = "String?">FILE path backing the streamed content.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">The SHA-512 digest of the encrypted file when the in-place replacement succeeds.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferAsync">
+
+            <summary>Encrypt an in-memory payload using a pre-sized destination buffer when the envelope size can be estimated.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferWithHash">
+
+            <summary>Encrypt an in-memory payload and return both ciphertext bytes and the computed plaintext hash.</summary>
+
+            <param name = "data" Cref = "Byte[]?">Data Buffer to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Encryption result containing ciphertext bytes and the computed plaintext hash.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferUtf16Async">
+
+            <summary>Encrypt UTF-16 text using a pre-sized destination buffer when the envelope size can be estimated.</summary>
+
+            <param name = "data" Cref = "String?">UTF-16 text to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]?}">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferUtf16">
+
+            <summary>Encrypt UTF-16 text without first materializing a plaintext byte array.</summary>
+
+            <param name = "data" Cref = "String?">UTF-16 text to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "EncryptDataBufferUtf16WithHash">
+
+            <summary>Encrypt UTF-16 text and return both ciphertext bytes and the computed plaintext hash.</summary>
+
+            <param name = "data" Cref = "String?">UTF-16 text to encrypt.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context to use for encryption and assertion creation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataItemSecurityEnvelopeArrayHashResult?}">Encryption result containing ciphertext bytes and the computed plaintext hash.</returns>
+
+        </method>
+
+        <method name = "GetUtf16StringMemoryStream">
+
+            <summary>Decode UTF-16 text directly from an in-memory stream buffer.</summary>
+
+            <param name = "data" Cref = "MemoryStream?">The in-memory stream containing UTF-16 encoded bytes.</param>
+
+            <returns Cref = "String">Decoded UTF-16 text.</returns>
+
+        </method>
+
+        <method name = "GetMemoryStreamBuffer">
+
+			<summary>Return the exact byte content of an in-memory stream, reusing the underlying array when it already matches the logical length.</summary>
+
+			<param name = "data" Cref = "MemoryStream">The in-memory stream containing binary content.</param>
+
+			<returns Cref = "Byte[]">The exact underlying buffer when it matches the logical stream length; otherwise a copied array.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <typeparam name = "TResult">Type to Create.</typeparam>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "TResult?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetContentStream_NoSync">
+
+            <summary>Opens a Stream from the FILE path without synchronization. The Object's Content field is ignored.</summary>
+
+            <returns Cref = "Stream?">Content Stream.</returns>
+
+        </method>
+
+        <method name = "OpenSequentialRead">
+
+            <summary>Open a readable file stream configured for sequential access.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Stream">Readable file stream configured for sequential access.</returns>
+
+        </method>
+
+        <method name = "OpenExclusiveWrite">
+
+            <summary>Open a writable file stream with exclusive access and async-capable file options.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Stream">Writable file stream with exclusive access.</returns>
+
+        </method>
+
+        <method name = "GetHashCodeAsync">
+
+            <summary>Generate Hash Code.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Int32}">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetIntegrityHash_NoSync">
+
+            <summary>Generate the canonical integrity hash for the current logical value without acquiring synchronization primitives.</summary>
+
+            <returns Cref = "Byte[]">A SHA-512 digest representing the current logical value.</returns>
+
+        </method>
+
+        <method name = "GetIntegrityHash_NoSyncAsync">
+
+            <summary>Asynchronously generate the canonical integrity hash for the current logical value without acquiring synchronization primitives.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]}">A SHA-512 digest representing the current logical value.</returns>
+
+        </method>
+
+        <method name = "GetHashCode_NoSync">
+
+            <summary>Generate Hash Code without acquiring synchronization primitives.</summary>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetHashCode_NoSyncAsync">
+
+            <summary>Asynchronously generate a hash code without acquiring synchronization primitives.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Int32}">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetEncryptedData">
+
+            <summary>Get EncryptedData.</summary>
+
+            <returns Cref = "Byte[]?">Encrypted Data.</returns>
+
+        </method>
+
+        <method name = "GetKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+    <method name = "TryGetFieldIntegrityHash_NoSync">
+
+            <summary>Get a secure hash entry without cloning the secure hash dictionary or value buffer.</summary>
+
+            <param name = "key" Cref = "String?">SecureHash key.</param>
+
+            <param name = "value" Cref = "Byte[]?">Receives the stored secure hash value when the key exists.</param>
+
+            <returns Cref = "Boolean">True if the requested secure hash exists.</returns>
+
+        </method>
+
+    <method name = "TryGetFieldAssertion_NoSync">
+
+            <summary>Get a secure signature entry without cloning the secure signature dictionary or value buffer.</summary>
+
+            <param name = "key" Cref = "String?">SecureSignature key.</param>
+
+            <param name = "value" Cref = "Byte[]?">Receives the stored secure signature value when the key exists.</param>
+
+            <returns Cref = "Boolean">True if the requested secure signature exists.</returns>
+
+        </method>
+
+        <method name = "TryGetAssertionHash_NoSync">
+
+            <summary>Get the hash embedded inside the active field assertion without cloning the assertion dictionary.</summary>
+
+            <param name = "key" Cref = "String?">Field assertion key.</param>
+
+            <param name = "value" Cref = "Byte[]?">Receives the hash embedded in the active field assertion when it exists.</param>
+
+            <returns Cref = "Boolean">True if the requested field assertion exists and carries a usable hash.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse Object.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "TResult">Output Object.</returns>
+
+        </method>
+
+        <method name = "ParseAny">
+
+            <summary>Parse Object.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "DataItem?">Output Object.</returns>
+
+        </method>
+
+        <method name = "RegisterManager_NoSync">
+
+            <summary>Register a Manager without synchronization.</summary>
+
+            <param name = "managementkey" Cref = "ManagementKey?">ManagementKey.</param>
+
+            <returns Cref = "Boolean">True if Manager Registered.</returns>
+
+        </method>
+
+        <method name = "RegisterManagerCertificate_NoSync">
+
+            <summary>Register a Manager without synchronization.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate.</param>
+
+            <returns Cref = "ManagementKey?">ManagementKey derived from certificate.</returns>
+
+        </method>
+
+        <method name = "ToStringCore">
+
+            <summary>Serialize the current object to a string.</summary>
+
+            <returns Cref = "String">A base64-encoded string representing the serialized object.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Object.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output Object.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "TryDeserialize">
+
+            <summary>Try to Deserialize Object.</summary>
+
+            <typeparam name = "TResult">Type to deserialize.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Input to deserialize.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output Object.</param>
+
+            <returns Cref = "Boolean">True if input was deserialize successfully.</returns>
+
+        </method>
+
+        <method name = "ResolveRecipient">
+
+            <summary>Resolve a data protection recipient using embedded material, known objects, or the configured identity directory.</summary>
+
+            <param name = "recipient" Cref = "DataSecurityRecipient">Recipient descriptor to resolve.</param>
+
+            <param name = "knownobjects" Cref = "Dictionary{Guid,DataSecurityObject}">Known security objects available on the current context.</param>
+
+            <param name = "directory" Cref = "ISecurityIdentityDirectory?">Optional identity directory used to resolve recipient identities.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "ValueTask{DataSecurityRecipient?}">Resolved recipient including certificate material, or null when the recipient cannot be resolved.</returns>
+
+        </method>
+
+        <method name = "ResolveRecipientsAsync">
+
+            <summary>Resolve the effective recipient set for a security operation, including the self recipient when configured.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext">Security context supplying known objects, recipients, and optional directory.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{ImmutableArray{DataSecurityRecipient}?}">Resolved recipient set, or null when the effective recipient set cannot be resolved.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldIntegrityHash">
+
+            <summary>Update a field integrity hash entry.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "Byte[]?">Data to hash.</param>
+
+            <param name = "store" Cref = "Boolean">True to store data value directly.</param>
+
+            <returns Cref = "Boolean">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldIntegrityHashAsync">
+
+            <summary>Update a field integrity hash entry asynchronously.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "Byte[]?">Data to hash.</param>
+
+            <param name = "store" Cref = "Boolean">True to store data value directly.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldIntegrityHashUtf16">
+
+            <summary>Update a field integrity hash entry from UTF-16 text.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "String?">UTF-16 text data to hash.</param>
+
+            <returns Cref = "Boolean">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldIntegrityHashUtf16Async">
+
+            <summary>Update a field integrity hash entry from UTF-16 text asynchronously.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "String?">UTF-16 text data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldIntegrityHashAsyncStream">
+
+            <summary>Update a field integrity hash entry from a readable stream asynchronously.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "Stream?">Data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Data hash computed and stored successfully.</returns>
+
+        </method>
+
+    <method name = "UpdateFieldAssertion">
+
+            <summary>Create or replace the active field assertion for the given field key.</summary>
+
+            <param name = "key" Cref = "String?">The key for the hash/signature (e.g., field name, `DataSecurityHCKey`, or `DataSecurityMDKey`).</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context containing the local certificate and assertion metadata.</param>
+
+            <returns Cref = "Boolean">True if the active field assertion was computed and stored successfully.</returns>
+
+        </method>
+
+        <method name = "VerifyDataCoreHashed">
+
+            <summary>Verify a field assertion against a caller-supplied current field hash.</summary>
+
+            <param name = "field" Cref = "String?">The field name to verify.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used to resolve the assertion certificate.</param>
+
+            <param name = "currentfieldhash" Cref = "Byte[]?">The current precomputed hash for the field value.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the field assertion is valid and matches the supplied field hash.</returns>
+
+        </method>
+
+        <method name = "VerifyDataFieldCore">
+
+            <summary>Core current-state field assertion verification routine shared by byte, stream, UTF-16, pre-hashed, hash-code, and metadata-integrity verification paths.</summary>
+
+            <param name = "field" Cref = "String?">The field name to verify.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used to resolve the assertion certificate.</param>
+
+            <param name = "currentfielddata" Cref = "Byte[]?">The current in-memory field bytes when verification is being performed from a byte buffer.</param>
+
+            <param name = "currentfieldstream" Cref = "Stream?">The current field stream when verification is being performed from a stream.</param>
+
+            <param name = "currentfieldhash" Cref = "Byte[]?">The current precomputed field hash when verification is being performed from a hash value.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the active field assertion is valid and matches the supplied current field representation, the computed hash-code integrity representation, or the canonical metadata integrity representation.</returns>
+
+        </method>
+
+        <method name = "VerifyDataCore">
+
+            <summary>
+                Verifies the most recent digital signature for the specified field using the provided current field data or stream.
+            </summary>
+
+            <param name = "field" Cref = "String?">The name of the field to verify (e.g., "Content").</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used to resolve the assertion certificate.</param>
+
+            <param name = "currentfielddata" Cref = "Byte[]?">The current in-memory data for the field.</param>
+
+            <param name = "currentfieldstream" Cref = "Stream?">The current stream for the field.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid and the current data matches the signed hash; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "VerifyDataCoreUtf16">
+
+            <summary>Verify a field assertion against current UTF-16 text data.</summary>
+
+            <param name = "field" Cref = "String?">The field name to verify.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used to resolve the assertion certificate.</param>
+
+            <param name = "currentfielddata" Cref = "String?">The current UTF-16 field data.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the field assertion is valid and matches the supplied UTF-16 field data.</returns>
+
+        </method>
+
+        <method name = "ComputeUtf16HashAsync">
+
+            <summary>Compute a SHA-512 hash for UTF-16 text using the same chunking policy as the current field-integrity-hash helpers.</summary>
+
+            <param name = "data" Cref = "String">UTF-16 text to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Byte[]}">Computed SHA-512 hash.</returns>
+
+        </method>
+
+        <method name = "GetAssertionFieldState">
+
+            <summary>Map a field key to its assertion field-state classification.</summary>
+
+            <param name = "field" Cref = "String">Field key to classify.</param>
+
+            <returns Cref = "DataFieldState">Assertion field-state classification for the supplied field key.</returns>
+
+        </method>
+
+        <method name = "ResolveAssertionCertificate">
+
+            <summary>Resolve the certificate required to verify an active field assertion.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext">The security context providing the local object, known objects, and optional directory.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Assertion metadata describing the expected issuer identity and thumbprint.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "ValueTask{X509Certificate2?}">Resolved verification certificate, or null when no matching certificate can be found.</returns>
+
+        </method>
+
+    <method name = "VerifyFieldIntegrityHash">
+
+            <summary>Verify a field integrity hash against the current data buffer.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "Byte[]?">Data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the stored field integrity hash matches the current data.</returns>
+
+        </method>
+
+    <method name = "VerifyFieldIntegrityHashStream">
+
+            <summary>Verify a field integrity hash against the current stream data.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "Stream?">Data to hash.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if secure hash match current data.</returns>
+
+        </method>
+
+        <method name = "VerifyFieldIntegrityHashUtf16">
+
+            <summary>Verify a field integrity hash against UTF-16 text data.</summary>
+
+            <param name = "key" Cref = "String?">Field integrity hash key.</param>
+
+            <param name = "data" Cref = "String?">UTF-16 text to hash and verify.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the stored field integrity hash matches the current UTF-16 text data.</returns>
+
+        </method>
+
+        <method name = "VerifySecureSignature">
+
+            <summary>Verify the signature for the given key using the provided ManagementKey.</summary>
+
+            <param name = "key" Cref = "String">The key for the hash/signature (e.g., field name).</param>
+
+            <param name = "managementKey" Cref = "ManagementKey?">The ManagementKey containing the certificate for verification.</param>
+
+            <returns Cref = "Boolean">True if the signature is valid for the hash and key.</returns>
+
+        </method>
+
+        <method name = "WipeDataCore">
+
+            <summary>The core recursive implementation for WipeData.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used for authorization.</param>
+
+            <param name = "visited" Cref = "HashSet{Object}">A set of already visited objects.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the object has already been processed; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "WipeDataInMemoryOnly">
+
+            <summary>Wipe only in-memory data for this object and any referenced objects.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used for authorization.</param>
+
+            <param name = "requirelocks" Cref = "Boolean">A flag indicating whether locks must be acquired.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the wipe operation completed successfully; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "WipeDataInMemoryOnlyCore">
+
+            <summary>The core recursive implementation for wiping only the in-memory data.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">The security context used for authorization.</param>
+
+            <param name = "visited" Cref = "HashSet{Object}">A set of already visited objects.</param>
+
+            <param name = "requirelocks" Cref = "Boolean">A flag indicating whether locks must be acquired.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if the object has already been processed; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquire the metadata and data synchronization locks using the configured timeout.</summary>
+
+            <remarks>Acquires <c>Sync.Meta</c> first and then <c>Sync.Data</c>. If the data lock cannot be acquired, the metadata lock is released before throwing <c>SyncException</c>.</remarks>
+
+        </method>
+
+        <method name = "AcquireLocksAsync">
+
+            <summary>Asynchronously acquire the metadata and data synchronization locks using the configured timeout.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <remarks>Acquires <c>Sync.Meta</c> first and then <c>Sync.Data</c>. If the data lock cannot be acquired, the metadata lock is released before throwing <c>SyncException</c>.</remarks>
+
+            <returns Cref = "Task">A task that completes when both locks have been acquired.</returns>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Release the data and metadata synchronization locks acquired by the lock helpers.</summary>
+
+        </method>
+
+        <method name = "TryAcquireMetaLocks">
+
+            <summary>Acquire dual-object metadata synchronization locks without touching data locks.</summary>
+
+            <param name = "other" Cref = "DataItem?">The other item participating in the metadata comparison.</param>
+
+            <param name = "state" Cref = "LockState">Receives the acquired synchronization lock state when successful.</param>
+
+            <remarks>Orders objects by the immutable synchronization lock token, then acquires <c>Sync.Meta</c> on each object. Returns false after releasing any partial acquisitions when the full metadata lock set cannot be obtained.</remarks>
+
+            <returns Cref = "Boolean">True if both objects were locked successfully for direct metadata field comparison.</returns>
+
+        </method>
+
+        <method name = "TryAcquireSyncLocks">
+
+            <summary>Acquire dual-object synchronization locks without using public getters or clone paths.</summary>
+
+            <param name = "other" Cref = "DataItem?">The other item participating in the comparison.</param>
+
+            <param name = "state" Cref = "LockState">Receives the acquired synchronization lock state when successful.</param>
+
+            <remarks>Orders objects by the immutable synchronization lock token, then acquires <c>Sync.Meta</c> followed by <c>Sync.Data</c> on each object. Returns false after releasing any partial acquisitions when the full lock set cannot be obtained.</remarks>
+
+            <returns Cref = "Boolean">True if both objects were locked successfully for direct field comparison.</returns>
+
+        </method>
+
+        <method name = "GetSyncLockOrder">
+
+            <summary>Get the immutable synchronization lock order token for this instance.</summary>
+
+            <returns Cref = "Int64">The per-instance canonical synchronization lock order token.</returns>
+
+        </method>
+
+        <method name = "ReleaseSyncLocks">
+
+            <summary>Release synchronization locks recorded by <c>TryAcquireSyncLocks</c>.</summary>
+
+            <param name = "state" Cref = "LockState">The acquired synchronization lock state to release.</param>
+
+            <remarks>Releases locks in strict reverse order of acquisition.</remarks>
+
+        </method>
+
+    </class>
+
+</DataItem>

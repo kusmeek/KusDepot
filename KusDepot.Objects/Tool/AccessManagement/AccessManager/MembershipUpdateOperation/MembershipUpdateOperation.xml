@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MembershipUpdateOperation>
+
+    <enum name = "MembershipUpdateOperation">
+
+        <main>
+
+            <summary>Operation selector for authoritative membership catalog updates.</summary>
+
+        </main>
+
+        <value name = "Add">
+
+            <summary>Add memberships.</summary>
+
+        </value>
+
+        <value name = "Remove">
+
+            <summary>Remove memberships.</summary>
+
+        </value>
+
+    </enum>
+
+</MembershipUpdateOperation>

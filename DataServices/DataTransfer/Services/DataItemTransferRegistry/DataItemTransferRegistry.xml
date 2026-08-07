@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemTransferRegistry>
+  <class name="DataItemTransferRegistry">
+	<main>
+	  <summary>Implements cross-family writer conflict lookups by scanning segmented and stream staged manifests under the configured storage roots.</summary>
+	</main>
+	<field name="segmentedStorage">
+	  <summary>Segmented transfer staging storage used to resolve the configured root directory for segmented manifest scans.</summary>
+	</field>
+	<field name="streamStorage">
+	  <summary>Stream transfer staging storage used to resolve the configured root directory for stream manifest scans.</summary>
+	</field>
+	<constructor name="DataItemTransferRegistry">
+	  <summary>Create the manifest-scan transfer registry.</summary>
+	  <param name="segmentedstorage" Cref="ISegmentedTransferStorage">Segmented transfer staging storage.</param>
+	  <param name="streamstorage" Cref="IStreamTransferStorage">Stream transfer staging storage.</param>
+	</constructor>
+	<method name="FindSegmentedOpenConflictByItemId">
+	  <summary>Locate the most relevant segmented upload session that blocks opening a new writer for the specified item.</summary>
+	  <param name="itemid" Cref="Guid">Transfer item identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{DataItemTransferOpenConflict?}">Segmented writer conflict when one exists.</returns>
+	</method>
+	<method name="FindStreamOpenConflictByItemId">
+	  <summary>Locate the most relevant stream source session that blocks opening a new writer for the specified item.</summary>
+	  <param name="itemid" Cref="Guid">Transfer item identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{DataItemTransferOpenConflict?}">Stream writer conflict when one exists.</returns>
+	</method>
+	<method name="BlocksWriterOpen">
+	  <summary>Determine whether a transfer mode and status combination should block opening a new writer session.</summary>
+	  <param name="mode" Cref="DataItemTransferMode">Transfer mode to evaluate.</param>
+	  <param name="status" Cref="DataItemTransferStatus">Transfer status to evaluate.</param>
+	  <returns Cref="Boolean">True when the existing session should block a new writer open.</returns>
+	</method>
+  </class>
+</DataItemTransferRegistry>

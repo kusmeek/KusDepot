@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolAspireHostFactory>
+
+    <delegate name = "ToolAspireHostFactory">
+
+        <main>
+
+            <summary>Factory delegate for constructing a ToolAspireHost. Provides the builder-resolved values that correspond to the primary ToolAspireHost constructor parameters.</summary>
+
+            <typeparam name = "TToolAspireHost">A Type of ToolAspireHost.</typeparam>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Service Provider.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "lifeid" Cref = "Guid?">Lifetime ID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">Logger Factory.</param>
+
+            <param name = "aspireapplication" Cref = "IHost?">Aspire Application.</param>
+
+            <returns Cref = "TToolAspireHost">ToolAspireHost of type specified.</returns>
+
+        </main>
+
+    </delegate>
+
+</ToolAspireHostFactory>

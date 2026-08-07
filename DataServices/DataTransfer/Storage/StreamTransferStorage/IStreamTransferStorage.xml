@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IStreamTransferStorage>
+  <interface name="IStreamTransferStorage">
+	<main>
+	  <summary>Provides append-oriented file-system staging operations for stream transfer sessions.</summary>
+	</main>
+	<method name="GetSessionPaths">
+	  <summary>Resolve conventional paths for a stream transfer session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <returns Cref="StreamTransferStorageSessionPaths">Resolved session paths.</returns>
+	</method>
+	<method name="CreateSession">
+	  <summary>Create the staging artifacts for a new stream transfer session.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Initial stream transfer manifest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{StreamTransferStorageSessionPaths?}">Resolved session paths when creation succeeds.</returns>
+	</method>
+	<method name="LoadManifest">
+	  <summary>Load the persisted stream transfer manifest for a session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{DataStreamTransferManifest?}">Loaded stream transfer manifest.</returns>
+	</method>
+	<method name="SaveManifest">
+	  <summary>Persist the stream transfer manifest for a session.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Manifest to persist.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when saved successfully.</returns>
+	</method>
+	<method name="ReadObjectPayload">
+	  <summary>Read the serialized object payload stream for a session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream?}">Readable object payload stream.</returns>
+	</method>
+	<method name="SaveObjectPayload">
+	  <summary>Persist the serialized object payload for a session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="objectpayload" Cref="Byte[]">Serialized object payload bytes.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the object payload is saved successfully.</returns>
+	</method>
+	<method name="WriteTail">
+	  <summary>Append a payload range exactly at the current durable tail of the staged stream file.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="range" Cref="DataItemTransferRange">Target append range.</param>
+	  <param name="payload" Cref="Stream">Readable payload stream positioned at the first byte to append.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{StreamTransferAppendResult}">Detailed outcome of the attempted append operation.</returns>
+	</method>
+	<method name="ReadRange">
+	  <summary>Read a realized payload range from the staged append stream file.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="range" Cref="DataItemTransferRange">Requested byte range.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream?}">Readable stream covering the returned payload range.</returns>
+	</method>
+	<method name="DeleteSession">
+	  <summary>Delete all staged artifacts for a stream transfer session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the staged session is deleted or no longer exists.</returns>
+	</method>
+  </interface>
+</IStreamTransferStorage>

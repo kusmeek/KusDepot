@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ReOpenStreamTransfer>
+
+	<record name = "ReOpenStreamTransferRequest">
+		<main><summary>Request to reattach to an existing source stream-transfer session.</summary></main>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "ObjectSHA512" Cref = "Byte[]"><summary>SHA-512 of the serialized object payload when present.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>Optional final SHA-512 when reopening a finalized stream-transfer session.</summary></property>
+	</record>
+
+	<record name = "ReOpenStreamTransferResponse">
+		<main><summary>Response containing the current state of a reopened source stream-transfer session.</summary></main>
+		<property name = "State" Cref = "DataStreamTransferState"><summary>Current transfer state.</summary></property>
+	</record>
+
+</ReOpenStreamTransfer>

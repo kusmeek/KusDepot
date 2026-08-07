@@ -1,0 +1,49 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessPolicyMode>
+
+    <enum name = "AccessPolicyMode">
+
+        <main>
+
+            <summary>Access-policy evaluation mode.</summary>
+
+            <remarks>
+                Identifies which access-management workflow is being evaluated by a policy engine.
+            </remarks>
+
+        </main>
+
+        <value name = "Access">
+
+            <summary>Protected-operation authorization.</summary>
+
+        </value>
+
+        <value name = "Authorize">
+
+            <summary>Claim-only authorization without a protected operation.</summary>
+
+        </value>
+
+        <value name = "Issue">
+
+            <summary>Access-key issuance evaluation.</summary>
+
+        </value>
+
+        <value name = "Request">
+
+            <summary>Access-request evaluation before key issuance dispatch.</summary>
+
+        </value>
+
+        <value name = "Revoke">
+
+            <summary>Access-key revocation evaluation.</summary>
+
+        </value>
+
+    </enum>
+
+</AccessPolicyMode>

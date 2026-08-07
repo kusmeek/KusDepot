@@ -1,0 +1,40 @@
+﻿namespace DataPodServices.Catalog;
+
+public sealed partial class Catalog
+{
+    private void MapSearchCommands(WebApplication application)
+    {
+        application.MapPost("Catalog/Commands",
+                   ([FromBody] CommandQuery? search,
+                   [FromServices] IGrainFactory gf,
+                   HttpContext hc) => {return SearchCommands(search,gf,hc);})
+                   .Produces<CommandResponse>(StatusCodes.Status200OK)
+                   .Produces<CommandResponse>(StatusCodes.Status404NotFound)
+                   .WithName("SearchCommands").RequireAuthorization(X509Policy);
+    }
+
+    private async Task<IResult> SearchCommands(CommandQuery? search , IGrainFactory gf , HttpContext hc)
+    {
+        try
+        {
+            using DiagnosticActivity? _ = StartDiagnostic(hc)?.AddTag("id",search?.ID);;
+
+            String t = GetToken(hc); _?.AddTag("enduser.id",GetUPN(t)); String? dt = _?.Context.TraceId.ToString();
+
+            String? ds = _?.Context.SpanId.ToString(); if(String.IsNullOrEmpty(t)) { Log.Error(SCUnAuth); SetErr(_); return Unauthorized(); }
+
+            var dc = gf.GetGrain<IDataConfigs>(Guid.NewGuid().ToStringInvariant()!);
+
+            StorageSilo? s = await dc.GetAuthorizedReadSilo(t,dt,ds,hc.RequestAborted); if(s is null) { Log.Error(SCUnAuth); SetErr(_); return Unauthorized(); }
+
+            var c = gf.GetGrain<ICatalogDB>(s.CatalogName);
+
+            var f = await c.SearchCommands(search,dt,ds,hc.RequestAborted);
+
+            if(Equals(f.Commands.Length,0)) { SetOk(_); return Results.NotFound(new CommandResponse()); }
+
+            SetOk(_); return Results.Ok(f);
+        }
+        catch ( Exception _ ) { Log.Error(_,SCFail); return InternalError(); }
+    }
+}

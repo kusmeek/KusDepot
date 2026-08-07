@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SegmentedTransferWriteResult>
+  <record name="SegmentedTransferWriteResult">
+	<main>
+	  <summary>Describes the outcome of attempting to write a staged segmented transfer payload range.</summary>
+	</main>
+	<property name="Accepted" Cref="Boolean"><summary>True when the write request was accepted by storage.</summary></property>
+	<property name="Range" Cref="DataItemTransferRange"><summary>The requested range associated with this write outcome.</summary></property>
+	<method name="Create">
+	  <summary>Create a normalized segmented transfer write result.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Requested range associated with the write attempt.</param>
+	  <param name="accepted" Cref="Boolean">True when the write was accepted.</param>
+	  <returns Cref="SegmentedTransferWriteResult">Normalized write outcome.</returns>
+	</method>
+  </record>
+</SegmentedTransferWriteResult>

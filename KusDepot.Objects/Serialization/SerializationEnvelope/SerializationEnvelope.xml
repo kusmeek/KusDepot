@@ -1,0 +1,227 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SerializationEnvelope>
+
+    <class name = "SerializationEnvelope">
+
+        <main>
+
+            <summary>Envelope that records the serializer kind, serializer version, and library version used to produce the payload.</summary>
+
+            <remarks>
+                <para>Envelope Layout:</para>
+                <list type="bullet">
+                    <item><description>Header:</description></item>
+                    <item><description>[0..1]             : Magic bytes, ASCII &quot;KD&quot; (2 bytes)</description></item>
+                    <item><description>[2]                : FormatVersion (1 byte)</description></item>
+                    <item><description>[3]                : SerializerKind (1 byte, see SerializationKind enum)</description></item>
+                    <item><description>[4]                : SerializerVersionLength (1 byte)</description></item>
+                    <item><description>[5..(5+S-1)]       : SerializerVersion UTF-8 bytes (S bytes)</description></item>
+                    <item><description>[5+S]              : LibraryVersionLength (1 byte)</description></item>
+                    <item><description>[6+S..(6+S+L-1)]   : LibraryVersion UTF-8 bytes (L bytes)</description></item>
+                    <item><description>Payload:</description></item>
+                    <item><description>[HeaderSize..end]  : Serialized object payload produced by the serializer identified in the header</description></item>
+                </list>
+            </remarks>
+
+        </main>
+
+        <field name = "ByteSize">
+
+            <summary>Size in bytes of a single byte-valued field in the envelope header.</summary>
+
+        </field>
+
+        <field name = "FormatVersion">
+
+            <summary>The envelope format version.</summary>
+
+        </field>
+
+        <field name = "Magic">
+
+            <summary>The magic byte sequence used to identify enveloped payloads. The ASCII bytes for "KD".</summary>
+
+        </field>
+
+        <field name = "MagicOffset">
+
+            <summary>Offset of the magic bytes in the header.</summary>
+
+        </field>
+
+        <field name = "MagicSize">
+
+            <summary>Size of the magic byte sequence.</summary>
+
+        </field>
+
+        <field name = "FormatVersionOffset">
+
+            <summary>Offset of the format version byte in the header.</summary>
+
+        </field>
+
+        <field name = "FormatVersionSize">
+
+            <summary>Size of the format version field.</summary>
+
+        </field>
+
+        <field name = "SerializerKindOffset">
+
+            <summary>Offset of the serializer kind byte in the header.</summary>
+
+        </field>
+
+        <field name = "SerializerKindSize">
+
+            <summary>Size of the serializer kind field.</summary>
+
+        </field>
+
+        <field name = "SerializerVersionLengthOffset">
+
+            <summary>Offset of the serializer version length byte in the header.</summary>
+
+        </field>
+
+        <field name = "SerializerVersionLengthSize">
+
+            <summary>Size of the serializer version length field.</summary>
+
+        </field>
+
+        <field name = "SerializerVersionOffset">
+
+            <summary>Offset of the serializer version payload in the header.</summary>
+
+        </field>
+
+        <field name = "LibraryVersionLengthSize">
+
+            <summary>Size of the library version length field.</summary>
+
+        </field>
+
+        <method name = "Unwrap">
+
+            <summary>Return the payload region of an enveloped byte array as a ReadOnlyMemory without copying. If the input does not have an envelope, the entire input is returned.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped or legacy byte array.</param>
+
+            <returns Cref = "ReadOnlyMemory">The raw serialized payload without the envelope header.</returns>
+
+        </method>
+
+        <method name = "UnwrapMemory">
+
+            <summary>Return the payload region of an enveloped memory block as a ReadOnlyMemory without copying. If the input does not have an envelope, the entire input is returned.</summary>
+
+            <param name = "input" Cref = "ReadOnlyMemory{Byte}">The enveloped or legacy memory block.</param>
+
+            <returns Cref = "ReadOnlyMemory">The raw serialized payload without the envelope header.</returns>
+
+        </method>
+
+        <method name = "HasEnvelope">
+
+            <summary>Determine whether a byte array begins with the envelope magic bytes.</summary>
+
+            <param name = "input" Cref = "Byte[]">The byte array to inspect.</param>
+
+            <returns Cref = "Boolean">True if the input starts with the envelope magic bytes.</returns>
+
+        </method>
+
+        <method name = "ParseHeader">
+
+            <summary>Parse all header fields from an enveloped byte array and return a ParsedSerializationHeader.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "ParsedSerializationHeader?">The parsed header, or null if the input is not enveloped.</returns>
+
+        </method>
+
+        <method name = "GetSerializerVersionLength">
+
+            <summary>Get the stored serializer version length from an enveloped byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "Int32">The serializer version string length.</returns>
+
+        </method>
+
+        <method name = "GetSerializerVersionOffset">
+
+            <summary>Get the offset of the serializer version payload within the header.</summary>
+
+            <returns Cref = "Int32">The serializer version payload offset.</returns>
+
+        </method>
+
+        <method name = "GetLibraryVersionLengthOffset">
+
+            <summary>Get the offset of the library version length byte within an enveloped byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "Int32">The library version length offset.</returns>
+
+        </method>
+
+        <method name = "GetLibraryVersionLength">
+
+            <summary>Get the stored library version length from an enveloped byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "Int32">The library version string length.</returns>
+
+        </method>
+
+        <method name = "GetLibraryVersionOffset">
+
+            <summary>Get the offset of the library version payload within an enveloped byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "Int32">The library version payload offset.</returns>
+
+        </method>
+
+        <method name = "GetPayloadOffset">
+
+            <summary>Get the offset where the serialized payload begins within an enveloped byte array.</summary>
+
+            <param name = "input" Cref = "Byte[]">The enveloped byte array.</param>
+
+            <returns Cref = "Int32">The payload offset.</returns>
+
+        </method>
+
+        <method name = "ComputeHeaderSize">
+
+            <summary>Compute the total header size in bytes for a given serialization identity.</summary>
+
+            <param name = "identity" Cref = "SerializationIdentity">The serialization identity containing version byte arrays.</param>
+
+            <returns Cref = "Int32">The total header size in bytes.</returns>
+
+        </method>
+
+        <method name = "BuildHeader">
+
+            <summary>Build the immutable header bytes from a serialization identity containing the serializer kind, serializer version, and library version.</summary>
+
+            <param name = "identity" Cref = "SerializationIdentity">The serialization identity to encode into the header.</param>
+
+            <returns Cref = "Byte[]">The complete header bytes.</returns>
+
+        </method>
+
+    </class>
+
+</SerializationEnvelope>

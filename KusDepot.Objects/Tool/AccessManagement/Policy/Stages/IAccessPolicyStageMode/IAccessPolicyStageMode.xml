@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessPolicyStageMode>
+
+    <interface name = "IAccessPolicyStageMode">
+
+        <main>
+
+            <summary>Access-policy stage mode marker interface.</summary>
+
+            <remarks>
+                Marks sync-capable, async-capable, or dual-mode policy-stage implementations.
+            </remarks>
+
+        </main>
+
+    </interface>
+
+</IAccessPolicyStageMode>

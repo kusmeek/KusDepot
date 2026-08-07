@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StreamTransferReadResult>
+  <record name="StreamTransferReadResult">
+	<main>
+	  <summary>Represents a readable staged stream transfer segment together with its response footer metadata.</summary>
+	</main>
+	<property name="Footer" Cref="StreamTransferSegmentFooter"><summary>Response footer metadata describing the returned stream segment.</summary></property>
+	<property name="Payload" Cref="Stream"><summary>Readable payload stream for the returned segment.</summary></property>
+	<method name="FinalizeFooter">
+	  <summary>Finalize the response footer by extracting the segment hash from the hashing payload stream.</summary>
+	  <returns Cref="StreamTransferSegmentFooter">Finalized response footer including the returned segment hash.</returns>
+	</method>
+	<method name="Dispose">
+	  <summary>Dispose the returned payload stream.</summary>
+	</method>
+  </record>
+</StreamTransferReadResult>

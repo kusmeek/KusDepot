@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyAssertionEnvelope>
+
+    <struct name = "AccessKeyAssertionEnvelope">
+
+        <main>
+
+            <summary>Parsed access-key assertion envelope.</summary>
+
+            <remarks>
+                Internal framing model for serialized access-key assertions.
+                The binary envelope layout is:
+
+                1. `Version` as one byte,
+                2. `SerializationIdentifierLength` as big-endian `UInt16`,
+                3. `SerializationIdentifier` UTF-8 bytes,
+                4. `PayloadLength` as big-endian `UInt32`,
+                5. `Payload` bytes.
+
+                The payload bytes are concrete assertion-specific contract bytes consumed synchronously during registry-based deserialization.
+                Callers must treat the payload memory as read-only and short-lived.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an access-key assertion envelope.</summary>
+
+            <param name = "version" Cref = "Byte">Envelope version.</param>
+
+            <param name = "serializationidentifier" Cref = "String">Registry dispatch identifier for the serialized assertion payload.</param>
+
+            <param name = "payload" Cref = "ReadOnlyMemory{Byte}">Serialized concrete assertion payload bytes.</param>
+
+            <returns Cref = "AccessKeyAssertionEnvelope">New access-key assertion envelope.</returns>
+
+        </constructor>
+
+        <property name = "Version" Cref = "Byte">
+
+            <summary>Envelope version.</summary>
+
+        </property>
+
+        <property name = "SerializationIdentifier" Cref = "String">
+
+            <summary>Registry dispatch identifier for the serialized concrete assertion payload.</summary>
+
+        </property>
+
+        <property name = "Payload" Cref = "ReadOnlyMemory{Byte}">
+
+            <summary>Serialized concrete assertion payload bytes.</summary>
+
+        </property>
+
+        <format>
+            <summary>Binary layout.</summary>
+            <list type = "bullet">
+                <item><description>`[0]`                 : `Version`</description></item>
+                <item><description>`[1..2]`              : `SerializationIdentifierLength` (`UInt16`, big-endian)</description></item>
+                <item><description>`[3..]`               : `SerializationIdentifier` UTF-8 bytes</description></item>
+                <item><description>`[..]`                : `PayloadLength` (`UInt32`, big-endian)</description></item>
+                <item><description>`[..]`                : `Payload` bytes</description></item>
+            </list>
+        </format>
+
+    </struct>
+
+</AccessKeyAssertionEnvelope>

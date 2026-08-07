@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignerKeyIdFormat>
+
+    <enum name = "AccessKeySignerKeyIdFormat">
+
+        <main>
+
+            <summary>Signer key-identifier format discriminator for signed access-key envelopes.</summary>
+
+        </main>
+
+        <value name = "None">
+
+            <summary>No signer key identifier is present because the key is unsigned.</summary>
+
+        </value>
+
+        <value name = "Thumbprint">
+
+            <summary>The signer key identifier bytes contain the certificate thumbprint.</summary>
+
+        </value>
+
+    </enum>
+
+</AccessKeySignerKeyIdFormat>

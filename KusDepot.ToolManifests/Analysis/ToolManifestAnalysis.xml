@@ -1,0 +1,385 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestAnalysis>
+
+	<class name = "ToolManifestAnalysisDiagnostic">
+
+		<main>
+
+			<summary>Represents one tool-manifest analysis diagnostic that can later be reported by either the analyzer or the source generator.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the tool-manifest analysis diagnostic container.</summary>
+
+			<param name = "rule" Cref = "DiagnosticDescriptor">The diagnostic rule descriptor.</param>
+
+			<param name = "location" Cref = "Location">The source location associated with the diagnostic.</param>
+
+			<param name = "messageArgs" Cref = "Object">The message-format arguments used when creating the Roslyn diagnostic.</param>
+
+		</constructor>
+
+		<property name = "Rule" Cref = "DiagnosticDescriptor"><summary>The diagnostic rule descriptor.</summary></property>
+		<property name = "Location" Cref = "Location"><summary>The source location associated with the diagnostic.</summary></property>
+		<property name = "MessageArgs" Cref = "Object"><summary>The message-format arguments used when creating the Roslyn diagnostic.</summary></property>
+
+	</class>
+
+	<class name = "ToolManifestAnalysisResult">
+
+		<main>
+
+			<summary>Represents the complete tool-manifest analysis result for one tool type, including the optional generation model and all collected diagnostics.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the tool-manifest analysis result container.</summary>
+
+			<param name = "model" Cref = "ToolModel">The generated tool model when analysis succeeds far enough to produce one.</param>
+
+			<param name = "diagnostics" Cref = "IEnumerable{ToolManifestAnalysisDiagnostic}">The diagnostics collected during analysis.</param>
+
+		</constructor>
+
+		<property name = "Model" Cref = "ToolModel"><summary>The generated tool model when analysis succeeds far enough to produce one.</summary></property>
+		<property name = "Diagnostics" Cref = "ImmutableArray{ToolManifestAnalysisDiagnostic}"><summary>The diagnostics collected during analysis.</summary></property>
+		<property name = "CanGenerate" Cref = "Boolean"><summary>Gets whether the result contains a tool model and no error-severity diagnostics that block generation.</summary></property>
+
+	</class>
+
+	<class name = "ToolManifestAnalysisService">
+
+		<main>
+
+			<summary>Coordinates semantic analysis for tool manifests so the analyzer and source generator both delegate to the same validation rules and model-building logic.</summary>
+
+		</main>
+
+		<method name = "AnalyzeToolType">
+
+			<summary>Analyzes one candidate tool type, collecting diagnostics and creating a generation model when the type is valid enough to generate.</summary>
+
+			<param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The candidate tool type symbol to analyze.</param>
+
+			<returns>The analysis result for the tool type.</returns>
+
+		</method>
+
+		<method name = "CreateDiagnostic">
+
+			<summary>Creates an analysis diagnostic container from a Roslyn rule, source location, and message arguments.</summary>
+
+			<param name = "rule" Cref = "DiagnosticDescriptor">The diagnostic rule descriptor.</param>
+
+			<param name = "location" Cref = "Location">The source location associated with the diagnostic.</param>
+
+			<param name = "args" Cref = "Object">The message-format arguments used when creating the Roslyn diagnostic.</param>
+
+			<returns>The analysis diagnostic container.</returns>
+
+		</method>
+
+	</class>
+
+	<class name = "ToolManifestConstants">
+
+		<main>
+
+			<summary>Holds symbolic names and manifest constants used by tool-manifest analysis and generation.</summary>
+
+		</main>
+
+		<field name = "CustomOperationIndexMin" Cref = "Int32"><summary>The minimum supported custom protected-operation index.</summary></field>
+		<field name = "CustomOperationIndexMax" Cref = "Int32"><summary>The maximum supported custom protected-operation index.</summary></field>
+		<field name = "AccessCheckAttributeFullName" Cref = "String"><summary>The fully qualified metadata name for the framework access-check attribute.</summary></field>
+		<field name = "ToolFullName" Cref = "String"><summary>The fully qualified metadata name for the KusDepot tool base type.</summary></field>
+		<field name = "ToolOperationAttributeFullName" Cref = "String"><summary>The fully qualified metadata name for the tool operation attribute.</summary></field>
+		<field name = "ToolManifestAssemblyAttributeFullName" Cref = "String"><summary>The fully qualified metadata name for the assembly-level manifest configuration attribute.</summary></field>
+		<field name = "ToolManifestAttributeFullName" Cref = "String"><summary>The fully qualified metadata name for the tool-level manifest attribute.</summary></field>
+
+	</class>
+
+	<class name = "ToolManifestNaming">
+
+		<main>
+
+			<summary>Builds generated naming conventions used by analysis results and source emission.</summary>
+
+		</main>
+
+		<method name = "GetCompanionQualifiedName">
+
+			<summary>Builds the fully qualified generated companion type name for a tool symbol using the configured companion namespace override when one is supplied.</summary>
+
+			<param name = "companionNamespace" Cref = "String">The optional companion namespace override to use for generated output, or <see langword="null"/> to fall back to the tool type namespace.</param>
+
+			<param name = "companionTypeName" Cref = "String">The optional companion type-name override to use for generated output, or <see langword="null"/> to fall back to the default generated companion name.</param>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The tool type symbol.</param>
+
+			<returns>The fully qualified generated companion type name.</returns>
+
+		</method>
+
+		<method name = "GetCompanionName">
+
+			<summary>Builds the generated companion type name for a tool symbol using the configured companion type-name override when one is supplied.</summary>
+
+			<param name = "companionTypeName" Cref = "String">The optional companion type-name override to use for generated output, or <see langword="null"/> to fall back to the default generated companion name.</param>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The tool type symbol.</param>
+
+			<returns>The generated companion type name.</returns>
+
+		</method>
+
+	</class>
+
+	<class name = "ToolManifestSymbolAnalysis">
+
+		<main>
+
+			<summary>Provides symbol-analysis helpers used by the analysis service to inspect attributed tool types, methods, and assembly-level manifest configuration.</summary>
+
+		</main>
+
+		<method name = "CreateAssemblyManifestMetadata">
+
+			<summary>
+				Reads assembly-level manifest generation metadata from <c>ToolManifestAssemblyAttribute</c> and appends any invalid companion namespace diagnostics to the analysis diagnostics collection.
+			</summary>
+
+			<param name = "assembly" Cref = "IAssemblySymbol">The assembly symbol to inspect.</param>
+
+			<param name = "diagnostics" Cref = "ICollection{ToolManifestAnalysisDiagnostic}">The diagnostics collection receiving any assembly metadata validation errors.</param>
+
+			<returns>The resolved assembly manifest generation metadata.</returns>
+
+		</method>
+
+		<method name = "CreateMethodMetadata">
+
+			<summary>Creates a lightweight operation metadata model for an annotated tool method.</summary>
+
+			<param name = "method" Cref = "IMethodSymbol">The candidate method symbol.</param>
+
+			<returns>The resolved method metadata when the method represents a supported protected operation; otherwise, <see langword="null"/>.</returns>
+
+		</method>
+
+		<method name = "IsAsyncOperationMethod">
+
+			<summary>Determines whether a method looks like an asynchronous operation method in the sync/async drift analysis.</summary>
+
+			<param name = "method" Cref = "IMethodSymbol">The method symbol to inspect.</param>
+
+			<returns><see langword="true"/> when the method appears to be an asynchronous operation method; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "CreateToolManifestMetadata">
+
+			<summary>Reads tool-level manifest metadata from a candidate tool type and appends any missing-schema diagnostics to the analysis diagnostics collection.</summary>
+
+			<remarks>Also validates any configured companion namespace override and reports an error when it is empty or not a valid C# namespace.</remarks>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The candidate tool type symbol.</param>
+
+			<param name = "diagnostics" Cref = "ICollection{ToolManifestAnalysisDiagnostic}">The diagnostics collection receiving any metadata-related analysis errors.</param>
+
+			<returns>The resolved tool metadata when available; otherwise, <see langword="null"/>.</returns>
+
+		</method>
+
+		<method name = "IsValidNamespace">
+
+			<summary>Determines whether a configured companion namespace is a non-empty C# namespace composed of valid identifier segments.</summary>
+
+			<param name = "value" Cref = "String">The configured companion namespace to validate.</param>
+
+			<returns><see langword="true"/> when the configured namespace is valid; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "IsValidIdentifier">
+
+			<summary>Determines whether a configured companion type name is a non-empty C# identifier composed of valid identifier characters.</summary>
+
+			<param name = "value" Cref = "String">The configured companion type name to validate.</param>
+
+			<returns><see langword="true"/> when the configured type name is valid; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "GetToolTypeForGeneration">
+
+			<summary>Transforms a syntax node into a candidate attributed tool type for generation.</summary>
+
+			<param name = "context" Cref = "GeneratorSyntaxContext">The syntax transform context.</param>
+
+			<returns>The declared tool type symbol when the node is eligible for generation; otherwise, <see langword="null"/>.</returns>
+
+		</method>
+
+		<method name = "GetToolOperationMethods">
+
+			<summary>Enumerates protected-operation methods declared on a tool type and its in-assembly base types.</summary>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The tool type to inspect.</param>
+
+			<returns>The candidate protected-operation methods.</returns>
+
+		</method>
+
+		<method name = "ShouldRegisterModuleInitializer">
+
+			<summary>Determines whether the generated assembly bootstrap should emit a module-initializer.</summary>
+
+			<param name = "assembly" Cref = "IAssemblySymbol">The assembly symbol to inspect.</param>
+
+			<returns><see langword="true"/> when module-initializer registration is enabled; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "InheritsFromTool">
+
+			<summary>Determines whether a type ultimately derives from the KusDepot tool base type.</summary>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The type symbol to inspect.</param>
+
+			<returns><see langword="true"/> when the type derives from the tool base type; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+	</class>
+
+	<class name = "ToolManifestManualManifestAnalysis">
+
+		<main>
+
+			<summary>Provides static analysis helpers used by the analysis service to validate handwritten manifest factory patterns against discovered tool operations.</summary>
+
+		</main>
+
+		<method name = "GetMethodDeclarationSyntax">
+
+			<summary>Gets the first source method declaration syntax associated with a method symbol when available.</summary>
+
+			<param name = "method" Cref = "IMethodSymbol">The source method symbol.</param>
+
+			<returns>The declared method syntax when available; otherwise, <see langword="null"/>.</returns>
+
+		</method>
+
+		<method name = "GetReturnExpression">
+
+			<summary>Gets the direct return expression from an analyzable method declaration.</summary>
+
+			<param name = "methodDeclaration" Cref = "MethodDeclarationSyntax">The source method declaration to inspect.</param>
+
+			<returns>The returned expression when the method uses a direct expression body or a single return statement; otherwise, <see langword="null"/>.</returns>
+
+		</method>
+
+		<method name = "TryGetInvocationArgumentExpression">
+
+			<summary>Tries to resolve an invocation argument expression by parameter name.</summary>
+
+			<param name = "invocation" Cref = "InvocationExpressionSyntax">The invocation expression to inspect.</param>
+
+			<param name = "method" Cref = "IMethodSymbol">The bound method symbol for the invocation.</param>
+
+			<param name = "parameterName" Cref = "String">The target parameter name.</param>
+
+			<param name = "expression" Cref = "ExpressionSyntax">The resolved argument expression when successful.</param>
+
+			<returns><see langword="true"/> when the argument was found; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "TryGetToolManifestCreateInvocation">
+
+			<summary>Tries to unwrap an expression into a statically analyzable <c>ToolManifest.Create(...)</c> invocation.</summary>
+
+			<param name = "expression" Cref = "ExpressionSyntax">The expression to inspect.</param>
+
+			<param name = "semanticModel" Cref = "SemanticModel">The semantic model for the expression.</param>
+
+			<param name = "createInvocation" Cref = "InvocationExpressionSyntax">The resolved manifest-create invocation when successful.</param>
+
+			<param name = "createMethod" Cref = "IMethodSymbol">The bound manifest-create method symbol when successful.</param>
+
+			<returns><see langword="true"/> when the expression resolves to an analyzable manifest-create call; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "TryExtractHandwrittenManifestDescriptor">
+
+			<summary>Tries to extract one handwritten tool-operation descriptor from an object initializer expression.</summary>
+
+			<param name = "expression" Cref = "ExpressionSyntax">The descriptor expression to inspect.</param>
+
+			<param name = "semanticModel" Cref = "SemanticModel">The semantic model for the descriptor expression.</param>
+
+			<param name = "descriptor" Cref = "HandwrittenManifestDescriptor">The extracted handwritten descriptor when successful.</param>
+
+			<returns><see langword="true"/> when the descriptor can be statically extracted; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "TryExtractHandwrittenManifestDescriptorsFromCreateInvocation">
+
+			<summary>Tries to extract handwritten manifest descriptors from a supported <c>ToolManifest.Create(...)</c> call.</summary>
+
+			<param name = "createInvocation" Cref = "InvocationExpressionSyntax">The manifest-create invocation to inspect.</param>
+
+			<param name = "createMethod" Cref = "IMethodSymbol">The bound manifest-create method symbol.</param>
+
+			<param name = "semanticModel" Cref = "SemanticModel">The semantic model for the invocation.</param>
+
+			<param name = "descriptors" Cref = "ImmutableArray{HandwrittenManifestDescriptor}">The extracted handwritten descriptors when successful.</param>
+
+			<returns><see langword="true"/> when the handwritten descriptor collection can be statically extracted; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "TryExtractHandwrittenManifestDescriptors">
+
+			<summary>Tries to extract handwritten manifest descriptors from a supported manual manifest method shape.</summary>
+
+			<param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+			<param name = "manifestMethod" Cref = "IMethodSymbol">The handwritten manifest method to inspect.</param>
+
+			<param name = "visitedMethods" Cref = "ISet{IMethodSymbol}">The set of helper methods already visited while following manual manifest helper calls.</param>
+
+			<param name = "descriptors" Cref = "ImmutableArray{HandwrittenManifestDescriptor}">The extracted handwritten descriptors when successful.</param>
+
+			<returns><see langword="true"/> when a supported handwritten manifest pattern was recognized and descriptors were extracted; otherwise, <see langword="false"/>.</returns>
+
+		</method>
+
+		<method name = "ValidateHandwrittenManifestDescriptors">
+
+			<summary>Validates supported handwritten manifest descriptors against the resolved tool-operation methods for a tool type.</summary>
+
+			<param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+			<param name = "toolType" Cref = "INamedTypeSymbol">The tool type being analyzed.</param>
+
+			<param name = "methodsByName" Cref = "IReadOnlyDictionary{String,MethodMetadata}">Resolved tool-operation methods keyed by method name.</param>
+
+			<param name = "diagnostics" Cref = "ICollection{ToolManifestAnalysisDiagnostic}">The diagnostics collection receiving any handwritten-manifest validation diagnostics.</param>
+
+		</method>
+
+	</class>
+
+</ToolManifestAnalysis>

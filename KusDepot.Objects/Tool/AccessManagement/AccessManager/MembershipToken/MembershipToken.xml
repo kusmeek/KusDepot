@@ -1,0 +1,175 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MembershipToken>
+
+    <struct name = "MembershipToken">
+
+        <main>
+
+            <summary>Cached access key membership information.</summary>
+
+        </main>
+
+        <field name = "Permissions" Cref = "Byte[]">
+
+            <summary>Cached permissions bitmap copied from the decrypted access key.</summary>
+
+        </field>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Cached access-key realm identifier.</summary>
+
+        </property>
+
+        <property name = "IssuedAt" Cref = "DateTimeOffset">
+
+            <summary>Cached token issuance time.</summary>
+
+        </property>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Cached intended audiences.</summary>
+
+        </property>
+
+        <property name = "AssertionSummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">
+
+            <summary>Cached lightweight assertion summaries derived from generated access-key assertions.</summary>
+
+        </property>
+
+        <property name = "IssuerAccessManagerID" Cref = "Guid">
+
+            <summary>Cached issuer access-manager identifier.</summary>
+
+        </property>
+
+        <property name = "IssuerToolID" Cref = "Guid">
+
+            <summary>Cached issuer tool identifier.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Cached manifest hash.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Cached token expiration time.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}">
+
+            <summary>Cached scope claims.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Cached membership subject.</summary>
+
+        </property>
+
+        <property name = "Token" Cref = "AccessKeyToken">
+
+            <summary>Cached token identity.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Cached tool schema identifier.</summary>
+
+        </property>
+
+        <constructor name = "Constructor" Cref = "MembershipToken">
+
+            <summary>Create a cached membership token.</summary>
+
+            <param name = "subject" Cref = "String">Membership subject.</param>
+
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+
+            <param name = "permissions" Cref = "Byte[]?">Permissions bitmap.</param>
+
+            <param name = "notafter" Cref = "DateTimeOffset?">Token expiration time.</param>
+
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+
+            <param name = "manifesthash" Cref = "String?">Manifest hash.</param>
+
+            <param name = "accesskeyrealmid" Cref = "String?">Access-key realm identifier.</param>
+
+            <param name = "issuertoolid" Cref = "Guid">Issuer tool identifier.</param>
+
+            <param name = "issueraccessmanagerid" Cref = "Guid">Issuer access-manager identifier.</param>
+
+            <param name = "audiences" Cref = "ImmutableArray{String}">Intended audiences.</param>
+
+            <param name = "scopes" Cref = "ImmutableArray{String}">Scope claims.</param>
+
+            <param name = "assertionsummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">Lightweight assertion summaries.</param>
+
+        </constructor>
+
+        <constructor name = "ConstructorIssuedAt" Cref = "MembershipToken">
+
+            <summary>Create a cached membership token with an explicit issuance timestamp.</summary>
+
+            <param name = "subject" Cref = "String">Membership subject.</param>
+
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+
+            <param name = "permissions" Cref = "Byte[]?">Permissions bitmap.</param>
+
+            <param name = "issuedat" Cref = "DateTimeOffset">Token issuance time.</param>
+
+            <param name = "notafter" Cref = "DateTimeOffset?">Token expiration time.</param>
+
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+
+            <param name = "manifesthash" Cref = "String?">Manifest hash.</param>
+
+            <param name = "accesskeyrealmid" Cref = "String?">Access-key realm identifier.</param>
+
+            <param name = "issuertoolid" Cref = "Guid">Issuer tool identifier.</param>
+
+            <param name = "issueraccessmanagerid" Cref = "Guid">Issuer access-manager identifier.</param>
+
+            <param name = "audiences" Cref = "ImmutableArray{String}">Intended audiences.</param>
+
+            <param name = "scopes" Cref = "ImmutableArray{String}">Scope claims.</param>
+
+            <param name = "assertionsummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">Lightweight assertion summaries.</param>
+
+        </constructor>
+
+        <method name = "ToClaims">
+
+            <summary>Project the cached membership token into access-key claims for policy evaluation and snapshot export.</summary>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC instant used to compute expiration state.</param>
+
+            <returns Cref = "AccessKeyClaims">Projected access-key claims.</returns>
+
+        </method>
+
+        <method name = "Allows">
+
+            <summary>Determine whether the cached permissions bitmap allows an operation.</summary>
+
+            <param name = "operation" Cref = "Int32">Protected operation index.</param>
+
+            <returns Cref = "Boolean">True if the operation is allowed; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</MembershipToken>

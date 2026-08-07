@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferSegmentSizePolicy>
+
+	<record name = "DataItemTransferSegmentSizePolicy">
+
+		<main><summary>Advertised segment size guidance for a staged transfer session.</summary></main>
+
+		<property name = "MinSegmentBytes" Cref = "Int64"><summary>Minimum allowed payload size in bytes.</summary></property>
+		<property name = "PreferredSegmentBytes" Cref = "Int64"><summary>Preferred payload size in bytes.</summary></property>
+		<property name = "MaxSegmentBytes" Cref = "Int64"><summary>Maximum allowed payload size in bytes.</summary></property>
+		<method name = "Validate"><summary>Determine whether the segment size policy is internally consistent.</summary><returns Cref = "Boolean">True when the policy is valid.</returns></method>
+		<method name = "Allows"><summary>Determine whether a payload length is allowed by the policy.</summary><param name = "length" cref = "Int64">Candidate payload length in bytes.</param><returns Cref = "Boolean">True when the payload length is allowed.</returns></method>
+
+	</record>
+
+</DataItemTransferSegmentSizePolicy>

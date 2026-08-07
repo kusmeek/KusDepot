@@ -1,0 +1,129 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerMembershipEntry>
+
+    <class name = "AccessManagerMembershipEntry">
+
+        <main>
+
+            <summary>Access-manager membership entry.</summary>
+
+            <remarks>
+                A transport-ready membership payload that carries data to reconstruct a <see cref="MembershipToken"/> without the original access key.
+            </remarks>
+
+        </main>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Access-key realm identifier.</summary>
+
+        </property>
+
+        <property name = "AssertionSummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">
+
+            <summary>Assertion summaries carried by the membership entry.</summary>
+
+        </property>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Audience claims carried by the membership.</summary>
+
+        </property>
+
+        <property name = "IssuedAt" Cref = "DateTimeOffset">
+
+            <summary>Membership issuance instant.</summary>
+
+        </property>
+
+        <property name = "IssuerAccessManagerID" Cref = "Guid">
+
+            <summary>Issuer access-manager identifier.</summary>
+
+        </property>
+
+        <property name = "IssuerToolID" Cref = "Guid">
+
+            <summary>Issuer tool identifier.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Manifest hash bound into the membership.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Membership expiration instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Permissions" Cref = "Byte[]">
+
+            <summary>Permission bitmap for the membership.</summary>
+
+        </property>
+
+        <field name = "permissions" Cref = "Byte[]">
+
+            <summary>Backing store for the permission bitmap.</summary>
+
+        </field>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}">
+
+            <summary>Scope claims carried by the membership.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Membership subject.</summary>
+
+        </property>
+
+        <property name = "Token" Cref = "AccessKeyToken">
+
+            <summary>Access token identity.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Tool schema identifier.</summary>
+
+        </property>
+
+        <method name = "Clone">
+
+            <summary>Create a defensive clone of the membership entry.</summary>
+
+            <returns Cref = "AccessManagerMembershipEntry">Cloned membership entry.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Create a membership entry from a runtime membership token.</summary>
+
+            <param name = "membership" Cref = "MembershipToken">Runtime membership token.</param>
+
+            <returns Cref = "AccessManagerMembershipEntry">Membership entry.</returns>
+
+        </method>
+
+        <method name = "ToMembershipToken">
+
+            <summary>Convert the membership entry into a runtime membership token.</summary>
+
+            <returns Cref = "MembershipToken">Runtime membership token.</returns>
+
+        </method>
+
+    </class>
+
+</AccessManagerMembershipEntry>

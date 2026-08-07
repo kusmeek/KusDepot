@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferStorageOptions>
+  <class name="TransferStorageOptions">
+	<main>
+	  <summary>Options for the transfer storage.</summary>
+	</main>
+	<property name="RootPath" Cref="String">
+	  <summary>Gets or sets the root directory used for staged transfer session data.</summary>
+	</property>
+  </class>
+</TransferStorageOptions>

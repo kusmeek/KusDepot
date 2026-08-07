@@ -1,0 +1,223 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessManager>
+
+    <interface name = "IAccessManager">
+
+        <main>
+
+            <summary>Access Manager Interface.</summary>
+
+        </main>
+
+        <method name = "AccessCheck">
+
+            <summary>Determine if an access key grants a protected operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Tool operation name to validate.</param>
+
+            <returns Cref = "Boolean">True if access is granted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "AccessCheckIndexAsync">
+
+            <summary>Determine asynchronously if an access key grants an explicit protected operation index.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operation" Cref = "Int32">Protected operation index to validate.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous access-check flow.</param>
+
+            <returns Cref = "Task{Boolean}">True if access is granted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "AccessCheckIndex">
+
+            <summary>Determine if an access key grants an explicit protected operation index.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operation" Cref = "Int32">Protected operation index to validate.</param>
+
+            <returns Cref = "Boolean">True if access is granted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "AccessCheckAsync">
+
+            <summary>Determine asynchronously if an access key grants a protected operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Tool operation name to validate.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous access-check flow.</param>
+
+            <returns Cref = "Task{Boolean}">True if access is granted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Authorize">
+
+            <summary>Determine if an access key is currently valid for this tool context without requiring a protected operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if the key is valid, not expired, still a current membership, and passes access policy evaluation without an operation; otherwise false.</returns>
+
+        </method>
+
+        <method name = "AuthorizeAsync">
+
+            <summary>Determine asynchronously if an access key is currently valid for this tool context without requiring a protected operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous authorization flow.</param>
+
+            <returns Cref = "Task{Boolean}">True if the key is valid, not expired, still a current membership, and passes access policy evaluation without an operation; otherwise false.</returns>
+
+        </method>
+
+        <method name = "DestroySecrets">
+
+            <summary>Destroy Access Manager secrets.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if memberships and realm-key material are destroyed.</returns>
+
+        </method>
+
+        <method name = "GenerateAccessKeyAsync">
+
+            <summary>Generate asynchronously an AccessKey of the requested type using explicit issuance options.</summary>
+
+            <typeparam name = "TKey">Concrete AccessKey type to generate.</typeparam>
+
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including subject, operations, lifetime, audiences, and scopes. Null is normalized to default issuance behavior.</param>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous key-generation flow.</param>
+
+            <returns Cref = "Task{TKey}">Generated AccessKey, or null if generation fails or the requested type is unsupported. Null or empty audiences mean no audience restriction, and null or empty scopes mean no additional scope claims.</returns>
+
+        </method>
+
+        <method name = "GenerateAccessKey">
+
+            <summary>Generate an AccessKey of the requested type using explicit issuance options.</summary>
+
+            <typeparam name = "TKey">Concrete AccessKey type to generate.</typeparam>
+
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including subject, operations, lifetime, audiences, and scopes. Null is normalized to default issuance behavior.</param>
+
+            <param name = "key" Cref = "AccessKey?">AccessKey.</param>
+
+            <returns Cref = "TKey">Generated AccessKey, or null if generation fails or the requested type is unsupported. Null or empty audiences mean no audience restriction, and null or empty scopes mean no additional scope claims.</returns>
+
+        </method>
+
+        <method name = "RequestAccessAsync">
+
+            <summary>Issue asynchronously a role-specific access key in response to an access request after request normalization and policy evaluation.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Access request.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous request-access flow.</param>
+
+            <returns Cref = "Task{AccessKey}">Issued access key, or null if the request cannot be satisfied or request policy denies the request.</returns>
+
+        </method>
+
+        <method name = "Initialize">
+
+            <summary>Initialize Access Manager.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <returns Cref = "Boolean">True if initialized.</returns>
+
+        </method>
+
+        <method name = "RevokeAccessAsync">
+
+            <summary>Revoke asynchronously an access key by removing its current membership if revocation policy allows it.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access key.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous revocation flow.</param>
+
+            <returns Cref = "Task{Boolean}">True if the membership is revoked; otherwise false.</returns>
+
+        </method>
+
+        <method name = "QueryMembershipCatalog">
+
+            <summary>Query an authoritative rich membership catalog for the current access manager.</summary>
+
+            <param name = "query" Cref = "AccessManagerQuery?">Optional query filters.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "AccessManagerMembershipCatalog?">An authoritative rich membership catalog matching the supplied query filters.</returns>
+
+        </method>
+
+        <method name = "QuerySnapshot">
+
+            <summary>Query a filtered Access Manager snapshot from authoritative locally known membership metadata.</summary>
+
+            <param name = "query" Cref = "AccessManagerQuery?">Optional query filters.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "AccessManagerSnapshot?">A filtered Access Manager snapshot containing the current manifest identity and any resolved active membership entries matching the query.</returns>
+
+        </method>
+
+        <method name = "RequestAccess">
+
+            <summary>Issue a role-specific access key in response to an access request after request normalization and policy evaluation.</summary>
+
+            <param name = "request" Cref = "AccessRequest?">Access request.</param>
+
+            <returns Cref = "AccessKey?">Issued access key, or null if the request cannot be satisfied or request policy denies the request.</returns>
+
+        </method>
+
+        <method name = "RevokeAccess">
+
+            <summary>Revoke an access key by removing its current membership if revocation policy allows it.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access key.</param>
+
+            <returns Cref = "Boolean">True if the membership is revoked; otherwise false.</returns>
+
+        </method>
+
+        <method name = "UpdateMembershipCatalog">
+
+            <summary>Update the current authoritative membership catalog using an explicit rich membership payload and update operation.</summary>
+
+            <param name = "memberships" Cref = "AccessManagerMembershipCatalog?">Membership catalog payload.</param>
+
+            <param name = "operation" Cref = "MembershipUpdateOperation">Membership-catalog update operation.</param>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <returns Cref = "Boolean">True if the rich membership-catalog update succeeds; otherwise false.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessManager>

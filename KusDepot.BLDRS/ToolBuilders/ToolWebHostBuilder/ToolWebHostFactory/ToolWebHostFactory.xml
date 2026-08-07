@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolWebHostFactory>
+
+    <delegate name = "ToolWebHostFactory">
+
+        <main>
+
+            <summary>Factory delegate for constructing a ToolWebHost. Provides the builder-resolved values that correspond to the primary ToolWebHost constructor parameters.</summary>
+
+            <typeparam name = "TToolWebHost">A Type of ToolWebHost.</typeparam>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Service Provider.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "lifeid" Cref = "Guid?">Lifetime ID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">Logger Factory.</param>
+
+            <param name = "urls" Cref = "ICollection{String}?">URLs.</param>
+
+            <param name = "webapplication" Cref = "IHost?">Web Application.</param>
+
+            <returns Cref = "TToolWebHost">ToolWebHost of type specified.</returns>
+
+        </main>
+
+    </delegate>
+
+</ToolWebHostFactory>

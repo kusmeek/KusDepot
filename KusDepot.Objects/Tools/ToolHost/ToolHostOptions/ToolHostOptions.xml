@@ -1,0 +1,43 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostOptions>
+
+    <class name = "ToolHostOptions">
+
+        <main>
+
+            <summary>Hosting Lifecycle Options.</summary>
+
+            <remarks>
+                ToolHostOptions configures how Tool operates hosted services.
+            </remarks>
+
+        </main>
+
+        <property name = "ServicesStartConcurrently" Cref = "Boolean">
+
+            <summary>If True services are started concurrently.</summary>
+
+        </property>
+
+        <property name = "ServicesStopConcurrently" Cref = "Boolean">
+
+            <summary>If True services are stopped concurrently.</summary>
+
+        </property>
+
+        <property name = "StartupTimeout" Cref = "TimeSpan">
+
+            <summary>Time to wait for services to start.</summary>
+
+        </property>
+
+        <property name = "ShutdownTimeout" Cref = "TimeSpan">
+
+            <summary>Time wait for services to stop.</summary>
+
+        </property>
+
+    </class>
+
+</ToolHostOptions>

@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyAssertionSummary>
+
+    <record name = "AccessKeyAssertionSummary">
+
+        <main>
+
+            <summary>Access-key assertion summary.</summary>
+
+            <remarks>
+                An immutable projection of embedded assertion identity and format facts intended for runtime policy evaluation and claim inspection.
+            </remarks>
+
+        </main>
+
+        <property name = "AssertionType" Cref = "String">
+
+            <summary>Semantic assertion type identifier.</summary>
+
+        </property>
+
+        <property name = "Format" Cref = "String">
+
+            <summary>Assertion payload format discriminator.</summary>
+
+        </property>
+
+        <method name = "Copy">
+
+            <summary>Create a copy of the access-key assertion summary.</summary>
+
+            <returns Cref = "AccessKeyAssertionSummary">Copied access-key assertion summary.</returns>
+
+        </method>
+
+    </record>
+
+</AccessKeyAssertionSummary>

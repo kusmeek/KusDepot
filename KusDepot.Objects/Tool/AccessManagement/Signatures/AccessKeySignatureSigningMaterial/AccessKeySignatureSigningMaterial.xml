@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureSigningMaterial>
+
+    <struct name = "AccessKeySignatureSigningMaterial">
+
+        <main>
+
+            <summary>Access-key signature signing material.</summary>
+
+            <remarks>
+                Represents the certificate-backed signing material selected by a resolver or store for a concrete signing operation.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature signing material value.</summary>
+
+            <returns Cref = "AccessKeySignatureSigningMaterial">Empty access-key signature signing material value.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Create access-key signature signing material from a certificate using the default thumbprint-based `RsaPssSha512` signing configuration.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate supplying the signing identity and RSA private key.</param>
+
+            <returns Cref = "AccessKeySignatureSigningMaterial">Certificate-backed signing material derived from the supplied certificate.</returns>
+
+        </method>
+
+        <property name = "Certificate" Cref = "X509Certificate2?">
+
+            <summary>Certificate selected for the signing operation.</summary>
+
+        </property>
+
+        <property name = "SignatureInfo" Cref = "AccessKeySignatureInfo">
+
+            <summary>Signing metadata associated with the selected certificate.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String">
+
+            <summary>Normalized certificate thumbprint associated with the signing material.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureSigningMaterial>

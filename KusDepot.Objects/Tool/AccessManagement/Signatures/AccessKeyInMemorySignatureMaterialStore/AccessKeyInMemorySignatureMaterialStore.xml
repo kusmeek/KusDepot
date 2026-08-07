@@ -1,0 +1,110 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyInMemorySignatureMaterialStore>
+
+    <class name = "AccessKeyInMemorySignatureMaterialStore">
+
+        <main>
+
+            <summary>In-memory access-key signature material store.</summary>
+
+            <remarks>
+                Provides a simple thumbprint-oriented in-memory material store.
+            </remarks>
+
+        </main>
+
+        <field name = "sync" Cref = "Lock">
+
+            <summary>Synchronization gate protecting current signing material and registered verification material updates.</summary>
+
+        </field>
+
+        <field name = "currentsigningmaterial" Cref = "AccessKeySignatureSigningMaterial?">
+
+            <summary>Currently selected signing material used when signing resolution succeeds.</summary>
+
+        </field>
+
+        <field name = "verificationmaterials" Cref = "Dictionary{String,AccessKeySignatureVerificationMaterial}">
+
+            <summary>Registered verification material indexed by canonical signer key-identifier strings.</summary>
+
+        </field>
+
+        <method name = "TryAddVerificationMaterial">
+            <summary>Try to register verification material for later resolution.</summary>
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Verification material to register.</param>
+            <returns Cref = "Boolean">True when the verification material was stored; otherwise false.</returns>
+        </method>
+
+        <method name = "TryClearCurrentSigningMaterial">
+            <summary>Try to clear the current signing material selection.</summary>
+            <returns Cref = "Boolean">True when a current signing material selection existed and was cleared; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetCurrentSigningMaterial">
+            <summary>Try to get the current signing material selection.</summary>
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Current signing material selection.</param>
+            <returns Cref = "Boolean">True when current signing material is configured; otherwise false.</returns>
+        </method>
+
+        <method name = "TryRemoveVerificationMaterial">
+            <summary>Try to remove verification material associated with a specific signer key identifier.</summary>
+            <param name = "signerkeyidformat" Cref = "AccessKeySignerKeyIdFormat">Format discriminator for the signer key identifier to remove.</param>
+            <param name = "signerkeyid" Cref = "ReadOnlyMemory{Byte}">Signer key identifier bytes associated with the verification material to remove.</param>
+            <returns Cref = "Boolean">True when matching verification material was removed; otherwise false.</returns>
+        </method>
+
+        <method name = "TryResolveSigningMaterial">
+            <summary>Try to resolve signing material for the current signing operation.</summary>
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation.</param>
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Resolved signing material.</param>
+            <returns Cref = "Boolean">True when signing material was resolved; otherwise false.</returns>
+        </method>
+
+        <method name = "TryResolveVerificationMaterial">
+            <summary>Try to resolve verification material for the current validation operation.</summary>
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Validation context for the current operation.</param>
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Resolved verification material.</param>
+            <returns Cref = "Boolean">True when verification material was resolved; otherwise false.</returns>
+        </method>
+
+        <method name = "TrySetCurrentSigningMaterial">
+            <summary>Try to set the current signing material selection.</summary>
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Signing material to use for future signing operations.</param>
+            <returns Cref = "Boolean">True when the current signing material selection was updated; otherwise false.</returns>
+        </method>
+
+        <method name = "CreateVerificationKey">
+            <summary>Create the canonical dictionary key used to store or resolve verification material by signer key identifier.</summary>
+            <param name = "signerkeyidformat" Cref = "AccessKeySignerKeyIdFormat">Format discriminator for the signer key identifier.</param>
+            <param name = "signerkeyid" Cref = "ReadOnlySpan{Byte}">Signer key identifier bytes.</param>
+            <returns Cref = "String?">Canonical dictionary key, or null when the signer key identifier is empty.</returns>
+        </method>
+
+        <method name = "NormalizeThumbprint">
+            <summary>Normalize a certificate thumbprint into the canonical uppercase no-space form used by the in-memory store.</summary>
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate associated with the material being normalized.</param>
+            <param name = "thumbprint" Cref = "String?">Explicit thumbprint override, or null to fall back to the certificate thumbprint.</param>
+            <returns Cref = "String?">Canonical thumbprint, or null when no usable thumbprint is available.</returns>
+        </method>
+
+        <method name = "TryNormalizeSigningMaterial">
+            <summary>Normalize signing material into the canonical thumbprint-based shape used by the store.</summary>
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Signing material to normalize.</param>
+            <param name = "normalized" Cref = "AccessKeySignatureSigningMaterial">Normalized signing material.</param>
+            <returns Cref = "Boolean">True when the signing material could be normalized; otherwise false.</returns>
+        </method>
+
+        <method name = "TryNormalizeVerificationMaterial">
+            <summary>Normalize verification material into the canonical thumbprint-based shape used by the store and produce its dictionary key.</summary>
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Verification material to normalize.</param>
+            <param name = "normalized" Cref = "AccessKeySignatureVerificationMaterial">Normalized verification material.</param>
+            <param name = "key" Cref = "String?">Canonical dictionary key for the normalized verification material.</param>
+            <returns Cref = "Boolean">True when the verification material could be normalized; otherwise false.</returns>
+        </method>
+
+    </class>
+
+</AccessKeyInMemorySignatureMaterialStore>

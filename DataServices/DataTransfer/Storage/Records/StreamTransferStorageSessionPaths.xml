@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StreamTransferStorageSessionPaths>
+  <record name="StreamTransferStorageSessionPaths">
+	<main>
+	  <summary>Resolved conventional file-system paths for a staged stream transfer session.</summary>
+	</main>
+	<property name="SessionDirectoryPath" Cref="String"><summary>Absolute path to the session directory.</summary></property>
+	<property name="ManifestPath" Cref="String"><summary>Absolute path to the stream transfer manifest file.</summary></property>
+	<property name="ObjectPath" Cref="String"><summary>Absolute path to the serialized object payload file.</summary></property>
+	<property name="StreamPath" Cref="String"><summary>Absolute path to the staged append stream file.</summary></property>
+  </record>
+</StreamTransferStorageSessionPaths>

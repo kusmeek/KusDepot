@@ -1,0 +1,311 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataStreamItem>
+
+	<class name = "DataStreamItem">
+
+		<main>
+
+			<summary>Stream-backed DataItem.</summary>
+
+		</main>
+
+		<field name = "Content" Cref = "Stream?">
+
+			<summary>Runtime-attached content stream.</summary>
+
+		</field>
+
+		<field name = "ContentBindingMode" Cref = "DataStreamItemContentBindingMode">
+
+			<summary>Tracks whether content is statically bound or managed by a live session.</summary>
+
+		</field>
+
+		<field name = "LiveContentStatus" Cref = "DataStreamItemLiveContentStatus">
+
+			<summary>Tracks the current terminal or non-terminal state of live-bound content.</summary>
+
+		</field>
+
+		<field name = "LiveContentFaultMessage" Cref = "String?">
+
+			<summary>Optional live-content fault message captured when a live binding faults.</summary>
+
+		</field>
+
+		<constructor name = "ParameterlessConstructor">
+
+			<summary>Parameterless Constructor.</summary>
+
+			<returns Cref = "DataStreamItem">New DataStreamItem.</returns>
+
+		</constructor>
+
+		<constructor name = "Constructor">
+
+			<summary>Constructor.</summary>
+
+			<param name = "content" Cref = "Stream?">Content stream.</param>
+
+			<param name = "id" Cref = "Guid?">Item ID.</param>
+
+			<param name = "name" Cref = "String?">Item Name.</param>
+
+			<param name = "notes" Cref = "IEnumerable{String}?">Notes.</param>
+
+			<param name = "tags" Cref = "IEnumerable{String}?">Tags.</param>
+
+			<param name = "type" Cref = "String?">DataType.</param>
+
+			<returns Cref = "DataStreamItem">DataStreamItem.</returns>
+
+		</constructor>
+
+		<method name = "op_Explicit">
+
+			<summary>Store stream in DataStreamItem.</summary>
+
+			<param name = "content" Cref = "Stream?">Item Content.</param>
+
+			<returns Cref = "DataStreamItem?">DataStreamItem created from Content.</returns>
+
+		</method>
+
+		<method name = "op_Equality">
+
+			<summary>Equality Operator.</summary>
+
+			<param name = "a" Cref = "DataStreamItem?">A DataStreamItem.</param>
+
+			<param name = "b" Cref = "DataStreamItem?">Other DataStreamItem.</param>
+
+			<returns Cref = "Boolean">True if DataStreamItems are equal.</returns>
+
+		</method>
+
+		<method name = "op_Inequality">
+
+			<summary>Inequality Operator.</summary>
+
+			<param name = "a" Cref = "DataStreamItem?">A DataStreamItem.</param>
+
+			<param name = "b" Cref = "DataStreamItem?">Other DataStreamItem.</param>
+
+			<returns Cref = "Boolean">True if DataStreamItems are not equal.</returns>
+
+		</method>
+
+		<method name = "FromFile">
+
+			<summary>Create from file.</summary>
+
+			<param name = "path" Cref = "String">Absolute path and file name.</param>
+
+			<returns Cref = "DataStreamItem?">Object created from file metadata.</returns>
+
+		</method>
+
+		<method name = "GetContent">
+
+			<summary>Get the runtime-attached content stream for this item.</summary>
+
+			<returns Cref = "Stream?">The currently attached readable stream when content is bound in-memory; otherwise null.</returns>
+
+		</method>
+
+		<method name = "GetContentStream">
+
+			<summary>Get a readable content stream for this item from the current in-memory binding or the bound file path.</summary>
+
+			<returns Cref = "Stream?">The attached readable in-memory stream when available; otherwise a newly opened read stream for the bound file when streamed file content is available; otherwise null.</returns>
+
+		</method>
+
+		<method name = "GetContentBindingMode">
+
+			<summary>Get the current content binding mode.</summary>
+
+			<returns Cref = "DataStreamItemContentBindingMode">Current content binding mode.</returns>
+
+		</method>
+
+		<method name = "GetLiveContentStatus">
+
+			<summary>Get the current live-content status.</summary>
+
+			<returns Cref = "DataStreamItemLiveContentStatus">Current live-content status.</returns>
+
+		</method>
+
+		<method name = "GetLiveContentFaultMessage">
+
+			<summary>Get the optional fault message associated with the live content state.</summary>
+
+			<returns Cref = "String?">Fault message when the live content is faulted; otherwise null.</returns>
+
+		</method>
+
+		<method name = "BindLiveContent">
+
+			<summary>Bind a readable stream as live session-managed content.</summary>
+
+			<param name = "content" Cref = "Stream?">Readable live content stream.</param>
+
+			<returns Cref = "Boolean">Returns true if live content binding succeeded.</returns>
+
+		</method>
+
+		<method name = "CompleteLiveContent">
+
+			<summary>Mark live session-managed content as completed.</summary>
+
+			<returns Cref = "Boolean">Returns true if the live content state was updated.</returns>
+
+		</method>
+
+		<method name = "AbortLiveContent">
+
+			<summary>Mark live session-managed content as aborted.</summary>
+
+			<returns Cref = "Boolean">Returns true if the live content state was updated.</returns>
+
+		</method>
+
+		<method name = "FaultLiveContent">
+
+			<summary>Mark live session-managed content as faulted.</summary>
+
+			<param name = "message" Cref = "String?">Optional fault message.</param>
+
+			<returns Cref = "Boolean">Returns true if the live content state was updated.</returns>
+
+		</method>
+
+		<method name = "CheckDataHash">
+
+			<summary>Validate the current content integrity state for file-backed DataStreamItem content.</summary>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{Boolean}">True when streamed content is bound to an existing file, is not live session-managed, and the current file content matches the stored content or encrypted-content integrity state; otherwise false.</returns>
+
+		</method>
+
+		<method name = "SignData">
+
+			<summary>Sign supported DataStreamItem security fields.</summary>
+
+			<param name = "field" Cref = "String?">Field to sign. `MetaData` is always supported. `Content` is supported only for file-backed streamed content and is not supported for live session-managed or in-memory-only content.</param>
+
+			<param name = "security" Cref = "DataItemSecurityContext?">Security context used to issue the field assertion.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{String?}">The signed field key when signing succeeds; otherwise null.</returns>
+
+		</method>
+
+		<method name = "EncryptData">
+
+			<summary>Encrypt file-backed DataStreamItem content in place.</summary>
+
+			<param name = "security" Cref = "DataItemSecurityContext?">Security context that defines the recipient set and protection metadata.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{Boolean}">True when the item is not locked, not already encrypted, not live session-managed, and has streamed content bound to an existing file that can be encrypted in place; otherwise false.</returns>
+
+		</method>
+
+		<method name = "DecryptData">
+
+			<summary>Decrypt file-backed DataStreamItem content in place.</summary>
+
+			<param name = "security" Cref = "DataItemSecurityContext?">Security context used to decrypt the protected file content.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{Boolean}">True when the item is encrypted, not locked, not live session-managed, and has streamed content bound to an existing file that can be decrypted in place; otherwise false.</returns>
+
+		</method>
+
+		<method name = "VerifyData">
+
+			<summary>Verify supported DataStreamItem security fields against current item state.</summary>
+
+			<param name = "field" Cref = "String?">Field to verify. `MetaData` is always supported. `Content` and `EncryptedData` are supported only for file-backed streamed content and are not supported for live session-managed or in-memory-only content.</param>
+
+			<param name = "security" Cref = "DataItemSecurityContext?">Security context used to resolve and validate the field assertion signer.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{Boolean}">True when the requested supported field has a valid assertion and the current metadata or file-backed content state matches that assertion; otherwise false.</returns>
+
+		</method>
+
+		<method name = "SetLiveContentTerminalState">
+
+			<summary>Apply a terminal live-content state transition for session-managed content.</summary>
+
+			<param name = "status" Cref = "DataStreamItemLiveContentStatus">Terminal live-content status to apply.</param>
+
+			<param name = "message" Cref = "String?">Optional fault message stored when the terminal state is faulted.</param>
+
+			<returns Cref = "Boolean">Returns true if the live content state transition was applied.</returns>
+
+		</method>
+
+		<method name = "OnDeserialized">
+
+			<summary>Serialization Support.</summary>
+
+			<param name = "context" Cref = "StreamingContext">Unused.</param>
+
+		</method>
+
+		<method name = "Parse">
+
+			<summary>Parse DataStreamItem.</summary>
+
+			<param name = "input" Cref = "String">Input to Parse.</param>
+
+			<param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+			<returns Cref = "DataStreamItem?">Parsed DataStreamItem.</returns>
+
+		</method>
+
+		<method name = "SetContent">
+
+			<summary>Attach or clear the in-memory content stream used by this item.</summary>
+
+			<param name = "content" Cref = "Stream?">Readable content stream to attach. Null or unreadable streams clear the current in-memory content binding.</param>
+
+			<returns Cref = "Boolean">Returns true when a readable stream is attached. Returns false when the item is locked, live session-managed, or the supplied stream is null or unreadable.</returns>
+
+		</method>
+
+		<method name = "SetContentStreamed">
+
+			<summary>Enable or disable streamed-content mode for stream-backed or file-backed content.</summary>
+
+			<param name = "streamed" Cref = "Boolean">True to enable streamed content mode; false to disable it.</param>
+
+			<param name = "security" Cref = "DataItemSecurityContext?">Unused for DataStreamItem.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Task{Boolean}">True when streamed mode is enabled from a readable in-memory stream or an existing bound file, or when it is disabled for file-backed content. Returns false when the item is locked, live session-managed, when no readable content source is available, or when disabling streamed mode while readable in-memory content is still attached.</returns>
+
+		</method>
+
+	<property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+			<summary>IExtensibleDataObject.</summary>
+
+		</property>
+
+	</class>
+
+</DataStreamItem>

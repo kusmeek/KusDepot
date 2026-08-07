@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferMode>
+
+	<enum name = "DataItemTransferMode">
+		<main><summary>Transfer session role used to interpret transfer state and behavior.</summary></main>
+		<value name = "Upload"><summary>Writable upload session for staged content assembly.</summary></value>
+		<value name = "ReadCommitted"><summary>Readable session over committed published content backed by shared local cache.</summary></value>
+		<value name = "ReadStaged"><summary>Readable session over realized ranges of an active staged upload.</summary></value>
+		<value name = "StreamUpload"><summary>Writable stream-transfer source session that appends durable stream content.</summary></value>
+		<value name = "StreamFollow"><summary>Readable follower session over the current durable prefix of a retained stream-transfer session.</summary></value>
+	</enum>
+
+</DataItemTransferMode>

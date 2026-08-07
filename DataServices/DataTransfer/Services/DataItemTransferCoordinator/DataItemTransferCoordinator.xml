@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemTransferCoordinator>
+  <class name="DataItemTransferCoordinator">
+	<main>
+	  <summary>Implements in-process keyed asynchronous coordination for segmented transfer mutations.</summary>
+	</main>
+	<field name="locks">
+	  <summary>Maps transfer coordination keys to the semaphores that serialize access for those keys.</summary>
+	</field>
+	<method name="AcquireAsync">
+	  <summary>Acquire the semaphore associated with a coordination key and return an async releaser for it.</summary>
+	  <param name="key" Cref="String">Coordination key for the item or session lock.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{IAsyncDisposable}">Disposable releaser that will unlock the acquired semaphore.</returns>
+	</method>
+  </class>
+	<class name="Releaser">
+	  <main>
+		<summary>Releases an acquired semaphore exactly once when the asynchronous lock scope is disposed.</summary>
+	  </main>
+	  <field name="gate">
+		<summary>Semaphore instance to release when disposal completes.</summary>
+	  </field>
+	  <field name="released">
+		<summary>Tracks whether the releaser has already returned the semaphore permit.</summary>
+	  </field>
+	  <constructor name="Releaser">
+		<summary>Create the async releaser for an acquired semaphore.</summary>
+		<param name="gate" Cref="SemaphoreSlim">Semaphore instance that was previously acquired.</param>
+	  </constructor>
+	  <method name="DisposeAsync">
+		<summary>Release the semaphore once and complete synchronously.</summary>
+		<returns Cref="ValueTask">Completed task after the semaphore has been released if needed.</returns>
+	  </method>
+	</class>
+</DataItemTransferCoordinator>

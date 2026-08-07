@@ -1,0 +1,49 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolHost>
+
+    <interface name = "IToolHost">
+
+        <main>
+
+            <summary>ToolHost Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolHost.</remarks>
+
+        </main>
+
+        <property name = "Lifetime">
+
+            <summary>Host Lifetime.</summary>
+
+            <returns Cref = "IToolHostLifetime?">Lifetime.</returns>
+
+        </property>
+
+        <method name = "GetServices">
+
+            <summary>Get Services.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IServiceProvider?">Services.</returns>
+
+        </method>
+
+        <method name = "Run">
+
+            <summary>Run.</summary>
+
+        </method>
+
+        <method name = "RunAsync">
+
+            <summary>RunAsync.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+        </method>
+
+    </interface>
+
+</IToolHost>

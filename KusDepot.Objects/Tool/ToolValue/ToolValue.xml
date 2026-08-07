@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValue>
+
+    <record name = "ToolValue">
+
+        <main>
+
+            <summary>Envelope for values.</summary>
+
+        </main>
+
+        <property name = "Mode" Cref = "ToolValueMode">
+
+            <summary>Conversion mode.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "String?">
+
+            <summary>Type name.</summary>
+
+        </property>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Parse data.</summary>
+
+        </property>
+
+        <property name = "Arguments" Cref = "ToolValueArgument[]?">
+
+            <summary>Constructor arguments.</summary>
+
+        </property>
+
+    </record>
+
+</ToolValue>

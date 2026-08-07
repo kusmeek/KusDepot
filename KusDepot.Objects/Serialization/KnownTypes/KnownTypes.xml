@@ -1,0 +1,39 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<KnownTypes>
+
+    <class name = "KnownTypes">
+
+        <main>
+
+            <summary>General KnownTypes.</summary>
+
+        </main>
+
+        <method name = "GetAllKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "GetDataItemKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+        <method name = "GetSecurityKnownTypes">
+
+            <summary>DataContractSerializer Known Types.</summary>
+
+            <returns Cref = "IEnumerable{Type}">Known Types.</returns>
+
+        </method>
+
+    </class>
+
+</KnownTypes>

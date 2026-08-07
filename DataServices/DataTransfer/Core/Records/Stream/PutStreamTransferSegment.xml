@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PutStreamTransferSegment>
+
+	<record name = "PutStreamTransferSegmentRequest">
+		<main><summary>Metadata carried in a stream-transfer segment append request.</summary></main>
+		<property name = "ExpectedStateVersion" Cref = "Int64?"><summary>Optional expected current transfer state version that, when supplied, must match before the segment is accepted.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Requested append payload length in bytes.</summary></property>
+		<property name = "Offset" Cref = "Int64"><summary>Requested append offset which should equal the current durable appended length.</summary></property>
+		<property name = "RequestID" Cref = "Guid?"><summary>Optional caller correlation identifier.</summary></property>
+		<property name = "SegmentSHA512" Cref = "Byte[]"><summary>SHA-512 of the payload carried by the envelope.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>Optional caller-declared final SHA-512 of the complete durable stream payload.</summary></property>
+	</record>
+
+	<record name = "PutStreamTransferSegmentResponse">
+		<main><summary>Metadata carried in a stream-transfer segment append response.</summary></main>
+		<property name = "Accepted" Cref = "Boolean"><summary>Whether the segment was accepted.</summary></property>
+		<property name = "AppendedLength" Cref = "Int64"><summary>Current durable appended length after processing the request.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Current transfer state version.</summary></property>
+	</record>
+
+</PutStreamTransferSegment>

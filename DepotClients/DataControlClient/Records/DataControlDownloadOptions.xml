@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownloadOptions>
+
+	<record name="DataControlDownloadOptions">
+
+		<main>
+
+			<summary>Configures the client download helpers.</summary>
+
+		</main>
+
+		<property name="Mode" Cref="DataControlDownloadMode">
+
+			<summary>Selects committed download, staged follow, or stream follow behavior.</summary>
+
+		</property>
+
+		<property name="SourceSessionID" Cref="Guid?">
+
+			<summary>Required source session identifier for staged-follow and stream-follow download modes.</summary>
+
+		</property>
+
+		<property name="CompletionMode" Cref="StreamCompletionMode">
+
+			<summary>Controls how one-call follow operations decide when to stop.</summary>
+
+		</property>
+
+		<property name="MaxBytes" Cref="Int64?">
+
+			<summary>Optional byte limit applied when the completion mode uses a bounded length.</summary>
+
+		</property>
+
+		<property name="BindLiveStreamItem" Cref="Boolean">
+
+			<summary>Whether the opened or resumed stream-follow session should bind a live DataStreamItem to the buffered follow stream.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlDownloadOptions>

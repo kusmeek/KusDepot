@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DeterministicHashingProfile>
+
+	<enum name="DeterministicHashingProfile">
+
+		<main>
+			<summary>Selects the internal deterministic hashing behavior used while traversing object graphs.</summary>
+		</main>
+
+		<value name="Default">
+			<summary>Use the standard deterministic hashing behavior for general object graphs.</summary>
+		</value>
+
+		<value name="MetaBaseIntegrity">
+			<summary>Use metadata-integrity behavior that resolves nested <see cref="IMetaBase"/> values through their canonical metadata integrity hash instead of content-oriented item hashing.</summary>
+		</value>
+
+	</enum>
+
+</DeterministicHashingProfile>

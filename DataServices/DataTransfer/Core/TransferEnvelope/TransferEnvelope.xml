@@ -1,0 +1,151 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferEnvelope>
+
+	<class name = "TransferEnvelope">
+
+		<main>
+			<summary>Binary envelope used to frame transfer metadata bytes, payload bytes, and optional trailer bytes.</summary>
+			<remarks>
+				<para>Fixed Header Layout:</para>
+				<list type="bullet">
+					<item><description>Magic (UInt32, big-endian), ASCII "KDSG"</description></item>
+					<item><description>FormatVersion (Byte)</description></item>
+					<item><description>Flags (Byte)</description></item>
+					<item><description>HeaderLength (UInt16, big-endian)</description></item>
+					<item><description>MetadataLength (Int32, big-endian)</description></item>
+					<item><description>PayloadLength (Int64, big-endian)</description></item>
+					<item><description>TrailerLength (Int32, big-endian)</description></item>
+					<item><description>Reserved (Int32, big-endian)</description></item>
+					<item><description>Metadata UTF-8 JSON bytes</description></item>
+					<item><description>Raw payload bytes</description></item>
+					<item><description>Optional trailer bytes</description></item>
+				</list>
+			</remarks>
+		</main>
+
+		<field name = "MediaType"><summary>Custom media type for transfer envelope bodies.</summary></field>
+		<field name = "FormatVersion"><summary>Current transfer envelope format version.</summary></field>
+		<field name = "FlagsNone"><summary>No envelope flags are set.</summary></field>
+		<field name = "Magic"><summary>Big-endian magic value for the ASCII bytes of "KDSG".</summary></field>
+		<field name = "FixedHeaderLength"><summary>Fixed header size in bytes.</summary></field>
+
+		<method name = "HasEnvelope">
+			<summary>Determine whether a byte array begins with the transfer envelope magic value.</summary>
+			<param name = "input" Cref = "Byte[]">Input byte array.</param>
+			<returns Cref = "Boolean">True when the input has a valid envelope magic prefix.</returns>
+		</method>
+		<method name = "ParseHeader">
+			<summary>Parse and validate the fixed transfer envelope header.</summary>
+			<param name = "input" Cref = "Byte[]">Input byte array containing an envelope.</param>
+			<returns Cref = "TransferEnvelopeHeader?">Parsed header when valid; otherwise null.</returns>
+		</method>
+		<method name = "GetMetadataBytes">
+			<summary>Return the metadata region of a transfer envelope without copying.</summary>
+			<param name = "input" Cref = "Byte[]">Input byte array containing an envelope.</param>
+			<returns Cref = "ReadOnlyMemory{Byte}">Metadata region when valid; otherwise an empty memory block.</returns>
+		</method>
+		<method name = "UnwrapPayload">
+			<summary>Return the payload region of a transfer envelope without copying.</summary>
+			<param name = "input" Cref = "Byte[]">Input byte array containing an envelope.</param>
+			<returns Cref = "ReadOnlyMemory{Byte}">Payload region when valid; otherwise an empty memory block.</returns>
+		</method>
+		<method name = "GetTrailerBytes">
+			<summary>Return the trailer region of a transfer envelope without copying.</summary>
+			<param name = "input" Cref = "Byte[]">Input byte array containing an envelope.</param>
+			<returns Cref = "ReadOnlyMemory{Byte}">Trailer region when valid; otherwise an empty memory block.</returns>
+		</method>
+		<method name = "ReadHeaderAsync">
+			<summary>Read and validate the fixed transfer envelope header from a stream.</summary>
+			<param name = "input" Cref = "Stream">Input stream positioned at the start of an envelope.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{TransferEnvelopeHeader?}">A task-like value that completes with the parsed header when valid; otherwise null.</returns>
+		</method>
+		<method name = "ReadMetadataBytesAsync">
+			<summary>Read the metadata byte region for a previously parsed transfer envelope header.</summary>
+			<param name = "input" Cref = "Stream">Input stream positioned at the metadata region.</param>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Previously parsed envelope header.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{ReadOnlyMemory{Byte}}">A task-like value that completes with the metadata bytes when fully available; otherwise an empty memory block.</returns>
+		</method>
+		<method name = "ReadTrailerBytesAsync">
+			<summary>Read the trailer byte region for a previously parsed transfer envelope header.</summary>
+			<param name = "input" Cref = "Stream">Input stream positioned at the trailer region.</param>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Previously parsed envelope header.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{ReadOnlyMemory{Byte}}">A task-like value that completes with the trailer bytes when fully available; otherwise an empty memory block.</returns>
+		</method>
+		<method name = "OpenPayloadStream">
+			<summary>Open a bounded payload stream over the remaining payload bytes for a previously parsed transfer envelope header.</summary>
+			<param name = "input" Cref = "Stream">Input stream positioned at the start of the payload region.</param>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Previously parsed envelope header.</param>
+			<param name = "leaveopen" Cref = "Boolean">True to leave the underlying input stream open when the bounded payload wrapper is disposed.</param>
+			<returns Cref = "Stream">A bounded read-only stream for the payload region.</returns>
+		</method>
+		<method name = "WriteAsync">
+			<summary>Write a transfer envelope to a stream using metadata bytes followed by streamed payload bytes.</summary>
+			<param name = "destination" Cref = "Stream">Destination stream that receives the envelope.</param>
+			<param name = "metadatabytes" Cref = "ReadOnlyMemory{Byte}">Metadata bytes to write after the fixed header.</param>
+			<param name = "payload" Cref = "Stream">Readable payload stream positioned at the first payload byte.</param>
+			<param name = "payloadlength" Cref = "Int64">Number of payload bytes to write from the payload stream.</param>
+			<param name = "trailerlength" Cref = "Int32">Trailer byte length to declare in the envelope header without writing trailer bytes.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask">A task-like value that completes when the envelope has been written.</returns>
+		</method>
+		<method name = "WriteWithTrailer">
+			<summary>Write a transfer envelope to a stream using streamed payload bytes followed by trailer bytes.</summary>
+			<param name = "destination" Cref = "Stream">Destination stream that receives the envelope.</param>
+			<param name = "trailerbytes" Cref = "ReadOnlyMemory{Byte}">Trailer bytes to write after the payload region.</param>
+			<param name = "payload" Cref = "Stream">Readable payload stream positioned at the first payload byte.</param>
+			<param name = "payloadlength" Cref = "Int64">Number of payload bytes to write from the payload stream.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask">A task-like value that completes when the envelope payload and trailing trailer bytes have been written.</returns>
+		</method>
+		<method name = "TryParseHeaderCore">
+			<summary>Parse the fixed transfer envelope header with optional full-envelope length validation.</summary>
+			<param name = "input" Cref = "Byte[]">Input bytes containing at least the fixed header.</param>
+			<param name = "requirefullenvelopelength" Cref = "Boolean">True to require that the input also contains the declared metadata, payload, and trailer bytes.</param>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Parsed header value when the method succeeds.</param>
+			<returns Cref = "Boolean">True when the fixed header is valid; otherwise false.</returns>
+		</method>
+		<method name = "GetMetadataOffset">
+			<summary>Get the byte offset where metadata begins within a transfer envelope.</summary>
+			<returns Cref = "Int32">Metadata offset in bytes.</returns>
+		</method>
+		<method name = "GetPayloadOffset">
+			<summary>Get the byte offset where payload begins for a parsed transfer envelope header.</summary>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Parsed envelope header.</param>
+			<returns Cref = "Int32">Payload offset in bytes.</returns>
+		</method>
+		<method name = "GetTrailerOffset">
+			<summary>Get the byte offset where trailer bytes begin for a parsed transfer envelope header.</summary>
+			<param name = "header" Cref = "TransferEnvelopeHeader">Parsed envelope header.</param>
+			<returns Cref = "Int32">Trailer offset in bytes.</returns>
+		</method>
+		<method name = "BuildHeader">
+			<summary>Build the fixed transfer envelope header bytes.</summary>
+			<param name = "metadatalength" Cref = "Int32">Metadata byte length.</param>
+			<param name = "payloadlength" Cref = "Int64">Payload byte length.</param>
+			<param name = "trailerlength" Cref = "Int32">Trailer byte length.</param>
+			<param name = "flags" Cref = "Byte">Envelope flags.</param>
+			<param name = "reserved" Cref = "Int32">Reserved future-use field distinct from trailer length.</param>
+			<returns Cref = "Byte[]">Fixed header bytes.</returns>
+		</method>
+		<method name = "ComputeEnvelopeLength">
+			<summary>Compute the total envelope byte length from metadata, payload, and trailer lengths.</summary>
+			<param name = "metadatalength" Cref = "Int32">Metadata byte length.</param>
+			<param name = "payloadlength" Cref = "Int64">Payload byte length.</param>
+			<param name = "trailerlength" Cref = "Int32">Trailer byte length.</param>
+			<returns Cref = "Int64">Total envelope byte length.</returns>
+		</method>
+		<method name = "ReadExactlyAsync">
+			<summary>Read the requested number of bytes from a stream unless the end of the stream is reached first.</summary>
+			<param name = "input" Cref = "Stream">Input stream to read.</param>
+			<param name = "buffer" Cref = "Memory{Byte}">Destination buffer that must be completely filled.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{Boolean}">A task-like value that completes with true when the full buffer was read; otherwise false.</returns>
+		</method>
+
+	</class>
+
+</TransferEnvelope>

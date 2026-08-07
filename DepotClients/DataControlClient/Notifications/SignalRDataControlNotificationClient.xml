@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<SignalRDataControlNotificationClient>
+
+	<class name="SignalRDataControlNotificationClient">
+
+		<main>
+
+			<summary>SignalR-backed notification client that maintains persistent follow-session subscriptions and coalescing wake latches over a shared SignalR connection.</summary>
+
+		</main>
+
+		<field name="gate" Cref="SemaphoreSlim">
+
+			<summary>Serializes connection lifecycle and persistent registration state mutations.</summary>
+
+		</field>
+
+		<field name="certificate" Cref="X509Certificate2">
+
+			<summary>Client certificate used when connecting to the notification hub.</summary>
+
+		</field>
+
+		<field name="endpoint" Cref="String">
+
+			<summary>Base service endpoint used to construct the SignalR hub URI.</summary>
+
+		</field>
+
+		<field name="connection" Cref="HubConnection">
+
+			<summary>Current SignalR hub connection used for notification subscriptions.</summary>
+
+		</field>
+
+		<field name="currentToken" Cref="String?">
+
+			<summary>Current bearer token supplied to the SignalR access token provider.</summary>
+
+		</field>
+
+		<field name="registrations" Cref="Dictionary{String,RegistrationState}">
+
+			<summary>Persistent registration registry keyed by normalized logical subscription identity.</summary>
+
+		</field>
+
+		<field name="ConnectionClosedWhileWaiting" Cref="OperationFailedException">
+
+			<summary>Exception used to fail an in-flight wait when the SignalR connection closes.</summary>
+
+		</field>
+
+		<constructor name="Constructor">
+
+			<summary>Create a SignalR-backed notification client for the given endpoint and certificate.</summary>
+
+			<param name="endpoint" Cref="String">Base DataControl endpoint.</param>
+
+			<param name="certificate" Cref="X509Certificate2">Client certificate used for the SignalR connection.</param>
+
+		</constructor>
+
+		<method name="DisposeAsync">
+
+			<summary>Asynchronously release the SignalR connection and fail all active registration waiters.</summary>
+
+			<returns Cref="ValueTask">A value task that completes when the connection and synchronization resources have been released.</returns>
+
+		</method>
+
+		<method name="RegisterSubscriptionAsync">
+
+			<summary>Register a persistent logical follow-session subscription and return a lifetime-owned wait handle.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical follow-session subscription to register.</param>
+
+			<param name="token" Cref="String?">Optional bearer token.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task{IDataControlNotificationSubscriptionHandle}">A task that completes with a persistent wait handle for the normalized logical subscription.</returns>
+
+		</method>
+
+		<method name="WaitForRegistrationWakeAsync">
+
+			<summary>Wait for the next coalesced wake signal associated with a persistent registration handle.</summary>
+
+			<param name="handle" Cref="PersistentSubscriptionHandle">Persistent registration handle whose observed signal version is being advanced.</param>
+
+			<param name="wait" Cref="TimeSpan">Wait duration for the wake operation. Must be positive or <see cref="Timeout.InfiniteTimeSpan"/>.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task{Boolean}">A task that completes with true when a new wake signal is observed; otherwise false when the wait elapses without a wake.</returns>
+
+		</method>
+
+		<method name="UnregisterAsync">
+
+			<summary>Release a persistent registration handle and remove its hub subscriptions when the final reference is disposed.</summary>
+
+			<param name="key" Cref="String">Normalized logical subscription key.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task">A task that completes when the registration has been released.</returns>
+
+		</method>
+
+		<method name="OnNotificationReceived">
+
+			<summary>Route a received notification across all matching persistent registrations and advance their wake latches.</summary>
+
+			<param name="notification" Cref="DataControlNotification">Received notification payload.</param>
+
+			<returns Cref="Task">A task that completes when all matching registrations have been signaled.</returns>
+
+		</method>
+
+		<method name="FailActiveWaiters">
+
+			<summary>Fail all active registration waiters with the supplied connection-lifecycle exception.</summary>
+
+			<param name="error" Cref="Exception">Failure to propagate to active waiters.</param>
+
+		</method>
+
+		<method name="Matches">
+
+			<summary>Determine whether a received notification satisfies the requested logical subscription.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Requested logical notification subscription.</param>
+
+			<param name="notification" Cref="DataControlNotification">Received notification payload.</param>
+
+			<returns Cref="Boolean">True when the notification matches the subscription; otherwise false.</returns>
+
+		</method>
+
+		<method name="EnsureConnectedAsync">
+
+			<summary>Ensure the SignalR connection exists and is started before persistent registrations subscribe to hub topics.</summary>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task">A task that completes when the hub connection is ready.</returns>
+
+		</method>
+
+		<method name="CreateConnection">
+
+			<summary>Create the SignalR hub connection configured for certificate authentication, bearer token forwarding, and automatic reconnect.</summary>
+
+			<returns Cref="HubConnection">A configured hub connection for DataControl notifications.</returns>
+
+		</method>
+
+		<method name="SubscribeAsync">
+
+			<summary>Subscribe the shared SignalR connection to the logical topics represented by the supplied subscription.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical notification subscription to register.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task">A task that completes when all requested topic subscriptions are registered.</returns>
+
+		</method>
+
+		<method name="UnsubscribeAsync">
+
+			<summary>Remove the shared SignalR connection from the logical topics represented by the supplied subscription.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical notification subscription to remove.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task">A task that completes when all requested topic removals are sent.</returns>
+
+		</method>
+
+		<method name="ValidateSubscription">
+
+			<summary>Validate that a logical notification subscription contains at least one usable identifier.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical notification subscription to validate.</param>
+
+		</method>
+
+		<method name="CreateKey">
+
+			<summary>Normalize a logical notification subscription into a stable registry key.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical notification subscription to normalize.</param>
+
+			<returns Cref="String">Stable normalized key representing the logical subscription identity.</returns>
+
+		</method>
+
+		<method name="CreateWaiter">
+
+			<summary>Create a new asynchronous latch waiter for a persistent registration.</summary>
+
+			<returns Cref="TaskCompletionSource{Boolean}">A waiter completion source configured for asynchronous continuations.</returns>
+
+		</method>
+
+		<method name="SetToken">
+
+			<summary>Update the bearer token used by the SignalR access token provider for subsequent hub operations.</summary>
+
+			<param name="token" Cref="String?">Optional bearer token.</param>
+
+		</method>
+
+	</class>
+
+	<class name="RegistrationState">
+
+		<main>
+
+			<summary>Represents the shared registration state for a normalized persistent notification subscription.</summary>
+
+		</main>
+
+		<constructor name="Constructor">
+
+			<summary>Create registration state for a logical notification subscription.</summary>
+
+			<param name="subscription" Cref="DataControlNotificationSubscription">Logical notification subscription represented by the registration.</param>
+
+		</constructor>
+
+		<property name="LastNotification" Cref="DataControlNotification?">
+
+			<summary>Gets or sets the last notification routed through the registration.</summary>
+
+		</property>
+
+		<property name="ReferenceCount" Cref="Int32">
+
+			<summary>Gets or sets the number of active handles currently referencing the registration.</summary>
+
+		</property>
+
+		<property name="SignalVersion" Cref="Int64">
+
+			<summary>Gets or sets the monotonically increasing wake-signal version for the registration.</summary>
+
+		</property>
+
+		<property name="Subscription" Cref="DataControlNotificationSubscription">
+
+			<summary>Gets the logical notification subscription represented by the registration.</summary>
+
+		</property>
+
+		<property name="Waiter" Cref="TaskCompletionSource{Boolean}">
+
+			<summary>Gets or sets the current coalescing waiter latch for the registration.</summary>
+
+		</property>
+
+	</class>
+
+	<class name="PersistentSubscriptionHandle">
+
+		<main>
+
+			<summary>Represents a lifetime-owned persistent notification subscription handle backed by a shared coalescing wake latch.</summary>
+
+		</main>
+
+		<field name="owner" Cref="SignalRDataControlNotificationClient">
+
+			<summary>Owns the shared SignalR registration registry and wake logic.</summary>
+
+		</field>
+
+		<field name="disposed" Cref="Boolean">
+
+			<summary>Tracks whether the handle has already been released.</summary>
+
+		</field>
+
+		<constructor name="Constructor">
+
+			<summary>Create a persistent subscription handle for a normalized registration key.</summary>
+
+			<param name="owner" Cref="SignalRDataControlNotificationClient">Owning notification client.</param>
+
+			<param name="key" Cref="String">Normalized registration key.</param>
+
+			<param name="observedSignalVersion" Cref="Int64">Initial observed signal version captured at registration time.</param>
+
+		</constructor>
+
+		<property name="IsDisposed" Cref="Boolean">
+
+			<summary>Gets a value indicating whether the handle has been released.</summary>
+
+		</property>
+
+		<property name="Key" Cref="String">
+
+			<summary>Gets the normalized registration key owned by the handle.</summary>
+
+		</property>
+
+		<property name="ObservedSignalVersion" Cref="Int64">
+
+			<summary>Gets or sets the latest wake-signal version observed by the handle.</summary>
+
+		</property>
+
+		<method name="DisposeAsync">
+
+			<summary>Release the persistent registration handle and unregister it from the shared registry.</summary>
+
+			<returns Cref="ValueTask">A value task that completes when the handle has been unregistered.</returns>
+
+		</method>
+
+		<method name="WaitForWakeAsync">
+
+			<summary>Wait for the next coalesced wake signal on this persistent subscription handle.</summary>
+
+			<param name="wait" Cref="TimeSpan">Wait duration to apply to the wake operation.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task{Boolean}">A task that completes with true when a new wake signal is observed; otherwise false when the wait elapses without a wake.</returns>
+
+		</method>
+
+	</class>
+
+</SignalRDataControlNotificationClient>

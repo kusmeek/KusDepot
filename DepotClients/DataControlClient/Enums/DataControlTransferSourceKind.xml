@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlTransferSourceKind>
+
+	<enum name="DataControlTransferSourceKind">
+
+		<main>
+			<summary>Identifies how a resumable client upload session can reopen or interpret its finite content source.</summary>
+		</main>
+
+		<value name="None">
+			<summary>No persisted source descriptor is available.</summary>
+		</value>
+
+		<value name="ExternalFile">
+			<summary>The source is an explicit stable file path owned outside the client working directory.</summary>
+		</value>
+
+		<value name="WorkingDirectoryCopy">
+			<summary>The source is the staged finite stream copy persisted inside the client working directory.</summary>
+		</value>
+
+	</enum>
+
+</DataControlTransferSourceKind>

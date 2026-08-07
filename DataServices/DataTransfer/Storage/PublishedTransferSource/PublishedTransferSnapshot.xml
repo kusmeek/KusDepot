@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedTransferSnapshot>
+  <record name="PublishedTransferSnapshot">
+	<main>
+	  <summary>Immutable committed-content snapshot used to open readable segmented transfer sessions.</summary>
+	</main>
+	<property name="ItemId" Cref="Guid"><summary>Immutable data item identifier.</summary></property>
+	<property name="ObjectPayload" Cref="Byte[]"><summary>Serialized committed object payload.</summary></property>
+	<property name="ObjectSHA512" Cref="Byte[]"><summary>SHA-512 of the serialized committed object payload.</summary></property>
+	<property name="StreamSHA512" Cref="Byte[]"><summary>SHA-512 of the committed stream payload.</summary></property>
+	<property name="StreamLength" Cref="Int64"><summary>Committed stream length in bytes.</summary></property>
+	<property name="RealizedRanges" Cref="DataItemTransferRange[]"><summary>Initially realized ranges available to readable segmented sessions.</summary></property>
+	<property name="ObjectInfo" Cref="DataItemTransferObjectInfo?"><summary>Optional descriptive object summary for the committed payload.</summary></property>
+  </record>
+</PublishedTransferSnapshot>

@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAsyncAccessKeySignatureProcessor>
+
+    <interface name = "IAsyncAccessKeySignatureProcessor">
+
+        <main>
+
+            <summary>Asynchronous access-key signature processor contract.</summary>
+
+            <remarks>
+                Provides asynchronous verification for access-key envelopes.
+            </remarks>
+
+        </main>
+
+        <method name = "VerifyAsync">
+
+            <summary>Asynchronously verify outer signature metadata and signature bytes for an access-key envelope.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Verification context containing parsed signature metadata, canonical verification bytes, and optional diagnostics infrastructure.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for asynchronous verification.</param>
+
+            <returns Cref = "ValueTask{SignatureValidation}">Signature validation facts for downstream policy and trust evaluation.</returns>
+
+        </method>
+
+    </interface>
+
+</IAsyncAccessKeySignatureProcessor>

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeySignatureProcessor>
+
+    <interface name = "IAccessKeySignatureProcessor">
+
+        <main>
+
+            <summary>Synchronous access-key signature processor contract.</summary>
+
+            <remarks>
+                Extends signing with verification facts for access-key envelopes.
+            </remarks>
+
+        </main>
+
+        <method name = "Verify">
+
+            <summary>Verify outer signature metadata and signature bytes for an access-key envelope.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Verification context containing parsed signature metadata, canonical verification bytes, and optional diagnostics infrastructure.</param>
+
+            <returns Cref = "SignatureValidation">Signature validation facts for downstream policy and trust evaluation.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessKeySignatureProcessor>

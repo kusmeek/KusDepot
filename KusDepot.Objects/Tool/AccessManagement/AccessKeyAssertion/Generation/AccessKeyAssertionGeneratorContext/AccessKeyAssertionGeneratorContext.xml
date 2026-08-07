@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyAssertionGeneratorContext>
+
+    <struct name = "AccessKeyAssertionGeneratorContext">
+
+        <main>
+
+            <summary>Access-key assertion generator context.</summary>
+
+            <remarks>
+                A normalized approved issuance context exposed to assertion generators after policy approval and before final access-key material creation.
+            </remarks>
+
+        </main>
+
+        <property name = "AccessPolicyContext" Cref = "AccessPolicyContext">
+
+            <summary>Approved access-policy context that authorized the assertion-generation flow.</summary>
+
+        </property>
+
+        <property name = "IssueOptions" Cref = "AccessKeyIssueOptions?">
+
+            <summary>Normalized access-key issue options for the current issuance flow.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger?">
+
+            <summary>Optional logger available for assertion-generation helpers.</summary>
+
+        </property>
+
+        <property name = "ManifestIdentity" Cref = "ToolManifestIdentity?">
+
+            <summary>Resolved tool manifest identity for the issuing access manager.</summary>
+
+        </property>
+
+        <property name = "Request" Cref = "AccessRequest?">
+
+            <summary>Original access request when issuance was request-driven; otherwise null.</summary>
+
+        </property>
+
+        <property name = "RequestedKeyType" Cref = "String">
+
+            <summary>Canonical requested key-type token for the current issuance flow.</summary>
+
+        </property>
+
+        <property name = "RequestContext" Cref = "AccessPolicyRequestContext?">
+
+            <summary>Normalized request context when issuance was request-driven; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Resolved subject for the current issuance flow.</summary>
+
+        </property>
+
+        <property name = "Tool" Cref = "ITool?">
+
+            <summary>Owning tool for the issuing access manager.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "AccessKeyAssertionGeneratorContext">New AccessKeyAssertionGeneratorContext.</returns>
+
+        </constructor>
+
+    </struct>
+
+</AccessKeyAssertionGeneratorContext>

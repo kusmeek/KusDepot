@@ -1,0 +1,245 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataItem>
+
+    <interface name = "IDataItem">
+
+        <main>
+
+            <summary>DataItem Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of DataItems.</remarks>
+
+        </main>
+
+        <method name = "CheckDataHash">
+
+            <summary>Verify the secure hash for this item. This does not check digital signatures.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Boolean">True if the current data matches the stored hash; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "DecryptData">
+
+            <summary>Decrypt content using the supplied `DataItemSecurityContext`.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used for decryption and assertion validation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when decryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "EncryptData">
+
+            <summary>Encrypt content using the supplied `DataItemSecurityContext`.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used for recipient selection, envelope creation, and assertion generation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when encryption succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "ProtectData">
+
+            <summary>Protect the current active item state using the supplied `DataItemSecurityContext`.</summary>
+
+            <remarks>Encrypts clear content or validates already-protected content.</remarks>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used for protection and validation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the item ends in a valid protected state; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetContentStream">
+
+            <summary>Opens a Stream from the FILE path. The Object's Content field is ignored.</summary>
+
+            <returns Cref = "Stream?">Content Stream.</returns>
+
+        </method>
+
+        <method name = "GetContentStreamed">
+
+            <summary>Get ContentStreamed.</summary>
+
+            <returns Cref = "Boolean">True if the Object's Content is Streamed from FILE. Use GetContentStream instead of GetContent.</returns>
+
+        </method>
+
+        <method name = "GetDataContent">
+
+            <summary>Get `DataItem` content using the supplied `DataItemSecurityContext` when protection or validation work is required.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Optional composite security context used when content must be decrypted or validated.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{DataContent?}">Current `DataItem` content when available.</returns>
+
+        </method>
+
+        <method name = "GetDataEncrypted">
+
+            <summary>Get DataEncrypt.</summary>
+
+            <returns Cref = "Boolean">True if data is encrypted.</returns>
+
+        </method>
+
+        <method name = "GetDataProtectionInfo">
+
+            <summary>Get current `DataProtectionInfo` summary metadata.</summary>
+
+            <returns Cref = "DataProtectionInfo?">Current protection summary information.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize the current object to an array of bytes .</summary>
+
+            <returns Cref = "Byte[]">A Byte array representing the serialized object.</returns>
+
+        </method>
+
+        <method name = "GetDataType">
+
+            <summary>Get DataType.</summary>
+
+            <returns Cref = "String?">DataType.</returns>
+
+        </method>
+
+        <method name = "IsMetadataOnly">
+
+            <summary>Determine whether the current item exposes metadata only and no active content binding.</summary>
+
+            <remarks>Returns true only when the item is not content-streamed, does not expose a FILE-backed binding, and does not retain item-type-specific in-memory content.</remarks>
+
+            <returns Cref = "Boolean">True when the current item state is metadata-only; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetContentStreamed">
+
+            <summary>Switch the streamed-content mode using the supplied `DataItemSecurityContext` when security work is required.</summary>
+
+            <param name = "streamed" Cref = "Boolean">True to enable streamed content mode.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Optional composite security context used when content must be reprotected during the mode change.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the mode change succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetDataType">
+
+            <summary>Set DataType.</summary>
+
+            <param name = "type" Cref = "String?">DataType.cs.</param>
+
+            <returns Cref = "Boolean">Returns true if DataType was set successfully.</returns>
+
+        </method>
+
+        <method name = "SignData">
+
+            <summary>Create or replace the active current-state assertion for the specified field using the supplied `DataItemSecurityContext`.</summary>
+
+            <param name = "field" Cref = "String?">The field to sign.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used to author the assertion.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{String?}">Identifier or key for the active assertion when signing succeeds.</returns>
+
+        </method>
+
+        <method name = "UnProtectData">
+
+            <summary>UnProtect the current item state using the supplied `DataItemSecurityContext`.</summary>
+
+            <remarks>Decrypts protected content when needed and always validates the resulting active item state.</remarks>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used for decryption and validation.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the item ends in a valid unprotected state; otherwise false.</returns>
+
+        </method>
+
+        <method name = "ValidateData">
+
+            <summary>Validate the active current-state assertion for this item using the supplied `DataItemSecurityContext`.</summary>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used to resolve signer identity and validate the current active state.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the current asserted state validates successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Write to file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "Boolean">Returns true if Object successfully written to file.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Serialize.</summary>
+
+            <returns Cref = "String">Serialized Object.</returns>
+
+        </method>
+
+        <method name = "VerifyData">
+
+            <summary>Verify the active current-state assertion for the specified field using the supplied `DataItemSecurityContext`.</summary>
+
+            <param name = "field" Cref = "String?">The field to verify.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Composite security context used to resolve signer identity and verify the assertion.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when verification succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "WipeData">
+
+            <summary>Overwrite content with random data followed by zeros.</summary>
+
+            <remarks>Does not securely erase data on all physical media types and configurations.</remarks>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Optional composite security context used when wiping interacts with protected content state.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{Boolean}">True when the wipe operation succeeds; otherwise false.</returns>
+
+        </method>
+
+    </interface>
+
+</IDataItem>

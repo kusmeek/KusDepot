@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="LabX08.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:LabX08"
+    mc:Ignorable="d"
+    Title="">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="RootGrid" Padding="24" RowSpacing="20" ColumnSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Padding="20"
+                CornerRadius="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1">
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Spacing="6">
+                    
+                    <TextBlock Text="Consumer follow and materialize"
+                               Style="{ThemeResource BodyStrongTextBlockStyle}"
+                               Opacity="0.78" />
+                    <TextBlock Text="{x:Bind ViewModel.Endpoint, Mode=OneWay}"
+                               TextWrapping="WrapWholeWords"
+                               Style="{ThemeResource BodyTextBlockStyle}" />
+                    <TextBlock Text="{x:Bind ViewModel.WorkingDirectory, Mode=OneWay}"
+                               TextWrapping="WrapWholeWords"
+                               Style="{ThemeResource BodyTextBlockStyle}"
+                               Opacity="0.78" />
+                </StackPanel>
+
+                <InfoBar Grid.Column="1"
+                         Width="360"
+                         IsOpen="True"
+                         IsClosable="False"
+                         Severity="Informational"
+                         Title="Status"
+                         Message="{x:Bind ViewModel.Status, Mode=OneWay}" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.15*" />
+                <ColumnDefinition Width="0.85*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Padding="20"
+                    CornerRadius="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Session"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+
+                    <Grid ColumnSpacing="12" RowSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Mode" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{x:Bind ViewModel.ModeText, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="1" Text="Item ID" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.ItemIdText, Mode=OneWay}" />
+                        <Button Grid.Row="1" Grid.Column="2" Content="Copy" Click="CopyItemIdButton_Click" />
+
+                        <TextBlock Grid.Row="2" Text="Source Session ID" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.SourceSessionIdText, Mode=OneWay}" />
+                        <Button Grid.Row="2" Grid.Column="2" Content="Copy" Click="CopySourceSessionIdButton_Click" />
+
+                        <TextBlock Grid.Row="3" Text="Local Session ID" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="3" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.LocalSessionIdText, Mode=OneWay}" />
+                        <Button Grid.Row="3" Grid.Column="2" Content="Copy" Click="CopyLocalSessionIdButton_Click" />
+
+                        <TextBlock Grid.Row="4" Text="Bytes Observed" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{x:Bind ViewModel.BytesObservedText, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="5" Text="Chunks Observed" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{x:Bind ViewModel.ChunksObservedText, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="6" Text="Output Mode" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{x:Bind ViewModel.OutputModeText, Mode=OneWay}" />
+
+                        <TextBlock Grid.Row="7" Text="Materialized" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 Text="{x:Bind ViewModel.MaterializedSummary, Mode=OneWay}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Padding="20"
+                    CornerRadius="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                <Grid RowSpacing="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Actions"
+                               Grid.Row="0"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+
+                    <Grid Grid.Row="1" RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Header="Item ID"
+                                     Text="{x:Bind ViewModel.ItemIdInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Content="Paste"
+                                    Click="PasteItemIdButton_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="1" ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Header="Source Session ID"
+                                     Text="{x:Bind ViewModel.SourceSessionIdInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Content="Paste"
+                                    Click="PasteSourceSessionIdButton_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="2" ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0"
+                                     Header="Local Session ID"
+                                     Text="{x:Bind ViewModel.LocalSessionIdInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Content="Paste"
+                                    Click="PasteLocalSessionIdButton_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="3" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Open Live Follow" Click="OpenLiveButton_Click" />
+                            <Button Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Content="Resume Local"
+                                    Click="ResumeButton_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="4" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Materialize" Click="MaterializeButton_Click" />
+                            <Button Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Content="Toggle Output"
+                                    Click="ToggleOutputButton_Click" />
+                        </Grid>
+
+                        <Grid Grid.Row="5" ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Clear Output" Click="ClearOutputButton_Click" />
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        Spacing="12">
+                                <Button Content="Reset" Click="ResetButton_Click" />
+                                <Button Content="Close" Click="CloseButton_Click" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.05*" />
+                <ColumnDefinition Width="0.95*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Padding="20"
+                    CornerRadius="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Observed Output"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+                    <TextBox Height="420"
+                             AcceptsReturn="True"
+                             IsReadOnly="True"
+                             TextWrapping="NoWrap"
+                             FontFamily="Consolas"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Top"
+                             HorizontalAlignment="Stretch"
+                             Padding="10,8,10,14"
+                             Text="{x:Bind ViewModel.OutputText, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Padding="20"
+                    CornerRadius="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1">
+                <Grid RowSpacing="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Final Committed Metadata"
+                               Grid.Row="0"
+                               Style="{ThemeResource TitleTextBlockStyle}" />
+
+                    <Border Grid.Row="1"
+                            Padding="12"
+                            CornerRadius="12"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1">
+                        <Grid ColumnSpacing="18" RowSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="Progress"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
+                                       Margin="20,2,0,2"
+                                       VerticalAlignment="Top"
+                                       Text="{x:Bind ViewModel.ProgressStatus, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Latest Range"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       Margin="20,2,0,2"
+                                       VerticalAlignment="Top"
+                                       Text="{x:Bind ViewModel.ProgressRange, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+
+                            <TextBlock Grid.Row="2"
+                                       Text="Totals"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       Margin="20,2,0,2"
+                                       VerticalAlignment="Top"
+                                       Text="{x:Bind ViewModel.ProgressTotals, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="2"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto"
+                                  VerticalScrollMode="Auto">
+                        <Grid ColumnSpacing="12" RowSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="Item Type" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.FinalItemType, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="1" Text="Name" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.FinalItemName, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="2" Text="Data Type" VerticalAlignment="Center" />
+                            <TextBox Grid.Row="2" Grid.Column="1" IsReadOnly="True" Text="{x:Bind ViewModel.FinalItemDataType, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="3" Text="Tags" VerticalAlignment="Top" Margin="0,10,0,0" />
+                            <TextBox Grid.Row="3" Grid.Column="1"
+                                     MinHeight="120"
+                                     AcceptsReturn="True"
+                                     IsReadOnly="True"
+                                     TextWrapping="Wrap"
+                                     Text="{x:Bind ViewModel.FinalItemTags, Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="4" Text="Notes" VerticalAlignment="Top" Margin="0,10,0,0" />
+                            <TextBox Grid.Row="4" Grid.Column="1"
+                                     MinHeight="180"
+                                     AcceptsReturn="True"
+                                     IsReadOnly="True"
+                                     TextWrapping="Wrap"
+                                     Text="{x:Bind ViewModel.FinalItemNotes, Mode=OneWay}" />
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

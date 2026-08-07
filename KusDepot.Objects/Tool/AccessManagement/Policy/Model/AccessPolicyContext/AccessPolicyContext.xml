@@ -1,0 +1,147 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessPolicyContext>
+
+    <struct name = "AccessPolicyContext">
+
+        <main>
+
+            <summary>Access-policy evaluation context.</summary>
+
+            <remarks>
+                An immutable policy snapshot supplied to access-manager policy evaluators during request, issuance, authorization, and revocation flows.
+            </remarks>
+
+        </main>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Current access-key realm identifier for the evaluation.</summary>
+
+        </property>
+
+        <property name = "Claims" Cref = "AccessKeyClaims?">
+
+            <summary>Decrypted access-key claims when the flow already has a token claims view; otherwise null.</summary>
+
+        </property>
+
+        <property name = "AssertionSummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}?">
+
+            <summary>Lightweight assertion summaries available to the policy evaluation flow; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Expired" Cref = "Boolean">
+
+            <summary>True when the validated key was expired at the evaluation instant.</summary>
+
+        </property>
+
+        <property name = "EvaluatedAt" Cref = "DateTimeOffset">
+
+            <summary>UTC instant when the policy context was assembled.</summary>
+
+        </property>
+
+        <property name = "IssueOptions" Cref = "AccessKeyIssueOptions?">
+
+            <summary>Requested issuance options for issuance flows; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger?">
+
+            <summary>Optional logger made available to policy engines and stages for evaluation-time diagnostics.</summary>
+
+        </property>
+
+        <property name = "Key" Cref = "AccessKey?">
+
+            <summary>Access key under evaluation for access and revocation flows; otherwise null.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Current manifest hash for the evaluation.</summary>
+
+        </property>
+
+        <property name = "ManifestMatched" Cref = "Boolean">
+
+            <summary>True when the validated key matches the current tool schema, realm, and manifest hash.</summary>
+
+        </property>
+
+        <property name = "MembershipActive" Cref = "Boolean">
+
+            <summary>True when the validated key is still present in the active membership set.</summary>
+
+        </property>
+
+        <property name = "Mode" Cref = "AccessPolicyMode">
+
+            <summary>Access-management workflow currently being evaluated.</summary>
+
+        </property>
+
+        <property name = "Operation" Cref = "Int32?">
+
+            <summary>Protected operation index under evaluation for access flows; otherwise null.</summary>
+
+        </property>
+
+        <property name = "OperationAllowed" Cref = "Boolean">
+
+            <summary>True when the validated key allows the requested protected operation.</summary>
+
+        </property>
+
+        <property name = "Operations" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Requested protected-operation set for issuance flows; otherwise null.</summary>
+
+        </property>
+
+        <property name = "RequestContext" Cref = "AccessPolicyRequestContext?">
+
+            <summary>Normalized request-specific policy facts for request evaluation flows; otherwise null.</summary>
+
+        </property>
+
+        <property name = "SignatureValidation" Cref = "SignatureValidation">
+
+            <summary>Signature parsing and verification facts supplied by the owning access manager for token-based flows.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Subject for the evaluation. For token-based flows this comes from the decrypted claims.</summary>
+
+        </property>
+
+        <property name = "Tool" Cref = "ITool?">
+
+            <summary>Owning tool associated with the access manager.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Current tool schema identifier for the evaluation.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a default access-policy context.</summary>
+
+            <returns Cref = "AccessPolicyContext">Default access-policy context.</returns>
+
+        </constructor>
+
+    </struct>
+
+</AccessPolicyContext>

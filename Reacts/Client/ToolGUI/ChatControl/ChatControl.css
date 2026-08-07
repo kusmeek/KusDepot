@@ -1,0 +1,81 @@
+﻿.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    pointer-events: auto;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: opacity 0.2s;
+    box-sizing: border-box;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    margin: 0;
+}
+
+.message-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 1em 0.5em 0.5em 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    pointer-events: auto;
+    box-sizing: border-box;
+}
+
+.message-list.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.message-list.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.message {
+    background: rgba(30,30,30,0.6);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5em 0.75em;
+    font-size: 1em;
+    word-break: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    max-width: 95%;
+    align-self: flex-start;
+}
+
+.sender {
+    font-weight: bold;
+    color: #aaf;
+    margin-right: 0.5em;
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid #444;
+    pointer-events: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input {
+    flex: 1 1 0%;
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 1px solid #888;
+    font-size: 1em;
+    margin-right: 0;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    box-sizing: border-box;
+}

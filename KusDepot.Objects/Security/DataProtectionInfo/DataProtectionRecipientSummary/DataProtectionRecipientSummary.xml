@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionRecipientSummary>
+
+    <struct name = "DataProtectionRecipientSummary">
+
+        <main>
+
+            <summary>Object-facing summary of an intended protection recipient.</summary>
+
+            <remarks>
+                This summary stores recipient identity hints that are safe to persist outside the transport envelope.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty recipient summary value.</summary>
+
+            <returns Cref = "DataProtectionRecipientSummary">Empty recipient summary value.</returns>
+
+        </constructor>
+
+        <property name = "ObjectId" Cref = "Guid?">
+
+            <summary>Optional object identifier associated with the recipient.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String?">
+
+            <summary>Optional certificate thumbprint associated with the recipient.</summary>
+
+        </property>
+
+        <property name = "PublicKeyHash" Cref = "ImmutableArray{Byte}">
+
+            <summary>Optional public-key hash retained as recipient summary metadata.</summary>
+
+        </property>
+
+    </struct>
+
+</DataProtectionRecipientSummary>

@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeyAssertionGeneratorMode>
+
+    <interface name = "IAccessKeyAssertionGeneratorMode">
+
+        <main>
+
+            <summary>Access-key assertion generator mode marker interface.</summary>
+
+            <remarks>
+                Marks sync-capable, async-capable, or dual-mode assertion-generator implementations.
+            </remarks>
+
+        </main>
+
+    </interface>
+
+</IAccessKeyAssertionGeneratorMode>

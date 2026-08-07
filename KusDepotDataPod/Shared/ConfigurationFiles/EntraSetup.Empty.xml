@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<EntraSetup>
+	<Authority></Authority>
+	<TenantID></TenantID>
+	<ClientID></ClientID>
+	<Scope></Scope>
+	<AdminUserName></AdminUserName>
+	<AdminUserPass></AdminUserPass>
+	<ReadUserName></ReadUserName>
+	<ReadUserPass></ReadUserPass>
+	<WriteUserName></WriteUserName>
+	<WriteUserPass></WriteUserPass>
+    <ConnectionString></ConnectionString>
+</EntraSetup>

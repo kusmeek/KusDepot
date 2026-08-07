@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SignatureValidation>
+
+    <struct name = "SignatureValidation">
+
+        <main>
+
+            <summary>Access-key signature validation facts.</summary>
+
+            <remarks>
+                Represents signature, certificate-resolution, and trust facts.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty signature-validation result.</summary>
+
+            <returns Cref = "SignatureValidation">Empty signature-validation result.</returns>
+
+        </constructor>
+
+        <property name = "Signed" Cref = "Boolean">
+
+            <summary>True when the evaluated key carries outer signature metadata; otherwise false.</summary>
+
+        </property>
+
+        <property name = "VerificationAttempted" Cref = "Boolean">
+
+            <summary>True when signature verification was attempted for the evaluated key.</summary>
+
+        </property>
+
+        <property name = "SignatureValid" Cref = "Boolean">
+
+            <summary>True when signature verification succeeded; otherwise false.</summary>
+
+        </property>
+
+        <property name = "SignerToolID" Cref = "Guid">
+
+            <summary>Tool identifier claimed by the outer signature metadata.</summary>
+
+        </property>
+
+        <property name = "SignerAccessManagerID" Cref = "Guid">
+
+            <summary>Issuing access-manager identifier claimed by the outer signature metadata.</summary>
+
+        </property>
+
+        <property name = "Algorithm" Cref = "AccessKeySignatureAlgorithm">
+
+            <summary>Signature algorithm evaluated for the key.</summary>
+
+        </property>
+
+        <property name = "SignerKeyIDFormat" Cref = "AccessKeySignerKeyIdFormat">
+
+            <summary>Format discriminator for the signer key identifier.</summary>
+
+        </property>
+
+        <property name = "SignerKeyID" Cref = "ImmutableArray{Byte}">
+
+            <summary>Signer key identifier bytes evaluated during verification.</summary>
+
+        </property>
+
+        <property name = "CertificateResolved" Cref = "Boolean">
+
+            <summary>True when the validator resolved a matching certificate for the declared signer key identifier.</summary>
+
+        </property>
+
+        <property name = "CertificateThumbprint" Cref = "String?">
+
+            <summary>Thumbprint of the certificate used during verification when one was resolved.</summary>
+
+        </property>
+
+        <property name = "SignerTrusted" Cref = "Boolean">
+
+            <summary>True when the signer identity is trusted by the validation policy.</summary>
+
+        </property>
+
+        <property name = "ChainTrusted" Cref = "Boolean">
+
+            <summary>True when the certificate chain satisfies the configured trust requirements.</summary>
+
+        </property>
+
+        <property name = "FailureReason" Cref = "String?">
+
+            <summary>Optional validation failure reason.</summary>
+
+        </property>
+
+    </struct>
+
+</SignatureValidation>

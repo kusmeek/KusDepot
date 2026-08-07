@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CompleteStreamTransfer>
+
+	<record name = "CompleteStreamTransferRequest">
+		<main><summary>Request final validation and publication of a stream-transfer session.</summary></main>
+		<property name = "ExpectedStateVersion" Cref = "Int64"><summary>Expected current state version.</summary></property>
+		<property name = "FinalObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional refined object summary to publish at completion.</summary></property>
+		<property name = "FinalObjectPayload" Cref = "Byte[]"><summary>Optional refined serialized object payload to publish at completion.</summary></property>
+		<property name = "FinalObjectSHA512" Cref = "Byte[]"><summary>Optional SHA-512 of the refined serialized object payload.</summary></property>
+		<property name = "FinalStreamLength" Cref = "Int64?"><summary>Optional final stream length declared by the caller.</summary></property>
+		<property name = "FinalStreamSHA512" Cref = "Byte[]"><summary>Optional final SHA-512 declared by the caller.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+	</record>
+
+	<record name = "CompleteStreamTransferResponse">
+		<main><summary>Response describing the post-completion state of a stream-transfer session.</summary></main>
+		<property name = "Published" Cref = "Boolean"><summary>Whether publication succeeded.</summary></property>
+		<property name = "State" Cref = "DataStreamTransferState"><summary>Current transfer state.</summary></property>
+	</record>
+
+</CompleteStreamTransfer>

@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDeviceManager>
+
+    <interface name = "IDeviceManager">
+
+        <main>
+
+            <summary>Device Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Device Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IDeviceManager>

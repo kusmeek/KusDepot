@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GetTransferStateResponse>
+
+	<record name = "GetTransferStateResponse">
+
+		<main><summary>Response containing the current staged transfer state.</summary></main>
+
+		<property name = "State" Cref = "DataItemTransferState"><summary>Current transfer state.</summary></property>
+
+	</record>
+
+</GetTransferStateResponse>

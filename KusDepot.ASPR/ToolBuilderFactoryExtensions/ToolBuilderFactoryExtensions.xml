@@ -1,0 +1,11 @@
+<ToolBuilderFactoryExtensions>
+  <class name="ToolBuilderFactoryExtensions">
+    <main>
+      <summary>Tool Builder Factory Extensions.</summary>
+    </main>
+    <method name="CreateAspireHostBuilder">
+      <summary>Create Aspire Host Builder.</summary>
+      <returns cref="IToolAspireHostBuilder">Tool Aspire Host Builder.</returns>
+    </method>
+  </class>
+</ToolBuilderFactoryExtensions>

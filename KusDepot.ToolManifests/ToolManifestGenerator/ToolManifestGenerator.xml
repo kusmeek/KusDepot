@@ -1,0 +1,79 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestGenerator>
+
+    <class name = "ToolManifestGenerator">
+
+        <main>
+
+            <summary>Generates per-tool manifest companions and assembly bootstrap helpers from analyzed KusDepot tool types.</summary>
+
+        </main>
+
+        <method name = "Initialize">
+
+            <summary>Initializes the incremental pipeline that discovers attributed tool types and schedules manifest source emission.</summary>
+
+            <param name = "context" Cref = "IncrementalGeneratorInitializationContext">The generator initialization context.</param>
+
+        </method>
+
+        <method name = "Execute">
+
+            <summary>Analyzes the discovered tool types, reports shared diagnostics, and emits source for the valid manifest models.</summary>
+
+            <param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+            <param name = "toolTypes" Cref = "ImmutableArray{INamedTypeSymbol}">The candidate tool types discovered by the syntax pipeline.</param>
+
+            <param name = "context" Cref = "SourceProductionContext">The source production context used to report diagnostics and add generated source.</param>
+
+        </method>
+
+        <method name = "GenerateAssemblySource">
+
+            <summary>Builds the generated assembly bootstrap source that can register and bind every discovered tool manifest companion.</summary>
+
+            <param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+            <param name = "models" Cref = "IEnumerable{ToolModel}">The generated tool models to include in the assembly bootstrap.</param>
+
+            <param name = "assemblyMetadata" Cref = "AssemblyManifestMetadata">The resolved assembly-level generation metadata controlling namespace, type-name, and module-initializer behavior.</param>
+
+            <returns>The generated assembly bootstrap source text.</returns>
+
+        </method>
+
+        <method name = "GenerateToolSource">
+
+            <summary>Builds the generated manifest companion source for a single analyzed tool model.</summary>
+
+            <param name = "model" Cref = "ToolModel">The tool model to render.</param>
+
+            <returns>The generated companion source text.</returns>
+
+        </method>
+
+        <method name = "EscapeStringLiteral">
+
+            <summary>Escapes a managed string value for emission into generated C# source literals.</summary>
+
+            <param name = "value" Cref = "String">The string literal value to escape.</param>
+
+            <returns>The escaped literal content.</returns>
+
+        </method>
+
+        <method name = "SanitizeIdentifier">
+
+            <summary>Normalizes arbitrary text into a safe C# identifier for generated type names.</summary>
+
+            <param name = "value" Cref = "String">The source text to sanitize.</param>
+
+            <returns>A safe identifier value.</returns>
+
+        </method>
+
+    </class>
+
+</ToolManifestGenerator>

@@ -1,0 +1,15 @@
+﻿global using KusDepot.AI;
+global using KusDepot.Builders;
+global using KusDepot.Logging;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.Extensions.DependencyInjection;
+global using ModelContextProtocol.Protocol;
+global using ModelContextProtocol.Server;
+global using Serilog;
+global using Serilog.Extensions.Logging;
+global using System;
+global using System.Globalization;
+global using System.IO;
+global using System.Threading;
+global using System.Threading.Tasks;

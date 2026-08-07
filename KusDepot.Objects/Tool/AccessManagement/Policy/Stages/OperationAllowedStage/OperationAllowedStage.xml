@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OperationAllowedStage>
+
+    <class name = "OperationAllowedStage">
+
+        <main>
+
+            <summary>Operation-allowed access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when the supplied protected operation is not authorized by the validated membership.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "OperationAllowedStage">
+
+            <summary>Singleton operation-allowed stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an operation-allowed access-policy stage.</summary>
+
+            <returns Cref = "OperationAllowedStage">Operation-allowed access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether the supplied protected operation is authorized by the policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the protected operation is not allowed; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether the supplied protected operation is authorized by the policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the protected operation is not allowed; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</OperationAllowedStage>

@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalogClientBase>
+
+    <interface name = "ICatalogClientBase">
+
+        <main>
+
+            <summary>Catalog Client Base Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a base Catalog Client.</remarks>
+
+        </main>
+
+    </interface>
+
+</ICatalogClientBase>

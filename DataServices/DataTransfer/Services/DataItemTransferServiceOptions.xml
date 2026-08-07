@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemTransferServiceOptions>
+  <class name="DataItemTransferServiceOptions">
+	<main>
+	  <summary>Options that control segmented transfer behavior in DataServices.</summary>
+	</main>
+	<property name="DefaultSegmentSizePolicy" Cref="DataItemTransferSegmentSizePolicy"><summary>Default segment size policy applied when an open request does not provide one.</summary></property>
+	<property name="EnforceMinimumSegmentBytes" Cref="Boolean"><summary>When true, non-final uploaded segments smaller than the effective minimum size are rejected before payload consumption.</summary></property>
+	<property name="EnforceMaximumSegmentBytes" Cref="Boolean"><summary>When true, uploaded segments larger than the effective maximum size are rejected before payload consumption.</summary></property>
+	<property name="TemporaryUploadPath" Cref="String"><summary>Optional directory used to stage non-seekable upload payloads before hash validation and storage writes. When unset, the service falls back to Path.GetTempPath().</summary></property>
+  </class>
+</DataItemTransferServiceOptions>

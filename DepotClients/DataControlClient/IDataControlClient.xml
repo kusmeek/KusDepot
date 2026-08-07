@@ -1,0 +1,431 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControlClient>
+
+    <interface name = "IDataControlClient">
+
+        <main>
+
+            <summary>DataControl Client Interface.</summary>
+
+        </main>
+
+        <method name = "AbortTransfer">
+
+            <summary>Abort an active segmented transfer session.</summary>
+
+            <param name = "request" Cref = "AbortTransferRequest">Abort transfer request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{AbortTransferResponse}}">AbortTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "CompleteStreamTransfer">
+
+            <summary>Complete and publish a stream transfer source session.</summary>
+
+            <param name = "request" Cref = "CompleteStreamTransferRequest">Stream completion request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{CompleteStreamTransferResponse}}">CompleteStreamTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "CommitUploadTransfer">
+
+            <summary>Commit a segmented transfer session.</summary>
+
+            <param name = "request" Cref = "CommitUploadTransferRequest">Commit request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{CommitUploadTransferResponse}}">CommitUploadTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "Download">
+
+            <summary>Download or follow content through the working-directory-backed client flow.</summary>
+
+            <param name = "itemid" Cref = "Guid">Object ID.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions?">Optional client download options.</param>
+
+            <param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress sink that receives an update after each successfully materialized range or appended stream extent.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlDownloadCompletionResult?}">A materialized download result, or null when the download could not be completed.</returns>
+
+        </method>
+
+        <method name = "Delete">
+
+            <summary>Delete Object.</summary>
+
+            <param name = "id" Cref = "Guid?">Object ID.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{Guid}}">Object ID. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "DeleteLocalSession">
+
+            <summary>Delete persisted local transfer session artifacts from the configured working-directory root.</summary>
+
+            <param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">A task that completes with true when the local session was deleted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetStreamTransferSegment">
+
+            <summary>Retrieve a stream-transfer payload and trailing footer.</summary>
+
+            <param name = "request" Cref = "GetStreamTransferSegmentRequest">Stream-transfer segment download request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{StreamSegmentDownloadInfo?}">Stream-transfer download result, including payload and parsed footer.</returns>
+
+        </method>
+
+        <method name = "GetStreamTransferState">
+
+            <summary>Retrieve the current state of a stream transfer session.</summary>
+
+            <param name = "identity" Cref = "DataItemTransferIdentity">Transfer identity.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{GetStreamTransferStateResponse}}">GetStreamTransferStateResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "OpenFollowStreamTransfer">
+
+            <summary>Open a stream follower read session over an active stream transfer source session.</summary>
+
+            <param name = "request" Cref = "OpenFollowStreamTransferRequest">Open stream follower request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{OpenFollowStreamTransferResponse}}">OpenFollowStreamTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "OpenStreamTransfer">
+
+            <summary>Open a new stream transfer source session.</summary>
+
+            <param name = "request" Cref = "OpenStreamTransferRequest">Open stream transfer request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{OpenStreamTransferResponse}}">OpenStreamTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "GetTransferSegment">
+
+            <summary>Retrieve a segmented transfer payload and trailing footer.</summary>
+
+            <param name = "request" Cref = "GetTransferSegmentRequest">Segment download request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{SegmentDownloadInfo?}">Segment download result, including payload and parsed footer.</returns>
+
+        </method>
+
+        <method name = "PutStreamTransferSegment">
+
+            <summary>Append to a stream transfer using the binary transfer envelope.</summary>
+
+            <param name = "request" Cref = "PutStreamTransferSegmentRequest">Stream append metadata.</param>
+
+            <param name = "payload" Cref = "Stream">Append payload stream.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{PutStreamTransferSegmentClientResponse?}">Stream append response with HTTP status and parsed payload.</returns>
+
+        </method>
+
+        <method name = "GetTransferState">
+
+            <summary>Retrieve the current state of a segmented transfer session.</summary>
+
+            <param name = "identity" Cref = "DataItemTransferIdentity">Transfer identity.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{GetTransferStateResponse}}">GetTransferStateResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "GetLocalSession">
+
+            <summary>Retrieve information about a single persisted local transfer session.</summary>
+
+            <param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlTransferSessionInfo?}">A task that completes with local session information, or null when the session is not present.</returns>
+
+        </method>
+
+        <method name = "GetLocalSessions">
+
+            <summary>Enumerate persisted local transfer sessions under the configured working-directory root.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{IReadOnlyList{DataControlTransferSessionInfo}}">A task that completes with the discovered local transfer sessions.</returns>
+
+        </method>
+
+        <method name = "GetServerSessions">
+
+            <summary>Retrieve transfer session inventory using the optional administrative filters.</summary>
+
+            <param name = "request" Cref = "GetTransferSessionsRequest?">Optional server-side transfer session filters.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{DataControlServerSessionInfo[]}}">Server transfer session inventory response. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "ReOpenFollowStreamTransfer">
+
+            <summary>Reopen an existing stream follower read session.</summary>
+
+            <param name = "request" Cref = "ReOpenFollowStreamTransferRequest">Reopen stream follower request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ReOpenFollowStreamTransferResponse}}">ReOpenFollowStreamTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "OpenDownload">
+
+            <summary>Open a client download or follow session backed by the configured working directory.</summary>
+
+            <param name = "itemid" Cref = "Guid">Object ID.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions?">Optional client download options.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A resumable download session, or null when the session could not be opened.</returns>
+
+        </method>
+
+        <method name = "ReOpenStreamTransfer">
+
+            <summary>Reopen an existing stream transfer source session.</summary>
+
+            <param name = "request" Cref = "ReOpenStreamTransferRequest">Reopen stream transfer request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ReOpenStreamTransferResponse}}">ReOpenStreamTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "OpenGetTransfer">
+
+            <summary>Open a segmented read session for committed or staged content.</summary>
+
+            <param name = "request" Cref = "OpenGetTransferRequest">Open segmented read request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{OpenGetTransferResponse}}">OpenGetTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "Upload">
+
+            <summary>Upload content through the working-directory-backed client flow.</summary>
+
+            <param name = "item" Cref = "DataItem">Object to upload.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "options" Cref = "DataControlUploadOptions?">Optional client upload options.</param>
+
+            <param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress sink that receives an update after each successfully accepted segment or appended stream extent.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlUploadCompletionResult?}">A completed upload result, or null when the upload could not be completed.</returns>
+
+        </method>
+
+        <method name = "OpenUploadTransfer">
+
+            <summary>Open a new segmented transfer session.</summary>
+
+            <param name = "request" Cref = "OpenUploadTransferRequest">Open segmented transfer request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{OpenUploadTransferResponse}}">OpenUploadTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "OpenUpload">
+
+            <summary>Open a client upload session backed by the configured working directory.</summary>
+
+            <param name = "item" Cref = "DataItem">Stream-backed object to upload.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "options" Cref = "DataControlUploadOptions?">Optional client upload options.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlUploadSession?}">A resumable upload session, or null when the session could not be opened.</returns>
+
+        </method>
+
+        <method name = "PutTransferSegment">
+
+            <summary>Upload a segmented transfer range using the binary segment envelope.</summary>
+
+            <param name = "request" Cref = "PutTransferSegmentRequest">Segment upload metadata.</param>
+
+            <param name = "payload" Cref = "Stream">Segment payload stream.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{PutTransferSegmentClientResponse?}">Segment upload response with HTTP status and parsed payload.</returns>
+
+        </method>
+
+        <method name = "ReOpenUploadTransfer">
+
+            <summary>Reopen an existing segmented transfer session.</summary>
+
+            <param name = "request" Cref = "ReOpenUploadTransferRequest">Reopen segmented transfer request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ReOpenUploadTransferResponse}}">ReOpenUploadTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "ReOpenGetTransfer">
+
+            <summary>Reopen an existing segmented read session.</summary>
+
+            <param name = "request" Cref = "ReOpenGetTransferRequest">Reopen segmented read request.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{RestResponse{ReOpenGetTransferResponse}}">ReOpenGetTransferResponse. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "ResumeDownload">
+
+            <summary>Resume a persisted download session from local working-directory state using the session kind already captured in local metadata.</summary>
+
+            <param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "options" Cref = "DataControlDownloadOptions?">Resume options that control completion behavior and optional live stream-item rebinding. Persisted session state determines the actual download mode.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlDownloadSession?}">A task that completes with a resumed download session, or null when the session cannot be resumed.</returns>
+
+        </method>
+
+        <method name = "ResumeUpload">
+
+            <summary>Resume a persisted upload session from local working-directory state.</summary>
+
+            <param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{DataControlUploadSession?}">A task that completes with a resumed upload session, or null when the session cannot be resumed.</returns>
+
+        </method>
+
+		<method name="RemoveTransfer">
+			
+			<summary>Remove retained transfer session artifacts after completion.</summary>
+			
+			<param name="request" Cref="RemoveTransferRequest">Remove request.</param>
+			
+			<param name="token" Cref="String">Optional bearer token.</param>
+			
+			<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+			
+			<returns Cref="Task{RestResponse{RemoveTransferResponse}}">Remove response.</returns>
+			
+		</method>
+
+    </interface>
+
+</IDataControlClient>

@@ -1,0 +1,172 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyIssueOptions>
+
+    <class name = "AccessKeyIssueOptions">
+
+        <main>
+
+            <summary>Optional access-key issuance settings.</summary>
+
+            <remarks>
+                An options class used to issue access keys with explicit operation sets, token lifetimes, request-driven subject data, audiences, scopes, credentials, properties, and assertion requests.
+            </remarks>
+
+        </main>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}?">
+
+            <summary>Optional intended audiences. Null or empty means no audience restriction.</summary>
+
+        </property>
+
+        <property name = "Credential" Cref = "AccessCredential?">
+
+            <summary>Optional credential carried into issuance-time collaborators and request-aware assertion generators.</summary>
+
+        </property>
+
+        <property name = "Lifetime" Cref = "TimeSpan?">
+
+            <summary>Optional token lifetime. Null or a non-positive value means the token does not expire.</summary>
+
+        </property>
+
+        <property name = "Operations" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Optional explicit protected-operation set to authorize. Null is normalized to an empty set.</summary>
+
+        </property>
+
+        <property name = "Properties" Cref = "ImmutableDictionary{String,String}?">
+
+            <summary>Optional arbitrary issuance metadata available to request-aware collaborators during key generation.</summary>
+
+        </property>
+
+        <property name = "RequestedAssertions" Cref = "ImmutableArray{AccessAssertionRequest}?">
+
+            <summary>Optional assertion requests to honor during access-key assertion generation.</summary>
+
+        </property>
+
+        <property name = "RequestedKeyType" Cref = "String?">
+
+            <summary>Optional requested key-type token that drives non-generic issuance and request-aware assertion generation.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}?">
+
+            <summary>Optional scope claims. Null or empty means no additional scope claims are issued.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String?">
+
+            <summary>Optional issuance subject. Null or whitespace prevents issuance until a valid subject is supplied.</summary>
+
+        </property>
+
+        <method name = "Create">
+            <summary>Create access-key issue options from explicit issuance values.</summary>
+            <param name = "subject" Cref = "String?">Optional issuance subject.</param>
+            <param name = "operations" Cref = "IEnumerable{Int32}?">Optional explicit protected-operation set to authorize.</param>
+            <param name = "lifetime" Cref = "TimeSpan?">Optional token lifetime.</param>
+            <param name = "audiences" Cref = "IEnumerable{String}?">Optional intended audiences.</param>
+            <param name = "scopes" Cref = "IEnumerable{String}?">Optional scope claims.</param>
+            <param name = "credential" Cref = "AccessCredential?">Optional credential carried into issuance.</param>
+            <param name = "properties" Cref = "IEnumerable{KeyValuePair{String,String}}?">Optional request properties carried into issuance.</param>
+            <param name = "requestedassertions" Cref = "IEnumerable{AccessAssertionRequest}?">Optional assertion requests carried into issuance.</param>
+            <param name = "requestedkeytype" Cref = "String?">Optional requested key-type token carried into issuance.</param>
+            <returns Cref = "AccessKeyIssueOptions">New access-key issue options instance.</returns>
+        </method>
+
+        <method name = "AddAudience">
+            <summary>Add an intended audience to the current options instance.</summary>
+            <param name = "audience" Cref = "String?">Audience to append.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "AddProperty">
+            <summary>Add or replace a metadata property on the current options instance.</summary>
+            <param name = "key" Cref = "String?">Property key to add or replace.</param>
+            <param name = "value" Cref = "String?">Property value to store. Null is normalized to an empty string.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "AddRequestedAssertion">
+            <summary>Add a requested assertion to the current options instance.</summary>
+            <param name = "requestedassertion" Cref = "AccessAssertionRequest?">Requested assertion to append.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "AddOperation">
+            <summary>Add a protected operation index to the current options instance.</summary>
+            <param name = "operation" Cref = "Int32">Protected operation index to append.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "AddScope">
+            <summary>Add a scope claim to the current options instance.</summary>
+            <param name = "scope" Cref = "String?">Scope to append.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetAudiences">
+            <summary>Replace the intended audiences on the current options instance.</summary>
+            <param name = "audiences" Cref = "IEnumerable{String}?">Replacement audiences.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetCredential">
+            <summary>Replace the credential on the current options instance.</summary>
+            <param name = "credential" Cref = "AccessCredential?">Replacement issuance credential.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetLifetime">
+            <summary>Replace the token lifetime on the current options instance.</summary>
+            <param name = "lifetime" Cref = "TimeSpan?">Replacement token lifetime.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetOperations">
+            <summary>Replace the protected-operation set on the current options instance.</summary>
+            <param name = "operations" Cref = "IEnumerable{Int32}?">Replacement protected-operation set.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetProperties">
+            <summary>Replace the metadata properties on the current options instance.</summary>
+            <param name = "properties" Cref = "IEnumerable{KeyValuePair{String,String}}?">Replacement metadata properties.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetRequestedAssertions">
+            <summary>Replace the requested assertions on the current options instance.</summary>
+            <param name = "requestedassertions" Cref = "IEnumerable{AccessAssertionRequest}?">Replacement requested assertions.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetRequestedKeyType">
+            <summary>Replace the requested key-type token on the current options instance.</summary>
+            <param name = "requestedkeytype" Cref = "String?">Replacement requested key-type token. Null or whitespace clears the value.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetScopes">
+            <summary>Replace the scope claims on the current options instance.</summary>
+            <param name = "scopes" Cref = "IEnumerable{String}?">Replacement scope claims.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+        <method name = "SetSubject">
+            <summary>Replace the issuance subject on the current options instance.</summary>
+            <param name = "subject" Cref = "String?">Replacement issuance subject. Null or whitespace clears the value.</param>
+            <returns Cref = "AccessKeyIssueOptions">Current options instance.</returns>
+        </method>
+
+    </class>
+
+</AccessKeyIssueOptions>

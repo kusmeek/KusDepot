@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemSegmentedTransferService>
+  <class name="DataItemSegmentedTransferService">
+	<main>
+	  <summary>Implements segmented transfer on top of staged DataServices storage.</summary>
+	</main>
+	<field name="Coordinator">
+	  <summary>Coordinates item-scoped and session-scoped mutation locks across transfer operations.</summary>
+	</field>
+	<field name="Options">
+	  <summary>Runtime options controlling segment policy clamping and temporary payload staging behavior.</summary>
+	</field>
+	<field name="PublishedSource">
+	  <summary>Loads committed published snapshots used to seed and backfill read-oriented transfer sessions.</summary>
+	</field>
+	<field name="Registry">
+	  <summary>Finds existing segmented or stream writer conflicts for an item to prevent conflicting upload sessions.</summary>
+	</field>
+	<field name="Storage">
+	  <summary>Persists staged manifests, object payloads, and segmented stream content.</summary>
+	</field>
+	<constructor name="DataItemSegmentedTransferService">
+	  <summary>Create the segmented transfer service.</summary>
+	  <param name="storage" Cref="ISegmentedTransferStorage">Segmented transfer storage dependency.</param>
+	  <param name="registry" Cref="IDataItemTransferRegistry">Session registry dependency.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Mutation coordination dependency.</param>
+	  <param name="publishedsource" Cref="IPublishedTransferSource">Committed published snapshot source dependency.</param>
+	  <param name="options" Cref="IOptions{DataItemTransferServiceOptions}">Segmented transfer service options.</param>
+	</constructor>
+	<method name="CreateManifest">
+		<summary>Create the initial staged transfer manifest for a newly opened session.</summary>
+		<param name="request" Cref="OpenUploadTransferRequest">Open request.</param>
+		<returns Cref="DataItemTransferManifest">Initial staged transfer manifest.</returns>
+	</method>
+	<method name="CreateCommittedReadManifest">
+		<summary>Create a read-committed session manifest from a published snapshot.</summary>
+		<param name="request" Cref="OpenGetTransferRequest">Open-read request.</param>
+		<param name="snapshot" Cref="PublishedTransferSnapshot">Published snapshot backing the session.</param>
+		<returns Cref="DataItemTransferManifest">Initial committed-read manifest.</returns>
+	</method>
+	<method name="CreateRange">
+		<summary>Create a transfer range from an offset and length pair.</summary>
+		<param name="offset" Cref="Int64">Range offset.</param>
+		<param name="length" Cref="Int64">Range length.</param>
+		<returns Cref="DataItemTransferRange">Created transfer range.</returns>
+	</method>
+	<method name="EnumerateStoredManifests">
+		<summary>Enumerate retained segmented session manifests that satisfy the optional inspection filters.</summary>
+		<param name="request" Cref="GetTransferSessionsRequest">Optional inspection filters.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="IEnumerable{DataItemTransferManifest}">Matching retained segmented manifests.</returns>
+	</method>
+	<method name="CreateStagedReadManifest">
+		<summary>Create a read-staged session manifest derived from another staged source session.</summary>
+		<param name="request" Cref="OpenGetTransferRequest">Open-read request.</param>
+		<param name="sourcemanifest" Cref="DataItemTransferManifest">Existing staged source manifest.</param>
+		<returns Cref="DataItemTransferManifest">Initial staged-read manifest.</returns>
+	</method>
+	<method name="ClampPolicy">
+		<summary>Clamp a requested segment-size policy against the configured service default policy.</summary>
+		<param name="requested" Cref="DataItemTransferSegmentSizePolicy">Requested policy from the caller.</param>
+		<param name="servicedefault" Cref="DataItemTransferSegmentSizePolicy">Configured service default policy.</param>
+		<returns Cref="DataItemTransferSegmentSizePolicy">Effective validated policy used for the session.</returns>
+	</method>
+	<method name="LoadRequiredManifest">
+		<summary>Load and normalize the manifest required for an operation.</summary>
+		<param name="sessionid" Cref="Guid">Session identifier.</param>
+		<param name="itemid" Cref="Guid">Item identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{DataItemTransferManifest}">Loaded normalized manifest.</returns>
+	</method>
+	<method name="MatchesSessionFilter">
+		<summary>Determine whether a retained segmented manifest matches the requested inspection filters.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Retained segmented manifest.</param>
+		<param name="request" Cref="GetTransferSessionsRequest">Optional inspection filters.</param>
+		<returns Cref="Boolean">True when the manifest matches the requested filters.</returns>
+	</method>
+	<method name="LoadRequiredPublishedSnapshot">
+		<summary>Load and validate the published snapshot required for committed-read operations.</summary>
+		<param name="itemid" Cref="Guid">Item identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{PublishedTransferSnapshot}">Validated published snapshot.</returns>
+	</method>
+	<method name="ToServerSessionInfo">
+		<summary>Map a retained segmented manifest to the server inspection record shape.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Retained segmented manifest.</param>
+		<returns Cref="DataControlServerSessionInfo">Server inspection record for the retained segmented session.</returns>
+	</method>
+	<method name="MapFailureCode">
+		<summary>Map a canonical failure message to the corresponding segmented transfer failure code.</summary>
+		<param name="message" Cref="String">Failure message to map.</param>
+		<returns Cref="SegmentedTransferFailureCode">Mapped failure code.</returns>
+	</method>
+	<method name="ValidateAbortRequest">
+		<summary>Validate the abort request shape.</summary>
+		<param name="request" Cref="AbortTransferRequest">Abort request.</param>
+	</method>
+	<method name="ValidateCommitRequest">
+		<summary>Validate the commit request shape.</summary>
+		<param name="request" Cref="CommitUploadTransferRequest">Commit request.</param>
+	</method>
+	<method name="ValidateGetTransferSegmentRequest">
+		<summary>Validate the transfer-segment read request shape.</summary>
+		<param name="request" Cref="GetTransferSegmentRequest">Read request.</param>
+	</method>
+	<method name="ValidateHashBytes">
+		<summary>Validate that two SHA-512 hash values are equal.</summary>
+		<param name="actual" Cref="Byte[]">Actual hash bytes.</param>
+		<param name="expected" Cref="Byte[]">Expected hash bytes.</param>
+		<param name="message" Cref="String">Exception message when validation fails.</param>
+	</method>
+	<method name="ValidateHashPayloadAsync">
+		<summary>Validate a SHA-512 hash against a readable payload stream asynchronously with cancellation support.</summary>
+		<param name="expectedhash" Cref="Byte[]">Expected hash bytes.</param>
+		<param name="payload" Cref="Stream">Readable payload stream to hash.</param>
+		<param name="message" Cref="String">Exception message when validation fails.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ValidateHashPayloadStreamAsync">
+		<summary>Validate a SHA-512 hash against exactly the declared number of bytes from a readable payload stream.</summary>
+		<param name="expectedhash" Cref="Byte[]">Expected hash bytes.</param>
+		<param name="payload" Cref="Stream">Readable payload stream to hash.</param>
+		<param name="expectedlength" Cref="Int64">Expected number of payload bytes that belong to the segment.</param>
+		<param name="message" Cref="String">Exception message when validation fails.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ValidateManifestHashes">
+		<summary>Validate reopen request hashes and stream length against the stored manifest.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Stored manifest.</param>
+		<param name="objecthash" Cref="Byte[]">Expected object hash from the request.</param>
+		<param name="streamhash" Cref="Byte[]">Expected stream hash from the request.</param>
+		<param name="streamlength" Cref="Int64">Expected stream length from the request.</param>
+	</method>
+	<method name="ValidateManifestIdentity">
+		<summary>Validate that a manifest belongs to the requested session and item identifiers.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Stored manifest.</param>
+		<param name="sessionid" Cref="Guid">Expected session identifier.</param>
+		<param name="itemid" Cref="Guid">Expected item identifier.</param>
+	</method>
+	<method name="ValidateOpenRequest">
+		<summary>Validate the open request shape and object payload hash.</summary>
+		<param name="request" Cref="OpenUploadTransferRequest">Open request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	</method>
+	<method name="ValidateOpenGetRequest">
+		<summary>Validate the open-read request shape and optional staged source session identifier.</summary>
+		<param name="request" Cref="OpenGetTransferRequest">Open-read request.</param>
+	</method>
+	<method name="ValidatePublishedSnapshot">
+		<summary>Validate a published snapshot before it is used to seed or serve committed-read sessions.</summary>
+		<param name="snapshot" Cref="PublishedTransferSnapshot">Published snapshot to validate.</param>
+		<param name="itemId" Cref="Guid">Expected item identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	</method>
+	<method name="ValidateReOpenGetRequest">
+		<summary>Validate the reopen-read request shape and expected stream hash.</summary>
+		<param name="request" Cref="ReOpenGetTransferRequest">Reopen-read request.</param>
+	</method>
+	<method name="ValidateReOpenRequest">
+		<summary>Validate the reopen request shape.</summary>
+		<param name="request" Cref="ReOpenUploadTransferRequest">Reopen request.</param>
+	</method>
+	<method name="ValidateSegmentLengthAgainstPolicy">
+		<summary>Validate a segment length against the effective session segment-size policy and enforcement options.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Stored manifest containing the effective segment policy.</param>
+		<param name="length" Cref="Int64">Requested segment length.</param>
+		<param name="offset" Cref="Int64">Requested segment offset.</param>
+	</method>
+	<method name="ValidateSegmentHash">
+		<summary>Validate a segment hash against a segment payload.</summary>
+		<param name="expectedhash" Cref="Byte[]">Expected segment hash.</param>
+		<param name="payload" Cref="Stream">Readable segment payload stream.</param>
+		<param name="expectedlength" Cref="Int64">Expected number of bytes in the segment payload.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ValidateSessionReadable">
+		<summary>Validate that the current session status permits read-oriented operations.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Stored manifest.</param>
+	</method>
+	<method name="ValidateSessionWritable">
+		<summary>Validate that the current session status permits write-oriented operations.</summary>
+		<param name="manifest" Cref="DataItemTransferManifest">Stored manifest.</param>
+	</method>
+	<method name="ValidatePutTransferSegmentRequest">
+		<summary>Validate the segment write request shape and payload length.</summary>
+		<param name="request" Cref="PutTransferSegmentRequest">Segment write request.</param>
+		<param name="payload" Cref="Stream">Readable segment payload stream.</param>
+	</method>
+  </class>
+	<class name="SeekablePayloadBuffer">
+	  <main>
+		<summary>Provides a seekable staged payload wrapper for upload segments, buffering to a temporary file when the incoming stream is not seekable.</summary>
+	  </main>
+	  <property name="Stream" Cref="Stream">
+		<summary>Seekable payload stream positioned and owned by the wrapper.</summary>
+	  </property>
+	  <constructor name="SeekablePayloadBuffer">
+		<summary>Create the wrapper around a seekable payload stream.</summary>
+		<param name="stream" Cref="Stream">Seekable stream owned by the wrapper.</param>
+	  </constructor>
+	  <method name="Create">
+		<summary>Create a seekable payload wrapper by reusing the source stream or staging it to a temporary file.</summary>
+		<param name="source" Cref="Stream">Incoming payload stream.</param>
+		<param name="expectedlength" Cref="Int64">Expected number of bytes.</param>
+		<param name="temporaryuploadpath" Cref="String">Optional configured directory for temporary staged uploads.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{SeekablePayloadBuffer}">Seekable payload wrapper.</returns>
+	  </method>
+	  <method name="DisposeAsync">
+		<summary>Dispose the wrapped stream and any temporary staged resources it owns.</summary>
+		<returns Cref="ValueTask">Completion task for asynchronous disposal.</returns>
+	  </method>
+	</class>
+</DataItemSegmentedTransferService>

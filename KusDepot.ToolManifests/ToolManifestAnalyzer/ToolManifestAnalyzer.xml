@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestAnalyzer>
+
+	<class name = "ToolManifestAnalyzer">
+
+		<main>
+
+			<summary>Reports KusDepot tool-manifest diagnostics.</summary>
+
+		</main>
+
+		<property name = "SupportedDiagnostics" Cref = "ImmutableArray{DiagnosticDescriptor}">
+
+			<summary>Gets the complete set of tool-manifest diagnostics supported by the analyzer.</summary>
+
+		</property>
+
+		<method name = "Initialize">
+
+			<summary>Initializes analyzer execution and registers the symbol-analysis pipeline for candidate tool types.</summary>
+
+			<param name = "context" Cref = "AnalysisContext">The analyzer initialization context.</param>
+
+		</method>
+
+		<method name = "InitializeCompilation">
+
+			<summary>Registers compilation-scoped symbol analysis for named types in the current compilation.</summary>
+
+			<param name = "context" Cref = "CompilationStartAnalysisContext">The compilation-start analysis context.</param>
+
+		</method>
+
+		<method name = "AnalyzeNamedType">
+
+			<summary>Analyzes one named type symbol and reports any shared tool-manifest diagnostics that apply to it.</summary>
+
+			<param name = "context" Cref = "SymbolAnalysisContext">The symbol-analysis context.</param>
+
+			<param name = "compilation" Cref = "Compilation">The current compilation.</param>
+
+		</method>
+
+	</class>
+
+</ToolManifestAnalyzer>

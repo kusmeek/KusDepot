@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PutTransferSegment>
+
+	<record name = "PutTransferSegmentRequest">
+		<main><summary>Metadata carried in a segmented upload envelope request.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Offset" Cref = "Int64"><summary>Requested write offset in bytes.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Requested write payload length in bytes.</summary></property>
+		<property name = "ExpectedStateVersion" Cref = "Int64?"><summary>Optional expected current transfer state version that, when supplied, must match before the segment is accepted.</summary></property>
+		<property name = "SegmentSHA512" Cref = "Byte[]"><summary>SHA-512 of the payload carried by the envelope.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>SHA-512 of the complete stream payload.</summary></property>
+		<property name = "RequestID" Cref = "Guid?"><summary>Optional caller correlation identifier.</summary></property>
+	</record>
+
+	<record name = "PutTransferSegmentResponse">
+		<main><summary>Metadata carried in a segmented upload envelope response.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Current transfer state version.</summary></property>
+		<property name = "Range" Cref = "DataItemTransferRange"><summary>Logical range associated with this upload result.</summary></property>
+		<property name = "Accepted" Cref = "Boolean"><summary>Whether the segment was accepted.</summary></property>
+		<property name = "CompletedCoverage" Cref = "Boolean"><summary>Whether full logical coverage exists after acceptance.</summary></property>
+	</record>
+
+</PutTransferSegment>

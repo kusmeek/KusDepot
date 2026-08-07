@@ -1,0 +1,111 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifest>
+
+    <record name = "ToolManifest">
+
+        <main>
+
+            <summary>Tool Manifest.</summary>
+
+            <remarks>An immutable record describing a tool-scoped operation schema.</remarks>
+
+        </main>
+
+        <property name = "ToolSchemaID" Cref = "String?"><summary>Tool schema identifier.</summary></property>
+
+        <property name = "AccessKeyRealmID" Cref = "String?"><summary>Access key realm identifier for tokens issued from this manifest.</summary></property>
+
+        <property name = "ToolSchemaVersion" Cref = "String?"><summary>Tool schema version.</summary></property>
+
+        <property name = "ManifestHash" Cref = "String?"><summary>Deterministic manifest hash computed from the tool schema identifier, tool schema version, and ordered operation definitions.</summary></property>
+
+        <property name = "ToolType" Cref = "String?"><summary>Implementing tool type full name.</summary></property>
+
+        <property name = "Operations" Cref = "ImmutableArray{ToolOperationDescriptor}"><summary>Manifest-scoped operation descriptors.</summary></property>
+
+        <method name = "Equals">
+
+            <summary>Determine whether this instance references the same ToolManifest.</summary>
+
+            <param name = "other" Cref = "ToolManifest?">Other ToolManifest.</param>
+
+            <returns Cref = "Boolean">True if both references point to the same instance.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Create ToolManifest from a tool using the tool type full name as the default schema identifier, default access-key realm identifier, and tool type, with an empty default tool schema version.</summary>
+
+            <param name = "tool" Cref = "ITool">Tool.</param>
+
+            <returns Cref = "ToolManifest">Tool manifest.</returns>
+
+        </method>
+
+        <method name = "CreateSchema">
+
+            <summary>Create ToolManifest from explicit schema values without computing the manifest hash.</summary>
+
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+
+            <param name = "accesskeyrealmid" Cref = "String?">Access key realm identifier. Null defaults to the tool schema identifier.</param>
+
+            <param name = "toolschemaversion" Cref = "String?">Tool schema version.</param>
+
+            <param name = "tooltype" Cref = "String?">Implementing tool type full name.</param>
+
+            <param name = "operations" Cref = "IEnumerable{ToolOperationDescriptor}?">Manifest-scoped operation descriptors.</param>
+
+            <returns Cref = "ToolManifest">Tool manifest.</returns>
+
+        </method>
+
+        <method name = "ComputeManifestHash">
+
+            <summary>Compute a deterministic manifest hash from the tool schema identifier, tool schema version, and ordered operation definitions.</summary>
+
+            <returns Cref = "ToolManifest">The current manifest instance with <see cref="P:KusDepot.ToolManifest.ManifestHash"/> populated if it was not already set.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse ToolManifest.</summary>
+
+            <param name = "input" Cref = "String?">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "ToolManifest">Output ToolManifest.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "IParsable{ToolManifest}.Parse">
+
+            <summary>Parse ToolManifest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "ToolManifest">Parsed ToolManifest.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse ToolManifest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <returns Cref = "ToolManifest?">Parsed ToolManifest.</returns>
+
+        </method>
+
+    </record>
+
+</ToolManifest>

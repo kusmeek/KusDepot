@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BufferReader>
+
+    <struct name = "BufferReader">
+
+        <main>
+
+            <summary>Read cursor over a fixed serialization buffer.</summary>
+
+            <remarks>This ref struct reads primitive values and slices from caller-owned <see cref="ReadOnlyMemory{Byte}"/>.</remarks>
+
+        </main>
+
+        <field name = "buffer" Cref = "ReadOnlyMemory{Byte}">
+
+            <summary>Readable backing memory.</summary>
+
+        </field>
+
+        <property name = "Position" Cref = "Int32">
+
+            <summary>Current read position.</summary>
+
+        </property>
+
+        <property name = "Length" Cref = "Int32">
+
+            <summary>Total readable length of the backing memory.</summary>
+
+        </property>
+
+        <property name = "Remaining" Cref = "Int32">
+
+            <summary>Remaining readable byte count.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a read cursor over source memory.</summary>
+
+            <param name = "buffer" Cref = "ReadOnlyMemory{Byte}">Source memory.</param>
+
+        </constructor>
+
+        <method name = "TryReadByte">
+
+            <summary>Read a single byte from the source memory.</summary>
+
+            <param name = "value" Cref = "Byte">Output byte value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadBytes">
+
+            <summary>Read a byte slice from the source memory.</summary>
+
+            <param name = "count" Cref = "Int32">Number of bytes to read.</param>
+
+            <param name = "slice" Cref = "ReadOnlySpan{Byte}">Output byte slice.</param>
+
+            <returns Cref = "Boolean">True when the slice was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadMemory">
+
+            <summary>Read a memory segment from the source memory.</summary>
+
+            <param name = "count" Cref = "Int32">Number of bytes to read.</param>
+
+            <param name = "memory" Cref = "ReadOnlyMemory{Byte}">Output memory segment.</param>
+
+            <returns Cref = "Boolean">True when the memory segment was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadGuid">
+
+            <summary>Read a Guid using the standard .NET Guid byte layout.</summary>
+
+            <param name = "value" Cref = "Guid">Output Guid value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadInt32BigEndian">
+
+            <summary>Read a 32-bit integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "Int32">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadInt64BigEndian">
+
+            <summary>Read a 64-bit integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "Int64">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt16BigEndian">
+
+            <summary>Read a 16-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt16">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt32BigEndian">
+
+            <summary>Read a 32-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt32">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt128BigEndian">
+
+            <summary>Read a 128-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt128">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</BufferReader>

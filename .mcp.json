@@ -1,0 +1,15 @@
+{
+  "inputs": [],
+  "servers": {
+    "toolpod": {
+      "type": "sse",
+      "url": "http://localhost:48086",
+      "headers": {}
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--no-usage-statistics"]
+    }
+  }
+}

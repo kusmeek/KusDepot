@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<GetTransferSegment>
+
+	<record name = "GetTransferSegmentRequest">
+		<main><summary>Metadata carried in a segmented transfer read request.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Offset" Cref = "Int64"><summary>Requested read offset in bytes.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Requested read payload length in bytes.</summary></property>
+	</record>
+
+</GetTransferSegment>

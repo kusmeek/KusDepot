@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="KusDepot.DataItem">
+    <Position X="1" Y="29.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>kYM7cwqsSGKA2bevgsmIKIEADe1w6tLVdhACIqwxEFw=</HashCode>
+      <FileName>DataItem\DataItem.Crypto.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.BinaryItem" HideInheritanceLine="true">
+    <Position X="6.25" Y="24.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gIAiAgEgAgIAAJUAgIAACAAAAEAABIAEAjACIAAQAig=</HashCode>
+      <FileName>DataItems\BinaryItem\BinaryItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.GuidReferenceItem" HideInheritanceLine="true">
+    <Position X="15" Y="34" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AoAiAAEgAgIAIoUAgAAACAAAAMAgRIJEAjACYgAQAig=</HashCode>
+      <FileName>DataItems\GuidReferenceItem\GuidReferenceItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.TextItem" HideInheritanceLine="true">
+    <Position X="11" Y="24.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gIAiEAEoCgIAAIUAgAACCAAAAEAABIAEArACIAAQAig=</HashCode>
+      <FileName>DataItems\TextItem\TextItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="KusDepot.MSBuildItem" HideInheritanceLine="true">
+    <Position X="25" Y="34.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gIAiAAEgAgIBAI0AgACACAgAAEIADIAEAjACIAEQAig=</HashCode>
+      <FileName>DataItems\MSBuildItem\MSBuildItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.MultiMediaItem" HideInheritanceLine="true">
+    <Position X="6" Y="34" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>gIIiAAEkTgICAMUAgBAiyAAAAEIABMAEBnBCIAAYBmg=</HashCode>
+      <FileName>DataItems\MultiMediaItem\MultiMediaItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.Tool">
+    <Position X="34.5" Y="15" Width="4.25" />
+    <InheritanceLine Type="KusDepot.Common" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.625" Y="9.103" />
+        <Point X="2.625" Y="11.889" />
+        <Point X="36.625" Y="11.889" />
+        <Point X="36.625" Y="15" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>7cs6q90VrmLDpef0ov7WpUv83VsEDpTe37mmGYB6Tqg=</HashCode>
+      <FileName>Tool\Tool.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.GenericItem" HideInheritanceLine="true">
+    <Position X="20.25" Y="23.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>kIAiABEgAqIAAoUAgAEACAAAAEAABIAEIjACMAgQAig=</HashCode>
+      <FileName>DataItems\GenericItem\GenericItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.Common">
+    <Position X="0.75" Y="0.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>oAA4IAAgAAABgQWAqAAAgACBgRAAAIAElCAgAAAAEiA=</HashCode>
+      <FileName>Common\Common.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.Command">
+    <Position X="40" Y="10" Width="3" />
+    <InheritanceLine Type="KusDepot.Common" FixedFromPoint="true">
+      <Path>
+        <Point X="2.625" Y="9.103" />
+        <Point X="2.625" Y="9.625" />
+        <Point X="41.5" Y="9.625" />
+        <Point X="41.5" Y="10" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAQgCBEIcAgACQCEAAAIAEAIEAKLAgQMAiAEA=</HashCode>
+      <FileName>Tool\Command\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="KusDepot.CodeItem" HideInheritanceLine="true">
+    <Position X="11" Y="34" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gIAiAAEgAgIAAIUQgAAACAAAAEAABIgEAjACIAAQAig=</HashCode>
+      <FileName>DataItems\CodeItem\CodeItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.Utilities.Utility">
+    <Position X="40.5" Y="38" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AWkKRqoBARSIAoQXAgDAKFkkQCBlAjkIgASkBAAQG4I=</HashCode>
+      <FileName>Utility\Utility.Compression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.DataPort">
+    <Position X="15.75" Y="51" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataPort\DataPort.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.Settings">
+    <Position X="41.75" Y="53.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAgAAiAAEAAAAQAAAAAAACAQAAIABAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.Activity">
+    <Position X="39.5" Y="23" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAREAEAgQCJBgAACAUEAAggAAAYAAAIAAMgCBALABiA=</HashCode>
+      <FileName>Tool\Activity\Activity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.CommandDetails">
+    <Position X="42.75" Y="23.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>FIAoKAGABCAAgAAkAAJACUAAwggghEoIMAACAAAACgA=</HashCode>
+      <FileName>Tool\CommandDetails\CommandDetails.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.DataSetItem" HideInheritanceLine="true">
+    <Position X="15.5" Y="23.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gIIiAQEgAgIAAIUAoAEAiAAAAkAgBoAEIjACIAAQAig=</HashCode>
+      <FileName>DataItems\DataSetItem\DataSetItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="KusDepot.ToolHostOptions">
+    <Position X="42.75" Y="32.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Tools\ToolHost\ToolHostOptions\ToolHostOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.LifeCycleStateMachine">
+    <Position X="39.75" Y="31.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAIACAAAAEAACABACAAACAJAQAAAAAQAgAgJAMQhAA=</HashCode>
+      <FileName>Tool\LifeCycleStateMachine\LifeCycleStateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.MetaBase">
+    <Position X="0.75" Y="13.75" Width="3.75" />
+    <InheritanceLine Type="KusDepot.Common" FixedFromPoint="true">
+      <Path>
+        <Point X="2.625" Y="9.103" />
+        <Point X="2.625" Y="13.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>IgooEZAEwTAYgQHCoBAAABQAEYGARUgHDOgFRA0AtAI=</HashCode>
+      <FileName>MetaBase\MetaBase.Constants.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="KusDepot.KeySet" HideInheritanceLine="true">
+    <Position X="20.25" Y="34" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>FIEqAAEggAAIAYUAggGEGAwAAUEABIAEIhFAIBQQEig=</HashCode>
+      <FileName>DataItems\KeySet\KeySet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.CommandWorkflow">
+    <Position X="40.75" Y="18.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAAADAAQEAwAAAAQAAAAEAEAAAQAAAAEAAAA=</HashCode>
+      <FileName>Tool\CommandWorkflow\CommandWorkflow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KusDepot.CommandExecutionMode">
+    <Position X="43.5" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ICAQCAAoAIAAAAAAACFAAAAAQAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Tool\CommandExecutionMode\CommandExecutionMode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.DataFactory">
+    <Position X="15" Y="46" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAABAAAAAAARgAAIAAAAABEAIBAILUAAAAAAQgAAA=</HashCode>
+      <FileName>DataFactory\DataFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.Security.KeyMaker">
+    <Position X="29.25" Y="24.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIAAAGAApASAEAEGAgEkBAFBJEAAAABAAEAAsIA=</HashCode>
+      <FileName>Security\KeyMaker\KeyMaker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KusDepot.DataStreamItem" HideInheritanceLine="true">
+    <Position X="24.5" Y="24" Width="4" />
+    <TypeIdentifier>
+      <HashCode>goAiAAEEAgIMAIQAhAAACAAgAFMABIRGBjAAIKAQAmE=</HashCode>
+      <FileName>DataItems\DataStreamItem\DataStreamItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="KusDepot.Security.IAccessManager">
+    <Position X="29.75" Y="18.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAgAAEAAAQAQAAwAAAAAAACQAABIAKAAAAAAAgg=</HashCode>
+      <FileName>Tool\AccessManagement\AccessManager\IAccessManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KusDepot.ITool">
+    <Position X="29.75" Y="34.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>yYAaIRkBqmDDpeDAIqzSAEpUQEEECoTajzGgCIBABKg=</HashCode>
+      <FileName>Tool\ITool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="KusDepot.LifeCycleState">
+    <Position X="43.25" Y="35.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAACEAAAAQAAAAAAAAAAAAAAAAAgAAAAAAAAAAQ=</HashCode>
+      <FileName>Tool\LifeCycleStateMachine\LifeCycleState\LifeCycleState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

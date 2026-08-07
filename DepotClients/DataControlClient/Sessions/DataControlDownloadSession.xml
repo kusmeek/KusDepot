@@ -1,0 +1,283 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlDownloadSession>
+
+	<class name = "DataControlDownloadSession">
+
+		<main>
+
+			<summary>Download session that persists local state and retrieves ranges from DataControl.</summary>
+
+		</main>
+
+		<field name = "client" Cref = "DataControlClient"><summary>The DataControl client used to issue segmented or stream transfer service calls.</summary></field>
+		<field name = "storage" Cref = "DataControlClientWorkingDirectoryStorage"><summary>The local working directory storage that persists segmented or stream download state and content.</summary></field>
+		<field name = "token" Cref = "String?"><summary>The optional bearer token used for authenticated service calls.</summary></field>
+		<field name = "CompletionMode" Cref = "StreamCompletionMode"><summary>The configured completion behavior used by one-call stream-follow helpers.</summary></field>
+		<field name = "MaxBytes" Cref = "Int64?"><summary>The optional byte limit applied by bounded stream-follow completion helpers.</summary></field>
+		<field name = "FollowStream" Cref = "BufferedFollowStream?"><summary>The optional buffered follow stream used for stream-follow downloads.</summary></field>
+		<field name = "FollowSubscription" Cref = "IDataControlNotificationSubscriptionHandle?"><summary>The optional persistent follow notification subscription owned for the lifetime of this download session object.</summary></field>
+		<field name = "disposed" Cref = "Int32"><summary>Tracks whether the download session has already released its owned resources.</summary></field>
+		<field name = "materializationVerified" Cref = "Boolean"><summary>True after successful materialization.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Create a client-side download session wrapper.</summary>
+			<param name = "client" Cref = "DataControlClient">The DataControl client used for service calls.</param>
+			<param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">The local working directory storage for the session.</param>
+			<param name = "token" Cref = "String?">Optional bearer token used for authenticated service calls.</param>
+			<param name = "session" Cref = "DataControlTransferSessionInfo">The current persisted session metadata and transfer state.</param>
+			<param name = "completionmode" Cref = "StreamCompletionMode">Configured completion behavior for stream-follow downloads.</param>
+			<param name = "maxbytes" Cref = "Int64?">Optional maximum number of bytes the stream-follow helper should realize before stopping.</param>
+			<param name = "followstream" Cref = "BufferedFollowStream?">Optional buffered follow stream used for stream-follow downloads.</param>
+			<param name = "liveitem" Cref = "DataStreamItem?">Optional live item being downloaded in the session.</param>
+			<param name = "followsubscription" Cref = "IDataControlNotificationSubscriptionHandle?">Optional persistent follow notification subscription owned by the session for its object lifetime.</param>
+		</constructor>
+
+		<property name = "Session" Cref = "DataControlTransferSessionInfo"><summary>Gets the current local download session metadata and transfer state snapshot.</summary></property>
+		<property name = "LiveItem" Cref = "DataStreamItem"><summary>Gets the current live item being downloaded in the session, if any.</summary></property>
+
+		<method name = "Dispose">
+			<summary>Release the session-owned buffered follow stream and persistent follow notification subscription.</summary>
+		</method>
+
+		<method name = "DisposeAsync">
+			<summary>Asynchronously release the session-owned persistent follow notification subscription and any buffered follow stream resources.</summary>
+			<returns Cref = "ValueTask">A value task that completes when the session-owned resources have been released.</returns>
+		</method>
+
+		<method name = "WaitForFollowWakeAsync">
+			<summary>Wait for a wake signal from the session-owned persistent follow notification subscription, or fall back to a direct delay when the session has no subscription mapping.</summary>
+			<param name = "wait" Cref = "TimeSpan">Wait duration to apply for the current follow wait cycle.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that completes when the session receives a wake signal, the fallback delay elapses, or cancellation is requested.</returns>
+		</method>
+
+		<method name = "DownloadNext">
+			<summary>Download the next planned missing range into the local working directory and refresh persisted state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when a segment download succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "DownloadSegmentNext">
+			<summary>Download the next planned finite segmented range into the local working directory and return the exact range realized for progress reporting.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataItemTransferRange?}">A task that completes with the exact segmented range downloaded and persisted locally, or null when no segmented download can be performed or the operation does not succeed.</returns>
+		</method>
+		<method name = "ReOpenSegmentedFollowSession">
+			<summary>Re-open a segmented follow download session against the current committed stream identity and persist the refreshed follow state while preserving already realized local ranges.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The current segmented follow transfer state whose committed stream identity and realized local ranges must be preserved across the re-open call.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that completes after the refreshed follow state has been persisted locally, or returns without changes when the re-open call does not produce a compatible state.</returns>
+		</method>
+		<method name = "DownloadToCompletion">
+			<summary>Download remaining finite ranges or stream-follow extents until the session reaches its configured stopping condition or the source session reaches a terminal state.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successfully downloaded finite segment or stream extent.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully downloaded finite segments or stream extents.</returns>
+		</method>
+		<method name = "DownloadToCurrent">
+			<summary>Download remaining finite ranges or stream-follow extents that are currently available, then return without waiting for the source session to reach a terminal state.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successfully downloaded finite segment or stream extent.</param>
+			<param name = "wait" Cref = "TimeSpan">Optional wait duration to use when no additional data is currently available. Use <see cref="TimeSpan.Zero"/> to avoid waiting.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully downloaded finite segments or stream extents materialized during the catch-up pass.</returns>
+		</method>
+		<method name = "DownloadCore">
+			<summary>Run the shared segmented and stream follow download loop used by both terminal completion and catch-up-to-current entry points.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successful download.</param>
+			<param name = "wait" Cref = "TimeSpan">Wait duration used when additional follow data is not currently available. <see cref="Timeout.InfiniteTimeSpan"/> keeps waiting until terminal conditions or cancellation, while <see cref="TimeSpan.Zero"/> disables waiting.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully downloaded finite segments or stream extents.</returns>
+		</method>
+		<method name = "Materialize">
+			<summary>Materialize the downloaded item from the local working-directory session state when the session has sufficient local content for the active transfer family.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlDownloadCompletionResult?}">A task that completes with the materialized download result, or null when the local state is incomplete or invalid.</returns>
+		</method>
+		<method name = "MaterializeWithDestination">
+			<summary>Materialize the downloaded item and, when a destination directory is supplied, export both materialized files into that directory before retiring the local session state.</summary>
+			<param name = "destinationdirectory" Cref = "String?">Optional destination directory for the materialized object and stream files. When omitted, the materialized item remains bound to the session-managed files in the local working directory.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlDownloadCompletionResult?}">A task that completes with the materialized download result, or null when the local state is incomplete, invalid, or cannot be safely exported.</returns>
+			<remarks>Supplying a destination directory performs a one-way export of the object payload and stream file. Active stream-follow sessions may refuse export until the stream becomes terminal.</remarks>
+		</method>
+		<method name = "DeleteLocalState">
+			<summary>Delete the local working directory state for the current download session without contacting the service.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local session state directory is deleted successfully; otherwise false.</returns>
+		</method>
+		<method name = "RemoveTransfer">
+			<summary>Remove the retained remote download transfer session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote removal succeeds and local state is removed; otherwise false.</returns>
+		</method>
+		<method name = "Abort">
+			<summary>Abort the remote download session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote abort succeeds and local state is removed; otherwise false.</returns>
+		</method>
+		<method name = "CreateProgress">
+			<summary>Create a transfer progress snapshot for a completed downloaded range.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The refreshed transfer state after the successful download.</param>
+			<param name = "latestRange" Cref = "DataItemTransferRange">The range that was most recently downloaded.</param>
+			<returns Cref = "DataItemTransferProgress">A progress snapshot describing the updated download state.</returns>
+		</method>
+		<method name = "CreateStreamProgress">
+			<summary>Create a transfer progress snapshot for a completed downloaded stream extent.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The refreshed stream transfer state after the successful download.</param>
+			<param name = "footer" Cref = "StreamTransferSegmentFooter">The footer describing the most recently downloaded stream extent.</param>
+			<returns Cref = "DataItemTransferProgress">A progress snapshot describing the updated stream-follow state.</returns>
+		</method>
+		<method name = "DownloadStreamNext">
+			<summary>Download the next available stream-follow extent into the local stream working directory and refresh persisted stream state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when a stream extent download succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "MaterializeStream">
+			<summary>Materialize the current stream-follow item view from the local stream working directory, or export both files to a destination directory when the stream session is eligible for terminal export.</summary>
+			<param name = "destinationdirectory" Cref = "String?">Optional destination directory for the materialized object and stream files.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlDownloadCompletionResult?}">A task that completes with the materialized stream download result, or null when the local state is incomplete or invalid.</returns>
+		</method>
+		<method name = "BindMaterializedStreamPath">
+			<summary>Bind the resolved local materialized stream file path onto the downloaded item using the appropriate item-type-specific file binding behavior.</summary>
+			<param name = "item" Cref = "DataItem">The downloaded item instance being materialized from the local session working directory.</param>
+			<param name = "streampath" Cref = "String">The resolved local materialized file path for the downloaded stream content.</param>
+			<param name = "bindstreamcontent" Cref = "Boolean">True when the materialized stream file is the authoritative content source.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the item successfully binds or rebinds to the local materialized stream file path; otherwise false.</returns>
+		</method>
+		<method name = "VerifyMaterializationAsync">
+			<summary>Verify the local materialized object payload and optional stream payload against the expected published integrity values, or skip the work after the session has already completed one successful verification pass.</summary>
+			<param name = "expectedObjectSHA512" Cref = "Byte[]">Expected SHA-512 of the serialized committed object payload.</param>
+			<param name = "expectedStreamSHA512" Cref = "Byte[]">Optional expected SHA-512 of the committed stream payload.</param>
+			<param name = "expectedStreamLength" Cref = "Int64">Expected realized stream length in bytes.</param>
+			<param name = "objectPayload" Cref = "Byte[]">Local serialized object payload bytes loaded from working-directory state.</param>
+			<param name = "streamPath" Cref = "String">Local materialized stream file path to validate.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local materialized content satisfies the expected published integrity contract; otherwise false.</returns>
+		</method>
+		<method name = "VerifyObjectPayloadAsync">
+			<summary>Verify the local serialized object payload bytes against the expected published object hash.</summary>
+			<param name = "expectedObjectSHA512" Cref = "Byte[]">Expected SHA-512 of the serialized committed object payload.</param>
+			<param name = "objectPayload" Cref = "Byte[]">Local serialized object payload bytes loaded from working-directory state.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local serialized object payload matches the expected published object hash; otherwise false.</returns>
+		</method>
+		<method name = "VerifyStreamPayloadAsync">
+			<summary>Verify the local materialized stream file length and, when available, its full published stream hash.</summary>
+			<param name = "expectedStreamSHA512" Cref = "Byte[]">Optional expected SHA-512 of the committed stream payload.</param>
+			<param name = "expectedStreamLength" Cref = "Int64">Expected realized stream length in bytes.</param>
+			<param name = "streamPath" Cref = "String">Local materialized stream file path to validate.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local materialized stream satisfies the expected length and any available full-stream hash requirement; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextDownloadLength">
+			<summary>Plan the next stream-follow extent length using the effective preferred segment size, the currently available remote bytes, and any configured maximum byte allowance.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The refreshed stream-follow state.</param>
+			<param name = "localLength" Cref = "Int64">Current realized local stream length before the next download request.</param>
+			<param name = "availableLength" Cref = "Int64">Number of bytes currently available from the source beyond the realized local length.</param>
+			<returns Cref = "Int64">The number of bytes to request in the next stream-follow segment download, or zero when no additional bytes should be requested.</returns>
+		</method>
+		<method name = "EnsureExportPossible">
+			<summary>Check whether a materialized file can be exported to the requested target directory without colliding with another managed materialized file or an existing destination file.</summary>
+			<param name = "currentPath" Cref = "String">Current session-managed materialized file path.</param>
+			<param name = "targetDirectory" Cref = "String">Requested export directory.</param>
+			<param name = "preferredPath" Cref = "String?">Optional preferred path whose file name should be preserved for the exported file.</param>
+			<param name = "reservedPaths" Cref = "String[]">Other managed paths that must not collide with the export target.</param>
+			<returns Cref = "Boolean">True when the export target can be used safely; otherwise false.</returns>
+		</method>
+		<method name = "ResolveSessionMaterializedFilePath">
+			<summary>Resolve the effective session-managed materialized file path for one local session file and move it inside the session directory when the preferred file name differs.</summary>
+			<param name = "sessionDirectoryPath" Cref = "String">Session directory that should own the managed materialized file.</param>
+			<param name = "currentPath" Cref = "String">Current session-managed materialized file path.</param>
+			<param name = "preferredPath" Cref = "String?">Optional preferred path whose file name should be preserved.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<param name = "reservedPaths" Cref = "String?[]">Other managed paths that must not collide with the resolved session target.</param>
+			<returns Cref = "Task{String}">A task that completes with the resulting session-managed materialized file path.</returns>
+		</method>
+		<method name = "ExportMaterializedFile">
+			<summary>Copy a session-managed materialized file into the requested export directory while preserving the preferred file name when one is available.</summary>
+			<param name = "currentPath" Cref = "String">Current session-managed materialized file path.</param>
+			<param name = "targetDirectory" Cref = "String">Requested export directory.</param>
+			<param name = "preferredPath" Cref = "String?">Optional preferred path whose file name should be preserved.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<param name = "reservedPaths" Cref = "String?[]">Other managed paths that must not collide with the export target.</param>
+			<returns Cref = "Task{String}">A task that completes with the exported file path.</returns>
+		</method>
+		<method name = "CanExportMaterializedPath">
+			<summary>Check whether a materialized file can be exported to a target path without collisions and while obtaining an exclusive lock on the current file.</summary>
+			<param name = "currentPath" Cref = "String">Current materialized file path.</param>
+			<param name = "targetPath" Cref = "String">Requested export path.</param>
+			<returns Cref = "Boolean">True when the current file can be safely reused or exported; otherwise false.</returns>
+		</method>
+		<method name = "GetMaterializedTargetPath">
+			<summary>Build the target materialized file path using the requested directory and the preferred file name when one is available.</summary>
+			<param name = "currentPath" Cref = "String">Current materialized file path.</param>
+			<param name = "targetDirectory" Cref = "String">Target directory for the materialized file.</param>
+			<param name = "preferredPath" Cref = "String?">Optional preferred stored path whose file name should be preserved.</param>
+			<returns Cref = "String">Resolved target materialized file path.</returns>
+		</method>
+		<method name = "AreSamePath">
+			<summary>Determine whether two file paths refer to the same location, ignoring case differences.</summary>
+			<param name = "left" Cref = "String">The first file path to compare.</param>
+			<param name = "right" Cref = "String">The second file path to compare.</param>
+			<returns Cref = "Boolean">True when the paths refer to the same location; otherwise false.</returns>
+		</method>
+		<method name = "PathsMatch">
+			<summary>Determine whether two file paths match.</summary>
+			<param name = "currentPath" Cref = "String">The current file path to compare.</param>
+			<param name = "targetPath" Cref = "String">The target file path to compare.</param>
+			<returns Cref = "Boolean">True when the paths refer to the same location; otherwise false.</returns>
+		</method>
+		<method name = "IsFaultedOrAborted">
+			<summary>Determine whether a segmented download state has reached an aborted or faulted terminal condition.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<returns Cref = "Boolean">True when the segmented download state is aborted or faulted; otherwise false.</returns>
+		</method>
+		<method name = "IsCommittedSegmentedTerminal">
+			<summary>Determine whether a committed segmented download state is terminal because no local missing ranges remain.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<returns Cref = "Boolean">True when the download has been promoted to committed mode and all missing ranges have been realized locally; otherwise false.</returns>
+		</method>
+		<method name = "IsCaughtUpStagedFollow">
+			<summary>Determine whether a staged-follow segmented download is locally caught up to the currently available source extent.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<returns Cref = "Boolean">True when the download remains in staged-follow mode and has no missing ranges at the moment; otherwise false.</returns>
+		</method>
+		<method name = "NeedsCommittedPromotion">
+			<summary>Determine whether a staged-follow segmented download has observed source commit and should keep reopening until the session promotes to committed mode.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<returns Cref = "Boolean">True when the download is still in staged-follow mode while its status reflects source commit; otherwise false.</returns>
+		</method>
+		<method name = "CanWaitForStagedFollowData">
+			<summary>Determine whether a staged-follow segmented download is eligible to wait for additional data or a commit transition.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<param name = "shouldWaitForFutureData" Cref = "Boolean">Whether the caller requested follow waiting.</param>
+			<returns Cref = "Boolean">True when the session is still in staged-follow mode, waiting is enabled, and the state is not complete, aborted, or faulted; otherwise false.</returns>
+		</method>
+		<method name = "ShouldStopCaughtUpStagedFollow">
+			<summary>Determine whether a staged-follow segmented download that is currently caught up should stop instead of waiting for additional source progress.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<param name = "shouldWaitForFutureData" Cref = "Boolean">Whether the caller requested follow waiting.</param>
+			<returns Cref = "Boolean">True when waiting is disabled or the state is already complete, aborted, or faulted; otherwise false.</returns>
+		</method>
+		<method name = "ShouldContinueAfterStagedFollowReopen">
+			<summary>Determine whether the segmented follow loop should continue immediately after a promotion-aware reopen refresh.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The segmented download state to inspect.</param>
+			<returns Cref = "Boolean">True when the refreshed state has become terminal, needs committed promotion handling, has newly available missing ranges, or has otherwise left the staged-follow caught-up waiting state; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextRange">
+			<summary>Plan the next download range from the first normalized missing range using the effective segment size policy.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The current download transfer state.</param>
+			<remarks>The algorithm starts from the first missing range. It then clamps the preferred segment size into the configured minimum and maximum bounds. If taking that planned prefix would leave behind a non-terminal tail smaller than the minimum segment size, the current request is reduced so the remaining tail grows back to at least the minimum size. When no split is needed, the original missing range is returned unchanged.</remarks>
+			<returns Cref = "DataItemTransferRange">The next range to download.</returns>
+		</method>
+		<method name = "HasReachedConfiguredByteLimit">
+			<summary>Determine whether the current stream-follow download state has reached the configured maximum byte count.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The current stream-follow download state.</param>
+			<returns Cref = "Boolean">True when a maximum byte count is configured and the appended length meets or exceeds it; otherwise false.</returns>
+		</method>
+
+	</class>
+
+</DataControlDownloadSession>

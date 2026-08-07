@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<RegisteredCommand>
+
+    <record name = "RegisteredCommand">
+
+        <main>
+
+            <summary>Command registration.</summary>
+
+        </main>
+
+        <property name = "Command" Cref = "ICommand">
+
+            <summary>Command instance.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String">
+
+            <summary>Command handle.</summary>
+
+        </property>
+
+        <property name = "Permissions" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Optional protected-operation set granted to the issued <see cref="KusDepot.Security.CommandKey"/>.</summary>
+
+        </property>
+
+    </record>
+
+</RegisteredCommand>

@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureDescriptor>
+
+    <struct name = "AccessKeySignatureDescriptor">
+
+        <main>
+
+            <summary>Parsed access-key signature descriptor.</summary>
+
+            <remarks>
+                Represents the outer signed-envelope metadata surfaced by <see cref="AccessKeySecret"/>.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature descriptor.</summary>
+
+            <returns Cref = "AccessKeySignatureDescriptor">Empty access-key signature descriptor.</returns>
+
+        </constructor>
+
+        <property name = "Signed" Cref = "Boolean">
+
+            <summary>True when the outer access-key envelope carries a signature block; otherwise false.</summary>
+
+        </property>
+
+        <property name = "SignerToolID" Cref = "Guid">
+
+            <summary>Tool identifier claimed by the outer signature metadata.</summary>
+
+        </property>
+
+        <property name = "SignerAccessManagerID" Cref = "Guid">
+
+            <summary>Issuing access-manager identifier claimed by the outer signature metadata.</summary>
+
+        </property>
+
+        <property name = "Algorithm" Cref = "AccessKeySignatureAlgorithm">
+
+            <summary>Signature algorithm declared by the outer signature metadata.</summary>
+
+        </property>
+
+        <property name = "SignerKeyIDFormat" Cref = "AccessKeySignerKeyIdFormat">
+
+            <summary>Format discriminator for the signer key identifier.</summary>
+
+        </property>
+
+        <property name = "SignerKeyID" Cref = "ImmutableArray{Byte}">
+
+            <summary>Signer key identifier bytes exactly as stored in the outer signature metadata.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureDescriptor>

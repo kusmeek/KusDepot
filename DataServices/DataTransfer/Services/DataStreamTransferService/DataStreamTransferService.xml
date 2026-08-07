@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataStreamTransferService>
+  <class name="DataStreamTransferService">
+	<main>
+	  <summary>Implements stream transfer session operations with staged DataServices storage.</summary>
+	</main>
+	<field name="Coordinator">
+	  <summary>Coordinates item and session locks for stream transfer operations.</summary>
+	</field>
+	<field name="Registry">
+	  <summary>Resolves cross-family writer conflicts so source stream opens can reject conflicting segmented or stream writers.</summary>
+	</field>
+	<field name="Storage">
+	  <summary>Provides append-oriented staged storage primitives for stream transfer sessions.</summary>
+	</field>
+	<field name="Options">
+	  <summary>Configured transfer options used to clamp segment size policy and stage non-seekable payloads.</summary>
+	</field>
+	<constructor name="DataStreamTransferService">
+	  <summary>Create the stream transfer service.</summary>
+	  <param name="storage" Cref="IStreamTransferStorage">Append-oriented staged storage service.</param>
+	  <param name="registry" Cref="IDataItemTransferRegistry">Cross-family transfer registry used to detect conflicting active or retained writer sessions.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Session and item lock coordinator.</param>
+	  <param name="options" Cref="IOptions{DataItemTransferServiceOptions}">Configured transfer options.</param>
+	</constructor>
+	<method name="ClampPolicy">
+	  <summary>Clamp a requested segment size policy against the configured service defaults.</summary>
+	  <param name="requested" Cref="DataItemTransferSegmentSizePolicy">Requested segment size policy.</param>
+	  <param name="servicedefault" Cref="DataItemTransferSegmentSizePolicy">Configured service default segment size policy.</param>
+	  <returns Cref="DataItemTransferSegmentSizePolicy">Effective stream transfer segment size policy.</returns>
+	</method>
+	<method name="CreateOpenManifest">
+	  <summary>Create the initial source stream transfer manifest for a new session.</summary>
+	  <param name="request" Cref="OpenStreamTransferRequest">Open request.</param>
+	  <returns Cref="DataStreamTransferManifest">Initial source session manifest.</returns>
+	</method>
+	<method name="CreateFollowerManifest">
+	  <summary>Create the initial follower stream transfer manifest from the current source session state.</summary>
+	  <param name="request" Cref="OpenFollowStreamTransferRequest">Follower open request.</param>
+	  <param name="sourcemanifest" Cref="DataStreamTransferManifest">Current source manifest.</param>
+	  <returns Cref="DataStreamTransferManifest">Initial follower session manifest.</returns>
+	</method>
+	<method name="CreateRange">
+	  <summary>Create a normalized transfer range value.</summary>
+	  <param name="offset" Cref="Int64">Range starting offset.</param>
+	  <param name="length" Cref="Int64">Range length.</param>
+	  <returns Cref="DataItemTransferRange">Normalized transfer range.</returns>
+	</method>
+	<method name="EnumerateStoredManifests">
+	  <summary>Enumerate retained stream session manifests that satisfy the optional inspection filters.</summary>
+	  <param name="request" Cref="GetTransferSessionsRequest">Optional inspection filters.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="IEnumerable{DataStreamTransferManifest}">Matching retained stream manifests.</returns>
+	</method>
+	<method name="FinalizeSourceManifest">
+	  <summary>Create the finalized committed source manifest for a completed stream transfer session.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Current source manifest.</param>
+	  <param name="request" Cref="CompleteStreamTransferRequest">Completion request.</param>
+	  <param name="streamhash" Cref="Byte[]">Computed durable stream hash.</param>
+	  <returns Cref="DataStreamTransferManifest">Committed source manifest.</returns>
+	</method>
+	<method name="MatchesSessionFilter">
+	  <summary>Determine whether a retained stream manifest matches the requested inspection filters.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Retained stream manifest.</param>
+	  <param name="request" Cref="GetTransferSessionsRequest">Optional inspection filters.</param>
+	  <returns Cref="Boolean">True when the manifest matches the requested filters.</returns>
+	</method>
+	<method name="LoadRequiredManifest">
+	  <summary>Load and validate that a persisted stream transfer manifest exists for the given session and item identity.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="itemid" Cref="Guid">Immutable data item identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{DataStreamTransferManifest}">Loaded stream transfer manifest.</returns>
+	</method>
+	<method name="ToServerSessionInfo">
+	  <summary>Map a retained stream manifest to the server inspection record shape.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Retained stream manifest.</param>
+	  <returns Cref="DataControlServerSessionInfo">Server inspection record for the retained stream session.</returns>
+	</method>
+	<method name="MapFailureCode">
+	  <summary>Map a known stream transfer error message to its stream transfer failure code.</summary>
+	  <param name="message" Cref="String">Known error message.</param>
+	  <returns Cref="StreamTransferFailureCode">Mapped stream transfer failure code.</returns>
+	</method>
+	<method name="ReadRequiredCompletionStreamHash">
+	  <summary>Compute the durable stream hash for the currently appended prefix of a source session.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Current source manifest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Byte[]}">Computed durable stream hash.</returns>
+	</method>
+	<method name="SynchronizeFollowerManifest">
+	  <summary>Refresh follower state from the current source manifest while preserving follower identity.</summary>
+	  <param name="followermanifest" Cref="DataStreamTransferManifest">Current follower manifest.</param>
+	  <param name="sourcemanifest" Cref="DataStreamTransferManifest">Current source manifest.</param>
+	  <returns Cref="DataStreamTransferManifest">Updated follower manifest.</returns>
+	</method>
+	<method name="ValidateAbortRequest">
+	  <summary>Validate a stream transfer abort request.</summary>
+	  <param name="request" Cref="AbortTransferRequest">Abort request.</param>
+	</method>
+	<method name="ValidateCompleteRequest">
+	  <summary>Validate a stream transfer completion request.</summary>
+	  <param name="request" Cref="CompleteStreamTransferRequest">Completion request.</param>
+	</method>
+	<method name="ValidateFollowerReadable">
+	  <summary>Validate that a source or follower manifest is readable for stream transfer operations.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Stream transfer manifest.</param>
+	</method>
+	<method name="ValidateHashBytes">
+	  <summary>Validate that two hash payloads are equal.</summary>
+	  <param name="actual" Cref="Byte[]">Actual hash.</param>
+	  <param name="expected" Cref="Byte[]">Expected hash.</param>
+	  <param name="message" Cref="String">Known error message to throw when validation fails.</param>
+	</method>
+	<method name="ValidateHashPayloadAsync">
+	  <summary>Validate the SHA-512 of a readable payload stream.</summary>
+	  <param name="expectedhash" Cref="Byte[]">Expected hash.</param>
+	  <param name="payload" Cref="Stream">Readable payload stream.</param>
+	  <param name="expectedlength" Cref="Int64">Expected readable payload length.</param>
+	  <param name="message" Cref="String">Known error message to throw when validation fails.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ValidateManifestIdentity">
+	  <summary>Validate that a stream transfer manifest matches the expected session and item identity.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Stream transfer manifest.</param>
+	  <param name="sessionid" Cref="Guid">Expected session identifier.</param>
+	  <param name="itemid" Cref="Guid">Expected item identifier.</param>
+	</method>
+	<method name="ValidateOpenFollowRequest">
+	  <summary>Validate a stream follower open request.</summary>
+	  <param name="request" Cref="OpenFollowStreamTransferRequest">Follower open request.</param>
+	</method>
+	<method name="ValidateOpenRequest">
+	  <summary>Validate a stream source open request.</summary>
+	  <param name="request" Cref="OpenStreamTransferRequest">Source open request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	</method>
+	<method name="ValidateOptionalHashBytes">
+	  <summary>Validate that an optional hash is either empty or the expected SHA-512 length.</summary>
+	  <param name="hash" Cref="Byte[]?">Optional hash payload.</param>
+	</method>
+	<method name="ValidateReadRequest">
+	  <summary>Validate a stream transfer segment read request.</summary>
+	  <param name="request" Cref="GetStreamTransferSegmentRequest">Segment read request.</param>
+	</method>
+	<method name="ValidateReOpenFollowerRequest">
+	  <summary>Validate a stream follower reopen request.</summary>
+	  <param name="request" Cref="ReOpenFollowStreamTransferRequest">Follower reopen request.</param>
+	</method>
+	<method name="ValidateReOpenRequest">
+	  <summary>Validate a stream source reopen request.</summary>
+	  <param name="request" Cref="ReOpenStreamTransferRequest">Source reopen request.</param>
+	</method>
+	<method name="ValidateRemoveRequest">
+	  <summary>Validate a stream transfer remove request.</summary>
+	  <param name="request" Cref="RemoveTransferRequest">Remove request.</param>
+	</method>
+	<method name="ValidateSegmentHash">
+	  <summary>Validate the SHA-512 of an appended stream segment.</summary>
+	  <param name="expectedhash" Cref="Byte[]">Expected segment hash.</param>
+	  <param name="payload" Cref="Stream">Readable staged segment payload stream.</param>
+	  <param name="expectedlength" Cref="Int64">Expected readable payload length.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ValidateSegmentLengthAgainstPolicy">
+	  <summary>Validate a requested append length against the effective stream transfer segment size policy.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Current source manifest.</param>
+	  <param name="length" Cref="Int64">Requested append length.</param>
+	</method>
+	<method name="ValidateSourceReadable">
+	  <summary>Validate that a source manifest is readable for stream transfer operations.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Source stream transfer manifest.</param>
+	</method>
+	<method name="ValidateStateRequest">
+	  <summary>Validate a stream transfer state request.</summary>
+	  <param name="identity" Cref="DataItemTransferIdentity">Transfer identity.</param>
+	</method>
+	<method name="ValidateWritableSource">
+	  <summary>Validate that a source stream transfer manifest remains writable for append or completion operations.</summary>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Source stream transfer manifest.</param>
+	</method>
+	<method name="ValidateWriteRequest">
+	  <summary>Validate a stream transfer append request.</summary>
+	  <param name="request" Cref="PutStreamTransferSegmentRequest">Append request.</param>
+	  <param name="payload" Cref="Stream">Readable append payload stream.</param>
+	</method>
+  </class>
+	<class name="SeekablePayloadBuffer">
+	  <main>
+		<summary>Provides a seekable temporary payload wrapper for non-seekable stream transfer append request bodies.</summary>
+	  </main>
+	  <property name="Stream">
+		<summary>Seekable staged payload stream.</summary>
+	  </property>
+	  <constructor name="SeekablePayloadBuffer">
+		<summary>Create a temporary seekable payload wrapper.</summary>
+		<param name="stream" Cref="Stream">Seekable staged payload stream.</param>
+	  </constructor>
+	  <method name="Create">
+		<summary>Materialize a readable payload stream as a seekable stream when necessary.</summary>
+		<param name="source" Cref="Stream">Readable payload stream.</param>
+		<param name="expectedlength" Cref="Int64">Expected payload length.</param>
+		<param name="temporaryuploadpath" Cref="String?">Optional temporary staging directory.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{SeekablePayloadBuffer}">Seekable staged payload wrapper.</returns>
+	  </method>
+	  <method name="DisposeAsync">
+		<summary>Dispose the staged payload stream.</summary>
+		<returns Cref="ValueTask">Completion task.</returns>
+	  </method>
+	</class>
+</DataStreamTransferService>

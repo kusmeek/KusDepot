@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestAttribute>
+
+    <class name = "ToolManifestAttribute">
+
+        <main>
+
+            <summary>Metadata.</summary>
+
+            <remarks>Declares manifest identity metadata for a custom tool-operations schema.</remarks>
+
+        </main>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Gets the schema identifier to publish for the annotated tool.</summary>
+
+        </property>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Gets or sets the access-key realm identifier to publish for the annotated tool.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaVersion" Cref = "String">
+
+            <summary>Gets or sets the schema version to publish for the annotated tool.</summary>
+
+        </property>
+
+        <property name = "CompanionNamespace" Cref = "String">
+
+            <summary>Gets or sets an optional namespace override for the generated companion manifest class.</summary>
+
+            <remarks>When omitted, the generated companion class uses the annotated tool type's containing namespace.</remarks>
+
+        </property>
+
+        <property name = "CompanionTypeName" Cref = "String">
+
+            <summary>Gets or sets an optional type-name override for the generated companion manifest class.</summary>
+
+            <remarks>When omitted, the generated companion class name falls back to the annotated tool type name with the standard manifest companion suffix.</remarks>
+
+        </property>
+
+    </class>
+
+</ToolManifestAttribute>

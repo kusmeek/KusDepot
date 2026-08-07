@@ -1,0 +1,121 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessRequest>
+
+    <class name = "AccessRequest">
+
+        <main>
+
+            <summary>Access Request.</summary>
+
+        </main>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}?">
+
+            <summary>Requested audiences for the access request.</summary>
+
+        </property>
+
+        <property name = "Credential" Cref = "AccessCredential?">
+
+            <summary>Presented credential material for the access request.</summary>
+
+        </property>
+
+        <property name = "Lifetime" Cref = "TimeSpan?">
+
+            <summary>Requested lifetime for the access request before policy and issuance limits are applied.</summary>
+
+        </property>
+
+        <property name = "Operations" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Requested protected operations for the access key to be issued.</summary>
+
+        </property>
+
+        <property name = "Properties" Cref = "ImmutableDictionary{String,String}?">
+
+            <summary>Optional request properties for extensibility.</summary>
+
+        </property>
+
+        <property name = "RequestedAssertions" Cref = "ImmutableArray{AccessAssertionRequest}?">
+
+            <summary>Requested assertions to issue with the resulting access key.</summary>
+
+        </property>
+
+        <property name = "RequestedKeyType" Cref = "String?">
+
+            <summary>Requested access-key type token before normalization.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}?">
+
+            <summary>Requested scopes for the access request.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String?">
+
+            <summary>Logical subject carried by the access request.</summary>
+
+        </property>
+
+        <method name = "Equals">
+
+            <summary>Determine equality.</summary>
+
+            <param name = "other" Cref = "AccessRequest?">Other request.</param>
+
+            <returns Cref = "Boolean">True if equal.</returns>
+
+        </method>
+
+        <method name = "ParseAny">
+
+            <summary>Parse AccessRequest.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "AccessRequest?">Output AccessRequest.</returns>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse AccessRequest.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "AccessRequest?">Parsed AccessRequest.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse AccessRequest.</summary>
+
+            <typeparam name = "TResult">Type to Parse.</typeparam>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "result" Cref = "TResult">Output AccessRequest.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+    </class>
+
+</AccessRequest>

@@ -1,0 +1,143 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<HashingReadStream>
+
+	<class name = "HashingReadStream">
+
+		<main>
+
+			<summary>Readable stream wrapper that hashes every returned byte while forwarding read operations to an underlying source stream.</summary>
+
+		</main>
+
+		<field name = "Source" Cref = "Stream">
+
+			<summary>The underlying source stream that provides forwarded read operations.</summary>
+
+		</field>
+
+		<field name = "Hash" Cref = "IncrementalHash">
+
+			<summary>The incremental SHA-512 hash state fed by each forwarded read.</summary>
+
+		</field>
+
+		<field name = "Finalized" Cref = "Boolean">
+
+			<summary>True once the current hash value has been finalized and retrieved.</summary>
+
+		</field>
+
+		<field name = "LeaveOpen" Cref = "Boolean">
+
+			<summary>True when the underlying source stream should remain open when this wrapper is disposed.</summary>
+
+		</field>
+
+		<field name = "disposed" Cref = "Boolean"><summary>Tracks whether the stream has been disposed.</summary></field>
+
+
+		<constructor name = "Constructor">
+
+			<summary>Create a hashing read wrapper over an existing source stream.</summary>
+
+			<param name = "source" Cref = "Stream">The source stream that provides forwarded reads.</param>
+			
+            <param name = "leaveopen" Cref = "Boolean">True to leave the source stream open when the hashing wrapper is disposed; otherwise false.</param>			
+
+		</constructor>
+
+		<method name = "GetHashAndReset">
+
+			<summary>Finalize and return the current SHA-512 digest for all bytes read so far.</summary>
+
+			<returns Cref = "Byte[]">The finalized SHA-512 digest.</returns>
+
+		</method>
+
+		<property name = "CanRead" Cref = "Boolean"><summary>Gets a value indicating whether the underlying source stream supports reading.</summary></property>
+		<property name = "CanSeek" Cref = "Boolean"><summary>Gets a value indicating whether the underlying source stream supports seeking.</summary></property>
+		<property name = "CanWrite" Cref = "Boolean"><summary>Gets a value indicating whether this wrapper supports writing.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the length of the underlying source stream.</summary></property>
+		<property name = "Position" Cref = "Int64"><summary>Gets or sets the current position within the underlying source stream.</summary></property>
+		
+		<method name = "Flush">
+			<summary>Flush the underlying source stream.</summary>
+		</method>
+		<method name = "FlushAsync">
+			<summary>Asynchronously flush the underlying source stream.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that completes when the underlying flush operation completes.</returns>
+		</method>
+		<method name = "Read">
+			<summary>Read bytes from the underlying source stream and append them to the incremental SHA-512 state.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<returns Cref = "Int32">The number of bytes read from the underlying source stream.</returns>
+		</method>
+		<method name = "ReadSpan">
+			<summary>Read bytes into the supplied span and append the returned bytes to the incremental SHA-512 state.</summary>
+			<param name = "buffer" Cref = "Span{Byte}">Destination span for the read bytes.</param>
+			<returns Cref = "Int32">The number of bytes read from the underlying source stream.</returns>
+		</method>
+		<method name = "ReadByte">
+			<summary>Read a single byte from the underlying source stream and append it to the incremental SHA-512 state.</summary>
+			<returns Cref = "Int32">The read byte value, or -1 at end of stream.</returns>
+		</method>
+		<method name = "ReadAsync">
+			<summary>Asynchronously read bytes from the underlying source stream and append them to the incremental SHA-512 state.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "ReadAsyncMemory">
+			<summary>Asynchronously read bytes into the supplied memory and append the returned bytes to the incremental SHA-512 state.</summary>
+			<param name = "buffer" Cref = "Memory{Byte}">Destination memory for the read bytes.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{Int32}">A task-like value that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "Seek">
+			<summary>Change the position within the underlying source stream.</summary>
+			<param name = "offset" Cref = "Int64">Byte offset relative to <c>origin</c>.</param>
+			<param name = "origin" Cref = "SeekOrigin">Reference point used to obtain the new position.</param>
+			<returns Cref = "Int64">The new position within the underlying source stream.</returns>
+		</method>
+		<method name = "SetLength">
+			<summary>Set the length of the underlying source stream.</summary>
+			<param name = "value" Cref = "Int64">The desired length of the stream.</param>
+		</method>
+		<method name = "Write">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "Byte[]">Unused source buffer.</param>
+			<param name = "offset" Cref = "Int32">Unused source offset.</param>
+			<param name = "count" Cref = "Int32">Unused byte count.</param>
+		</method>
+		<method name = "WriteSpan">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "ReadOnlySpan{Byte}">Unused source buffer.</param>
+		</method>
+		<method name = "WriteByte">
+			<summary>Writing is not supported.</summary>
+			<param name = "value" Cref = "Byte">Unused byte value.</param>
+		</method>
+		<method name = "WriteAsync">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "Byte[]">Unused source buffer.</param>
+			<param name = "offset" Cref = "Int32">Unused source offset.</param>
+			<param name = "count" Cref = "Int32">Unused byte count.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that faults because writing is not supported.</returns>
+		</method>
+		<method name = "WriteAsyncMemory">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "ReadOnlyMemory{Byte}">Unused source buffer.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask">A task-like value that faults because writing is not supported.</returns>
+		</method>
+
+	</class>
+
+</HashingReadStream>

@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU;x64</Platforms>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+        <AssemblyName>KusDepot.ReactF</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <WarningLevel></WarningLevel>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileTag>kusdepotreactf</DockerfileTag>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="FSharp.Core" />
+
+        <PackageReference Include="Grpc.AspNetCore.Server" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+
+        <PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.AspNetCore" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+        <ProjectReference Include="..\ReactG\ReactG.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Docker">
+
+        <None Include="Dockerfile" />
+        <None Include=".dockerignore" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="FSharpCompile">
+
+        <Compile Include="Utility.fs" />
+        <Compile Include="ToolShape.fs" />
+        <Compile Include="ToolShapeGenerator.fs" />
+        <Compile Include="ToolShapeInterop.fs" />
+        <Compile Include="GrpcService.fs" />
+        <Compile Include="StartUp.fs" />
+
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownloadCompletionResult>
+
+	<record name="DataControlDownloadCompletionResult">
+
+		<main>
+
+			<summary>Captures the final outcome of a client download session.</summary>
+
+		</main>
+
+		<property name="Item" Cref="DataItem">
+
+			<summary>Reconstructed data item metadata/object payload returned by the download session.</summary>
+
+		</property>
+
+		<property name="StreamPath" Cref="String">
+
+			<summary>Path to the fully materialized downloaded stream content.</summary>
+
+		</property>
+
+		<property name="Session" Cref="DataControlTransferSessionInfo">
+
+			<summary>Local session metadata associated with the completed download.</summary>
+
+		</property>
+
+		<property name="TransferFamily" Cref="DataControlTransferFamily">
+
+			<summary>Transfer family used by the completed download.</summary>
+
+		</property>
+
+		<property name="LiveItem" Cref="DataStreamItem">
+
+			<summary>Live stream item bound to the session when follow-mode materialization preserves a live view.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlDownloadCompletionResult>

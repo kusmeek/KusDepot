@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PipelineAccessPolicyEngine>
+
+    <class name = "PipelineAccessPolicyEngine">
+
+        <main>
+
+            <summary>Pipeline access-policy engine.</summary>
+
+            <remarks>
+                Evaluates an ordered set of policy-stages and stops on the first deny decision.
+            </remarks>
+
+        </main>
+
+        <field name = "Stages" Cref = "ImmutableArray{IAccessPolicyStageMode}">
+
+            <summary>Ordered policy-stages evaluated by the pipeline engine.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a pipeline access-policy engine from an ordered stage set.</summary>
+
+            <param name = "stages" Cref = "IEnumerable{IAccessPolicyStageMode}?"><para>Ordered stages for evaluation.</para><para>Null yields an empty stage set that always allows.</para></param>
+
+            <returns Cref = "PipelineAccessPolicyEngine">Pipeline access-policy engine.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate the configured stage set for the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">First deny decision from the stage set, or allow when every stage allows.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously the configured stage set for the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous pipeline evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">First deny decision from the stage set, or allow when every stage allows.</returns>
+
+        </method>
+
+    </class>
+
+</PipelineAccessPolicyEngine>

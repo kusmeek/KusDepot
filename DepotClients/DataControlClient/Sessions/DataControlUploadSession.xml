@@ -1,0 +1,137 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlUploadSession>
+
+	<class name = "DataControlUploadSession">
+
+		<main>
+
+			<summary>Client-side upload session that persists local state and sends either finite segmented ranges or stream append extents to DataControl.</summary>
+
+		</main>
+
+		<field name = "client" Cref = "IDataControlClient"><summary>The DataControl client used to issue segmented or stream transfer service calls.</summary></field>
+		<field name = "storage" Cref = "DataControlClientWorkingDirectoryStorage"><summary>The local working directory storage that persists segmented or stream upload state and source content.</summary></field>
+		<field name = "token" Cref = "String?"><summary>The optional bearer token used for authenticated service calls.</summary></field>
+		<field name = "StreamSource" Cref = "Stream?"><summary>The live stream source retained for stream-upload sessions.</summary></field>
+		<field name = "CompletionMode" Cref = "StreamCompletionMode"><summary>The configured completion behavior used by one-call stream upload helpers.</summary></field>
+		<field name = "MaxBytes" Cref = "Int64?"><summary>The optional byte limit applied by bounded stream upload completion helpers.</summary></field>
+		<field name = "PublishFinalStreamHash" Cref = "Boolean"><summary>Controls whether the session should publish a final full-stream SHA-512 when committing a stream upload.</summary></field>
+		<field name = "FinalStreamSHA512" Cref = "Byte[]"><summary>Cached final full-stream SHA-512 when it is already known from prepared finite staging or a prior commit-time resolution.</summary></field>
+		<field name = "RunningStreamHash" Cref = "IncrementalHash?"><summary>Optional same-session incremental SHA-512 state used while buffering live stream bytes into the staged local stream file.</summary></field>
+		<field name = "RunningStreamHashLength" Cref = "Int64"><summary>Number of staged local stream bytes currently represented by the optional same-session incremental hash state.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Create a client-side upload session wrapper.</summary>
+			<param name = "client" Cref = "IDataControlClient">The DataControl client used for service calls.</param>
+			<param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">The local working directory storage for the session.</param>
+			<param name = "token" Cref = "String?">Optional bearer token used for authenticated service calls.</param>
+			<param name = "session" Cref = "DataControlTransferSessionInfo">The current persisted session metadata and transfer state.</param>
+			<param name = "streamsource" Cref = "Stream?">Optional live source stream retained for stream-family upload sessions.</param>
+			<param name = "completionmode" Cref = "StreamCompletionMode">Configured completion behavior for stream-family uploads.</param>
+			<param name = "maxbytes" Cref = "Int64?">Optional maximum number of bytes the stream upload helper should append before stopping.</param>
+			<param name = "publishfinalstreamhash" Cref = "Boolean">Controls whether the session should publish a final full-stream SHA-512 during stream-family commit.</param>
+			<param name = "finalstreamsha512" Cref = "Byte[]?">Optional precomputed final full-stream SHA-512 captured during finite source preparation.</param>
+		</constructor>
+
+		<property name = "Session" Cref = "DataControlTransferSessionInfo"><summary>Gets the current local upload session metadata and transfer state snapshot.</summary></property>
+
+		<method name = "UploadNext">
+			<summary>Upload the next planned finite range or stream append extent from the local persisted source content.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the next upload operation succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "UploadSegmentNext">
+			<summary>Upload the next planned finite segmented range from the local persisted source content and return the exact range accepted for progress reporting.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataItemTransferRange?}">A task that completes with the exact segmented range uploaded and persisted locally, or null when no segmented upload can be performed or the operation does not succeed.</returns>
+		</method>
+		<method name = "UploadToCompletion">
+			<summary>Upload remaining finite ranges or stream extents until the session reaches its configured stopping condition or no additional upload can be performed.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successfully uploaded finite segment or stream extent.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully uploaded finite segments or stream extents.</returns>
+		</method>
+		<method name = "Commit">
+			<summary>Finalize the upload session through segmented commit or stream completion and persist the resulting state locally.</summary>
+			<param name = "finalitem" Cref = "DataItem?">Optional metadata-only final item payload for stream-family commits. When supplied, its ID is overwritten to the session item ID and its serialized payload becomes the committed object metadata while the uploaded stream bytes remain the session content.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlUploadCompletionResult?}">A task that completes with the finalized upload result, or null when completion is not possible or does not succeed.</returns>
+		</method>
+		<method name = "CreateFinalCommittedObjectPayload">
+			<summary>Validate and serialize the optional final committed item payload for a stream-family commit.</summary>
+			<param name = "finalitem" Cref = "DataItem">The metadata-only final item whose ID is forced to the session item ID before serialization.</param>
+			<returns Cref = "Byte[]">The serialized final object payload to send with stream completion.</returns>
+			<exception cref = "ArgumentNullException">Thrown when the supplied final item is null.</exception>
+			<exception cref = "InvalidOperationException">Thrown when the supplied final item cannot be forced to the session item ID or exposes FILE-backed, in-memory, or stream-returning content.</exception>
+		</method>
+		<method name = "ResolveFinalStreamSHA512Async">
+			<summary>Resolve the final full-stream SHA-512 to publish for a stream-family commit using any prepared finite-source hash, same-session buffered hash state, or staged-file recomputation fallback.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">Current stream upload state being committed.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Byte[]}">A task that completes with the final full-stream SHA-512 to publish, or an empty byte array when final stream hash publication is disabled.</returns>
+			<exception cref = "InvalidOperationException">Thrown when final stream hash publication is enabled but the client cannot produce a valid full-stream hash for the staged local stream.</exception>
+		</method>
+		<method name = "RecomputeFinalStreamSHA512Async">
+			<summary>Recompute the final full-stream SHA-512 from the staged local stream file when no prepared or same-session hash is available.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">Current stream upload state whose staged local stream file should be hashed.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Byte[]?}">A task that completes with the recomputed SHA-512 when the staged local stream file is available and length-consistent; otherwise null.</returns>
+		</method>
+		<method name = "DeleteLocalState">
+			<summary>Delete the local working directory state for the current upload session without contacting the service.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local session state directory is deleted successfully; otherwise false.</returns>
+		</method>
+		<method name = "RemoveTransfer">
+			<summary>Remove the retained remote upload transfer session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote removal succeeds and local state is removed; otherwise false.</returns>
+		</method>
+		<method name = "Abort">
+			<summary>Abort the remote upload session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote abort succeeds and local state is removed; otherwise false.</returns>
+		</method>
+		<method name = "CreateProgress">
+			<summary>Create a transfer progress snapshot for a completed uploaded range.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The refreshed transfer state after the successful upload.</param>
+			<param name = "latestrange" Cref = "DataItemTransferRange">The range that was most recently uploaded.</param>
+			<returns Cref = "DataItemTransferProgress">A progress snapshot describing the updated upload state.</returns>
+		</method>
+		<method name = "UploadStreamNext">
+			<summary>Upload the next available buffered stream extent, replenishing the local buffer from the retained source stream when needed, and refresh persisted stream state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when a stream extent upload succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextRange">
+			<summary>Plan the next upload range from the first normalized missing range using the effective segment size policy.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The current upload transfer state.</param>
+			<remarks>The algorithm starts from the first missing range. It then clamps the preferred segment size into the configured minimum and maximum bounds. If taking that planned prefix would leave behind a non-terminal tail smaller than the minimum segment size, the current request is reduced so the remaining tail grows back to at least the minimum size. When no split is needed, the original missing range is returned unchanged.</remarks>
+			<returns Cref = "DataItemTransferRange">The next range to upload.</returns>
+		</method>
+		<method name = "BufferNextStreamPayload">
+			<summary>Append the next chunk of bytes from the retained live stream source into the local buffered stream file.</summary>
+			<param name = "path" Cref = "String">The local buffered stream file path.</param>
+			<param name = "requestedLength" Cref = "Int64">The maximum number of bytes to buffer from the live source.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int64}">A task that completes with the number of bytes appended to the local buffered stream file.</returns>
+		</method>
+		<method name = "HasReachedConfiguredByteLimit">
+			<summary>Determine whether the current stream upload state has reached the configured maximum byte count.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The current stream upload state.</param>
+			<returns Cref = "Boolean">True when a maximum byte count is configured and the appended length meets or exceeds it; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextAppendLength">
+			<summary>Plan the next stream extent length using the effective preferred segment size and any configured byte limit.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The current stream upload state.</param>
+			<returns Cref = "Int64">The number of bytes to attempt to buffer and upload next.</returns>
+		</method>
+		<method name = "DisposeStreamSource">
+			<summary>Dispose the retained live stream source using asynchronous disposal when available.</summary>
+			<returns Cref = "ValueTask">A value task that completes when disposal has finished.</returns>
+		</method>
+
+	</class>
+
+</DataControlUploadSession>

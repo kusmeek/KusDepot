@@ -1,0 +1,9 @@
+﻿global using KusDepot;
+global using KusDepot.Data.Models;
+global using KusDepot.Data.Services.Configuration;
+global using Orleans;
+global using System;
+global using System.Collections.Generic;
+global using System.IO;
+global using System.Threading;
+global using System.Threading.Tasks;

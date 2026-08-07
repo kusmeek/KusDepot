@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedTransferIntegrity>
+  <record name="PublishedTransferIntegrity">
+	<main>
+	  <summary>Immutable published-transfer integrity metadata for committed object and optional stream payload verification.</summary>
+	</main>
+	<property name="ObjectSHA512" Cref="Byte[]"><summary>SHA-512 of the serialized committed object payload.</summary></property>
+	<property name="StreamSHA512" Cref="Byte[]"><summary>Optional SHA-512 of the committed stream payload.</summary></property>
+  </record>
+</PublishedTransferIntegrity>

@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OpenUploadTransfer>
+
+	<record name = "OpenUploadTransferRequest">
+		<main><summary>Request to create a new staged segmented upload session.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Requested transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "ObjectPayload" Cref = "Byte[]"><summary>Serialized data item payload.</summary></property>
+		<property name = "ObjectSHA512" Cref = "Byte[]"><summary>SHA-512 of the serialized object payload.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>SHA-512 of the complete stream payload.</summary></property>
+		<property name = "StreamLength" Cref = "Int64"><summary>Declared stream length in bytes.</summary></property>
+		<property name = "RequestedSegmentSizePolicy" Cref = "DataItemTransferSegmentSizePolicy?"><summary>Optional requested segment size guidance.</summary></property>
+		<property name = "ObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional descriptive object summary.</summary></property>
+	</record>
+
+	<record name = "OpenUploadTransferResponse">
+		<main><summary>Response containing the current state of a staged segmented upload session.</summary></main>
+		<property name = "State" Cref = "DataItemTransferState"><summary>Current transfer state.</summary></property>
+	</record>
+
+</OpenUploadTransfer>

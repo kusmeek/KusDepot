@@ -1,0 +1,602 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<AccessManager>
+
+    <class name = "AccessManager">
+
+        <main>
+
+            <summary>Default Access Manager.</summary>
+
+            <remarks>
+                <para>Issues and validates confidential access tokens for a tool using a symmetric realm key.</para>
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <returns Cref = "AccessManager">New AccessManager.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorOptions">
+
+            <summary>Constructor.</summary>
+
+            <param name = "options" Cref = "AccessManagerOptions?">Access manager configuration.</param>
+
+            <param name = "tool" Cref = "ITool?">Tool.</param>
+
+            <param name = "logger" Cref = "ILogger?">Logger.</param>
+
+            <returns Cref = "AccessManager">New AccessManager.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorPrivate">
+
+            <summary>Private field initializer.</summary>
+
+            <param name = "membershipcachesize" Cref = "Int32?">MembershipCache maximum size.</param>
+
+            <returns Cref = "AccessManager">New AccessManager.</returns>
+
+        </constructor>
+
+        <field name = "ID" Cref= "Guid?">
+            <summary>Access Manager ID.</summary>
+        </field>
+
+        <field name = "Initialized" Cref= "Boolean">
+            <summary>True after the access manager completes its first successful initialization.</summary>
+        </field>
+
+        <field name = "Tool" Cref= "ITool?">
+            <summary>Owning tool.</summary>
+        </field>
+
+        <field name = "Logger" Cref= "ILogger?">
+            <summary>Logger used for AccessManager failures.</summary>
+        </field>
+
+        <field name = "RealmKey" Cref= "Byte[]?">
+            <summary>Symmetric realm key used to issue and validate confidential access tokens.</summary>
+        </field>
+
+        <field name = "SignatureProcessor" Cref= "IAccessKeySignatureProcessorMode?">
+            <summary>Optional signature processor mode used for signed issuance and for signature-validation fact generation during custom policy evaluation.</summary>
+        </field>
+
+        <field name = "AccessKeys" Cref= "Dictionary{String,HashSet{AccessKeyToken}}">
+            <summary>Subject-to-token membership map for active access tokens.</summary>
+        </field>
+
+        <field name = "MembershipCache" Cref= "MembershipCache">
+            <summary>Bounded cache of resolved access token identities keyed by ciphertext-envelope characteristics.</summary>
+        </field>
+
+        <field name = "KeyMaker" Cref= "KeyMaker?">
+            <summary>Optional key-maker captured during construction for custom access-key construction.</summary>
+        </field>
+
+        <field name = "KeyAssertionGenerator" Cref= "IAccessKeyAssertionGeneratorMode?">
+            <summary>Optional access-key assertion generator mode used to resolve synchronous or asynchronous assertion generation at issuance time.</summary>
+        </field>
+
+        <field name = "MembershipsByToken" Cref= "Dictionary{AccessKeyToken,MembershipToken}">
+            <summary>Authoritative token-to-membership metadata index for locally known memberships.</summary>
+        </field>
+
+        <field name = "Options" Cref= "AccessManagerOptions?">
+            <summary>Optional constructor-led configuration payload.</summary>
+        </field>
+
+        <field name = "PolicyEngine" Cref= "IAccessPolicyEngineMode">
+            <summary>Cached access-policy engine mode used for synchronous or asynchronous custom policy evaluation paths.</summary>
+        </field>
+
+        <field name = "ManifestIdentity" Cref= "ToolManifestIdentity?">
+            <summary>Cached tool manifest identity bound during access-manager initialization.</summary>
+        </field>
+
+        <field name = "UsesDefaultPolicyEngine" Cref= "Boolean">
+            <summary>True when the cached policy engine is the singleton <see cref="DefaultAccessPolicyEngine"/> and the access manager can use its default fast path.</summary>
+        </field>
+
+        <property name = "MyNoExceptions" Cref= "Boolean">
+            <summary>Suppress AccessManager exceptions when the owning tool has disabled exception propagation.</summary>
+        </property>
+
+        <method name = "AddMembership">
+            <summary>Add AccessKeyToken membership for a subject.</summary>
+            <param name = "subject" Cref = "String">Subject.</param>
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+            <returns Cref = "Boolean">True if added or already present.</returns>
+        </method>
+
+        <method name = "Authorize">
+            <summary>Determine whether an access key is currently valid for this tool context without requiring a protected operation.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to validate.</param>
+            <returns Cref = "Boolean">True if the key is valid for the manifest identity and membership set and passes access policy evaluation with a null operation; otherwise false.</returns>
+        </method>
+
+        <method name = "AuthorizeAsync">
+            <summary>Determine asynchronously whether an access key is currently valid for this tool context without requiring a protected operation.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to validate.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous authorization flow.</param>
+            <returns Cref = "Task{Boolean}">True if the key is valid for the manifest identity and membership set and passes access policy evaluation with a null operation; otherwise false.</returns>
+        </method>
+
+        <method name = "AccessCheckAsync">
+            <summary>Determine asynchronously whether an access key grants a tool operation resolved by name.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to validate.</param>
+            <param name = "operationname" Cref = "String?">Tool operation name to validate.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous access-check flow.</param>
+            <returns Cref = "Task{Boolean}">True if access is granted; otherwise false.</returns>
+        </method>
+
+        <method name = "AccessCheckIndexAsync">
+            <summary>Determine asynchronously whether an access key grants an explicit protected operation index.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to validate.</param>
+            <param name = "operation" Cref = "Int32">Protected operation index to validate.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous access-check flow.</param>
+            <returns Cref = "Task{Boolean}">True if access is granted; otherwise false.</returns>
+        </method>
+
+        <method name = "GenerateRealmKey">
+            <summary>Generate realm key bytes.</summary>
+            <returns Cref = "Byte[]?">Realm key.</returns>
+        </method>
+
+        <method name = "GenerateAccessKeyAsync">
+            <summary>Generate asynchronously an access key of the requested type for the supplied subject using explicit issuance options.</summary>
+            <typeparam name = "TKey">Concrete access-key type to generate.</typeparam>
+            <param name = "subject" Cref = "String?">Subject string to bind into the issued token.</param>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including operations, lifetime, audiences, and scopes.</param>
+            <param name = "key" Cref = "AccessKey?">Access key used to authorize locked-tool issuance.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous generation flow.</param>
+            <returns Cref = "Task{TKey}">Generated access key, or null if generation fails, the requested type is unsupported, or issuance is denied.</returns>
+        </method>
+
+        <method name = "ResolvePolicyEngine">
+            <summary>Resolve the cached access-policy engine and whether the current access manager uses the default engine fast path.</summary>
+            <returns Cref = "Void">None.</returns>
+        </method>
+
+        <method name = "TryGetSignatureSigner">
+            <summary>Resolve the synchronous signer view used for signed access-key issuance from the configured signature processor mode.</summary>
+            <param name = "processor" Cref = "IAccessKeySignatureProcessorMode?">Configured signature processor mode.</param>
+            <returns Cref = "IAccessKeySigner?">Synchronous signer, or null when signed issuance is not configured.</returns>
+        </method>
+
+        <method name = "TryGetSignatureValidation">
+            <summary>Create signature-validation facts synchronously for a token secret using the configured signature processor when available.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity used to build the validation context.</param>
+            <param name = "secret" Cref = "Byte[]?">Serialized access-key secret envelope.</param>
+            <param name = "signaturevalidation" Cref = "SignatureValidation">Output signature-validation facts.</param>
+            <returns Cref = "Boolean">True when the signature-validation facts were created successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "CreateSignatureValidationContext">
+            <summary>Create the immutable validation context passed to synchronous and asynchronous signature processors.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity used to supply realm, schema, and manifest facts.</param>
+            <param name = "signature" Cref = "AccessKeySignatureDescriptor">Parsed outer signature metadata for the current key.</param>
+            <param name = "signedregion" Cref = "ReadOnlyMemory{Byte}">Canonical signed-region bytes for the current key.</param>
+            <param name = "signaturebytes" Cref = "ReadOnlyMemory{Byte}">Raw signature bytes for the current key.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger available to the configured signature processor.</param>
+            <returns Cref = "AccessKeySignatureValidationContext">Immutable validation context.</returns>
+        </method>
+
+        <method name = "CreateSignedUnverifiedSignatureValidation">
+            <summary>Create the default signature-validation facts for a signed key when no verification processor ran.</summary>
+            <param name = "signature" Cref = "AccessKeySignatureDescriptor">Parsed outer signature metadata for the signed key.</param>
+            <returns Cref = "SignatureValidation">Signed but unverified signature-validation facts.</returns>
+        </method>
+
+        <method name = "CreateUnsignedSignatureValidation">
+            <summary>Create the default signature-validation facts for an unsigned key.</summary>
+            <returns Cref = "SignatureValidation">Unsigned signature-validation facts.</returns>
+        </method>
+
+        <method name = "CreateSignatureValidationAsync">
+            <summary>Create signature-validation facts asynchronously for a token secret using the configured signature processor when available.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity used to build the validation context.</param>
+            <param name = "secret" Cref = "Byte[]?">Serialized access-key secret envelope.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for asynchronous verification work.</param>
+            <returns Cref = "Task{SignatureValidation?}">Computed signature-validation facts, or null when the secret could not be parsed.</returns>
+        </method>
+
+        <method name = "GetSynchronousSignatureProcessor">
+            <summary>Resolve the synchronous verification processor required by synchronous access-manager policy flows.</summary>
+            <param name = "processor" Cref = "IAccessKeySignatureProcessorMode?">Configured signature processor.</param>
+            <returns Cref = "IAccessKeySignatureProcessor?">Synchronous signature processor, or null when no synchronous verifier is configured.</returns>
+        </method>
+
+        <method name = "ValidateSignatureProcessorMode">
+            <summary>Validate that the configured signature processor can participate in access-manager signing or verification flows.</summary>
+            <param name = "processor" Cref = "IAccessKeySignatureProcessorMode?">Configured signature processor mode.</param>
+            <returns Cref = "Void">None.</returns>
+        </method>
+
+        <method name = "NormalizeRequestedKeyType">
+            <summary>Normalize a requested key-type token into the canonical string used for policy and built-in issuance dispatch.</summary>
+            <param name = "requestedkeytype" Cref = "String?">Requested key-type token.</param>
+            <returns Cref = "String?">Canonical requested key-type token, or null when the input is empty.</returns>
+        </method>
+
+        <method name = "CreateRequestPolicyContext">
+            <summary>Normalize an access request into request-specific policy facts used by request evaluation and issuance dispatch.</summary>
+            <param name = "request" Cref = "AccessRequest">Access request to normalize.</param>
+            <param name = "tool" Cref = "ITool">Owning tool participating in request normalization.</param>
+            <returns Cref = "AccessPolicyRequestContext">Normalized request policy context.</returns>
+        </method>
+
+        <method name = "CreateRequestEvaluationContext">
+            <summary>Create the policy context used to evaluate whether a normalized access request should be allowed.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "request" Cref = "AccessRequest">Original access request.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext">Normalized request policy context.</param>
+            <param name = "tool" Cref = "ITool">Owning tool.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger to surface into the policy context.</param>
+            <returns Cref = "AccessPolicyContext">Policy context for request evaluation.</returns>
+        </method>
+
+        <method name = "CreateAccessPolicyContext">
+            <summary>Create the policy context used for protected-operation access evaluation.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "key" Cref = "AccessKey?">Access key under evaluation.</param>
+            <param name = "claims" Cref = "AccessKeyClaims">Validated access-key claims.</param>
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC evaluation instant.</param>
+            <param name = "manifestmatched" Cref = "Boolean">True when the access key matches the current manifest identity.</param>
+            <param name = "expired" Cref = "Boolean">True when the access key is expired.</param>
+            <param name = "membershipactive" Cref = "Boolean">True when the access key is still an active membership.</param>
+            <param name = "signaturevalidation" Cref = "SignatureValidation">Signature parsing and verification facts for the evaluated key.</param>
+            <param name = "operation" Cref = "Int32">Protected operation index under evaluation.</param>
+            <param name = "operationallowed" Cref = "Boolean">True when the validated claims allow the protected operation.</param>
+            <param name = "subject" Cref = "String">Membership subject.</param>
+            <param name = "tool" Cref = "ITool?">Owning tool.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger to surface into the policy context.</param>
+            <returns Cref = "AccessPolicyContext">Policy context for protected-operation evaluation.</returns>
+        </method>
+
+        <method name = "CreateAuthorizationPolicyContext">
+            <summary>Create the policy context used for claim-only authorization evaluation.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "key" Cref = "AccessKey?">Access key under evaluation.</param>
+            <param name = "claims" Cref = "AccessKeyClaims">Validated access-key claims.</param>
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC evaluation instant.</param>
+            <param name = "manifestmatched" Cref = "Boolean">True when the access key matches the current manifest identity.</param>
+            <param name = "expired" Cref = "Boolean">True when the access key is expired.</param>
+            <param name = "membershipactive" Cref = "Boolean">True when the access key is still an active membership.</param>
+            <param name = "signaturevalidation" Cref = "SignatureValidation">Signature parsing and verification facts for the evaluated key.</param>
+            <param name = "subject" Cref = "String">Membership subject.</param>
+            <param name = "tool" Cref = "ITool?">Owning tool.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger to surface into the policy context.</param>
+            <returns Cref = "AccessPolicyContext">Policy context for authorization evaluation.</returns>
+        </method>
+
+        <method name = "CreateIssueOptions">
+            <summary>Create normalized access-key issue options for internal issuance flows, using a single authoritative operations source.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional source issue options whose subject, lifetime, audiences, scopes, credentials, properties, requested assertions, and operations should be preserved or normalized.</param>
+            <returns Cref = "AccessKeyIssueOptions">Normalized issue options.</returns>
+        </method>
+
+        <method name = "CreateIssueOptionsFromRequestContext">
+            <summary>Create normalized access-key issue options from a normalized request context carried through request-driven issuance.</summary>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext">Normalized request facts to project into issuance settings.</param>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional source issue options whose values override the normalized request context.</param>
+            <returns Cref = "AccessKeyIssueOptions">Normalized request-driven issue options.</returns>
+        </method>
+
+        <method name = "CreateIssuePolicyContext">
+            <summary>Create the policy context used for issuance evaluation.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "options" Cref = "AccessKeyIssueOptions">Normalized issuance settings and authoritative protected-operation set.</param>
+            <param name = "tool" Cref = "ITool?">Owning tool.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger to surface into the policy context.</param>
+            <returns Cref = "AccessPolicyContext">Policy context for issuance evaluation.</returns>
+        </method>
+
+        <method name = "CreateAssertionGeneratorContext">
+            <summary>Create the normalized access-key assertion generator context used after issuance policy approval and before final key material creation.</summary>
+            <param name = "accesspolicycontext" Cref = "AccessPolicyContext">Approved issuance policy context.</param>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "requestedkeytype" Cref = "String">Canonical requested key-type token.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <returns Cref = "AccessKeyAssertionGeneratorContext">Normalized access-key assertion generator context.</returns>
+        </method>
+
+        <method name = "CreateIssuanceContext">
+            <summary>Create the normalized internal issuance context shared across policy evaluation, assertion generation, token creation, and final key construction.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional caller-facing issuance settings.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <returns Cref = "AccessKeyIssuanceContext?">Normalized issuance context, or null when current issuance prerequisites are missing.</returns>
+        </method>
+
+        <method name = "CreateIssueOptionsForRequestedKeyType">
+            <summary>Create normalized issue options that stamp a canonical requested key type onto the current issuance settings.</summary>
+            <param name = "requestedkeytype" Cref = "String">Requested key-type token to normalize into the returned options.</param>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional source issue options whose remaining values should be preserved.</param>
+            <returns Cref = "AccessKeyIssueOptions">Normalized issue options whose <see cref="AccessKeyIssueOptions.RequestedKeyType"/> is authoritative.</returns>
+        </method>
+
+        <method name = "GenerateKeyAssertions">
+            <summary>Generate access-key assertions for an approved issuance flow using the configured access-key assertion generator when one is available.</summary>
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+            <returns Cref = "ImmutableArray{AccessKeyAssertion}">Generated access-key assertions, or an empty array when no assertions are produced.</returns>
+        </method>
+
+        <method name = "GenerateKeyAssertionsAsync">
+            <summary>Generate access-key assertions asynchronously for an approved issuance flow using the configured assertion-generator mode when one is available.</summary>
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous assertion-generation flow.</param>
+            <returns Cref = "Task{ImmutableArray{AccessKeyAssertion}}">Generated access-key assertions, or an empty array when no assertions are produced.</returns>
+        </method>
+
+        <method name = "CreateRevocationPolicyContext">
+            <summary>Create the policy context used for revocation evaluation.</summary>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Current manifest identity.</param>
+            <param name = "key" Cref = "AccessKey?">Access key under evaluation.</param>
+            <param name = "claims" Cref = "AccessKeyClaims">Validated access-key claims.</param>
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC evaluation instant.</param>
+            <param name = "manifestmatched" Cref = "Boolean">True when the access key matches the current manifest identity.</param>
+            <param name = "expired" Cref = "Boolean">True when the access key is expired.</param>
+            <param name = "membershipactive" Cref = "Boolean">True when the access key is still an active membership.</param>
+            <param name = "signaturevalidation" Cref = "SignatureValidation">Signature parsing and verification facts for the evaluated key.</param>
+            <param name = "subject" Cref = "String">Membership subject.</param>
+            <param name = "tool" Cref = "ITool?">Owning tool.</param>
+            <param name = "logger" Cref = "ILogger?">Optional logger to surface into the policy context.</param>
+            <returns Cref = "AccessPolicyContext">Policy context for revocation evaluation.</returns>
+        </method>
+
+        <method name = "IssueRequestedAccessKey">
+            <summary>Issue the access key implied by a validated request policy context.</summary>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext">Validated request policy context.</param>
+            <returns Cref = "AccessKey?">Issued access key, or null when the requested key-type token cannot be constructed by the custom keymaker.</returns>
+        </method>
+
+        <method name = "IssueRequestedAccessKeyAsync">
+            <summary>Issue asynchronously the access key implied by a validated request policy context.</summary>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext">Validated request policy context.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous request-driven issuance flow.</param>
+            <returns Cref = "Task{AccessKey}">Issued access key, or null when the requested key-type token cannot be satisfied.</returns>
+        </method>
+
+        <method name = "IssueAccessKey">
+            <summary>Issue an AccessKey of the requested type using normalized issuance options.</summary>
+            <typeparam name = "TKey">Concrete AccessKey type to generate.</typeparam>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including requested key type, subject, operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <returns Cref = "TKey">Generated AccessKey, or null if generation fails, the requested type is unsupported, or issuance policy denies the request.</returns>
+        </method>
+
+        <method name = "IssueAccessKeyAsync">
+            <summary>Issue asynchronously an access key of the requested type using normalized issuance options.</summary>
+            <typeparam name = "TKey">Concrete access-key type to generate.</typeparam>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including requested key type, subject, operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous issuance flow.</param>
+            <returns Cref = "Task{TKey}">Generated access key, or null if generation fails, the requested type is unsupported, or issuance is denied.</returns>
+        </method>
+
+        <method name = "IssueAccessKeyDispatch">
+            <summary>Issue access-key material for a canonical requested key-type token, then construct the final key instance through the custom keymaker if required.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <returns Cref = "AccessKey?">Constructed access key, or null when issuance fails or no construction path supports the requested key-type token.</returns>
+        </method>
+
+        <method name = "IssueAccessKeyAsyncDispatch">
+            <summary>Issue access-key material asynchronously for a canonical requested key-type token, then construct the final key instance through the custom keymaker if required.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous issuance flow.</param>
+            <returns Cref = "Task{AccessKey}">Constructed access key, or null when issuance fails or no construction path supports the requested key-type token.</returns>
+        </method>
+
+        <method name = "CreateIssuedAccessKeyMaterial">
+            <summary>Create issued access-key material after successful issuance policy evaluation, key-assertion generation, token creation, and membership-state updates.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <returns Cref = "IssuedAccessKeyMaterial?">Issued access-key material, or null if issuance cannot complete successfully.</returns>
+        </method>
+
+        <method name = "CreateIssuedAccessKeyMaterialAsync">
+            <summary>Create issued access-key material asynchronously after successful policy evaluation, assertion generation, token creation, and membership-state updates.</summary>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings including operations, lifetime, audiences, and scopes.</param>
+            <param name = "requestcontext" Cref = "AccessPolicyRequestContext?">Optional normalized request policy context carried through request-driven issuance.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous issuance-material flow.</param>
+            <returns Cref = "Task{IssuedAccessKeyMaterial}">Issued access-key material, or null if issuance cannot complete successfully.</returns>
+        </method>
+
+        <method name = "EvaluatePolicyAsyncStatic">
+            <summary>Evaluate an access-policy engine mode asynchronously, preferring async evaluation when available and otherwise falling back to the synchronous engine.</summary>
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode">Configured policy-engine mode.</param>
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous evaluation flow.</param>
+            <returns Cref = "Task{AccessPolicyDecision}">Policy decision for the supplied context.</returns>
+        </method>
+
+        <method name = "EvaluatePolicyStatic">
+            <summary>Evaluate a policy-engine mode synchronously for the supplied access-policy context.</summary>
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode">Configured policy-engine mode.</param>
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+            <returns Cref = "AccessPolicyDecision">Policy decision for the supplied context.</returns>
+        </method>
+
+        <method name = "GetSynchronousKeyAssertionGeneratorStatic">
+            <summary>Resolve a synchronous assertion generator from a configured assertion-generator mode for synchronous access-manager flows.</summary>
+            <param name = "generator" Cref = "IAccessKeyAssertionGeneratorMode?">Configured assertion-generator mode.</param>
+            <returns Cref = "IAccessKeyAssertionGenerator?">Synchronous assertion generator, or null when no generator is configured.</returns>
+        </method>
+
+        <method name = "ValidateAssertionGeneratorMode">
+            <summary>Validate that a configured assertion-generator mode exposes at least one supported synchronous or asynchronous execution contract.</summary>
+            <param name = "generator" Cref = "IAccessKeyAssertionGeneratorMode?">Configured assertion-generator mode.</param>
+            <returns Cref = "Void">None.</returns>
+        </method>
+
+        <method name = "ValidatePolicyEngineMode">
+            <summary>Validate that a configured policy-engine mode exposes at least one supported synchronous or asynchronous execution contract.</summary>
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode?">Configured policy-engine mode.</param>
+            <returns Cref = "Void">None.</returns>
+        </method>
+
+        <method name = "CreateBuiltInAccessKey">
+            <summary>Create a built-in library access key instance from issued ciphertext and a canonical requested key-type token.</summary>
+            <param name = "requestedkeytype" Cref = "String">Canonical requested key-type token.</param>
+            <param name = "ciphertext" Cref = "Byte[]">Issued encrypted access-key payload.</param>
+            <returns Cref = "AccessKey?">Built-in access key instance, or null when the requested key-type token is not one of the library's built-in key types.</returns>
+        </method>
+
+        <method name = "RollbackIssuedAccessKeyMaterial">
+            <summary>Remove membership and cache state created during issuance when final key construction cannot complete.</summary>
+            <param name = "material" Cref = "IssuedAccessKeyMaterial">Issued access-key material to roll back.</param>
+            <returns Cref = "Void">None.</returns>
+        </method>
+
+        <method name = "TryCreateCustomTypeAccessKey">
+            <summary>Try to construct a custom access key type using the configured <see cref="KeyMaker"/> for a canonical requested key-type token.</summary>
+            <param name = "requestedkeytype" Cref = "String">Canonical requested key-type token.</param>
+            <param name = "ciphertext" Cref = "Byte[]">Issued encrypted access-key payload.</param>
+            <param name = "key" Cref = "AccessKey?">Constructed access key.</param>
+            <returns Cref = "Boolean">True when a configured custom key-construction path created an access key; otherwise false.</returns>
+        </method>
+
+        <method name = "MatchesAccessManagerQuery">
+            <summary>Determine whether resolved access-key claims satisfy the configured access-manager query filters.</summary>
+            <param name = "claims" Cref = "AccessKeyClaims">Resolved access-key claims.</param>
+            <param name = "query" Cref = "AccessManagerQuery?">Optional access-manager query filters.</param>
+            <returns Cref = "Boolean">True if the resolved claims satisfy the configured query filters; otherwise false.</returns>
+        </method>
+
+        <method name = "GetMembershipMetadataSnapshot">
+            <summary>Create a point-in-time snapshot of the authoritative membership metadata index.</summary>
+            <returns Cref = "ImmutableArray{MembershipToken}">Authoritative membership metadata snapshot.</returns>
+        </method>
+
+        <method name = "MatchesMembershipCatalogIdentity">
+            <summary>Determine whether a membership catalog is compatible with the manifest identity.</summary>
+            <param name = "memberships" Cref = "AccessManagerMembershipCatalog">Membership catalog to validate.</param>
+            <returns Cref = "Boolean">True if the membership catalog carries no manifest identity or matches the manifest identity; otherwise false.</returns>
+        </method>
+
+        <method name = "RemoveMembership">
+            <summary>Remove AccessKeyToken membership for a subject.</summary>
+            <param name = "subject" Cref = "String">Subject.</param>
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+            <returns Cref = "Boolean">True if removed.</returns>
+        </method>
+
+        <method name = "RemoveMembershipMetadata">
+            <summary>Remove authoritative membership metadata for a token identity.</summary>
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+            <returns Cref = "Boolean">True if removed.</returns>
+        </method>
+
+        <method name = "SetMembershipMetadata">
+            <summary>Store authoritative membership metadata for a token identity.</summary>
+            <param name = "membership" Cref = "MembershipToken">Membership metadata.</param>
+            <returns Cref = "Boolean">True if stored.</returns>
+        </method>
+
+        <method name = "TryGetMembershipMetadata">
+            <summary>Try to get authoritative membership metadata for a token identity.</summary>
+            <param name = "token" Cref = "AccessKeyToken">Access token identity.</param>
+            <param name = "membership" Cref = "MembershipToken">Membership metadata.</param>
+            <returns Cref = "Boolean">True if the metadata exists; otherwise false.</returns>
+        </method>
+
+        <method name = "QueryMembershipCatalog">
+            <summary>Query an authoritative membership catalog for the current access manager.</summary>
+            <param name = "query" Cref = "AccessManagerQuery?">Optional query filters.</param>
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+            <returns Cref = "AccessManagerMembershipCatalog?">An authoritative membership catalog matching the supplied query filters.</returns>
+        </method>
+
+        <method name = "RequestAccessAsync">
+            <summary>Issue asynchronously a role-specific access key in response to an access request after request normalization and policy evaluation.</summary>
+            <param name = "request" Cref = "AccessRequest?">Access request.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous request-access flow.</param>
+            <returns Cref = "Task{AccessKey}">Issued access key, or null if the request cannot be satisfied or request policy denies the request.</returns>
+        </method>
+
+        <method name = "RevokeAccessAsync">
+            <summary>Revoke asynchronously an access key by removing its current membership if revocation policy allows it.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous revocation flow.</param>
+            <returns Cref = "Task{Boolean}">True if the membership is revoked; otherwise false.</returns>
+        </method>
+
+        <method name = "UpdateMembershipCatalog">
+            <summary>Update the current authoritative membership catalog using an explicit membership payload and update operation.</summary>
+            <param name = "memberships" Cref = "AccessManagerMembershipCatalog?">Membership catalog payload.</param>
+            <param name = "operation" Cref = "MembershipUpdateOperation">Membership-catalog update operation.</param>
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+            <returns Cref = "Boolean">True if the membership-catalog update succeeds; otherwise false.</returns>
+        </method>
+
+        <method name = "TryIssueToken">
+            <summary>Create a confidential symmetric token from the normalized internal issuance context.</summary>
+            <param name = "issuancecontext" Cref = "AccessKeyIssuanceContext">Normalized issuance context containing manifest identity, issuer identifiers, subject, options, assertions, and diagnostics infrastructure.</param>
+            <param name = "ciphertext" Cref = "Byte[]">Output encrypted token on success.</param>
+            <param name = "token" Cref = "AccessKeyToken">Resulting AccessKeyToken identity.</param>
+            <returns Cref = "Boolean">True if token created.</returns>
+            <remarks>No membership side effects. The encrypted payload includes the current tool schema identifier, access-key realm identifier, issuer identifiers, manifest hash, optional audience and scope claims, and optional embedded assertions.</remarks>
+        </method>
+
+        <method name = "TryGetPolicyMembership">
+            <summary>Try to resolve an access key into authoritative membership metadata and compute the policy facts needed by authorization, access, and revocation evaluation.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to evaluate.</param>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Cached manifest identity associated with the evaluated key.</param>
+            <param name = "membership" Cref = "MembershipToken">Resolved authoritative membership payload.</param>
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC instant used for the policy fact calculation.</param>
+            <param name = "manifestmatched" Cref = "Boolean">True when the resolved membership matches the manifest identity.</param>
+            <param name = "expired" Cref = "Boolean">True when the resolved membership is expired at the evaluation instant.</param>
+            <param name = "membershipactive" Cref = "Boolean">True when the resolved membership is still active in the subject membership set.</param>
+            <returns Cref = "Boolean">True if the access key was resolved into authoritative membership facts and policy facts were computed; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetValidatedMembership">
+            <summary>Validate an access key against the manifest identity, expiration, and active membership set.</summary>
+            <param name = "key" Cref = "AccessKey?">Access key to validate.</param>
+            <param name = "manifestidentity" Cref = "ToolManifestIdentity">Cached manifest identity associated with the validated key.</param>
+            <param name = "membership" Cref = "MembershipToken">Validated authoritative membership payload.</param>
+            <param name = "evaluatedat" Cref = "DateTimeOffset">UTC instant used for the expiration check.</param>
+            <returns Cref = "Boolean">True if the resolved membership facts indicate a manifest match, an unexpired key, and an active membership; otherwise false.</returns>
+        </method>
+
+        <method name = "IsActiveMember">
+            <summary>Determine whether a subject currently owns a specific access-key token membership.</summary>
+            <param name = "subject" Cref = "String">Membership subject.</param>
+            <param name = "token" Cref = "AccessKeyToken">Access-key token identity.</param>
+            <returns Cref = "Boolean">True if the membership is currently active; otherwise false.</returns>
+        </method>
+
+        <method name = "InitializeManifestIdentity">
+            <summary>Initialize the cached tool manifest identity from the registry or the tool's default manifest projection.</summary>
+            <returns Cref = "Boolean">True if the cached manifest identity was initialized successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetManifestIdentity">
+            <summary>Try to get the cached tool manifest identity, initializing it on first use when needed.</summary>
+            <param name = "identity" Cref = "ToolManifestIdentity">Cached tool manifest identity.</param>
+            <returns Cref = "Boolean">True if the tool manifest identity is available; otherwise false.</returns>
+        </method>
+
+        <method name = "IsSignedAccessKeySecret">
+            <summary>Determine whether a serialized access-key secret is present and carries a signed outer envelope.</summary>
+            <param name = "secret" Cref = "Byte[]?">Serialized access-key secret envelope.</param>
+            <returns Cref = "Boolean">True when the supplied secret exists and is marked as signed; otherwise false.</returns>
+        </method>
+
+    </class>
+
+</AccessManager>

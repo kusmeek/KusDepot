@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeySignatureProcessorMode>
+
+    <interface name = "IAccessKeySignatureProcessorMode">
+
+        <main>
+
+            <summary>Marker interface for access-key signature processor execution modes.</summary>
+
+        </main>
+
+    </interface>
+
+</IAccessKeySignatureProcessorMode>

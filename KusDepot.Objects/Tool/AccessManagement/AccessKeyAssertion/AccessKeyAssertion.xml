@@ -1,0 +1,167 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyAssertion>
+
+    <record name = "AccessKeyAssertion">
+
+        <main>
+
+            <summary>Access-key assertion base model.</summary>
+
+            <remarks>
+                A provider-neutral immutable assertion model for embedded access-key evidence.
+            </remarks>
+
+        </main>
+
+        <property name = "AssertionType" Cref = "String">
+
+            <summary>Semantic assertion type identifier such as token or certificate.</summary>
+
+        </property>
+
+        <property name = "Format" Cref = "String">
+
+            <summary>Assertion payload format discriminator such as jwt, jwt/v1, or opaque.</summary>
+
+        </property>
+
+        <property name = "SerializationIdentifier" Cref = "String">
+
+            <summary>Stable registry identifier used to dispatch concrete assertion payload serialization and deserialization.</summary>
+
+        </property>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize an access-key assertion from serialized bytes.</summary>
+
+            <param name = "input" Cref = "Byte[]?">Serialized access-key assertion bytes.</param>
+
+            <returns Cref = "AccessKeyAssertion?">Deserialized access-key assertion, or null if deserialization fails.</returns>
+
+        </method>
+
+        <method name = "DeserializeMemory">
+
+            <summary>Deserialize an access-key assertion from serialized bytes without first copying the supplied memory block.</summary>
+
+            <param name = "input" Cref = "ReadOnlyMemory{Byte}">Serialized access-key assertion bytes.</param>
+
+            <returns Cref = "AccessKeyAssertion?">Deserialized access-key assertion, or null if deserialization fails.</returns>
+
+        </method>
+
+        <method name = "TryDeserialize">
+
+            <summary>Try to deserialize an access-key assertion from serialized bytes.</summary>
+
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Serialized access-key assertion bytes.</param>
+
+            <param name = "assertion" Cref = "AccessKeyAssertion">Deserialized access-key assertion.</param>
+
+            <returns Cref = "Boolean">True if the access-key assertion was deserialized successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryDeserializeMemory">
+
+            <summary>Try to deserialize an access-key assertion from serialized bytes provided as memory.</summary>
+
+            <param name = "input" Cref = "ReadOnlyMemory{Byte}">Serialized access-key assertion bytes.</param>
+
+            <param name = "assertion" Cref = "AccessKeyAssertion">Deserialized access-key assertion.</param>
+
+            <returns Cref = "Boolean">True if the access-key assertion was deserialized successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "RegisterDeserializer">
+
+            <summary>Register a concrete assertion payload deserializer for a stable serialization identifier.</summary>
+
+            <param name = "serializationidentifier" Cref = "String">Stable registry identifier for the concrete assertion payload format.</param>
+
+            <param name = "deserializer" Cref = "Func{ReadOnlyMemory{Byte},AccessKeyAssertion}">Concrete payload deserializer delegate. Implementations must consume the memory synchronously and must not retain or mutate the supplied payload buffer.</param>
+
+            <returns Cref = "Boolean">True if the deserializer was registered; otherwise false for invalid input or an already-registered serialization identifier.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize the access-key assertion.</summary>
+
+            <returns Cref = "Byte[]">Serialized access-key assertion bytes.</returns>
+
+        </method>
+
+        <method name = "SerializePayload">
+
+            <summary>Serialize the concrete assertion payload bytes that will be wrapped by the tiny base assertion envelope.</summary>
+
+            <returns Cref = "Byte[]">Concrete serialized payload bytes.</returns>
+
+        </method>
+
+        <method name = "ToSummary">
+
+            <summary>Project the access-key assertion into its runtime summary representation.</summary>
+
+            <returns Cref = "AccessKeyAssertionSummary">Runtime summary projection.</returns>
+
+        </method>
+
+        <method name = "TryReadEnvelope">
+
+            <summary>Try to read the tiny outer assertion envelope and recover its dispatch identifier and payload bytes.</summary>
+
+            <param name = "input" Cref = "ReadOnlySpan{Byte}">Serialized access-key assertion bytes.</param>
+
+            <param name = "envelope" Cref = "AccessKeyAssertionEnvelope">Parsed assertion envelope.</param>
+
+            <returns Cref = "Boolean">True if the assertion envelope was parsed successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "WriteEnvelope">
+
+            <summary>Write the tiny outer assertion envelope for a concrete assertion payload.</summary>
+
+            <param name = "version" Cref = "Byte">Envelope version.</param>
+
+            <param name = "serializationidentifier" Cref = "String">Stable registry identifier for the concrete payload.</param>
+
+            <param name = "payload" Cref = "ReadOnlySpan{Byte}">Concrete serialized payload bytes.</param>
+
+            <returns Cref = "Byte[]">Wrapped serialized assertion bytes.</returns>
+
+        </method>
+
+        <field name = "EnvelopeVersion" Cref = "Byte">
+
+            <summary>Version identifier for the tiny outer assertion envelope.</summary>
+
+        </field>
+
+        <field name = "PayloadLengthSize" Cref = "Int32">
+
+            <summary>Size in bytes of the concrete payload-length field.</summary>
+
+        </field>
+
+        <field name = "SerializationIdentifierLengthSize" Cref = "Int32">
+
+            <summary>Size in bytes of the serialization-identifier length field.</summary>
+
+        </field>
+
+        <field name = "Deserializers" Cref = "Dictionary{String,Func{ReadOnlyMemory{Byte},AccessKeyAssertion}}">
+
+            <summary>Registered concrete assertion payload deserializers keyed by serialization identifier.</summary>
+
+        </field>
+
+    </record>
+
+</AccessKeyAssertion>

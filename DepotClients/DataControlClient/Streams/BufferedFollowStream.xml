@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BufferedFollowStream>
+
+	<class name = "BufferedFollowStream">
+
+		<main><summary>Disk-backed stream that supports incremental appends and blocking reads for live follow sessions.</summary></main>
+
+		<field name = "path" Cref = "String"><summary>Full path to the backing file used to buffer followed bytes.</summary></field>
+		<field name = "gate" Cref = "SemaphoreSlim"><summary>Serializes append operations and internal state transitions that mutate the backing stream.</summary></field>
+		<field name = "signal" Cref = "TaskCompletionSource{Boolean}"><summary>Signals waiting readers when new bytes or a terminal state become available.</summary></field>
+		<field name = "reader" Cref = "FileStream?"><summary>Lazily created read stream over the backing file.</summary></field>
+		<field name = "readableLength" Cref = "Int64"><summary>Current readable byte length available to consumers.</summary></field>
+		<field name = "terminalState" Cref = "BufferedFollowStreamTerminalState"><summary>Current terminal state controlling how readers and appenders behave.</summary></field>
+		<field name = "faultMessage" Cref = "String?"><summary>Optional fault message surfaced when the stream transitions to the faulted state.</summary></field>
+		<field name = "disposed" Cref = "Boolean"><summary>Tracks whether the stream has been disposed.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Initialize a buffered follow stream over a backing file.</summary>
+			<param name = "path" Cref = "String">Backing file path used to store followed bytes.</param>
+			<param name = "initialLength" Cref = "Int64">Initial readable length already available in the backing file.</param>
+			<returns Cref = "BufferedFollowStream">Initialized buffered follow stream.</returns>
+		</constructor>
+
+		<method name = "AppendAsync">
+			<summary>Append newly downloaded bytes to the backing stream and unblock waiting readers.</summary>
+			<param name = "payload" Cref = "Stream">Readable payload stream containing bytes to append.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the append operation.</param>
+			<returns Cref = "Task">Append operation.</returns>
+		</method>
+
+		<method name = "MarkCompleted">
+			<summary>Mark the buffered follow stream as completed and unblock any waiting readers.</summary>
+		</method>
+
+		<method name = "MarkAborted">
+			<summary>Mark the buffered follow stream as aborted and unblock any waiting readers.</summary>
+		</method>
+
+		<method name = "MarkFaulted">
+			<summary>Mark the buffered follow stream as faulted and unblock any waiting readers.</summary>
+			<param name = "message" Cref = "String?">Optional fault message returned to readers.</param>
+		</method>
+
+		<method name = "GetTerminalState">
+			<summary>Get the current terminal state of the follow stream.</summary>
+			<returns Cref = "BufferedFollowStreamTerminalState">Current terminal state.</returns>
+		</method>
+
+		<method name = "GetFaultMessage">
+			<summary>Get the current fault message associated with the follow stream.</summary>
+			<returns Cref = "String?">Current fault message, or null when none is set.</returns>
+		</method>
+
+		<method name = "EnsureReader">
+			<summary>Get or create the lazily initialized reader over the backing file.</summary>
+			<returns Cref = "FileStream">Reader positioned over the backing file.</returns>
+		</method>
+
+		<method name = "SetTerminalState">
+			<summary>Apply a terminal state and wake any waiting readers.</summary>
+			<param name = "state" Cref = "BufferedFollowStreamTerminalState">Terminal state to apply.</param>
+			<param name = "message" Cref = "String?">Optional fault message associated with the terminal state.</param>
+		</method>
+
+		<method name = "ThrowIfTerminalStateRejectsAppend">
+			<summary>Throw when append operations are no longer allowed because the stream reached a terminal state.</summary>
+		</method>
+
+		<method name = "CreateSignal">
+			<summary>Create a new asynchronous signal used to wake blocked readers.</summary>
+			<returns Cref = "TaskCompletionSource{Boolean}">New signal source.</returns>
+		</method>
+
+	</class>
+
+	<enum name = "BufferedFollowStreamTerminalState">
+		<main><summary>Represents the terminal lifecycle state of a buffered follow stream.</summary></main>
+		<field name = "Open"><summary>The stream is open and may continue to receive appended bytes.</summary></field>
+		<field name = "Completed"><summary>The stream completed normally and readers should observe end-of-stream.</summary></field>
+		<field name = "Aborted"><summary>The stream was aborted and readers should observe an abort failure.</summary></field>
+		<field name = "Faulted"><summary>The stream faulted and readers should observe an error with the associated fault message when available.</summary></field>
+	</enum>
+
+</BufferedFollowStream>

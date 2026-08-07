@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferProgress>
+
+	<record name = "DataItemTransferProgress">
+
+		<main><summary>Progress snapshot reported by client transfer operations after successful segmented or stream transfer movement.</summary></main>
+
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "TransferFamily" Cref = "DataControlTransferFamily"><summary>Transfer family used for the reported progress event.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode"><summary>Transfer session mode for the progress event.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Transfer status after the reported progress step completed.</summary></property>
+		<property name = "RealizedBytes" Cref = "Int64"><summary>Total realized byte count after the reported step.</summary></property>
+		<property name = "RemainingBytes" Cref = "Int64?"><summary>Total remaining byte count after the reported step, or null when the transfer is open-ended.</summary></property>
+		<property name = "LatestRange" Cref = "DataItemTransferRange?"><summary>The most recent accepted or materialized range for this progress event.</summary></property>
+		<property name = "LatestAppendedLength" Cref = "Int64?"><summary>The latest durable appended length when the progress event came from stream transfer.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Transfer state version after the reported step.</summary></property>
+
+	</record>
+
+</DataItemTransferProgress>

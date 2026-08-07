@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BlobService>
+
+    <class name = "BlobService">
+
+        <main>
+
+            <summary>Blob Service.</summary>
+
+        </main>
+
+        <field name = "id">
+
+            <summary>Identifier of the target blob container and blob.</summary>
+
+            <returns Cref = "String?">Blob identifier.</returns>
+
+        </field>
+
+        <field name = "version">
+
+            <summary>Optional blob version used when addressing versioned blobs.</summary>
+
+            <returns Cref = "String?">Blob version.</returns>
+
+        </field>
+
+        <field name = "connection">
+
+            <summary>Connection string used to connect to Azure Blob Storage.</summary>
+
+            <returns Cref = "String?">Storage connection string.</returns>
+
+        </field>
+
+        <field name = "blobclient">
+
+            <summary>Blob client used to perform operations against a specific blob.</summary>
+
+            <returns Cref = "BlobClient?">Azure Blob client.</returns>
+
+        </field>
+
+        <field name = "containerclient">
+
+            <summary>Blob container client used to perform operations against the container.</summary>
+
+            <returns Cref = "BlobContainerClient?">Azure Blob container client.</returns>
+
+        </field>
+
+    </class>
+
+</BlobService>

@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerMembershipCatalog>
+
+    <class name = "AccessManagerMembershipCatalog">
+
+        <main>
+
+            <summary>Access-manager membership catalog.</summary>
+
+            <remarks>
+                A transport-ready catalog of authoritative membership entries grouped by subject.
+            </remarks>
+
+        </main>
+
+        <property name = "Entries" Cref = "Dictionary{String,ImmutableArray{AccessManagerMembershipEntry}}?">
+
+            <summary>Membership entries grouped by subject.</summary>
+
+        </property>
+
+        <field name = "entries" Cref = "Dictionary{String,ImmutableArray{AccessManagerMembershipEntry}}?">
+
+            <summary>Backing store for grouped membership entries.</summary>
+
+        </field>
+
+        <property name = "ToolManifestIdentity" Cref = "ToolManifestIdentity?">
+
+            <summary>Manifest identity used to validate catalog compatibility.</summary>
+
+        </property>
+
+        <field name = "toolmanifestidentity" Cref = "ToolManifestIdentity?">
+
+            <summary>Backing store for the manifest identity.</summary>
+
+        </field>
+
+        <method name = "Clone">
+
+            <summary>Create a defensive clone of the membership catalog.</summary>
+
+            <returns Cref = "AccessManagerMembershipCatalog">Cloned membership catalog.</returns>
+
+        </method>
+
+        <method name = "Clear">
+
+            <summary>Clear the membership catalog.</summary>
+
+        </method>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize a membership catalog from bytes.</summary>
+
+            <param name = "input" Cref = "Byte[]">Serialized input.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Optional format provider.</param>
+
+            <returns Cref = "AccessManagerMembershipCatalog?">Deserialized membership catalog, or null.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize the membership catalog to bytes.</summary>
+
+            <returns Cref = "Byte[]">Serialized bytes.</returns>
+
+        </method>
+
+    </class>
+
+</AccessManagerMembershipCatalog>

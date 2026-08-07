@@ -1,0 +1,81 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OperationFailedException>
+
+    <class name = "OperationFailedException">
+
+        <main>
+
+            <summary>Operation Failed Exception.</summary>
+
+            <remarks>An Operation Failed.</remarks>
+
+        </main>
+
+		<property name = "FailureCode">
+
+            <summary>Failure Code.</summary>
+
+            <returns Cref = "Enum">Failure Code.</returns>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageConstructor">
+
+            <summary>Constructor With Message.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor> 
+
+        <constructor name = "MessageFailureCodeConstructor">
+
+            <summary>Constructor With Message And Failure Code.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+			
+            <param name = "failurecode" Cref = "Enum">Failure Code.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor> 
+
+        <constructor name = "MessageInnerExceptionConstructor">
+
+            <summary>Constructor With Message And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "innerexception" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageFailureCodeInnerExceptionConstructor">
+
+            <summary>Constructor With Message, Failure Code And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "failurecode" Cref = "Enum">Failure Code.</param>
+
+            <param name = "innerexception" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "OperationFailedException">New Operation Failed Exception.</returns>
+
+        </constructor>
+
+    </class>
+
+</OperationFailedException>

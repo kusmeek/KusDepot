@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlServerSessionInfo>
+
+	<record name = "DataControlServerSessionInfo">
+
+		<main><summary>Transfer session inspection record returned by session inventory APIs.</summary></main>
+
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier associated with the transfer session.</summary></property>
+		<property name = "SegmentedState" Cref = "DataItemTransferState?"><summary>Finite segmented transfer state when the session is backed by segmented transport.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "StreamState" Cref = "DataStreamTransferState?"><summary>Stream transfer state when the session is backed by stream transport.</summary></property>
+		<property name = "TransferFamily" Cref = "DataControlTransferFamily"><summary>Transfer family currently backing the server session.</summary></property>
+
+	</record>
+
+</DataControlServerSessionInfo>

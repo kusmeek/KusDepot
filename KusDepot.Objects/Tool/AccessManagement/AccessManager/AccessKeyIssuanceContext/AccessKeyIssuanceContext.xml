@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyIssuanceContext>
+
+    <class name = "AccessKeyIssuanceContext">
+
+        <main>
+
+            <summary>Internal normalized access-key issuance context.</summary>
+
+            <remarks>
+                Represents the internal orchestration state shared across issuance policy evaluation, assertion generation, token creation, and key construction.
+            </remarks>
+
+        </main>
+
+        <property name = "Assertions" Cref = "ImmutableArray{AccessKeyAssertion}">
+
+            <summary>Generated access-key assertions associated with the current issuance flow.</summary>
+
+        </property>
+
+        <property name = "IssueOptions" Cref = "AccessKeyIssueOptions">
+
+            <summary>Normalized issuance options for the current flow.</summary>
+
+        </property>
+
+        <property name = "IssuerAccessManagerID" Cref = "Guid">
+
+            <summary>Access-manager identifier that will be written into the issued token.</summary>
+
+        </property>
+
+        <property name = "IssuerToolID" Cref = "Guid">
+
+            <summary>Tool identifier that will be written into the issued token.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger">
+
+            <summary>Logger available to issuance-time collaborators and derived signing contexts.</summary>
+
+        </property>
+
+        <property name = "ManifestIdentity" Cref = "ToolManifestIdentity">
+
+            <summary>Current manifest identity used for issuance.</summary>
+
+        </property>
+
+        <property name = "RequestContext" Cref = "AccessPolicyRequestContext?">
+
+            <summary>Optional normalized request context when issuance originated from a request flow.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Subject that will be bound into the issued key.</summary>
+
+        </property>
+
+        <property name = "Tool" Cref = "ITool?">
+
+            <summary>Owning tool participating in the issuance flow.</summary>
+
+        </property>
+
+    </class>
+
+</AccessKeyIssuanceContext>

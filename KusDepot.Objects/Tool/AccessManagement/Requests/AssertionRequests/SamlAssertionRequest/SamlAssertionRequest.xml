@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SamlAssertionRequest>
+
+    <class name = "SamlAssertionRequest">
+
+        <main>
+
+            <summary>Request a SAML 2.0 assertion.</summary>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "SamlAssertionRequest">New SAML assertion request.</returns>
+
+        </constructor>
+
+    </class>
+
+</SamlAssertionRequest>

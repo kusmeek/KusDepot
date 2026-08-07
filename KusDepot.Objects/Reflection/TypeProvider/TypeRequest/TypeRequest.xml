@@ -1,0 +1,93 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TypeRequest>
+
+    <class name = "TypeRequest">
+
+        <main>
+
+            <summary>Represents the progressively strict type identity requested by <see cref="TypeProvider"/>.</summary>
+
+            <remarks>Stores the exact type name plus only the supplied outer assembly identity components used by strict matching.</remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a requested type identity.</summary>
+
+            <param name = "typename" Cref = "String">Exact requested type name.</param>
+
+            <param name = "assemblyname" Cref = "String?">Exact requested simple assembly name.</param>
+
+            <param name = "version" Cref = "Version?">Requested assembly version.</param>
+
+            <param name = "hasversion" Cref = "Boolean">True when version was explicitly supplied.</param>
+
+            <param name = "culture" Cref = "String?">Requested culture text.</param>
+
+            <param name = "hasculture" Cref = "Boolean">True when culture was explicitly supplied.</param>
+
+            <param name = "publickeytoken" Cref = "String?">Requested public key token text.</param>
+
+            <param name = "haspublickeytoken" Cref = "Boolean">True when public key token was explicitly supplied.</param>
+
+        </constructor>
+
+        <property name = "TypeName" Cref = "String">
+
+            <summary>Exact requested type name.</summary>
+
+        </property>
+
+        <property name = "AssemblyName" Cref = "String?">
+
+            <summary>Exact requested simple assembly name.</summary>
+
+        </property>
+
+        <property name = "Version" Cref = "Version?">
+
+            <summary>Requested assembly version.</summary>
+
+        </property>
+
+        <property name = "HasVersion" Cref = "Boolean">
+
+            <summary>True when version was explicitly supplied.</summary>
+
+        </property>
+
+        <property name = "Culture" Cref = "String?">
+
+            <summary>Requested culture text.</summary>
+
+        </property>
+
+        <property name = "HasCulture" Cref = "Boolean">
+
+            <summary>True when culture was explicitly supplied.</summary>
+
+        </property>
+
+        <property name = "PublicKeyToken" Cref = "String?">
+
+            <summary>Requested public key token text.</summary>
+
+        </property>
+
+        <property name = "HasPublicKeyToken" Cref = "Boolean">
+
+            <summary>True when public key token was explicitly supplied.</summary>
+
+        </property>
+
+        <property name = "HasAssemblyIdentity" Cref = "Boolean">
+
+            <summary>True when any outer assembly identity was supplied.</summary>
+
+        </property>
+
+    </class>
+
+</TypeRequest>

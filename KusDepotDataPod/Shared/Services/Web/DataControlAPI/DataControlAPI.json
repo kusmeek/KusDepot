@@ -1,0 +1,2976 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "DataControl | datacontrol",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:5007/"
+    }
+  ],
+  "paths": {
+    "/AbortTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "AbortTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/AbortTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AbortTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CommitUploadTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "CommitUploadTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommitUploadTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommitUploadTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetTransferSegment": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetTransferSegment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GetTransferSegmentRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.kusdepot.segment": {
+                "schema": {
+                  "type": "string",
+                  "description": "Segmented transfer envelope stream containing the requested payload segment and trailing footer metadata.",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetTransferSessions": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetTransferSessions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GetTransferSessionsRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DataControlServerSessionInfo"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetTransferState": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetTransferState",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DataItemTransferIdentity"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTransferStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OpenGetTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "OpenGetTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenGetTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenGetTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OpenUploadTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "OpenUploadTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenUploadTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenUploadTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PutTransferSegment": {
+      "put": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "PutTransferSegment",
+        "requestBody": {
+          "content": {
+            "application/vnd.kusdepot.segment": {
+              "schema": {
+                "type": "string",
+                "description": "Segmented transfer envelope stream containing serialized PutTransferSegmentRequest metadata followed by the segment payload bytes.",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutTransferSegmentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/RemoveTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "RemoveTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RemoveTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ReOpenGetTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "ReOpenGetTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ReOpenGetTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReOpenGetTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ReOpenUploadTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "ReOpenUploadTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ReOpenUploadTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReOpenUploadTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/CompleteStreamTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "CompleteStreamTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CompleteStreamTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompleteStreamTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetStreamTransferSegment": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetStreamTransferSegment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/GetStreamTransferSegmentRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/vnd.kusdepot.segment": {
+                "schema": {
+                  "type": "string",
+                  "description": "Stream transfer envelope stream containing the requested payload segment and trailing footer metadata.",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/GetStreamTransferState": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "GetStreamTransferState",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DataItemTransferIdentity"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStreamTransferStateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OpenFollowStreamTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "OpenFollowStreamTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenFollowStreamTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenFollowStreamTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/OpenStreamTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "OpenStreamTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/OpenStreamTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenStreamTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PutStreamTransferSegment": {
+      "put": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "PutStreamTransferSegment",
+        "requestBody": {
+          "content": {
+            "application/vnd.kusdepot.segment": {
+              "schema": {
+                "type": "string",
+                "description": "Stream transfer envelope stream containing serialized PutStreamTransferSegmentRequest metadata followed by the segment payload bytes.",
+                "format": "binary"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PutStreamTransferSegmentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Precondition Failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ReOpenFollowStreamTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "ReOpenFollowStreamTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ReOpenFollowStreamTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReOpenFollowStreamTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ReOpenStreamTransfer": {
+      "post": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "ReOpenStreamTransfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ReOpenStreamTransferRequest"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReOpenStreamTransferResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "DataControl"
+        ],
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "Deleted ID"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbortTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to delete a staged segmented transfer session."
+      },
+      "AbortTransferResponse": {
+        "type": "object",
+        "properties": {
+          "Aborted": {
+            "type": "boolean",
+            "description": "Whether staged transfer resources were removed."
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response indicating whether a staged segmented transfer was aborted."
+      },
+      "CommitUploadTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ExpectedStateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Expected current state version.",
+            "format": "int64"
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request final validation and publication of a fully realized staged transfer."
+      },
+      "CommitUploadTransferResponse": {
+        "type": "object",
+        "properties": {
+          "Published": {
+            "type": "boolean",
+            "description": "Whether publication succeeded."
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response describing the post-commit state of a staged transfer session."
+      },
+      "CompleteStreamTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ExpectedStateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Expected current state version.",
+            "format": "int64"
+          },
+          "FinalObjectInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional refined object summary to publish at completion.",
+                "$ref": "#/components/schemas/DataItemTransferObjectInfo"
+              }
+            ]
+          },
+          "FinalObjectPayload": {
+            "type": "string",
+            "description": "Optional refined serialized object payload to publish at completion.",
+            "format": "byte"
+          },
+          "FinalObjectSHA512": {
+            "type": "string",
+            "description": "Optional SHA-512 of the refined serialized object payload.",
+            "format": "byte"
+          },
+          "FinalStreamLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Optional final stream length declared by the caller.",
+            "format": "int64"
+          },
+          "FinalStreamSHA512": {
+            "type": "string",
+            "description": "Optional final SHA-512 declared by the caller.",
+            "format": "byte"
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request final validation and publication of a stream-transfer session."
+      },
+      "CompleteStreamTransferResponse": {
+        "type": "object",
+        "properties": {
+          "Published": {
+            "type": "boolean",
+            "description": "Whether publication succeeded."
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response describing the post-completion state of a stream-transfer session."
+      },
+      "DataControlServerSessionInfo": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier associated with the transfer session.",
+            "format": "uuid"
+          },
+          "SegmentedState": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Finite segmented transfer state when the session is backed by segmented transport.",
+                "$ref": "#/components/schemas/DataItemTransferState"
+              }
+            ]
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StreamState": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Stream transfer state when the session is backed by stream transport.",
+                "$ref": "#/components/schemas/DataStreamTransferState"
+              }
+            ]
+          },
+          "TransferFamily": {
+            "description": "Transfer family currently backing the server session.",
+            "$ref": "#/components/schemas/DataControlTransferFamily"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Transfer session inspection record returned by session inventory APIs."
+      },
+      "DataControlTransferFamily": {
+        "type": "integer",
+        "description": "Client transfer family used to route and interpret transfer sessions."
+      },
+      "DataItemTransferIdentity": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Identity for a segmented transfer session."
+      },
+      "DataItemTransferMode": {
+        "type": "integer",
+        "description": "Transfer session role used to interpret transfer state and behavior."
+      },
+      "DataItemTransferObjectInfo": {
+        "type": "object",
+        "properties": {
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "Whether the data item uses streamed content."
+          },
+          "DataType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Data type summary."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Data item name summary."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "CLR object type name summary."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Small descriptive summary of the serialized data item associated with a transfer."
+      },
+      "DataItemTransferRange": {
+        "type": "object",
+        "properties": {
+          "Offset": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Starting byte offset of the range.",
+            "format": "int64"
+          },
+          "Length": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Length in bytes of the range.",
+            "format": "int64"
+          },
+          "EndOffsetExclusive": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Exclusive ending offset of the range.",
+            "format": "int64"
+          },
+          "IsEmpty": {
+            "type": "boolean",
+            "description": "Whether the range length is zero."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Half-open byte range within a staged transfer stream."
+      },
+      "DataItemTransferSegmentSizePolicy": {
+        "type": "object",
+        "properties": {
+          "MinSegmentBytes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Minimum allowed payload size in bytes.",
+            "format": "int64"
+          },
+          "PreferredSegmentBytes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Preferred payload size in bytes.",
+            "format": "int64"
+          },
+          "MaxSegmentBytes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Maximum allowed payload size in bytes.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Advertised segment size guidance for a staged transfer session."
+      },
+      "DataItemTransferState": {
+        "type": "object",
+        "properties": {
+          "Created": {
+            "type": "string",
+            "description": "Creation timestamp.",
+            "format": "date-time"
+          },
+          "FaultMessage": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional transfer fault detail."
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Mode": {
+            "description": "Current transfer session mode.",
+            "$ref": "#/components/schemas/DataItemTransferMode"
+          },
+          "MissingRanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataItemTransferRange"
+            },
+            "description": "Missing byte ranges."
+          },
+          "ObjectInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional descriptive object summary.",
+                "$ref": "#/components/schemas/DataItemTransferObjectInfo"
+              }
+            ]
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload.",
+            "format": "byte"
+          },
+          "RealizedBytes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Total realized byte count.",
+            "format": "int64"
+          },
+          "RealizedRanges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataItemTransferRange"
+            },
+            "description": "Realized byte ranges."
+          },
+          "RemainingBytes": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Total missing byte count.",
+            "format": "int64"
+          },
+          "SegmentSizePolicy": {
+            "description": "Advertised segment size guidance.",
+            "$ref": "#/components/schemas/DataItemTransferSegmentSizePolicy"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "SourceSessionID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional source session identifier for follower read sessions.",
+            "format": "uuid"
+          },
+          "StateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Monotonic transfer state version.",
+            "format": "int64"
+          },
+          "Status": {
+            "description": "Current transfer status.",
+            "$ref": "#/components/schemas/DataItemTransferStatus"
+          },
+          "StreamLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Declared stream length in bytes.",
+            "format": "int64"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the complete stream payload.",
+            "format": "byte"
+          },
+          "Updated": {
+            "type": "string",
+            "description": "Last update timestamp.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Current state view of a staged segmented transfer session."
+      },
+      "DataItemTransferStatus": {
+        "type": "integer",
+        "description": "State of a transfer session."
+      },
+      "DataStreamTransferState": {
+        "type": "object",
+        "properties": {
+          "AppendedLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Current durable appended length in bytes.",
+            "format": "int64"
+          },
+          "Created": {
+            "type": "string",
+            "description": "Creation timestamp.",
+            "format": "date-time"
+          },
+          "FaultMessage": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional current fault detail."
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Mode": {
+            "description": "Current transfer session mode.",
+            "$ref": "#/components/schemas/DataItemTransferMode"
+          },
+          "ObjectInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional descriptive object summary.",
+                "$ref": "#/components/schemas/DataItemTransferObjectInfo"
+              }
+            ]
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload when present.",
+            "format": "byte"
+          },
+          "SegmentSizePolicy": {
+            "description": "Advertised segment size guidance.",
+            "$ref": "#/components/schemas/DataItemTransferSegmentSizePolicy"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "SourceSessionID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional source session identifier for follower sessions.",
+            "format": "uuid"
+          },
+          "StateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Monotonic transfer state version.",
+            "format": "int64"
+          },
+          "Status": {
+            "description": "Current transfer status.",
+            "$ref": "#/components/schemas/DataItemTransferStatus"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "Optional final SHA-512 of the durable stream payload.",
+            "format": "byte"
+          },
+          "Updated": {
+            "type": "string",
+            "description": "Last update timestamp.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "State view describing the current status of an append or follow stream-transfer session."
+      },
+      "GetStreamTransferSegmentRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Length": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Requested read payload length in bytes.",
+            "format": "int64"
+          },
+          "Offset": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Requested read offset within the durable appended prefix.",
+            "format": "int64"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Metadata carried in a stream-transfer segment read request."
+      },
+      "GetStreamTransferStateResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a stream-transfer session."
+      },
+      "GetTransferSegmentRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Length": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Requested read payload length in bytes.",
+            "format": "int64"
+          },
+          "Offset": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Requested read offset in bytes.",
+            "format": "int64"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Metadata carried in a segmented transfer read request."
+      },
+      "GetTransferSessionsRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional immutable data item identifier filter.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional transfer session identifier filter.",
+            "format": "uuid"
+          },
+          "Status": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional transfer status filter applied to the current session state.",
+                "$ref": "#/components/schemas/DataItemTransferStatus"
+              }
+            ]
+          },
+          "TransferFamily": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional transfer family filter.",
+                "$ref": "#/components/schemas/DataControlTransferFamily"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "Administrative request used to query DataControl transfer session inventory."
+      },
+      "GetTransferStateResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current staged transfer state."
+      },
+      "OpenFollowStreamTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Requested follower transfer session identifier.",
+            "format": "uuid"
+          },
+          "SourceSessionID": {
+            "type": "string",
+            "description": "Active source stream-transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to create a follower stream-transfer session over an active source session."
+      },
+      "OpenFollowStreamTransferResponse": {
+        "type": "object",
+        "properties": {
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Serialized source object payload used to reconstruct the followed data item.",
+            "format": "byte"
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a follower stream-transfer session."
+      },
+      "OpenGetTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Requested transfer session identifier.",
+            "format": "uuid"
+          },
+          "SourceSessionID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Optional staged upload session identifier when opening a follower read session over active staged content.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to create a new readable segmented session over committed published content."
+      },
+      "OpenGetTransferResponse": {
+        "type": "object",
+        "properties": {
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Serialized data item payload bound to the committed readable session.",
+            "format": "byte"
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a committed-read segmented session."
+      },
+      "OpenStreamTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "ObjectInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional descriptive object summary.",
+                "$ref": "#/components/schemas/DataItemTransferObjectInfo"
+              }
+            ]
+          },
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Optional serialized object payload used to initialize the stream-transfer session.",
+            "format": "byte"
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload when present.",
+            "format": "byte"
+          },
+          "RequestedSegmentSizePolicy": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional requested segment size guidance.",
+                "$ref": "#/components/schemas/DataItemTransferSegmentSizePolicy"
+              }
+            ]
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Requested transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to create a new source stream-transfer session."
+      },
+      "OpenStreamTransferResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a source stream-transfer session."
+      },
+      "OpenUploadTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "ObjectInfo": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional descriptive object summary.",
+                "$ref": "#/components/schemas/DataItemTransferObjectInfo"
+              }
+            ]
+          },
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Serialized data item payload.",
+            "format": "byte"
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload.",
+            "format": "byte"
+          },
+          "RequestedSegmentSizePolicy": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "description": "Optional requested segment size guidance.",
+                "$ref": "#/components/schemas/DataItemTransferSegmentSizePolicy"
+              }
+            ]
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Requested transfer session identifier.",
+            "format": "uuid"
+          },
+          "StreamLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Declared stream length in bytes.",
+            "format": "int64"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the complete stream payload.",
+            "format": "byte"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to create a new staged segmented upload session."
+      },
+      "OpenUploadTransferResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a staged segmented upload session."
+      },
+      "PutStreamTransferSegmentResponse": {
+        "type": "object",
+        "properties": {
+          "Accepted": {
+            "type": "boolean",
+            "description": "Whether the segment was accepted."
+          },
+          "AppendedLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Current durable appended length after processing the request.",
+            "format": "int64"
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Current transfer state version.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Metadata carried in a stream-transfer segment append response."
+      },
+      "PutTransferSegmentResponse": {
+        "type": "object",
+        "properties": {
+          "Accepted": {
+            "type": "boolean",
+            "description": "Whether the segment was accepted."
+          },
+          "CompletedCoverage": {
+            "type": "boolean",
+            "description": "Whether full logical coverage exists after acceptance."
+          },
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Range": {
+            "description": "Logical range associated with this upload result.",
+            "$ref": "#/components/schemas/DataItemTransferRange"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StateVersion": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Current transfer state version.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Metadata carried in a segmented upload envelope response."
+      },
+      "RemoveTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to remove retained transfer session state."
+      },
+      "RemoveTransferResponse": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "Removed": {
+            "type": "boolean",
+            "description": "Whether retained transfer resources were removed."
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response indicating whether retained transfer session resources were removed."
+      },
+      "ReOpenFollowStreamTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Follower transfer session identifier.",
+            "format": "uuid"
+          },
+          "SourceSessionID": {
+            "type": "string",
+            "description": "Source transfer session identifier.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to reattach to an existing follower stream-transfer session."
+      },
+      "ReOpenFollowStreamTransferResponse": {
+        "type": "object",
+        "properties": {
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Serialized source object payload used to reconstruct the followed data item.",
+            "format": "byte"
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a reopened follower stream-transfer session."
+      },
+      "ReOpenGetTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the committed stream payload expected by the caller.",
+            "format": "byte"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to reattach to an existing readable segmented session."
+      },
+      "ReOpenGetTransferResponse": {
+        "type": "object",
+        "properties": {
+          "ObjectPayload": {
+            "type": "string",
+            "description": "Serialized data item payload bound to the readable session.",
+            "format": "byte"
+          },
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a reopened readable segmented session."
+      },
+      "ReOpenStreamTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload when present.",
+            "format": "byte"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "Optional final SHA-512 when reopening a finalized stream-transfer session.",
+            "format": "byte"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to reattach to an existing source stream-transfer session."
+      },
+      "ReOpenStreamTransferResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataStreamTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a reopened source stream-transfer session."
+      },
+      "ReOpenUploadTransferRequest": {
+        "type": "object",
+        "properties": {
+          "ItemID": {
+            "type": "string",
+            "description": "Immutable data item identifier.",
+            "format": "uuid"
+          },
+          "ObjectSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the serialized object payload.",
+            "format": "byte"
+          },
+          "SessionID": {
+            "type": "string",
+            "description": "Transfer session identifier.",
+            "format": "uuid"
+          },
+          "StreamSHA512": {
+            "type": "string",
+            "description": "SHA-512 of the complete stream payload.",
+            "format": "byte"
+          },
+          "StreamLength": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Declared stream length in bytes.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to reattach to an existing staged segmented upload session."
+      },
+      "ReOpenUploadTransferResponse": {
+        "type": "object",
+        "properties": {
+          "State": {
+            "description": "Current transfer state.",
+            "$ref": "#/components/schemas/DataItemTransferState"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response containing the current state of a reopened staged segmented upload session."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "DataControl"
+    }
+  ]
+}

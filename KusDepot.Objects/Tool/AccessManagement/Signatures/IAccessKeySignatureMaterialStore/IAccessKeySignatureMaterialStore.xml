@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeySignatureMaterialStore>
+
+    <interface name = "IAccessKeySignatureMaterialStore">
+
+        <main>
+
+            <summary>Mutable access-key signature material store contract.</summary>
+
+            <remarks>
+                Material resolution with registration and current-signing-material management operations for certificate-backed signing and verification material.
+            </remarks>
+
+        </main>
+
+        <method name = "TryAddVerificationMaterial">
+
+            <summary>Try to register verification material for later resolution.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Verification material to register.</param>
+
+            <returns Cref = "Boolean">True when the material was stored; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryClearCurrentSigningMaterial">
+
+            <summary>Try to clear the current signing material selection.</summary>
+
+            <returns Cref = "Boolean">True when the current signing material selection was cleared; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryGetCurrentSigningMaterial">
+
+            <summary>Try to get the current signing material selection.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Current signing material.</param>
+
+            <returns Cref = "Boolean">True when current signing material is configured; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryRemoveVerificationMaterial">
+
+            <summary>Try to remove verification material associated with a specific signer key identifier.</summary>
+
+            <param name = "signerkeyidformat" Cref = "AccessKeySignerKeyIdFormat">Format discriminator for the signer key identifier to remove.</param>
+
+            <param name = "signerkeyid" Cref = "ReadOnlyMemory{Byte}">Signer key identifier bytes to remove.</param>
+
+            <returns Cref = "Boolean">True when matching verification material was removed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySetCurrentSigningMaterial">
+
+            <summary>Try to set the current signing material selection.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Signing material to use for future signing operations.</param>
+
+            <returns Cref = "Boolean">True when the current signing material selection was updated; otherwise false.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessKeySignatureMaterialStore>

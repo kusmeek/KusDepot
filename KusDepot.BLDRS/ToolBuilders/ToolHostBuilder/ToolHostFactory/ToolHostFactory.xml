@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostFactory>
+
+    <delegate name = "ToolHostFactory">
+
+        <main>
+
+            <summary>Factory delegate for constructing a ToolHost. Provides the builder-resolved values that correspond to the primary ToolHost constructor parameters.</summary>
+
+            <typeparam name = "TToolHost">A Type of ToolHost.</typeparam>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Service Provider.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "lifeid" Cref = "Guid?">Lifetime ID.</param>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">Lifetime.</param>
+
+            <returns Cref = "TToolHost">ToolHost of type specified.</returns>
+
+        </main>
+
+    </delegate>
+
+</ToolHostFactory>

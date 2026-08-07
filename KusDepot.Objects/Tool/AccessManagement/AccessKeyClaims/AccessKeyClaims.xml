@@ -1,0 +1,183 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyClaims>
+
+    <record name = "AccessKeyClaims">
+
+        <main>
+
+            <summary>Access key claims.</summary>
+
+            <remarks>
+                An immutable decrypted token view that exposes issuer, schema-realm, audience, scope, timing, permission, and token identity claims.
+            </remarks>
+
+        </main>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Access-key realm identifier.</summary>
+
+        </property>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Intended audiences carried by the token.</summary>
+
+        </property>
+
+        <property name = "AssertionSummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">
+
+            <summary>Lightweight assertion summaries carried by the validated token view.</summary>
+
+        </property>
+
+        <property name = "Expired" Cref = "Boolean">
+
+            <summary>True if the token expiration time is present and has passed.</summary>
+
+        </property>
+
+        <property name = "IssuedAt" Cref = "DateTimeOffset">
+
+            <summary>Token issuance time.</summary>
+
+        </property>
+
+        <property name = "IssuerAccessManagerID" Cref = "Guid">
+
+            <summary>Issuer access-manager identifier.</summary>
+
+        </property>
+
+        <property name = "IssuerToolID" Cref = "Guid">
+
+            <summary>Issuer tool identifier.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Manifest hash.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Token expiration time if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Permissions" Cref = "Byte[]">
+
+            <summary>Permission bitmap captured from the token payload.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}">
+
+            <summary>Scope claims carried by the token.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Subject.</summary>
+
+        </property>
+
+        <property name = "Token" Cref = "AccessKeyToken">
+
+            <summary>Explicit token identity.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Tool schema identifier.</summary>
+
+        </property>
+
+        <method name = "Allows">
+
+            <summary>Determine whether the claims permission bitmap allows a protected operation.</summary>
+
+            <param name = "operation" Cref = "Int32">Protected operation index.</param>
+
+            <returns Cref = "Boolean">True if the operation is allowed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Copy">
+
+            <summary>Create a copy of the access key claims.</summary>
+
+            <returns Cref = "AccessKeyClaims">Copied access key claims.</returns>
+
+        </method>
+
+        <method name = "HasAudience">
+
+            <summary>Determine whether the claims contain an intended audience.</summary>
+
+            <param name = "audience" Cref = "String?">Audience to test.</param>
+
+            <returns Cref = "Boolean">True if the audience is present; otherwise false.</returns>
+
+        </method>
+
+        <method name = "HasScope">
+
+            <summary>Determine whether the claims contain a scope claim.</summary>
+
+            <param name = "scope" Cref = "String?">Scope to test.</param>
+
+            <returns Cref = "Boolean">True if the scope is present; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsExpiredAt">
+
+            <summary>Determine whether the claims would be expired at a specific instant.</summary>
+
+            <param name = "when" Cref = "DateTimeOffset">Instant to test against the token expiration time.</param>
+
+            <returns Cref = "Boolean">True if the token has an expiration time and that time is before the supplied instant; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsForRealm">
+
+            <summary>Determine whether the claims target a specific access-key realm.</summary>
+
+            <param name = "accesskeyrealmid" Cref = "String?">Access-key realm identifier to test.</param>
+
+            <returns Cref = "Boolean">True if the claims target the supplied realm; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsForSchema">
+
+            <summary>Determine whether the claims target a specific tool schema.</summary>
+
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier to test.</param>
+
+            <returns Cref = "Boolean">True if the claims target the supplied schema; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsIssuedBy">
+
+            <summary>Determine whether the claims were issued by a specific tool, a specific access manager, or both.</summary>
+
+            <param name = "issuertoolid" Cref = "Guid?">Optional issuer tool identifier to test.</param>
+
+            <param name = "issueraccessmanagerid" Cref = "Guid?">Optional issuer access-manager identifier to test.</param>
+
+            <returns Cref = "Boolean">True if every supplied non-empty issuer identifier matches the claims and at least one issuer identifier was supplied; otherwise false.</returns>
+
+        </method>
+
+    </record>
+
+</AccessKeyClaims>

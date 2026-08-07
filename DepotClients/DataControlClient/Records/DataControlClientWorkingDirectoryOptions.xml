@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlClientWorkingDirectoryOptions>
+
+	<record name="DataControlClientWorkingDirectoryOptions">
+
+		<main>
+
+			<summary>Configures the root working directory used by DataControl client transfer sessions.</summary>
+
+		</main>
+
+		<property name="RootPath" Cref="String">
+
+			<summary>Root path where upload and download session state is persisted locally.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlClientWorkingDirectoryOptions>

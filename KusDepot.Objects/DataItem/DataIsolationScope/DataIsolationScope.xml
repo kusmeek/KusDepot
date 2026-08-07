@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataIsolationScope>
+
+    <class name = "DataIsolationScope">
+
+        <main>
+
+            <summary>Disposable scope that temporarily overrides the active data isolation mode for the current logical execution flow.</summary>
+
+        </main>
+
+        <field name = "previous" Cref = "DataIsolationMode">
+
+            <summary>The previously active data isolation mode before the scope override was applied.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a scoped data isolation override and capture the previous mode for restoration.</summary>
+
+        </constructor>
+
+        <method name = "Dispose" Cref = "Void">
+
+            <summary>Restore the previously active data isolation mode when the scope ends.</summary>
+
+        </method>
+
+    </class>
+
+</DataIsolationScope>

@@ -1,0 +1,161 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<OrleansUtility>
+
+    <class name = "OrleansUtility">
+
+        <main>
+
+            <summary>Orleans serialization utility methods.</summary>
+
+        </main>
+
+        <field name = "Identity">
+
+            <summary>The cached Orleans serialization identity used to build the envelope header.</summary>
+
+        </field>
+
+        <field name = "Header">
+
+            <summary>The cached pre-built envelope header bytes for the Orleans serializer identity.</summary>
+
+        </field>
+
+        <field name = "ManifestProviderBaseTypeName">
+
+            <summary>The full type name of the Orleans TypeManifestProviderBase class used to identify generated manifest provider service registrations.</summary>
+
+        </field>
+
+        <field name = "Provider">
+
+            <summary>The lazily created service provider used to initialize Orleans serialization services once per process.</summary>
+
+        </field>
+
+        <field name = "Serializer">
+
+            <summary>The lazily resolved Orleans serializer instance obtained from the cached service provider.</summary>
+
+        </field>
+
+        <method name = "Deserialize">
+
+            <summary>Deserialize an instance from a byte array using the Orleans serializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "Byte[]">Byte array containing the serialized data.</param>
+
+            <returns Cref = "TResult">Deserialized instance of the requested type.</returns>
+
+        </method>
+
+        <method name = "DeserializeMemory">
+
+            <summary>Deserialize an instance from a memory block using the Orleans serializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "ReadOnlyMemory{Byte}">Memory containing the serialized data.</param>
+
+            <returns Cref = "TResult">Deserialized instance of the requested type.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Read and deserialize an instance from a file using the Orleans serializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "path" Cref = "String">Source file path.</param>
+
+            <returns Cref = "TResult?">Deserialized instance if the file exists and was read successfully; otherwise null.</returns>
+
+        </method>
+
+        <method name = "Serialize">
+
+            <summary>Serialize an instance to a byte array using the Orleans serializer.</summary>
+
+            <typeparam name = "T">The type of the instance to serialize.</typeparam>
+
+            <param name = "instance" Cref = "T">The object instance to serialize.</param>
+
+            <returns Cref = "Byte[]">Byte array containing the serialized instance.</returns>
+
+        </method>
+
+        <method name = "ToBase64String">
+
+            <summary>Serialize an instance to a Base64-encoded string using the Orleans serializer.</summary>
+
+            <typeparam name = "T">The type of the instance to serialize.</typeparam>
+
+            <param name = "instance" Cref = "T">The object instance to serialize.</param>
+
+            <returns Cref = "String">Base64-encoded representation of the serialized instance.</returns>
+
+        </method>
+
+        <method name = "ToFile">
+
+            <summary>Serialize and write an instance to a file using the Orleans serializer.</summary>
+
+            <typeparam name = "T">The type of the instance to serialize.</typeparam>
+
+            <param name = "path" Cref = "String">Destination file path.</param>
+
+            <param name = "instance" Cref = "T">The object instance to serialize.</param>
+
+            <returns Cref = "Boolean">True if the file was created and written successfully; false if the file already exists or an error occurred.</returns>
+
+        </method>
+
+        <method name = "ParseBase64">
+
+            <summary>Deserialize an instance from a Base64-encoded string using the Orleans serializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "String">Base64-encoded string containing the serialized data.</param>
+
+            <returns Cref = "TResult?">Deserialized instance if parsing succeeds; otherwise null.</returns>
+
+        </method>
+
+        <method name = "TryParseBase64">
+
+            <summary>Attempt to deserialize an instance from a Base64-encoded string using the Orleans serializer.</summary>
+
+            <typeparam name = "TResult">The expected result type.</typeparam>
+
+            <param name = "input" Cref = "String">Base64-encoded string containing the serialized data.</param>
+
+            <param name = "result" Cref = "TResult?">Deserialized instance if the operation succeeds; otherwise default.</param>
+
+            <returns Cref = "Boolean">True if parsing succeeded; otherwise false.</returns>
+
+        </method>
+
+        <method name = "CreateProvider">
+
+            <summary>Create the singleton service provider used to resolve the Orleans serializer runtime.</summary>
+
+            <returns Cref = "ServiceProvider">Configured service provider containing Orleans serialization services.</returns>
+
+        </method>
+
+        <method name = "PruneManifests">
+
+            <summary>Remove duplicate Orleans TypeManifestProvider service registrations that originate from assemblies loaded in a different AssemblyLoadContext than the calling assembly. This prevents duplicate type alias collisions when the same assembly is loaded in both an isolated context and the host's default context.</summary>
+
+            <param name = "services" Cref = "ServiceCollection">The service collection populated by AddSerializer to prune.</param>
+
+        </method>
+
+    </class>
+
+</OrleansUtility>

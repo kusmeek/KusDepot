@@ -1,0 +1,123 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MembershipCacheKey>
+
+    <struct name = "MembershipCacheKey">
+
+        <main>
+
+            <summary>Derived key for cached encrypted access key membership.</summary>
+
+        </main>
+
+        <field name = "MinimumEnvelopeSize" Cref = "Int32">
+
+            <summary>Minimum encrypted access key envelope size required to derive a cache key.</summary>
+
+        </field>
+
+        <field name = "NonceSize" Cref = "Int32">
+
+            <summary>Encrypted token nonce size in bytes.</summary>
+
+        </field>
+
+        <field name = "TagSize" Cref = "Int32">
+
+            <summary>Encrypted token authentication tag size in bytes.</summary>
+
+        </field>
+
+        <field name = "VersionSize" Cref = "Int32">
+
+            <summary>Encrypted token version prefix size in bytes.</summary>
+
+        </field>
+
+        <field name = "CipherLength" Cref = "Int32">
+
+            <summary>Encrypted ciphertext length.</summary>
+
+        </field>
+
+        <field name = "Nonce" Cref = "UInt128">
+
+            <summary>Encrypted token nonce.</summary>
+
+        </field>
+
+        <field name = "Tag" Cref = "UInt128">
+
+            <summary>Encrypted token authentication tag.</summary>
+
+        </field>
+
+        <field name = "Version" Cref = "Byte">
+
+            <summary>Encrypted token version byte.</summary>
+
+        </field>
+
+        <constructor name = "Constructor" Cref = "MembershipCacheKey">
+
+            <summary>Create a derived membership cache key.</summary>
+
+            <param name = "version" Cref = "Byte">Token format version.</param>
+
+            <param name = "nonce" Cref = "UInt128">Nonce value padded to 128 bits.</param>
+
+            <param name = "tag" Cref = "UInt128">Authentication tag value.</param>
+
+            <param name = "cipherlength" Cref = "Int32">Ciphertext length.</param>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Try to derive a membership cache key from encrypted access key bytes.</summary>
+
+            <param name = "secret" Cref = "ReadOnlySpan{Byte}">Encrypted access key bytes.</param>
+
+            <param name = "key" Cref = "MembershipCacheKey">Derived cache key.</param>
+
+            <returns Cref = "Boolean">True if the key was derived successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>Determine equality with another derived membership cache key.</summary>
+
+            <param name = "other" Cref = "MembershipCacheKey">Other cache key.</param>
+
+            <returns Cref = "Boolean">True if equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Determine whether two derived membership cache keys are equal.</summary>
+
+            <param name = "left" Cref = "MembershipCacheKey">Left key.</param>
+
+            <param name = "right" Cref = "MembershipCacheKey">Right key.</param>
+
+            <returns Cref = "Boolean">True if equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Determine whether two derived membership cache keys are not equal.</summary>
+
+            <param name = "left" Cref = "MembershipCacheKey">Left key.</param>
+
+            <param name = "right" Cref = "MembershipCacheKey">Right key.</param>
+
+            <returns Cref = "Boolean">True if not equal; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</MembershipCacheKey>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SegmentedTransferStorage>
+  <class name="SegmentedTransferStorage">
+	<main>
+	  <summary>Provides sparse-file-backed staging storage primitives for segmented transfer sessions.</summary>
+	</main>
+	<field name="options">
+	  <summary>Configured storage options used to resolve staged session paths.</summary>
+	</field>
+	<constructor name="SegmentedTransferStorage">
+	  <summary>Create the staging storage service.</summary>
+	  <param name="options" Cref="IOptions{TransferStorageOptions}">Configured staging storage options.</param>
+	</constructor>
+	<method name="HasRealizedOverlap">
+	  <summary>Determine whether an incoming write intersects any already realized range.</summary>
+	  <param name="realizedranges" Cref="DataItemTransferRange[]">Normalized realized ranges from the manifest.</param>
+	  <param name="incomingrange" Cref="DataItemTransferRange">Incoming write range.</param>
+	  <returns Cref="Boolean">True when any realized range intersects the incoming write.</returns>
+	</method>
+  </class>
+</SegmentedTransferStorage>

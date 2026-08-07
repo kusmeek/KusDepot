@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ReflectionArgumentBinding>
+
+    <class name = "ReflectionArgumentBinding">
+
+        <main>
+
+            <summary>Shared helpers that build reflection invoke arguments and compatibility scores.</summary>
+
+        </main>
+
+        <method name = "TryCreateInvokeArgsArray">
+
+            <summary>Build invoke arguments from positional array input.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Target parameters.</param>
+            <param name = "arguments" Cref = "Object?[]?">Positional argument values.</param>
+            <param name = "allowdefaultvalues" Cref = "Boolean">Allow parameter default values when argument is missing.</param>
+            <param name = "invoke" Cref = "Object?[]?">Invocation arguments output.</param>
+            <param name = "exact" Cref = "Int32">Exact-match score output.</param>
+            <param name = "assignable" Cref = "Int32">Assignable-match score output.</param>
+
+            <returns Cref = "Boolean">True when binding succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryCreateInvokeArgsDictionary">
+
+            <summary>Build invoke arguments from indexed dictionary input.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Target parameters.</param>
+            <param name = "arguments" Cref = "IReadOnlyDictionary{Int32,Object?}?">Indexed argument values.</param>
+            <param name = "allowdefaultvalues" Cref = "Boolean">Allow parameter default values when argument is missing.</param>
+            <param name = "invoke" Cref = "Object?[]?">Invocation arguments output.</param>
+            <param name = "exact" Cref = "Int32">Exact-match score output.</param>
+            <param name = "assignable" Cref = "Int32">Assignable-match score output.</param>
+
+            <returns Cref = "Boolean">True when binding succeeds; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</ReflectionArgumentBinding>

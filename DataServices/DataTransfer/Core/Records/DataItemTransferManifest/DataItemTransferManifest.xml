@@ -1,0 +1,155 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferManifest>
+
+	<record name = "DataItemTransferManifest">
+
+		<main><summary>Durable manifest describing a staged segmented transfer session.</summary></main>
+
+		<field name = "ManifestFileName"><summary>Conventional file name for the persisted manifest JSON document.</summary></field>
+		<field name = "ObjectFileName"><summary>Conventional file name for the staged serialized object payload.</summary></field>
+		<field name = "StreamFileName"><summary>Conventional file name for the staged sparse stream payload.</summary></field>
+
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "SourceSessionID" Cref = "Guid?"><summary>Optional source session identifier for follower read sessions.</summary></property>
+		<property name = "ObjectSHA512" Cref = "Byte[]"><summary>SHA-512 of the serialized object payload.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>SHA-512 of the complete stream payload.</summary></property>
+		<property name = "StreamLength" Cref = "Int64"><summary>Declared stream length in bytes.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Current transfer status.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode"><summary>Current transfer session mode.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Monotonic transfer state version.</summary></property>
+		<property name = "Created" Cref = "DateTimeOffset"><summary>Creation timestamp.</summary></property>
+		<property name = "Updated" Cref = "DateTimeOffset"><summary>Last update timestamp.</summary></property>
+		<property name = "SegmentSizePolicy" Cref = "DataItemTransferSegmentSizePolicy"><summary>Advertised segment size guidance.</summary></property>
+		<property name = "RealizedRanges" Cref = "DataItemTransferRange[]"><summary>Persisted realized byte ranges.</summary></property>
+		<property name = "ObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional descriptive object summary.</summary></property>
+		<property name = "FaultMessage" Cref = "String?"><summary>Optional persisted fault detail.</summary></property>
+
+		<method name = "Validate">
+			<summary>Determine whether the manifest content is internally valid.</summary>
+			<returns Cref = "Boolean">True when the manifest is valid.</returns>
+		</method>
+		<method name = "NormalizeRanges">
+			<summary>Return a manifest whose realized ranges are sorted and merged.</summary>
+			<returns Cref = "DataItemTransferManifest">Manifest with normalized realized ranges.</returns>
+		</method>
+		<method name = "GetRealizedBytes">
+			<summary>Compute the total realized byte count represented by the manifest ranges.</summary>
+			<returns Cref = "Int64">Realized byte count.</returns>
+		</method>
+		<method name = "GetMissingRanges">
+			<summary>Compute the currently missing byte ranges for the declared stream length.</summary>
+			<returns Cref = "DataItemTransferRange[]">Missing half-open byte ranges.</returns>
+		</method>
+		<method name = "HasFullCoverage">
+			<summary>Determine whether the manifest ranges fully cover the declared stream length.</summary>
+			<returns Cref = "Boolean">True when full logical coverage exists.</returns>
+		</method>
+		<method name = "CanReadRange">
+			<summary>Determine whether a fully realized range may be read from the staged stream.</summary>
+			<param name = "range" Cref = "DataItemTransferRange?">Requested range.</param>
+			<returns Cref = "Boolean">True when the range is fully realized.</returns>
+		</method>
+		<method name = "CanWriteRange">
+			<summary>Determine whether a range is within the declared stream bounds.</summary>
+			<param name = "range" Cref = "DataItemTransferRange?">Requested range.</param>
+			<returns Cref = "Boolean">True when the range is within bounds.</returns>
+		</method>
+		<method name = "ToState">
+			<summary>Materialize a transfer state view from the manifest.</summary>
+			<returns Cref = "DataItemTransferState">Current transfer state.</returns>
+		</method>
+		<method name = "Touch">
+			<summary>Return a manifest with updated timestamp and incremented state version.</summary>
+			<param name = "clearfault" Cref = "Boolean">True to clear any fault message.</param>
+			<returns Cref = "DataItemTransferManifest">Updated manifest.</returns>
+		</method>
+		<method name = "WithStatus">
+			<summary>Return a manifest with an updated status, fault message, timestamp, and incremented state version.</summary>
+			<param name = "status" Cref = "DataItemTransferStatus">New transfer status.</param>
+			<param name = "faultmessage" Cref = "String?">Optional fault message.</param>
+			<returns Cref = "DataItemTransferManifest">Updated manifest.</returns>
+		</method>
+		<method name = "WithAddedRange">
+			<summary>Return a manifest with an additional realized range merged into persisted coverage.</summary>
+			<param name = "range" Cref = "DataItemTransferRange">Range to add.</param>
+			<returns Cref = "DataItemTransferManifest">Updated manifest.</returns>
+		</method>
+		<method name = "Serialize">
+			<summary>Serialize the manifest to UTF-8 JSON bytes.</summary>
+			<returns Cref = "Byte[]">Serialized UTF-8 bytes.</returns>
+		</method>
+		<method name = "Save">
+			<summary>Persist the manifest to a file path.</summary>
+			<param name = "path" Cref = "String">Destination file path.</param>
+			<returns Cref = "Boolean">True when the manifest was written successfully.</returns>
+		</method>
+		<method name = "Parse">
+			<summary>Parse a manifest from JSON text.</summary>
+			<param name = "input" Cref = "String?">Serialized JSON text.</param>
+			<returns Cref = "DataItemTransferManifest?">Parsed manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "Deserialize">
+			<summary>Parse a manifest from UTF-8 JSON bytes.</summary>
+			<param name = "input" Cref = "Byte[]?">Serialized UTF-8 bytes.</param>
+			<returns Cref = "DataItemTransferManifest?">Parsed manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "TryParse">
+			<summary>Attempt to parse a manifest from JSON text.</summary>
+			<param name = "input" Cref = "String?">Serialized JSON text.</param>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Parsed manifest when successful.</param>
+			<returns Cref = "Boolean">True when parsing succeeded.</returns>
+		</method>
+		<method name = "Load">
+			<summary>Load a manifest from a file path.</summary>
+			<param name = "path" Cref = "String">Manifest file path.</param>
+			<returns Cref = "DataItemTransferManifest?">Loaded manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "ToString">
+			<summary>Serialize the manifest to JSON text.</summary>
+			<returns Cref = "String">Serialized JSON text.</returns>
+		</method>
+		<method name = "ValidateObjectHash">
+			<summary>Determine whether a SHA-512 hash buffer has the expected length.</summary>
+			<param name = "hash" Cref = "Byte[]?">Candidate hash buffer.</param>
+			<returns Cref = "Boolean">True when the buffer length matches SHA-512 output.</returns>
+		</method>
+		<method name = "ValidateStreamHash">
+			<summary>Determine whether a SHA-512 hash buffer has the expected length for a given stream length.</summary>
+			<param name = "hash" Cref = "Byte[]?">Candidate hash buffer.</param>
+			<param name = "streamlength" Cref = "Int64">Declared stream length in bytes.</param>
+			<returns Cref = "Boolean">True when the buffer length matches SHA-512 output for the given stream length.</returns>
+		</method>
+		<method name = "NormalizeRangesCore">
+			<summary>Sort, validate, and merge realized ranges into canonical half-open coverage.</summary>
+			<param name = "ranges" Cref = "IEnumerable{DataItemTransferRange}">Candidate realized ranges.</param>
+			<returns Cref = "DataItemTransferRange[]">Canonical realized ranges.</returns>
+		</method>
+		<method name = "GetMissingRangesCore">
+			<summary>Compute the missing ranges within the declared stream length from canonical realized ranges.</summary>
+			<param name = "realized" Cref = "DataItemTransferRange[]">Canonical realized ranges.</param>
+			<param name = "streamlength" Cref = "Int64">Declared stream length in bytes.</param>
+			<returns Cref = "DataItemTransferRange[]">Missing half-open ranges.</returns>
+		</method>
+		<method name = "GetRealizedBytesCore">
+			<summary>Compute the total realized byte count from canonical realized ranges.</summary>
+			<param name = "realized" Cref = "DataItemTransferRange[]">Canonical realized ranges.</param>
+			<returns Cref = "Int64">Realized byte count.</returns>
+		</method>
+		<method name = "AreRangesWithinStreamLengthCore">
+			<summary>Determine whether all canonical realized ranges fall within the declared stream length.</summary>
+			<param name = "realized" Cref = "DataItemTransferRange[]">Canonical realized ranges.</param>
+			<param name = "streamlength" Cref = "Int64">Declared stream length in bytes.</param>
+			<returns Cref = "Boolean">True when all realized ranges are within bounds.</returns>
+		</method>
+		<method name = "EnumerateRangesWithOneMore">
+			<summary>Enumerate an existing range sequence followed by one additional range.</summary>
+			<param name = "ranges" Cref = "IEnumerable{DataItemTransferRange}">Existing range sequence.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Additional range to append.</param>
+			<returns Cref = "IEnumerable{DataItemTransferRange}">Combined range enumeration.</returns>
+		</method>
+
+	</record>
+
+</DataItemTransferManifest>

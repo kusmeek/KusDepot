@@ -1,0 +1,19 @@
+<ToolValueToolDataConverter>
+
+    <class name = "ToolValueToolDataConverter">
+
+        <main>
+
+            <summary>Dedicated ToolValue converter for the ToolData types.</summary>
+
+        </main>
+
+        <method name = "IsSupportedType">
+
+            <summary>Determines whether a runtime type is supported.</summary>
+
+        </method>
+
+    </class>
+
+</ToolValueToolDataConverter>

@@ -1,0 +1,161 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/instructions/style.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="LICENSE" />
+    <File Path="Readme.md" />
+  </Folder>
+  <Project Path="DaprSidecar/DaprSidecar.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="DataServices/DataServices.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="DepotClients/DepotClients.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.AIO/KusDepot.AIO.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.ASPR/KusDepot.ASPR.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.BLDRS/KusDepot.BLDRS.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.CMD/KusDepot.CMD.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Dap/KusDepot.Dap.sfproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="KusDepot.Docs/KusDepot.Docs.shfbproj" Type="7cf6df6d-3b04-46f8-a40b-537d21bca0b4" Id="507558d4-0d0a-4361-98c8-4ef9473ddbc4">
+    <BuildDependency Project="DepotClients/DepotClients.csproj" />
+    <BuildDependency Project="KusDepot.Objects/KusDepot.Objects.csproj" />
+    <Platform Project="AnyCPU" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Exam/KusDepot.Exam.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Exams/KusDepot.Exams.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Objects/KusDepot.Objects.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Packages/KusDepot.Packages.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Performance/KusDepot.Performance.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.Services/KusDepot.Services.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.SourceGen/KusDepot.SourceGen.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.ToolManifests/KusDepot.ToolManifests.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepot.ToolWorkflow/KusDepot.ToolWorkflow.sfproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="KusDepotDataPod/App/KusDepotDataPod.App.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepotDataPod/Catalog/KusDepotDataPod.Catalog.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepotDataPod/DataControl/KusDepotDataPod.DataControl.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepotDataPod/Services/KusDepotDataPod.Services.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepotDataPod/Shared/KusDepotDataPod.Shared.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="KusDepotSolutions/KusDepotSolutions.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Build Solution="*|Any CPU" Project="false" />
+    <Build Solution="*|ARM64" Project="false" />
+    <Build Solution="*|x86" Project="false" />
+    <Build Solution="Debug|x64" Project="false" />
+  </Project>
+  <Project Path="KustoEmulator/KustoEmulator.sfproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="Laboperator/Laboperator.AppHost/Laboperator.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="Laboratory/Laboratory.csproj">
+    <Platform Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="Labspace/Labspace.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="Labvoid/Labvoid.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="LabX02/LabX02.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="Debug|Any CPU" Project="x64" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="LabX08/LabX08.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactF/ReactF.fsproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactG/ReactG.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactJ/ReactJ.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactL/ReactL.AppHost/ReactL.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactN/ReactN.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactP/ReactP.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="ReactR/ReactR.csproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="Reacts/Reacts.csproj">
+    <Platform Solution="Release|x64" Project="x64" />
+    <Build Solution="*|Any CPU" Project="false" />
+    <Build Solution="*|ARM64" Project="false" />
+    <Build Solution="*|x86" Project="false" />
+    <Build Solution="Debug|x64" Project="false" />
+  </Project>
+  <Project Path="ToolWork/ToolWork.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Build Project="false" />
+  </Project>
+</Solution>

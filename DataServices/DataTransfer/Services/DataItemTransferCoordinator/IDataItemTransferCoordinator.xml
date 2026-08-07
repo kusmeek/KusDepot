@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IDataItemTransferCoordinator>
+  <interface name="IDataItemTransferCoordinator">
+	<main>
+	  <summary>Provides keyed asynchronous coordination for segmented transfer operations.</summary>
+	</main>
+	<method name="AcquireItemLockAsync">
+	  <summary>Acquire the lock associated with an item identifier.</summary>
+	  <param name="itemid" Cref="Guid">Item identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{IAsyncDisposable}">Asynchronous lock releaser.</returns>
+	</method>
+	<method name="AcquireSessionLockAsync">
+	  <summary>Acquire the lock associated with a session identifier.</summary>
+	  <param name="sessionid" Cref="Guid">Session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{IAsyncDisposable}">Asynchronous lock releaser.</returns>
+	</method>
+  </interface>
+</IDataItemTransferCoordinator>

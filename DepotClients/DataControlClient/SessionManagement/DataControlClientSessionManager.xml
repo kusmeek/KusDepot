@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlClientSessionManager>
+
+	<class name = "DataControlClientSessionManager">
+
+		<main><summary>Inspects and deletes persisted local transfer sessions under a client working-directory root.</summary></main>
+
+		<field name = "storage" Cref = "DataControlClientWorkingDirectoryStorage"><summary>Working-directory storage used to enumerate, load, and delete persisted transfer sessions.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Create a session manager over the provided working-directory options.</summary>
+			<param name = "options" Cref = "DataControlClientWorkingDirectoryOptions?">Working-directory options that define the local session root.</param>
+			<returns Cref = "DataControlClientSessionManager">Initialized session manager.</returns>
+		</constructor>
+
+		<method name = "GetLocalSession">
+			<summary>Load a single persisted local transfer session by identifier.</summary>
+			<param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlTransferSessionInfo?}">A task that completes with local session information, or null when the session is not present.</returns>
+		</method>
+
+		<method name = "ListLocalSessions">
+			<summary>Enumerate all persisted local transfer sessions ordered by most recently updated first.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{IReadOnlyList{DataControlTransferSessionInfo}}">A task that completes with the discovered local transfer sessions.</returns>
+		</method>
+
+		<method name = "DeleteLocalSession">
+			<summary>Delete persisted artifacts for a local transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Local transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the session artifacts were deleted; otherwise false.</returns>
+		</method>
+
+	</class>
+
+</DataControlClientSessionManager>

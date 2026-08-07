@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EncryptionEnvelope>
+    <class name="EncryptionEnvelope">
+        <main>
+            <summary>
+                Data protection with RSA and AES-GCM.
+            </summary>
+        </main>
+
+        <method name="DecryptArray">
+            <summary>
+                Decrypts an in-memory envelope by dispatching to the codec for the detected envelope version.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the private key for decryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Additional authenticated data supplied by the caller.</param>
+            <returns Cref="Byte[]?">Recovered plaintext, or null if the input is invalid or unsupported.</returns>
+        </method>
+
+        <method name="DecryptArrayAsync">
+            <summary>
+                Decrypts an in-memory envelope asynchronously by dispatching to the codec for the detected envelope version.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the private key for decryption.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Additional authenticated data supplied by the caller.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">Recovered plaintext, or null if the input is invalid or unsupported.</returns>
+        </method>
+
+        <method name="DecryptStream">
+            <summary>
+                Decrypts an envelope stream using the current supported codec pipeline.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing the serialized envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the private key for decryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Additional authenticated data supplied by the caller.</param>
+            <returns Cref="Boolean">True if decryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="DecryptStreamAsync">
+            <summary>
+                Decrypts an envelope stream asynchronously using the current supported codec pipeline.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing the serialized envelope.</param>
+            <param name="output" Cref="Stream?">Output stream for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the private key for decryption.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Additional authenticated data supplied by the caller.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True if decryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="DecryptSpan">
+            <summary>
+                Decrypts an in-memory envelope span by dispatching to the codec for the detected envelope version.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Serialized envelope.</param>
+            <param name="output" Cref="Span{Byte}">Destination buffer for recovered plaintext.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the private key for decryption.</param>
+            <param name="byteswritten" Cref="Int32">Number of plaintext bytes written.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Additional authenticated data supplied by the caller.</param>
+            <returns Cref="Boolean">True if decryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="EncryptArray">
+            <summary>
+                Encrypts an in-memory payload using the current write codec.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext payload.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref="Byte[]?">Serialized envelope.</returns>
+        </method>
+
+        <method name="GetEncryptedCapacity">
+            <summary>
+                Estimates the serialized envelope size for the current write codec without duplicating version-specific layout math at the call site.
+            </summary>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key used to determine wrapped key material length.</param>
+            <param name="plaintextlength" Cref="Int64">Plaintext length in bytes.</param>
+            <param name="includeaadhash" Cref="Boolean">True to include the optional AAD hash field in the estimate.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the optional original length field in the estimate.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref="Int32?">Estimated envelope size in bytes, or null if the requested layout is invalid.</returns>
+        </method>
+
+        <method name="EncryptArrayAsync">
+            <summary>
+                Encrypts an in-memory payload asynchronously using the current write codec.
+            </summary>
+            <param name="input" Cref="Byte[]?">Plaintext payload.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte[]?}">Serialized envelope.</returns>
+        </method>
+
+        <method name="EncryptStream">
+            <summary>
+                Encrypts a stream using the current write codec.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for the serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref="Boolean">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="EncryptUtf16">
+            <summary>
+                Encrypts UTF-16 text using the current write codec.
+            </summary>
+            <param name="input" Cref="String?">UTF-16 plaintext payload.</param>
+            <param name="output" Cref="Stream?">Output stream for the serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <returns Cref="Boolean">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="EncryptStreamAsync">
+            <summary>
+                Encrypts a stream asynchronously using the current write codec.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing plaintext.</param>
+            <param name="output" Cref="Stream?">Output stream for the serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="EncryptUtf16Async">
+            <summary>
+                Encrypts UTF-16 text asynchronously using the current write codec.
+            </summary>
+            <param name="input" Cref="String?">UTF-16 plaintext payload.</param>
+            <param name="output" Cref="Stream?">Output stream for the serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="aad" Cref="ReadOnlyMemory{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <param name="includeoriginallength" Cref="Boolean">True to include the original length in the envelope header.</param>
+            <param name="chunksizepower" Cref="Int32">Base-2 exponent used to determine chunk size.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Boolean}">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="EncryptSpan">
+            <summary>
+                Encrypts an in-memory payload span using the current write codec.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Plaintext payload.</param>
+            <param name="output" Cref="Span{Byte}">Destination buffer for the serialized envelope.</param>
+            <param name="certificate" Cref="X509Certificate2?">Certificate containing the public key for encryption.</param>
+            <param name="byteswritten" Cref="Int32">Number of envelope bytes written.</param>
+            <param name="aad" Cref="ReadOnlySpan{Byte}">Optional additional authenticated data.</param>
+            <param name="includeaadhash" Cref="Boolean">True to bind a hash of caller-supplied AAD into the envelope.</param>
+            <returns Cref="Boolean">True if encryption succeeds; otherwise false.</returns>
+        </method>
+
+        <method name="GetEnvelopeVersionArray">
+            <summary>
+                Extracts the leading envelope version byte from an array input.
+            </summary>
+            <param name="input" Cref="Byte[]?">Serialized envelope bytes.</param>
+            <returns Cref="Byte?">The detected version byte, or null if unavailable.</returns>
+        </method>
+
+        <method name="GetEnvelopeVersionSpan">
+            <summary>
+                Extracts the leading envelope version byte from a span input.
+            </summary>
+            <param name="input" Cref="ReadOnlySpan{Byte}">Serialized envelope bytes.</param>
+            <returns Cref="Byte?">The detected version byte, or null if unavailable.</returns>
+        </method>
+
+        <method name="GetEnvelopeVersionStream">
+            <summary>
+                Reads and returns the leading envelope version byte from a stream input.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing serialized envelope bytes.</param>
+            <returns Cref="Byte?">The detected version byte, or null if unavailable.</returns>
+            <remarks>
+                <para>This method consumes one byte from the stream. Stream decryption wraps the stream in a <see cref="KusDepot.Cryptography.DecryptionStream"/> to replay the consumed byte for the selected codec.</para>
+            </remarks>
+        </method>
+
+        <method name="GetEnvelopeVersionStreamAsync">
+            <summary>
+                Reads and returns the leading envelope version byte from a stream input asynchronously.
+            </summary>
+            <param name="input" Cref="Stream?">Input stream containing serialized envelope bytes.</param>
+            <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Byte?}">The detected version byte, or null if unavailable.</returns>
+            <remarks>
+                <para>This method consumes one byte from the stream. Stream decryption wraps the stream in a <see cref="KusDepot.Cryptography.DecryptionStream"/> to replay the consumed byte for the selected codec.</para>
+            </remarks>
+        </method>
+
+        <method name="IsSupportedVersion">
+            <summary>
+                Determines whether a version byte is supported by the current fa�ade.
+            </summary>
+            <param name="version" Cref="Byte">Envelope version byte.</param>
+            <returns Cref="Boolean">True if the version is supported; otherwise false.</returns>
+        </method>
+
+        <field name="EnvelopeVersion1">
+            <summary>
+                Serialized envelope version identifier for the frozen V1 codec.
+            </summary>
+        </field>
+
+    </class>
+</EncryptionEnvelope>

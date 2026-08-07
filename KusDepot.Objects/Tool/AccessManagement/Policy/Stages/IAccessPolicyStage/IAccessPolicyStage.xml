@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessPolicyStage>
+
+    <interface name = "IAccessPolicyStage">
+
+        <main>
+
+            <summary>Access-policy stage interface.</summary>
+
+            <remarks>
+                Represents a single ordered policy rule that can participate in a composite access-policy engine.
+            </remarks>
+
+        </main>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate a single ordered policy stage from an access-policy context snapshot.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Stage decision for the supplied context. Composite engines stop on the first deny decision.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessPolicyStage>

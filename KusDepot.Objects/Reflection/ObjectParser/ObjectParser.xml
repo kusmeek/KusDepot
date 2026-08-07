@@ -1,0 +1,253 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<ObjectParser>
+
+    <class name = "ObjectParser">
+
+        <main>
+
+            <summary>Parses an object instance from String input using reflection.</summary>
+
+        </main>
+
+        <field name = "Sync" Cref = "Object">
+
+            <summary>Synchronization object.</summary>
+
+        </field>
+
+        <field name = "Data" Cref = "String?">
+
+            <summary>Input payload forwarded to reflected parse method.</summary>
+
+        </field>
+
+        <field name = "Formatter" Cref = "IFormatProvider?">
+
+            <summary>Format provider forwarded to reflected parse method.</summary>
+
+        </field>
+
+        <field name = "Parsed" Cref = "Boolean">
+
+            <summary>True after successful parse.</summary>
+
+        </field>
+
+        <property name = "Provider" Cref = "TypeProvider">
+
+            <summary>Type provider used to materialize parser target type.</summary>
+
+            <remarks>Configure active context, probe assemblies, directories, in-memory assemblies, and assembly identities directly through this provider.</remarks>
+
+        </property>
+
+        <property name = "Value" Cref = "Object?">
+
+            <summary>Parsed object value.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a parser with the requested resolution mode.</summary>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the internal <see cref = "Provider"/>.</param>
+
+            <remarks>Defaults to <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>.</remarks>
+
+        </constructor>
+
+        <method name = "CanParseType">
+
+            <summary>Determine whether a runtime type exposes a supported parse signature.</summary>
+
+            <param name = "type" Cref = "Type?">Target runtime type.</param>
+
+            <returns Cref = "Boolean">True when the type is `System.String` or exposes a supported parse signature; otherwise false.</returns>
+
+        </method>
+
+        <method name = "CanParseString">
+
+            <summary>Determine whether a type name resolves to a type that exposes a supported parse signature.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode.</param>
+
+            <returns Cref = "Boolean">True when the resolved type exposes a supported parse signature; otherwise false.</returns>
+
+        </method>
+
+        <method name = "CreateString">
+
+            <summary>Create parser preconfigured with target type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the created parser.</param>
+
+            <returns Cref = "ObjectParser">Parser instance.</returns>
+
+        </method>
+
+        <method name = "WithData">
+
+            <summary>Fluent method to configure input data.</summary>
+
+            <param name = "data" Cref = "String?">Input string.</param>
+
+            <returns Cref = "ObjectParser">Current parser instance.</returns>
+
+        </method>
+
+        <method name = "WithContext">
+
+            <summary>Fluent method to configure the provider active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "ObjectParser">Current parser instance.</returns>
+
+        </method>
+
+        <method name = "WithFormatter">
+
+            <summary>Fluent method to configure format provider.</summary>
+
+            <param name = "formatter" Cref = "IFormatProvider?">Format provider.</param>
+
+            <returns Cref = "ObjectParser">Current parser instance.</returns>
+
+        </method>
+
+        <method name = "SetData">
+
+            <summary>Configure parser input data.</summary>
+
+            <param name = "data" Cref = "String?">Input string.</param>
+
+            <returns Cref = "Boolean">True when accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetContext">
+
+            <summary>Configure the provider active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "Boolean">True when the context is accepted; otherwise false.</returns>
+
+            <remarks>Fails after successful parse. This is a convenience passthrough to <see cref="Provider"/>.</remarks>
+
+        </method>
+
+        <method name = "SetFormatter">
+
+            <summary>Configure format provider.</summary>
+
+            <param name = "formatter" Cref = "IFormatProvider?">Format provider.</param>
+
+            <returns Cref = "Boolean">True when accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Attempt to parse configured data into configured type.</summary>
+
+            <returns Cref = "Boolean">True on successful parse or when already parsed; otherwise false.</returns>
+
+            <remarks>Signature preference order is: direct `String` assignment for `System.String`, then `Boolean TryParse(String, IFormatProvider, out T)`, then `Boolean TryParse(String, out T)`, then `T Parse(String, IFormatProvider)`, then `T Parse(String)`.</remarks>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse configured data into configured type and return the parsed value.</summary>
+
+            <returns Cref = "Object?">Parsed value when successful; otherwise null.</returns>
+
+        </method>
+
+        <method name = "FindTryParseMethod">
+
+            <summary>Find matching static TryParse signature.</summary>
+
+            <param name = "type" Cref = "Type">Target runtime type.</param>
+
+            <returns Cref = "MethodInfo?">Matching method or null.</returns>
+
+            <remarks>Prefers `Boolean TryParse(String, IFormatProvider, out T)` and falls back to `Boolean TryParse(String, out T)`.</remarks>
+
+        </method>
+
+        <method name = "FindParseMethod">
+
+            <summary>Find matching static Parse signature.</summary>
+
+            <param name = "type" Cref = "Type">Target runtime type.</param>
+
+            <returns Cref = "MethodInfo?">Matching method or null.</returns>
+
+            <remarks>Prefers `T Parse(String, IFormatProvider)` and falls back to `T Parse(String)`.</remarks>
+
+        </method>
+
+        <method name = "TryInvokeTryParseMethod">
+
+            <summary>Invoke a reflected static `TryParse` method using the configured input and formatter.</summary>
+
+            <param name = "method" Cref = "MethodInfo">Reflected `TryParse` method to invoke.</param>
+
+            <param name = "value" Cref = "Object?">Parsed output value when invocation succeeds.</param>
+
+            <returns Cref = "Boolean">True when the reflected `TryParse` invocation succeeds and produces a non-null value; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryInvokeParseMethod">
+
+            <summary>Invoke a reflected static `Parse` method using the configured input and formatter.</summary>
+
+            <param name = "method" Cref = "MethodInfo">Reflected `Parse` method to invoke.</param>
+
+            <param name = "value" Cref = "Object?">Parsed output value when invocation succeeds.</param>
+
+            <returns Cref = "Boolean">True when the reflected `Parse` invocation succeeds and produces a non-null value; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsTryParseMethod">
+
+            <summary>Determine whether a reflected method matches one of the supported static `TryParse` signatures for the target type.</summary>
+
+            <param name = "method" Cref = "MethodInfo">Reflected method under inspection.</param>
+
+            <param name = "type" Cref = "Type">Target runtime type.</param>
+
+            <param name = "formatteraware" Cref = "Boolean">True to validate the formatter-aware overload; otherwise validate the string-only overload.</param>
+
+            <returns Cref = "Boolean">True when the method matches a supported `TryParse` signature; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsParseMethod">
+
+            <summary>Determine whether a reflected method matches one of the supported static `Parse` signatures for the target type.</summary>
+
+            <param name = "method" Cref = "MethodInfo">Reflected method under inspection.</param>
+
+            <param name = "type" Cref = "Type">Target runtime type.</param>
+
+            <param name = "formatteraware" Cref = "Boolean">True to validate the formatter-aware overload; otherwise validate the string-only overload.</param>
+
+            <returns Cref = "Boolean">True when the method matches a supported `Parse` signature; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</ObjectParser>

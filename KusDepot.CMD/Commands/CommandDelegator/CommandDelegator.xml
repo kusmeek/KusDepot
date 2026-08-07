@@ -1,0 +1,33 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandDelegator>
+
+    <class name = "CommandDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to the Command registered at <see cref="TargetHandle"/>.</summary>
+
+        </main>
+
+        <property name = "TargetHandle">
+
+            <summary>Target Handle.</summary>
+
+            <returns Cref = "String">Handle of delegatee.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "targethandle" Cref = "String">Target Handle.</param>
+
+            <returns Cref = "CommandDelegator">New CommandDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</CommandDelegator>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StreamTransferStorageCore>
+  <class name="StreamTransferStorageCore">
+	<main>
+	  <summary>Provides shared file-system helpers for append-oriented stream transfer staging storage operations.</summary>
+	</main>
+	<method name="CreateSessionStorageKey">
+	  <summary>Create the normalized directory key used to store a stream transfer session on disk.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <returns Cref="String">Normalized storage key for the session.</returns>
+	</method>
+	<method name="GetStorageDirectoryPath">
+	  <summary>Resolve the absolute staging directory path for a storage key under the configured root.</summary>
+	  <param name="rootpath" Cref="String">Configured staging root path.</param>
+	  <param name="storagekey" Cref="String">Normalized session storage key.</param>
+	  <returns Cref="String">Absolute directory path for the staged session.</returns>
+	</method>
+	<method name="SaveManifestAsync">
+	  <summary>Persist a stream transfer manifest payload to the conventional manifest path.</summary>
+	  <param name="path" Cref="String">Absolute manifest path.</param>
+	  <param name="manifest" Cref="DataStreamTransferManifest">Manifest to serialize and persist.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task">Completion task.</returns>
+	</method>
+	<method name="ReadAllBytesSafeAsync">
+	  <summary>Read a file payload if it exists and return null when the file is absent or a read error occurs.</summary>
+	  <param name="path" Cref="String">Absolute file path.</param>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier for logging.</param>
+	  <param name="message" Cref="String">Log message template to use on failure.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Byte[]?}">The file payload when available.</returns>
+	</method>
+	<method name="OpenStream">
+	  <summary>Open a file stream configured for append-oriented staged stream transfer operations.</summary>
+	  <param name="path" Cref="String">Absolute file path.</param>
+	  <param name="mode" Cref="FileMode">File creation or open mode.</param>
+	  <param name="access" Cref="FileAccess">Requested file access.</param>
+	  <param name="share" Cref="FileShare">Requested file sharing mode.</param>
+	  <returns Cref="FileStream">Opened file stream.</returns>
+	</method>
+	<method name="OpenRangeReadStream">
+	  <summary>Open a bounded read-only stream over a realized appended range.</summary>
+	  <param name="path" Cref="String">Absolute staged stream file path.</param>
+	  <param name="range" Cref="DataItemTransferRange">Requested realized byte range.</param>
+	  <returns Cref="Stream">A bounded read-only stream for the requested range.</returns>
+	</method>
+	<method name="PrepareAppendStreamFile">
+	  <summary>Create or open the staged stream file and ensure it is at least the declared appended length.</summary>
+	  <param name="path" Cref="String">Absolute staged stream file path.</param>
+	  <param name="streamlength" Cref="Int64">Current durable appended length.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the staged stream file is prepared successfully.</returns>
+	</method>
+	<method name="WritePayloadAsync">
+	  <summary>Copy exactly the expected number of bytes from a payload stream into the staged file stream.</summary>
+	  <param name="destination" Cref="FileStream">Opened staged stream file positioned at the destination offset.</param>
+	  <param name="payload" Cref="Stream">Readable payload stream positioned at the first byte to write.</param>
+	  <param name="expectedlength" Cref="Int64">Number of bytes that must be copied from the payload stream.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the requested number of bytes is copied successfully.</returns>
+	</method>
+  </class>
+</StreamTransferStorageCore>

@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldHashAlgorithm>
+
+    <enum name = "DataFieldHashAlgorithm">
+
+        <main>
+
+            <summary>Hash algorithm discriminator for `DataFieldAssertion` payloads.</summary>
+
+        </main>
+
+        <value name = "None">
+
+            <summary>No hash algorithm is present.</summary>
+
+        </value>
+
+        <value name = "Sha512">
+
+            <summary>SHA-512 hashing for asserted field data.</summary>
+
+        </value>
+
+    </enum>
+
+</DataFieldHashAlgorithm>

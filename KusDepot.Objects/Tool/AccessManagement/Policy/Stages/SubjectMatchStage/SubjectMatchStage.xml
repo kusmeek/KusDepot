@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SubjectMatchStage>
+
+    <class name = "SubjectMatchStage">
+
+        <main>
+
+            <summary>Subject-match access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when the supplied policy context subject is missing or does not match the required stage subject.
+            </remarks>
+
+        </main>
+
+        <field name = "Subject" Cref = "String">
+
+            <summary>Required subject string matched by this stage during evaluation.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a subject-match access-policy stage for a required subject string.</summary>
+
+            <param name = "subject" Cref = "String">Required subject string. Value must not be null, empty, or whitespace.</param>
+
+            <returns Cref = "SubjectMatchStage">Subject-match access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether the supplied policy context subject matches the required stage subject.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the subject is missing or does not match the required subject; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether the supplied policy context subject matches the required stage subject.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the subject is missing or does not match the required subject; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</SubjectMatchStage>

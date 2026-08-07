@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeyAssertionGenerator>
+
+    <interface name = "IAccessKeyAssertionGenerator">
+
+        <main>
+
+            <summary>Access-key assertion generator contract.</summary>
+
+            <remarks>
+                Generates zero or more access-key assertions for an approved issuance flow using the assertion-generator context supplied by an access manager.
+            </remarks>
+
+        </main>
+
+        <method name = "Generate">
+
+            <summary>Generate access-key assertions for an approved issuance flow.</summary>
+
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+
+            <returns Cref = "ImmutableArray{AccessKeyAssertion}">Generated access-key assertions, or an empty array when no assertions are produced.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessKeyAssertionGenerator>

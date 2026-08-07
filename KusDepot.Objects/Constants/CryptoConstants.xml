@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CryptoConstants>
+  <class name="CryptoConstants">
+	<main>
+	  <summary>Cryptography-related constant values.</summary>
+	</main>
+	<field name="DefaultCryptoChunkPower" Cref="Int32"><summary>Default chunk size power used by chunked cryptography operations.</summary></field>
+  </class>
+</CryptoConstants>

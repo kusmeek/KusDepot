@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ExpiryStage>
+
+    <class name = "ExpiryStage">
+
+        <main>
+
+            <summary>Expiry access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when the supplied access key is expired at the evaluation instant.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "ExpiryStage">
+
+            <summary>Singleton expiry stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an expiry access-policy stage.</summary>
+
+            <returns Cref = "ExpiryStage">Expiry access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether the supplied policy context is expired.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the access key is expired; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether the supplied policy context is expired.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the access key is expired; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</ExpiryStage>

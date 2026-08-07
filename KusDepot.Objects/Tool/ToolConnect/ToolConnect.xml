@@ -1,0 +1,15 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolConnect>
+
+    <class name = "ToolConnect">
+
+        <main>
+
+            <summary>Service Connection.</summary>
+
+        </main>
+
+    </class>
+
+</ToolConnect>

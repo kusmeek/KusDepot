@@ -1,0 +1,107 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConsoleDelegator>
+
+    <class name = "ConsoleDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a CliWrap Command .</summary>
+
+        </main>
+
+        <property name = "Buffered">
+
+            <summary>True to Execute Command Buffered.</summary>
+
+            <returns Cref = "Boolean">Buffered Execution Mode.</returns>
+
+        </property>
+
+        <property name = "CommandResult">
+
+            <summary>Command Result.</summary>
+
+            <returns Cref = "CommandResult">Console Command Result.</returns>
+
+        </property>
+
+        <property name = "ConsoleCommand">
+
+            <summary>CliWrap Command.</summary>
+
+            <returns Cref = "CliWrap.Command">Console Command.</returns>
+
+        </property>
+
+        <property name = "Observer">
+
+            <summary>Observer for streamed CliWrap Command events.</summary>
+
+            <returns Cref = "ConsoleCommandObserver">Console Command Observer.</returns>
+
+        </property>
+
+        <property name = "StdOutEncoding">
+
+            <summary>Encoding used for standard output text. Defaults to UTF-8.</summary>
+
+            <returns Cref = "Encoding">Standard output Encoding.</returns>
+
+        </property>
+
+        <property name = "StdErrEncoding">
+
+            <summary>Encoding used for standard error text. Defaults to UTF-8.</summary>
+
+            <returns Cref = "Encoding">Standard error Encoding.</returns>
+
+        </property>
+
+        <property name = "Streamed">
+
+            <summary>True to Execute Command in Streamed mode using CliWrap Observe.</summary>
+
+            <returns Cref = "Boolean">Streamed Execution Mode.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <remarks>
+                Streamed mode takes precedence over buffered mode.
+            </remarks>
+
+            <param name = "command" Cref = "CliWrap.Command">Console Command.</param>
+
+            <param name = "streamed" Cref = "Boolean">Streamed Execution Mode.</param>
+
+            <param name = "buffered" Cref = "Boolean">Buffered Execution Mode.</param>
+
+            <param name = "observer" Cref = "ConsoleCommandObserver">Observer for streamed execution.</param>
+
+            <param name = "stdout" Cref = "Encoding">Encoding for standard output. Defaults to UTF-8.</param>
+
+            <param name = "stderr" Cref = "Encoding">Encoding for standard error. Defaults to UTF-8.</param>
+
+            <returns Cref = "ConsoleDelegator">New ConsoleDelegator.</returns>
+
+        </constructor>
+
+        <method name = "ExtractExitCode">
+
+            <summary>Extracts process exit code from a CommandExecutionException message.</summary>
+
+            <param name = "exception" Cref = "Exception">Exception containing exit code text.</param>
+
+            <param name = "defaultcode" Cref = "Int32">Exit code to return if parsing fails.</param>
+
+            <returns Cref = "Int32">Parsed exit code or defaultcode.</returns>
+
+        </method>
+
+    </class>
+
+</ConsoleDelegator>

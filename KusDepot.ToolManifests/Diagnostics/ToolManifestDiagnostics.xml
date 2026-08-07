@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestDiagnostics>
+
+	<class name = "ToolManifestDiagnostics">
+
+		<main>
+
+			<summary>Defines the shared Roslyn diagnostic descriptors used by both the tool-manifest analyzer and the source generator.</summary>
+
+		</main>
+
+		<field name = "InvalidToolTypeRule" Cref = "DiagnosticDescriptor"><summary>Reports when a type marked for manifest analysis does not derive from <c>KusDepot.Tool</c>.</summary></field>
+		<field name = "UnsupportedGenericToolRule" Cref = "DiagnosticDescriptor"><summary>Reports when a generic tool type is marked for manifest analysis.</summary></field>
+		<field name = "AmbiguousMethodNameRule" Cref = "DiagnosticDescriptor"><summary>Reports when one tool-operation method name resolves to multiple protected-operation indexes.</summary></field>
+		<field name = "CustomOperationIndexOutOfRangeRule" Cref = "DiagnosticDescriptor"><summary>Reports when a custom protected-operation index falls outside the supported manifest range.</summary></field>
+		<field name = "MissingToolSchemaIDRule" Cref = "DiagnosticDescriptor"><summary>Reports when a tool manifest declaration omits a required non-empty tool schema identifier.</summary></field>
+		<field name = "SyncAsyncSemanticDriftRule" Cref = "DiagnosticDescriptor"><summary>Reports when paired sync and async operation methods appear to describe the same semantic operation but use different protected-operation indexes.</summary></field>
+		<field name = "HandwrittenManifestIndexMismatchRule" Cref = "DiagnosticDescriptor"><summary>Reports when a handwritten manifest descriptor publishes the wrong protected-operation index for a real tool method.</summary></field>
+		<field name = "HandwrittenManifestMethodNameMismatchRule" Cref = "DiagnosticDescriptor"><summary>Reports when a handwritten manifest descriptor names a tool operation that cannot be resolved.</summary></field>
+		<field name = "InvalidCompanionNamespaceRule" Cref = "DiagnosticDescriptor"><summary>Reports when a tool manifest declaration configures an empty or syntactically invalid companion namespace override.</summary></field>
+		<field name = "InvalidAssemblyCompanionNamespaceRule" Cref = "DiagnosticDescriptor"><summary>Reports when an assembly manifest declaration configures an empty or syntactically invalid companion namespace override.</summary></field>
+		<field name = "InvalidCompanionTypeNameRule" Cref = "DiagnosticDescriptor"><summary>Reports when a tool manifest declaration configures an empty or syntactically invalid companion type-name override.</summary></field>
+		<property name = "All" Cref = "ImmutableArray{DiagnosticDescriptor}"><summary>Gets the complete immutable set of shared tool-manifest diagnostic descriptors.</summary></property>
+
+	</class>
+
+</ToolManifestDiagnostics>

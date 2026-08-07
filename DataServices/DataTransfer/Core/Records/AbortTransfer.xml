@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AbortTransfer>
+
+	<record name = "AbortTransferRequest">
+		<main><summary>Request to delete a staged segmented transfer session.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+	</record>
+
+	<record name = "AbortTransferResponse">
+		<main><summary>Response indicating whether a staged segmented transfer was aborted.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Aborted" Cref = "Boolean"><summary>Whether staged transfer resources were removed.</summary></property>
+	</record>
+
+</AbortTransfer>

@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <Platforms>AnyCPU</Platforms>
+
+        <OutputType>Library</OutputType>
+
+        <AssemblyName>KusDepot.AI</AssemblyName>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="ModelContextProtocol" />
+
+        <PackageReference Include="Serilog" />
+
+        <ProjectReference Include="..\KusDepot.BLDRS\KusDepot.BLDRS.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+
+        <Compile Remove="ToolPod\Debug\**\*.cs" />
+
+    </ItemGroup>
+
+</Project>

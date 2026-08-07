@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataStreamItemEnums>	
+	
+	<enum name = "DataStreamItemContentBindingMode">
+
+		<main><summary>Defines how the stream item's content is currently bound.</summary></main>
+
+		<field name = "Static"><summary>Content is statically bound through normal item semantics.</summary></field>
+
+		<field name = "LiveSessionManaged"><summary>Content is live-bound and managed by an active DataControl session.</summary></field>
+
+	</enum>
+
+	<enum name = "DataStreamItemLiveContentStatus">
+
+		<main><summary>Represents the current state of live session-managed content.</summary></main>
+
+		<field name = "None"><summary>No live content is currently bound.</summary></field>
+
+		<field name = "Open"><summary>Live content is bound and may continue to append bytes.</summary></field>
+
+		<field name = "Completed"><summary>Live content reached normal completion.</summary></field>
+
+		<field name = "Aborted"><summary>Live content was aborted before completion.</summary></field>
+
+		<field name = "Faulted"><summary>Live content faulted and may have an associated message.</summary></field>
+
+	</enum>	
+	
+</DataStreamItemEnums>

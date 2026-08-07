@@ -1,0 +1,117 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessPolicyRequestContext>
+
+    <struct name = "AccessPolicyRequestContext">
+
+        <main>
+
+            <summary>Request-specific access-policy evaluation context.</summary>
+
+            <remarks>
+                <para>Contains normalized request facts and the original <see cref="AccessRequest"/>.</para>
+            </remarks>
+
+        </main>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}?">
+
+            <summary>Normalized requested audiences copied from the access request.</summary>
+
+        </property>
+
+        <property name = "Credential" Cref = "AccessCredential?">
+
+            <summary>Normalized presented credential copied from the access request.</summary>
+
+        </property>
+
+        <property name = "ExternalRequest" Cref = "Boolean">
+
+            <summary>True when the request was explicitly marked as external.</summary>
+
+        </property>
+
+        <property name = "HostMatched" Cref = "Boolean">
+
+            <summary>True when the request's host relationship matched the current tool context.</summary>
+
+        </property>
+
+        <property name = "Lifetime" Cref = "TimeSpan?">
+
+            <summary>Normalized requested lifetime copied from the access request.</summary>
+
+        </property>
+
+        <property name = "ManagementCredentialValid" Cref = "Boolean">
+
+            <summary>True when the request carried a management credential recognized by the current tool context.</summary>
+
+        </property>
+
+        <property name = "Operations" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Normalized requested protected operations copied from the access request.</summary>
+
+        </property>
+
+        <property name = "Properties" Cref = "ImmutableDictionary{String,String}?">
+
+            <summary>Normalized request properties copied from the access request.</summary>
+
+        </property>
+
+        <property name = "Request" Cref = "AccessRequest?">
+
+            <summary>Original access request under evaluation.</summary>
+
+        </property>
+
+        <property name = "RequestedAssertions" Cref = "ImmutableArray{AccessAssertionRequest}?">
+
+            <summary>Normalized requested assertions copied from the access request.</summary>
+
+        </property>
+
+        <property name = "RequestedKeyType" Cref = "String">
+
+            <summary>Canonical requested key-type token for policy and issuance dispatch.</summary>
+
+        </property>
+
+        <property name = "RequestValidated" Cref = "Boolean">
+
+            <summary>True when the request passed the manager's normalization and baseline validation checks.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}?">
+
+            <summary>Normalized requested scopes copied from the access request.</summary>
+
+        </property>
+
+        <property name = "ServiceMatched" Cref = "Boolean">
+
+            <summary>True when the request targeted the current tool as the requested service.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Normalized request subject for policy and issuance use.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a default access-policy request context.</summary>
+
+            <returns Cref = "AccessPolicyRequestContext">Default access-policy request context.</returns>
+
+        </constructor>
+
+    </struct>
+
+</AccessPolicyRequestContext>

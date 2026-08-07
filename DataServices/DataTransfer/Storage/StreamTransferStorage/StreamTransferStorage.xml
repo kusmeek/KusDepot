@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StreamTransferStorage>
+  <class name="StreamTransferStorage">
+	<main>
+	  <summary>Provides append-oriented staging storage primitives for stream transfer sessions.</summary>
+	</main>
+	<field name="options">
+	  <summary>Configured storage options used to resolve staged stream transfer session paths.</summary>
+	</field>
+	<constructor name="StreamTransferStorage">
+	  <summary>Create the stream transfer staging storage service.</summary>
+	  <param name="options" Cref="IOptions{TransferStorageOptions}">Configured staging storage options.</param>
+	</constructor>
+  </class>
+</StreamTransferStorage>

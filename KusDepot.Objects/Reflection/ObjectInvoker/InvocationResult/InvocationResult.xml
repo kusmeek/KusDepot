@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<InvocationResult>
+
+    <class name = "InvocationResult">
+
+        <main>
+
+            <summary>Detailed invocation result containing return value, post-invocation argument state, selected method, and by-ref parameter indices.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an invocation result.</summary>
+
+            <param name = "returnvalue" Cref = "Object?">Method return value.</param>
+
+            <param name = "arguments" Cref = "Object?[]">Post-invocation argument array with updated ref/out values.</param>
+
+            <param name = "method" Cref = "MethodInfo">Selected method that was invoked.</param>
+
+            <param name = "byrefindices" Cref = "Int32[]">Parameter indices that are ref or out. Empty when no by-ref parameters exist.</param>
+
+        </constructor>
+
+        <property name = "ReturnValue" Cref = "Object?">
+
+            <summary>Method return value. Null for void methods and normalized async void results.</summary>
+
+        </property>
+
+        <property name = "Arguments" Cref = "Object?[]">
+
+            <summary>Post-invocation argument array. Updated values at by-ref positions reflect callee writes.</summary>
+
+        </property>
+
+        <property name = "Method" Cref = "MethodInfo">
+
+            <summary>The method that was selected and invoked.</summary>
+
+        </property>
+
+        <property name = "ByRefIndices" Cref = "Int32[]">
+
+            <summary>Parameter indices that are ref or out. Empty when no by-ref parameters exist.</summary>
+
+        </property>
+
+        <property name = "HasByRefArguments" Cref = "Boolean">
+
+            <summary>True when the invoked method has at least one ref or out parameter; otherwise false.</summary>
+
+        </property>
+
+    </class>
+
+</InvocationResult>

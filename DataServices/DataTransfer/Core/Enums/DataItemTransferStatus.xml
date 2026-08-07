@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferStatus>
+
+	<enum name = "DataItemTransferStatus">
+
+		<main><summary>State of a transfer session.</summary></main>
+
+		<value name = "Open"><summary>The staged transfer session is open for segment writes and reads.</summary></value>
+		<value name = "Complete"><summary>The declared stream range has full logical coverage but has not been committed.</summary></value>
+		<value name = "Committing"><summary>The transfer is undergoing final validation and publication.</summary></value>
+		<value name = "Committed"><summary>The transfer completed publication successfully.</summary></value>
+		<value name = "Aborted"><summary>The transfer was explicitly aborted.</summary></value>
+		<value name = "Faulted"><summary>The transfer encountered an unrecovered failure.</summary></value>
+
+	</enum>
+
+</DataItemTransferStatus>

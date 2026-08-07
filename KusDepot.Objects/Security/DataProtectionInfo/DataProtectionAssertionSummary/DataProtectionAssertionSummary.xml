@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionAssertionSummary>
+
+    <struct name = "DataProtectionAssertionSummary">
+
+        <main>
+
+            <summary>Object-facing summary of an active `DataItem` field assertion.</summary>
+
+            <remarks>
+                This summary stores the minimal active assertion metadata needed for inspection without embedding the full signed assertion artifact in `DataProtectionInfo`.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty assertion summary value.</summary>
+
+            <returns Cref = "DataProtectionAssertionSummary">Empty assertion summary value.</returns>
+
+        </constructor>
+
+        <property name = "Field" Cref = "String">
+
+            <summary>Name of the asserted field.</summary>
+
+        </property>
+
+        <property name = "FieldState" Cref = "DataFieldState">
+
+            <summary>Current asserted representation state for the field.</summary>
+
+        </property>
+
+        <property name = "IssuerObjectId" Cref = "Guid">
+
+            <summary>Object identifier of the signer that issued the active assertion.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String">
+
+            <summary>Thumbprint of the certificate associated with the active assertion signer.</summary>
+
+        </property>
+
+        <property name = "CreatedAt" Cref = "DateTimeOffset">
+
+            <summary>Creation instant of the active assertion represented by this summary.</summary>
+
+        </property>
+
+    </struct>
+
+</DataProtectionAssertionSummary>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlUploadOptions>
+
+	<record name="DataControlUploadOptions">
+
+		<main>
+
+			<summary>Configures the client upload helpers.</summary>
+
+		</main>
+
+		<property name="TemporaryStagingPath" Cref="String">
+
+			<summary>Optional path used when finite streamed content must be spooled locally before segmented upload.</summary>
+
+		</property>
+
+		<property name="CompletionMode" Cref="StreamCompletionMode">
+
+			<summary>Controls how one-call stream uploads decide when to stop.</summary>
+
+		</property>
+
+		<property name="MaxBytes" Cref="Int64?">
+
+			<summary>Optional byte limit applied when the completion mode uses a bounded length.</summary>
+
+		</property>
+
+		<property name="PublishFinalStreamHash" Cref="Boolean">
+
+			<summary>Controls whether stream-family commits should publish a final full-stream SHA-512 when the client can produce one. Defaults to true.</summary>
+
+		</property>
+
+		<property name="RequestedSegmentSizePolicy" Cref="DataItemTransferSegmentSizePolicy">
+
+			<summary>Optional requested segment size policy. The server may clamp or replace it and returns the effective policy in session state.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlUploadOptions>

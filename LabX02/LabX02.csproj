@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>WinExe</OutputType>
+
+        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+
+        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+
+        <Platforms>x86;x64;ARM64</Platforms>
+
+        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+
+        <UseWinUI>true</UseWinUI>
+
+        <RootNamespace>LabX02</RootNamespace>
+
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+
+        <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+
+        <WinUISDKReferences>false</WinUISDKReferences>
+
+        <EnableMsixTooling>true</EnableMsixTooling>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+		<NoWarn>CS0618;CsWinRT1028</NoWarn>
+		
+		<EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Manifest Include="$(ApplicationManifest)" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+        <ProjectCapability Include="Msix" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+        <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+    </PropertyGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+		<PackageReference Include="Microsoft.Identity.Client" />
+
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+
+        <PackageReference Include="Microsoft.WindowsAppSDK" />
+
+		<PackageReference Include="Serilog" />
+
+        <PackageReference Include="Serilog.Sinks.Console" />
+
+        <ProjectReference Include="..\DepotClients\DepotClients.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="EntraSetup.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+        <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">False</PublishReadyToRun>
+        <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
+        <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+        <Optimize>False</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <Optimize>False</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+        <Optimize>False</Optimize>
+    </PropertyGroup>
+
+</Project>

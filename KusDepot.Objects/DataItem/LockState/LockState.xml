@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LockState>
+
+    <struct name = "LockState">
+
+        <main>
+
+            <summary>Tracks dual-object equality lock acquisition state.</summary>
+
+        </main>
+
+        <field name = "First" Cref = "DataItem?">
+
+            <summary>The first object in canonical equality lock order.</summary>
+
+        </field>
+
+        <field name = "Second" Cref = "DataItem?">
+
+            <summary>The second object in canonical equality lock order.</summary>
+
+        </field>
+
+        <field name = "FirstMeta" Cref = "Boolean">
+
+            <summary>True if the first object's metadata lock was acquired.</summary>
+
+        </field>
+
+        <field name = "FirstData" Cref = "Boolean">
+
+            <summary>True if the first object's data lock was acquired.</summary>
+
+        </field>
+
+        <field name = "SecondMeta" Cref = "Boolean">
+
+            <summary>True if the second object's metadata lock was acquired.</summary>
+
+        </field>
+
+        <field name = "SecondData" Cref = "Boolean">
+
+            <summary>True if the second object's data lock was acquired.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an equality lock state snapshot.</summary>
+
+            <param name = "first" Cref = "DataItem?">The first object in canonical order.</param>
+
+            <param name = "second" Cref = "DataItem?">The second object in canonical order.</param>
+
+            <param name = "firstmeta" Cref = "Boolean">True if the first metadata lock was acquired.</param>
+
+            <param name = "firstdata" Cref = "Boolean">True if the first data lock was acquired.</param>
+
+            <param name = "secondmeta" Cref = "Boolean">True if the second metadata lock was acquired.</param>
+
+            <param name = "seconddata" Cref = "Boolean">True if the second data lock was acquired.</param>
+
+        </constructor>
+
+    </struct>
+
+</LockState>

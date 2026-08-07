@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SecurityConstants>
+  <class name="SecurityConstants">
+	<main>
+	  <summary>Fixed security field keys used for data integrity, signing, and protection flows.</summary>
+	</main>
+	<field name="DataSecurityEDKey" Cref="String"><summary>Security field key for encrypted content.</summary></field>
+	<field name="DataSecurityHCKey" Cref="String"><summary>Security field key for hash-code assertions.</summary></field>
+	<field name="DataSecurityMDKey" Cref="String"><summary>Security field key for canonical metadata integrity assertions.</summary></field>
+	<field name="DataSecurityCNKey" Cref="String"><summary>Security field key for content integrity assertions.</summary></field>
+  </class>
+</SecurityConstants>

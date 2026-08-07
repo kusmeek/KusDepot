@@ -1,0 +1,103 @@
+﻿<Project>
+
+    <PropertyGroup Label = "Analysis">
+
+        <AnalysisLevelSecurity>preview-all</AnalysisLevelSecurity>
+
+        <AnalysisModeGlobalization>preview-all</AnalysisModeGlobalization>
+
+        <AnalysisModeInteroperability>preview-all</AnalysisModeInteroperability>
+
+        <AnalysisModeMaintainability>preview-all</AnalysisModeMaintainability>
+
+        <AnalysisModePerformance>preview-all</AnalysisModePerformance>
+
+        <AnalysisModeReliability>preview-all</AnalysisModeReliability>
+
+        <AnalysisModeSecurity>preview-all</AnalysisModeSecurity>
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+        <ILLinkTreatWarningsAsErrors>True</ILLinkTreatWarningsAsErrors>
+
+        <LangVersion>preview</LangVersion>
+
+        <MSBuildTreatWarningsAsErrors>False</MSBuildTreatWarningsAsErrors>
+
+        <NoWarn>CS8002</NoWarn>
+
+        <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+
+        <WarningLevel>9999</WarningLevel>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Config">
+
+        <ChecksumAlgorithm>SHA256</ChecksumAlgorithm>
+
+        <Deterministic>True</Deterministic>
+
+        <EnableDefaultCompileItems>True</EnableDefaultCompileItems>
+
+        <EnableDefaultContentItems>True</EnableDefaultContentItems>
+
+        <EnableDefaultItems>True</EnableDefaultItems>
+
+        <GenerateFullPaths>True</GenerateFullPaths>
+
+        <ImplicitUsings>False</ImplicitUsings>
+
+        <Nullable>Enable</Nullable>
+
+        <SuppressNETCoreSdkPreviewMessage>True</SuppressNETCoreSdkPreviewMessage>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "Assembly">
+
+        <AssemblyVersion>0.0.0.11</AssemblyVersion>
+
+        <CopyDebugSymbolFilesFromPackages>True</CopyDebugSymbolFilesFromPackages>
+
+        <Copyright>Copyright © 2026 KusDepot Solutions LLC</Copyright>
+
+        <Description>"A software toolkit."</Description>
+
+        <FileVersion>0.0.0.11</FileVersion>
+
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+
+        <InformationalVersion>0.0.0.11</InformationalVersion>
+
+        <ProductVersion>0.0.0.11</ProductVersion>
+
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+
+        <Product>KusDepot Solution</Product>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "StrongName"
+                   Condition = "Exists('$(MSBuildThisFileDirectory).keys\KusDepot.private.snk')">
+
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory).keys\KusDepot.private.snk</AssemblyOriginatorKeyFile>
+
+        <SignAssembly>True</SignAssembly>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label = "StrongName"
+                   Condition = "!Exists('$(MSBuildThisFileDirectory).keys\KusDepot.private.snk')">
+
+        <SignAssembly>False</SignAssembly>
+
+    </PropertyGroup>
+
+</Project>

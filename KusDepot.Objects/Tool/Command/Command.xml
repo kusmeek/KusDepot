@@ -1,0 +1,246 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Command>
+
+    <class name = "Command">
+
+        <main>
+
+            <summary>Dynamic Activity Plugin.</summary>
+
+            <remarks>Functional specialization. Registered via Tool.RegisterCommand and invoked via Tool.ExecuteCommand.
+            Long-running asynchronous tasks are tracked via Activities.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "AttachedTool" Cref = "ITool?">
+
+            <summary>Attached Tool.</summary>
+
+        </field>
+
+        <field name = "enabled" Cref = "Boolean">
+
+            <summary>True if Command enabled.</summary>
+
+        </field>
+
+        <field name = "Key" Cref = "CommandKey?">
+
+            <summary>Command Key.</summary>
+
+        </field>
+
+        <property name = "ExecutionMode" Cref = "CommandExecutionMode">
+
+            <summary>Command execution configuration.</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "AccessCheck">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "CommandKey?">Key.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "AddActivity">
+
+            <summary>Add Activity to Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity added to Attached Tool.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add Output to Attached Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">Output ID.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <returns Cref = "Boolean">True if Output added to Attached Tool.</returns>
+
+            <remarks>Adds null Output by default.</remarks>
+
+        </method>
+
+        <method name = "CleanUp">
+
+            <summary>Clean up an Activity when the tool owns the lifecycle (Activity.FreeMode is false).</summary>
+
+            <param name = "activity" Cref = "Activity">Activity.</param>
+
+        </method>
+
+        <method name = "CleanUpFreeMode">
+
+            <summary>Clean up an Activity in free mode when the command owns the lifecycle.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity.</param>
+
+        </method>
+
+        <method name = "EnabledAllowed">
+
+            <summary>Enabled and Access Check.</summary>
+
+            <param name = "key" Cref = "CommandKey?">Key.</param>
+
+            <returns Cref = "Boolean">True if the command is enabled and access is granted.</returns>
+
+        </method>
+
+        <method name = "LogCanceled">
+
+            <summary>Log execution canceled.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "LogCanceledException">
+
+            <summary>Log execution canceled.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "LogFailed">
+
+            <summary>Log execution failure.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "LogFaulted">
+
+            <summary>Log execution fault.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "LogExecuting">
+
+            <summary>Log execution start.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name ="args" Cref = "Object?[]">Arguments.</param>
+
+        </method>
+
+        <method name = "LogSuccess">
+
+            <summary>Log execution success.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "RemoveActivity">
+
+            <summary>Remove Activity from Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity removed from Attached Tool.</returns>
+
+        </method>
+
+        <method name = "SetCanceled">
+
+            <summary>Set Activity as Canceled (or TimedOut, determined by <see cref="Activity.IsTimedOut"/>).</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFailed">
+
+            <summary>Set Activity as Failed.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFaulted">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFaultedException">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "SetSuccess">
+
+            <summary>Set Activity as Success.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetTimedOut">
+
+            <summary>Set Activity as TimedOut.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+    </class>
+
+</Command>

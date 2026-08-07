@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlUploadCompletionResult>
+
+	<record name="DataControlUploadCompletionResult">
+
+		<main>
+
+			<summary>Captures the final outcome of a client upload session commit.</summary>
+
+		</main>
+
+		<property name="Session" Cref="DataControlTransferSessionInfo">
+
+			<summary>Local session metadata associated with the committed upload.</summary>
+
+		</property>
+
+		<property name="TransferFamily" Cref="DataControlTransferFamily">
+
+			<summary>Transfer family used to publish the upload.</summary>
+
+		</property>
+
+		<property name="Segmented" Cref="CommitUploadTransferResponse">
+
+			<summary>Segmented commit response when the upload completed through segmented transfer.</summary>
+
+		</property>
+
+		<property name="Stream" Cref="CompleteStreamTransferResponse">
+
+			<summary>Stream completion response when the upload completed through stream transfer.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlUploadCompletionResult>

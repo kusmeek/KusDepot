@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup Label="Main">
+
+        <StartAction>Program</StartAction>
+
+        <TargetFramework>net10.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <NoWarn>CS2002</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileContext>.</DockerfileContext>
+
+        <DockerfileTag>kusdepotreactg</DockerfileTag>
+
+        <StartArguments>--GIN_MODE=debug</StartArguments>
+
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+
+        <StartProgram>$(MSBuildProjectDirectory)\KusDepot.ReactG.exe</StartProgram>
+
+    </PropertyGroup>
+
+    <Target Name="GoBuild" AfterTargets="Build" Condition="'$(ContainerBuild)' != 'true'">
+
+        <Exec Command="go build -o KusDepot.ReactG.exe" />
+
+    </Target>
+
+    <ItemGroup Label="protobuf">
+
+        <Protobuf Include="shapeapi\shapeapi.proto" GrpcServices="Both" OutputDir="shapeapicsharp" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+        <PackageReference Include="Google.Protobuf" />
+        <PackageReference Include="Grpc.Net.Client" />
+        <PackageReference Include="Grpc.Tools" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="shapeapicsharp\" />
+      <Folder Include="shapeapi_pb\" />
+    </ItemGroup>
+
+</Project>

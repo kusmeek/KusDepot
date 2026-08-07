@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlTransferFamily>
+
+	<enum name = "DataControlTransferFamily">
+		<main><summary>Client transfer family used to route and interpret transfer sessions.</summary></main>
+		<value name = "Segmented"><summary>Finite segmented transfer for stable content.</summary></value>
+		<value name = "Stream"><summary>Append/follow stream transfer for <see cref="DataStreamItem"/> content.</summary></value>
+	</enum>
+
+</DataControlTransferFamily>

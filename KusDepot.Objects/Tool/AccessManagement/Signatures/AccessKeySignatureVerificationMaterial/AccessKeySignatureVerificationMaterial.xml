@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureVerificationMaterial>
+
+    <struct name = "AccessKeySignatureVerificationMaterial">
+
+        <main>
+
+            <summary>Access-key signature verification material.</summary>
+
+            <remarks>
+                Represents the certificate-backed verification material selected by a resolver or store for a concrete signature-validation operation.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature verification material value.</summary>
+
+            <returns Cref = "AccessKeySignatureVerificationMaterial">Empty access-key signature verification material value.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Create access-key signature verification material from a certificate using the default thumbprint-based signer identity.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate supplying the verification identity and RSA public key.</param>
+
+            <returns Cref = "AccessKeySignatureVerificationMaterial">Certificate-backed verification material derived from the supplied certificate.</returns>
+
+        </method>
+
+        <property name = "Certificate" Cref = "X509Certificate2?">
+
+            <summary>Certificate selected for the verification operation.</summary>
+
+        </property>
+
+        <property name = "SignerKeyID" Cref = "ImmutableArray{Byte}">
+
+            <summary>Canonical signer key identifier bytes associated with the verification material.</summary>
+
+        </property>
+
+        <property name = "SignerKeyIDFormat" Cref = "AccessKeySignerKeyIdFormat">
+
+            <summary>Format discriminator for the signer key identifier associated with the verification material.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String">
+
+            <summary>Normalized certificate thumbprint associated with the verification material.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureVerificationMaterial>

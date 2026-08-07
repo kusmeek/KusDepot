@@ -1,0 +1,481 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlClientWorkingDirectoryStorage>
+
+	<class name = "DataControlClientWorkingDirectoryStorage">
+
+		<main>
+
+			<summary>Provides client-side working-directory storage helpers for persisted DataControl segmented transfer sessions.</summary>
+
+		</main>
+
+	<field name = "Storage">
+
+		<summary>Underlying segmented transfer storage used to persist manifests, object payloads, and staged stream content beneath the working directory root.</summary>
+
+	</field>
+
+	<field name = "StreamStorage">
+
+		<summary>Underlying stream transfer storage used to persist manifests, object payloads, and append-oriented stream content beneath the stream working-directory root.</summary>
+
+	</field>
+
+	<constructor name = "DataControlClientWorkingDirectoryStorage">
+
+		<summary>Create the working-directory storage wrapper for DataControl client transfer sessions.</summary>
+
+		<param name = "options" Cref = "DataControlClientWorkingDirectoryOptions">Optional working-directory settings used to resolve the local segmented transfer storage root.</param>
+
+	</constructor>
+
+	<property name = "RootPath" Cref = "String">
+
+		<summary>Resolved root path where segmented transfer session data is persisted locally.</summary>
+
+	</property>
+
+	<property name = "StreamRootPath" Cref = "String">
+
+		<summary>Resolved root path where stream transfer session data is persisted locally.</summary>
+
+	</property>
+
+	<field name = "UploadSourceDescriptorFileName" Cref = "String">
+
+		<summary>File name used to persist the upload source descriptor beside the session manifest.</summary>
+
+	</field>
+
+	<method name = "CreateManifest">
+
+		<summary>Create a staged transfer manifest from a persisted transfer state snapshot.</summary>
+
+		<param name = "state" Cref = "DataItemTransferState">Transfer state to convert into a storage manifest.</param>
+
+		<returns Cref = "DataItemTransferManifest">Normalized manifest created from the provided state.</returns>
+
+	</method>
+
+	<method name = "ReplaceStreamSessionIdentity">
+
+		<summary>Rename a persisted stream session directory to a replacement session identifier and rewrite the stream manifest to the supplied replacement state.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Existing local stream session identifier.</param>
+
+		<param name = "replacementstate" Cref = "DataStreamTransferState">Replacement stream transfer state whose session identifier becomes the new local identity.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataControlTransferSessionInfo?}">Updated local stream session metadata after the rename succeeds, or null when the local session cannot be migrated.</returns>
+
+	</method>
+
+	<method name = "ReplaceStreamSessionWithSegmentedIdentity">
+
+		<summary>Replace a persisted local stream session with segmented-session artifacts for the supplied replacement segmented state, preserving the serialized object payload and any locally buffered stream bytes.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Existing local stream session identifier.</param>
+
+		<param name = "replacementstate" Cref = "DataItemTransferState">Replacement segmented transfer state whose session identifier becomes the new local segmented identity.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataControlTransferSessionInfo?}">Updated local segmented session metadata after the cross-family migration succeeds, or null when the local session cannot be migrated.</returns>
+
+	</method>
+
+	<method name = "ReplaceSegmentedSessionIdentity">
+
+		<summary>Rename a persisted segmented session directory to a replacement session identifier and rewrite the segmented manifest to the supplied replacement state.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Existing local segmented session identifier.</param>
+
+		<param name = "replacementstate" Cref = "DataItemTransferState">Replacement segmented transfer state whose session identifier becomes the new local identity.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataControlTransferSessionInfo?}">Updated local session metadata after the rename succeeds, or null when the local session cannot be migrated.</returns>
+
+	</method>
+
+	<method name = "LoadUploadSourceDescriptor">
+
+		<summary>Load the persisted upload source descriptor stored beside a local session manifest.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "stream" Cref = "Boolean">True to resolve the descriptor from the stream-session root instead of the segmented-session root.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataControlTransferSourceDescriptor?}">Persisted upload source descriptor when one exists and can be parsed.</returns>
+
+	</method>
+
+	<method name = "GetUploadSourceDescriptorPath">
+
+		<summary>Get the file path for the persisted upload source descriptor stored beside a local session manifest.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "stream" Cref = "Boolean">True to resolve the descriptor from the stream-session root instead of the segmented-session root.</param>
+
+		<returns Cref = "String">File path for the persisted upload source descriptor.</returns>
+
+	</method>
+
+	<method name = "CreateStreamSession">
+
+		<summary>Create local stream session artifacts for the supplied stream transfer state and serialized object payload.</summary>
+
+		<param name = "state" Cref = "DataStreamTransferState">Initial stream transfer state for the session.</param>
+
+		<param name = "objectpayload" Cref = "Byte[]">Serialized object payload to persist beside the stream session manifest.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{StreamTransferStorageSessionPaths?}">Resolved stream session paths when the session is created successfully.</returns>
+
+	</method>
+
+	<method name = "OpenUploadSourceRange">
+
+		<summary>Open a readable bounded range from the persisted upload source described for a resumable finite upload session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "descriptor" Cref = "DataControlTransferSourceDescriptor">Persisted source descriptor that determines how the source should be reopened.</param>
+
+		<param name = "range" Cref = "DataItemTransferRange">Requested byte range.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Stream?}">Readable bounded stream when the described source can be reopened for the requested range.</returns>
+
+	</method>
+
+	<method name = "CreateStreamManifest">
+
+		<summary>Create a stream transfer manifest from a persisted stream transfer state snapshot and serialized object payload.</summary>
+
+		<param name = "state" Cref = "DataStreamTransferState">Stream transfer state to convert into a storage manifest.</param>
+
+		<param name = "objectpayload" Cref = "Byte[]">Serialized object payload to embed in the manifest.</param>
+
+		<returns Cref = "DataStreamTransferManifest">Stream manifest created from the provided state.</returns>
+
+	</method>
+
+	<method name = "SaveUploadSourceDescriptor">
+
+		<summary>Persist the upload source descriptor beside the local session state so resumable uploads can reopen their source semantics after restart.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "descriptor" Cref = "DataControlTransferSourceDescriptor">Source descriptor to persist.</param>
+
+		<param name = "stream" Cref = "Boolean">True to persist the descriptor beneath the stream-session root instead of the segmented-session root.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the descriptor is written successfully.</returns>
+
+	</method>
+
+	<method name = "CreateStreamSessionInfo">
+
+		<summary>Create client session metadata from a persisted stream manifest and working-directory path.</summary>
+
+		<param name = "manifest" Cref = "DataStreamTransferManifest">Persisted stream session manifest.</param>
+
+		<param name = "workingdirectory" Cref = "String">Working directory associated with the session.</param>
+
+		<param name = "uploadsource" Cref = "DataControlTransferSourceDescriptor?">Optional upload source descriptor associated with the session.</param>
+
+		<returns Cref = "DataControlTransferSessionInfo">Client-facing transfer session information.</returns>
+
+	</method>
+
+	<method name = "EnumerateSegmentedSessionIDs">
+
+		<summary>Enumerate local segmented transfer session identifiers beneath the segmented working-directory root.</summary>
+
+		<returns Cref = "IEnumerable{Guid}">Discovered segmented transfer session identifiers.</returns>
+
+	</method>
+
+	<method name = "EnumerateStreamSessionIDs">
+
+		<summary>Enumerate local stream transfer session identifiers beneath the stream working-directory root.</summary>
+
+		<returns Cref = "IEnumerable{Guid}">Discovered stream transfer session identifiers.</returns>
+
+	</method>
+
+	<method name = "EnumerateSessionIDs">
+
+		<summary>Enumerate session directory names that can be parsed as GUID identifiers beneath the provided root path.</summary>
+
+		<param name = "rootpath" Cref = "String">Root directory to scan for persisted session subdirectories.</param>
+
+		<returns Cref = "IEnumerable{Guid}">Session identifiers discovered under the provided root path.</returns>
+
+	</method>
+
+	<method name = "CreateSession">
+
+		<summary>Create local staged session artifacts for the supplied transfer state and serialized object payload.</summary>
+
+		<param name = "state" Cref = "DataItemTransferState">Initial transfer state for the session.</param>
+
+		<param name = "objectpayload" Cref = "Byte[]">Serialized object payload to persist beside the session manifest.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{SegmentedTransferStorageSessionPaths?}">Resolved session paths when the session is created successfully.</returns>
+
+	</method>
+
+	<method name = "DeleteStreamSession">
+
+		<summary>Delete all persisted local artifacts for a stream transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the local stream session artifacts are deleted successfully.</returns>
+
+	</method>
+
+	<method name = "CreateSessionInfo">
+
+		<summary>Create client session metadata from a persisted manifest and working-directory path.</summary>
+
+		<param name = "manifest" Cref = "DataItemTransferManifest">Persisted session manifest.</param>
+
+		<param name = "workingdirectory" Cref = "String">Working directory associated with the session.</param>
+		
+		<param name = "uploadsource" Cref = "DataControlTransferSourceDescriptor?">Optional upload source descriptor associated with the session.</param>
+
+		<returns Cref = "DataControlTransferSessionInfo">Client-facing transfer session information.</returns>
+
+	</method>
+
+	<method name = "DeleteSession">
+
+		<summary>Delete all persisted local artifacts for a transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the local session artifacts are deleted successfully.</returns>
+
+	</method>
+
+	<method name = "GetSessionPaths">
+
+		<summary>Resolve the conventional local storage paths for a transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<returns Cref = "SegmentedTransferStorageSessionPaths">Resolved session storage paths.</returns>
+
+	</method>
+
+	<method name = "GetStreamSessionPaths">
+
+		<summary>Resolve the conventional local storage paths for a stream transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+
+		<returns Cref = "StreamTransferStorageSessionPaths">Resolved stream session storage paths.</returns>
+
+	</method>
+
+	<method name = "GetSegmentedStorageRootPath">
+
+		<summary>Resolve the effective local segmented transfer storage root path from the optional working-directory options.</summary>
+
+		<param name = "options" Cref = "DataControlClientWorkingDirectoryOptions">Optional working-directory settings.</param>
+
+		<returns Cref = "String">Absolute root path used for local segmented transfer session storage.</returns>
+
+	</method>
+
+	<method name = "GetStreamStorageRootPath">
+
+		<summary>Resolve the effective local stream transfer storage root path from the optional working-directory options.</summary>
+
+		<param name = "options" Cref = "DataControlClientWorkingDirectoryOptions">Optional working-directory settings.</param>
+
+		<returns Cref = "String">Absolute root path used for local stream transfer session storage.</returns>
+
+	</method>
+
+	<method name = "LoadSessionInfo">
+
+		<summary>Load persisted session metadata for a transfer session from the local working directory.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataControlTransferSessionInfo?}">Client-facing transfer session information when the session exists.</returns>
+
+	</method>
+
+	<method name = "LoadStreamState">
+
+		<summary>Load the persisted stream transfer state for a local stream session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataStreamTransferState?}">Persisted stream transfer state when the session exists.</returns>
+
+	</method>
+
+	<method name = "LoadState">
+
+		<summary>Load the persisted transfer state for a local session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{DataItemTransferState?}">Persisted transfer state when the session exists.</returns>
+
+	</method>
+
+	<method name = "ReadStreamObjectPayload">
+
+		<summary>Read the serialized object payload persisted for a local stream transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Byte[]?}">Serialized object payload when present.</returns>
+
+	</method>
+
+	<method name = "OpenPersistedRange">
+
+		<summary>Open a persisted byte range directly from the staged local stream file.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "range" Cref = "DataItemTransferRange">Requested byte range.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Stream?}">Readable bounded stream when the staged stream file and requested range are available.</returns>
+
+	</method>
+
+	<method name = "ReadStreamRange">
+
+		<summary>Read a realized payload range from the locally persisted stream transfer file through the stream storage abstraction.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+
+		<param name = "range" Cref = "DataItemTransferRange">Requested byte range.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Stream?}">Readable stream for the requested realized stream range when available.</returns>
+
+	</method>
+
+	<method name = "ReadObjectPayload">
+
+		<summary>Read the serialized object payload persisted for a local transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Byte[]?}">Serialized object payload when present.</returns>
+
+	</method>
+
+	<method name = "SaveStreamState">
+
+		<summary>Persist the latest stream transfer state for a local stream session.</summary>
+
+		<param name = "state" Cref = "DataStreamTransferState">Stream transfer state to persist.</param>
+
+		<param name = "objectpayload" Cref = "Byte[]">Optional serialized object payload to include in the persisted stream manifest.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the stream state is saved successfully.</returns>
+
+	</method>
+
+	<method name = "ReadRange">
+
+		<summary>Read a realized payload range from the staged local stream file through the shared storage abstraction.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "range" Cref = "DataItemTransferRange">Requested byte range.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Stream?}">Readable stream for the requested realized range when available.</returns>
+
+	</method>
+
+	<method name = "SaveSourceStream">
+
+		<summary>Persist a source payload stream as the staged stream file for a local transfer session.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "payload" Cref = "Stream">Readable source payload stream.</param>
+
+		<param name = "length" Cref = "Int64">Expected number of bytes to persist.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the requested number of bytes is written successfully.</returns>
+
+	</method>
+
+	<method name = "SaveState">
+
+		<summary>Persist the latest transfer state for a local session.</summary>
+
+		<param name = "state" Cref = "DataItemTransferState">Transfer state to persist.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{Boolean}">True when the state is saved successfully.</returns>
+
+	</method>
+
+	<method name = "WriteRange">
+
+		<summary>Write a segment payload range into the local staged stream file.</summary>
+
+		<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+
+		<param name = "range" Cref = "DataItemTransferRange">Target byte range.</param>
+
+		<param name = "payload" Cref = "Stream">Readable payload stream positioned at the first byte to write.</param>
+
+		<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+		<returns Cref = "Task{SegmentedTransferWriteResult}">Detailed outcome of the staged range write.</returns>
+
+	</method>
+
+	</class>
+
+</DataControlClientWorkingDirectoryStorage>

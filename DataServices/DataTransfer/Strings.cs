@@ -1,0 +1,73 @@
+namespace KusDepot.Data.Services.DataTransfer;
+
+internal static class Strings
+{
+    public const String AbortFailed = @"Abort segmented transfer failed {@SessionID} {@ItemID}";
+    public const String BeginCommitUploadFailed = @"Begin segmented upload commit failed {@SessionID} {@ItemID}";
+    public const String CancelCommitUploadFailed = @"Cancel segmented upload commit failed {@SessionID} {@ItemID}";
+    public const String CompleteCommitUploadFailed = @"Complete segmented upload commit failed {@SessionID} {@ItemID}";
+    public const String ConflictOpenUploadSession = @"An active segmented upload transfer session already exists for the requested item.";
+    public const String IdentityMismatch = @"Segmented transfer identity mismatch.";
+    public const String InvalidArgument = @"Segmented transfer argument was not valid.";
+    public const String InvalidObjectHash = @"Segmented transfer object payload hash verification failed.";
+    public const String InvalidPublishedSnapshot = @"Committed segmented transfer published snapshot was not valid.";
+    public const String InvalidSegmentHash = @"Segmented transfer segment payload hash verification failed.";
+    public const String InvalidSegmentLength = @"Segmented transfer segment length violates the effective session segment size policy.";
+    public const String InvalidSessionState = @"Segmented transfer session state does not allow this operation.";
+    public const String InvalidStateVersion = @"Segmented transfer expected state version does not match the current session state.";
+    public const String LoadSessionFailed = @"Segmented transfer session could not be loaded.";
+    public const String NotFullyRealized = @"Segmented transfer cannot be committed until full coverage is realized.";
+    public const String OpenFailed = @"Open segmented transfer failed {@SessionID} {@ItemID}";
+    public const String PublishedSnapshotUnavailable = @"Committed segmented transfer published snapshot could not be resolved {@ItemID}";
+    public const String RangeUnavailable = @"Requested segmented transfer range is not currently realized.";
+    public const String ReOpenFailed = @"Reopen segmented transfer failed {@SessionID} {@ItemID}";
+    public const String RemoveFailed = @"Remove segmented transfer failed {@SessionID} {@ItemID}";
+    public const String SegmentUploadFailed = @"Upload segmented transfer segment failed {@SessionID} {@ItemID}";
+    public const String SessionNotFound = @"Segmented transfer session was not found.";
+    public const String StreamHashMismatch = @"Segmented transfer stream hash mismatch.";
+    public const String TransferReadFailed = @"Read segmented transfer segment failed {@SessionID} {@ItemID}";
+
+    public const String StreamAbortFailed = @"Abort stream transfer failed {@SessionID} {@ItemID}";
+    public const String StreamAppendFailed = @"Append stream transfer segment failed {@SessionID} {@ItemID}";
+    public const String StreamAppendOffsetMismatch = @"Stream transfer append offset does not match the current durable tail.";
+    public const String StreamBeginCompleteFailed = @"Begin stream transfer completion failed {@SessionID} {@ItemID}";
+    public const String StreamCancelCompleteFailed = @"Cancel stream transfer completion failed {@SessionID} {@ItemID}";
+    public const String StreamCompleteFailed = @"Complete stream transfer failed {@SessionID} {@ItemID}";
+    public const String StreamConflictOpenSession = @"An active stream transfer session already exists for the requested item.";
+    public const String StreamFinishCompleteFailed = @"Finish stream transfer completion failed {@SessionID} {@ItemID}";
+    public const String StreamIdentityMismatch = @"Stream transfer identity mismatch.";
+    public const String StreamInvalidArgument = @"Stream transfer argument was not valid.";
+    public const String StreamInvalidObjectHash = @"Stream transfer object payload hash verification failed.";
+    public const String StreamInvalidSegmentHash = @"Stream transfer segment payload hash verification failed.";
+    public const String StreamInvalidSegmentLength = @"Stream transfer segment length violates the effective session segment size policy.";
+    public const String StreamInvalidSessionState = @"Stream transfer session state does not allow this operation.";
+    public const String StreamInvalidStateVersion = @"Stream transfer expected state version does not match the current session state.";
+    public const String StreamLoadSessionFailed = @"Stream transfer session could not be loaded.";
+    public const String StreamOpenFailed = @"Open stream transfer failed {@SessionID} {@ItemID}";
+    public const String StreamRangeUnavailable = @"Requested stream transfer range is not currently realized.";
+    public const String StreamReOpenFailed = @"Reopen stream transfer failed {@SessionID} {@ItemID}";
+    public const String StreamRemoveFailed = @"Remove stream transfer failed {@SessionID} {@ItemID}";
+    public const String StreamSessionNotFound = @"Stream transfer session was not found.";
+    public const String StreamSourceSessionNotFound = @"Stream transfer source session was not found {@SessionID} {@ItemID}";
+    public const String StreamTransferReadFailed = @"Read stream transfer segment failed {@SessionID} {@ItemID}";
+    public const String StreamTransferStreamHashMismatch = @"Stream transfer stream hash mismatch.";
+
+    public const String CreateSessionFail = @"Create segmented transfer session failed {@SessionID}";
+    public const String DeleteSessionFail = @"Delete segmented transfer session failed {@SessionID}";
+    public const String LoadManifestFail = @"Load segmented transfer manifest failed {@SessionID}";
+    public const String OverlapConflict = @"Segmented transfer overlap conflict detected {@SessionID} {@Offset} {@Length}";
+    public const String ReadObjectFail = @"Read segmented transfer object payload failed {@SessionID}";
+    public const String ReadRangeFail = @"Read segmented transfer range failed {@SessionID} {@Offset} {@Length}";
+    public const String SaveManifestFail = @"Save segmented transfer manifest failed {@SessionID}";
+    public const String SparseFileFail = @"Prepare segmented transfer sparse file failed {@Path}";
+    public const String StreamCreateSessionFail = @"Create stream transfer session failed {@SessionID}";
+    public const String StreamDeleteSessionFail = @"Delete stream transfer session failed {@SessionID}";
+    public const String StreamLoadManifestFail = @"Load stream transfer manifest failed {@SessionID}";
+    public const String StreamPrepareFileFail = @"Prepare stream transfer append file failed {@Path}";
+    public const String StreamReadObjectFail = @"Read stream transfer object payload failed {@SessionID}";
+    public const String StreamReadRangeFail = @"Read stream transfer range failed {@SessionID} {@Offset} {@Length}";
+    public const String StreamSaveManifestFail = @"Save stream transfer manifest failed {@SessionID}";
+    public const String StreamSaveObjectFail = @"Save stream transfer object payload failed {@SessionID}";
+    public const String StreamWriteTailFail = @"Write stream transfer tail failed {@SessionID} {@Offset} {@Length}";
+    public const String WriteRangeFail = @"Write segmented transfer range failed {@SessionID} {@Offset} {@Length}";
+}

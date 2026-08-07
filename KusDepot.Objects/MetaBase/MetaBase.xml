@@ -1,0 +1,237 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MetaBase>
+
+    <class name = "MetaBase">
+
+        <main>
+
+            <summary>Metadata Information Base.</summary>
+
+            <remarks>This class defines the elements of a Metadata Information Base.</remarks>
+
+        </main>
+
+        <field name = "Application" Cref = "String?">
+
+            <summary>Application Directory Partition | Naming Context | Unique Name.</summary>
+
+        </field>
+
+        <field name = "ApplicationVersion" Cref = "Version?">
+
+            <summary>Version of Application.</summary>
+
+        </field>
+
+        <field name = "BornOn" Cref = "DateTimeOffset?">
+
+            <summary>Moment of Emergence.</summary>
+
+        </field>
+
+        <field name = "DistinguishedName" Cref = "String?">
+
+            <summary>LDAP Distinguished Name.</summary>
+
+        </field>
+
+        <field name = "DomainID" Cref = "String?">
+
+            <summary>Domain/DNS ID.</summary>
+
+        </field>
+
+        <field name = "EmptyVersion" Cref = "Version">
+
+            <summary>Cached empty version value.</summary>
+
+        </field>
+
+        <field name = "Extension" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Capabilities/Information/State.</summary>
+
+        </field>
+
+        <field name = "ExtnData" Cref = "ExtensionDataObject">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </field>
+
+        <field name = "FILE" Cref = "String?">
+
+            <summary>Content stream file path or name.</summary>
+
+        </field>
+
+        <field name = "FileSizeCached" Cref = "Int64?">
+
+            <summary>Cached FILE size value.</summary>
+
+        </field>
+
+        <field name = "Links" Cref = "Dictionary{String,GuidReferenceItem}?">
+
+            <summary>References/Links.</summary>
+
+        </field>
+
+        <field name = "Modified" Cref = "DateTimeOffset?">
+
+            <summary>Most Recent Modified.</summary>
+
+        </field>
+
+        <field name = "Name" Cref = "String?">
+
+            <summary>MetaBase/Display Name.</summary>
+
+            <remarks>May not be unique.</remarks>
+
+        </field>
+
+        <field name = "Notes" Cref = "HashSet{String}?">
+
+            <summary>Notes.</summary>
+
+            <remarks>A collection of unstructured text for any purpose.</remarks>
+
+        </field>
+
+        <field name = "ObjectFILE" Cref = "String?">
+
+            <summary>Preferred or current serialized object file path or name.</summary>
+
+        </field>
+
+        <field name = "SecurityDescriptor" Cref = "String?">
+
+            <summary>Access Control, Owner, Principals (SDDL).</summary>
+
+        </field>
+
+        <field name = "InheritanceCache" Cref = "ConcurrentDictionary{Type,String}">
+
+            <summary>Cached inheritance metadata by runtime type.</summary>
+
+        </field>
+
+        <field name = "ServiceVersion" Cref = "Version?">
+
+            <summary>Version of Service.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "MetaSync">
+
+            <summary>Synchronization Object.</summary>
+
+        </field>
+
+        <field name = "Tags" Cref = "HashSet{String}?">
+
+            <summary>Markings or labels.</summary>
+
+            <remarks>Any grouping or classifying string, such as those defined in Tags.cs.</remarks>
+
+        </field>
+
+        <field name = "Version" Cref = "Version?">
+
+            <summary>Version of Object.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <constructor name = "StaticConstructor">
+
+            <summary>Static Constructor.</summary>
+
+        </constructor>
+
+        <method name = "GetCachedInheritanceList">
+
+            <summary>Get cached inheritance metadata for the current runtime type.</summary>
+
+            <returns Cref = "String">Returns the inheritance metadata string.</returns>
+
+        </method>
+
+        <method name = "GetObjectFILE">
+
+            <summary>Get ObjectFILE.</summary>
+
+            <returns Cref = "String?">Preferred or current serialized object file path or name.</returns>
+
+        </method>
+
+        <method name = "SetObjectFILE">
+
+            <summary>Set ObjectFILE.</summary>
+
+            <param name = "objectfile" Cref = "String?">Preferred or current serialized object file path or name.</param>
+
+            <returns Cref = "Boolean">True if ObjectFILE was set successfully.</returns>
+
+        </method>
+
+        <method name = "ClearCachedFileSize_NoSync">
+
+            <summary>Clear the cached file size without acquiring synchronization locks.</summary>
+
+        </method>
+
+        <method name = "ResolveCachedFileSize_NoSync">
+
+            <summary>Resolve the cached backing-file size without acquiring synchronization locks.</summary>
+
+            <returns Cref = "Int64?">The cached or probed backing-file size.</returns>
+
+        </method>
+
+        <method name = "SetCachedFileSize_NoSync">
+
+            <summary>Set the cached file size without acquiring synchronization locks.</summary>
+
+            <param name = "size" Cref = "Int64?">Cached file size.</param>
+
+        </method>
+
+        <method name = "CreateIsolatedSet">
+
+            <summary>Create an isolated string set while preserving per-element string cloning semantics.</summary>
+
+            <param name = "values" Cref = "IEnumerable{String}">Source string sequence.</param>
+
+            <returns Cref = "HashSet{String}">An isolated set containing cloned strings from the source sequence.</returns>
+
+        </method>
+
+        <method name = "SetModified_NoSync">
+
+            <summary>Set Last Modified Time without synchronization.</summary>
+
+            <param name = "modified" Cref = "DateTimeOffset?">Last Modified Time.</param>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+        <method name = "ModifiedNow">
+
+            <summary>Set Last Modified Time to DateTimeOffset.Now.</summary>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+    </class>
+
+</MetaBase>

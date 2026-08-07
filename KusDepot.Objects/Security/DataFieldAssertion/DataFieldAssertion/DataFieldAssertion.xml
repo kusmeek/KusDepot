@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldAssertion>
+
+    <record name = "DataFieldAssertion">
+
+        <main>
+
+            <summary>Serializable signed `DataItem` field assertion artifact.</summary>
+
+        </main>
+
+        <property name = "EnvelopeVersion" Cref = "Byte">
+
+            <summary>Serialized envelope version for the signed assertion artifact.</summary>
+
+        </property>
+
+        <property name = "SignatureAlgorithm" Cref = "Byte">
+
+            <summary>Serialized signature algorithm discriminator for the signed assertion artifact.</summary>
+
+        </property>
+
+        <property name = "Data" Cref = "DataFieldAssertionData">
+
+            <summary>Canonical assertion data covered by the embedded signature.</summary>
+
+        </property>
+
+        <property name = "Signature" Cref = "Byte[]">
+
+            <summary>Embedded signature bytes protecting the canonical assertion payload.</summary>
+
+        </property>
+
+    </record>
+
+</DataFieldAssertion>

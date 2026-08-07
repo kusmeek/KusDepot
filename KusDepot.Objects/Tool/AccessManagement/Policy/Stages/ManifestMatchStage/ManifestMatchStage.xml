@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ManifestMatchStage>
+
+    <class name = "ManifestMatchStage">
+
+        <main>
+
+            <summary>Manifest-match access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when the access-key manifest identity does not match the current tool state.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "ManifestMatchStage">
+
+            <summary>Singleton manifest-match stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a manifest-match access-policy stage.</summary>
+
+            <returns Cref = "ManifestMatchStage">Manifest-match access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether the supplied policy context matches the current manifest identity.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the manifest identity does not match; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether the supplied policy context matches the current manifest identity.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the manifest identity does not match; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</ManifestMatchStage>

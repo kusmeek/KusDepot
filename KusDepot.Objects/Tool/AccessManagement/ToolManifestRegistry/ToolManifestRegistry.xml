@@ -1,0 +1,237 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestRegistry>
+
+    <class name = "ToolManifestRegistry">
+
+        <main>
+
+            <summary>Dynamic registry of tool manifests.</summary>
+
+            <remarks>
+                Manifests are registered by tool schema identifier and may also be bound to tool types.
+            </remarks>
+
+        </main>
+
+        <field name = "Sync" Cref = "Lock">
+
+            <summary>Synchronization gate for manifest registration updates.</summary>
+
+        </field>
+
+        <field name = "State" Cref = "RegistryState">
+
+            <summary>Immutable registry state snapshot.</summary>
+
+        </field>
+
+        <method name = "GetLocked">
+            <summary>Get the current registry locked state.</summary>
+            <returns Cref = "Boolean">True if manifest registration writes are locked; otherwise false.</returns>
+        </method>
+
+        <method name = "Lock">
+            <summary>Lock manifest registration writes.</summary>
+            <param name = "managementkey" Cref = "ManagementKey?">Optional management key used to create an unlock code. Null creates a permanent lock that cannot be unlocked.</param>
+            <returns Cref = "Boolean">True if the registry was locked successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryBindType">
+            <summary>Bind a tool type to an already registered tool schema identifier.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type to bind.</param>
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+            <returns Cref = "Boolean">True if the tool type was bound successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryBindManifest">
+            <summary>Bind a tool type to a manifest using the manifest schema identifier.</summary>
+            <typeparam name = "TTool">Tool type to bind.</typeparam>
+            <param name = "manifest" Cref = "ToolManifest?">Manifest whose schema identifier should be bound.</param>
+            <returns Cref = "Boolean">True if the tool type was bound successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetManifestBySchemaID">
+            <summary>Try to get a registered manifest by tool schema identifier.</summary>
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+            <param name = "manifest" Cref = "ToolManifest">Registered manifest.</param>
+            <returns Cref = "Boolean">True if a manifest was found; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetBoundSchemaID">
+            <summary>Try to get the tool schema identifier currently bound to a tool type.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type binding.</param>
+            <param name = "toolschemaid" Cref = "String">Tool schema identifier.</param>
+            <returns Cref = "Boolean">True if the tool type is bound; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetBindings">
+            <summary>Try to get all tool types currently bound to a tool schema identifier.</summary>
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+            <param name = "tooltypes" Cref = "ImmutableArray{Type}">Bound tool types.</param>
+            <returns Cref = "Boolean">True if the schema is registered; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetCurrentManifest">
+            <summary>Try to get the currently registered manifest for a bound tool type.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type binding.</param>
+            <param name = "manifest" Cref = "ToolManifest">Registered manifest.</param>
+            <returns Cref = "Boolean">True if the tool type is bound and the manifest is registered; otherwise false.</returns>
+        </method>
+
+        <method name = "TryGetManifestByType">
+            <summary>Try to get a registered manifest by tool type binding.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type binding.</param>
+            <param name = "manifest" Cref = "ToolManifest">Registered manifest.</param>
+            <returns Cref = "Boolean">True if a manifest was found; otherwise false.</returns>
+        </method>
+
+        <method name = "TryRegisterManifest">
+            <summary>Register a manifest by its schema identifier.</summary>
+            <param name = "manifest" Cref = "ToolManifest?">Manifest to register.</param>
+            <returns Cref = "Boolean">True if the manifest was valid and registered successfully. Returns false when the tool schema identifier is already registered; unregister first to replace it.</returns>
+        </method>
+
+        <method name = "TryRegisterAndBindManifest">
+            <summary>Register a manifest and bind a tool type to that manifest schema identifier.</summary>
+            <typeparam name = "TTool">Tool type to bind.</typeparam>
+            <param name = "manifest" Cref = "ToolManifest?">Manifest to register and bind.</param>
+            <returns Cref = "Boolean">True if the manifest was registered and the tool type was bound successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryResolveOperationBySchemaID">
+            <summary>Try to resolve a manifest-scoped operation index by tool schema identifier and method name.</summary>
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+            <param name = "methodname" Cref = "String?">Tool method name.</param>
+            <param name = "index" Cref = "Int32">Resolved operation index.</param>
+            <returns Cref = "Boolean">True if the operation was resolved; otherwise false.</returns>
+        </method>
+
+        <method name = "TryResolveOperationByType">
+            <summary>Try to resolve a manifest-scoped operation index by tool type binding and method name.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type binding.</param>
+            <param name = "methodname" Cref = "String?">Tool method name.</param>
+            <param name = "index" Cref = "Int32">Resolved operation index.</param>
+            <returns Cref = "Boolean">True if the operation was resolved; otherwise false.</returns>
+        </method>
+
+        <method name = "TryUnRegisterSchemaID">
+            <summary>Try to unregister a manifest by schema identifier.</summary>
+            <param name = "toolschemaid" Cref = "String?">Tool schema identifier.</param>
+            <returns Cref = "Boolean">True if the manifest was unregistered; otherwise false.</returns>
+        </method>
+
+        <method name = "TryUnBindType">
+            <summary>Try to remove a tool type binding from the registry.</summary>
+            <param name = "tooltype" Cref = "Type?">Tool type binding.</param>
+            <returns Cref = "Boolean">True if the tool type binding was removed; otherwise false.</returns>
+        </method>
+
+        <method name = "UnLock">
+            <summary>Unlock manifest registration writes using the management key that created the unlock code.</summary>
+            <param name = "managementkey" Cref = "ManagementKey?">Management key used to unlock the registry.</param>
+            <returns Cref = "Boolean">True if the registry was unlocked successfully; otherwise false.</returns>
+        </method>
+
+        <method name = "TryCreateEntry">
+            <summary>Try to validate a manifest and create its immutable registry entry.</summary>
+            <param name = "manifest" Cref = "ToolManifest?">Manifest to validate.</param>
+            <param name = "entry" Cref = "RegistryEntry?">Validated immutable registry entry.</param>
+            <returns Cref = "Boolean">True if the manifest was valid and the entry was created; otherwise false.</returns>
+        </method>
+
+        <method name = "CreateUnlockCode">
+            <summary>Create a secure unlock code from management-key material.</summary>
+            <param name = "managementkey" Cref = "ManagementKey">Management key used to derive the unlock code.</param>
+            <returns Cref = "Byte[]">Secure unlock code.</returns>
+        </method>
+
+    </class>
+
+    <record name = "RegistryEntry">
+
+        <main>
+
+            <summary>Immutable registry entry containing a manifest and its precomputed method index map.</summary>
+
+        </main>
+
+        <property name = "Manifest" Cref = "ToolManifest">
+
+            <summary>Registered tool manifest.</summary>
+
+        </property>
+
+        <property name = "MethodIndexes" Cref = "ImmutableDictionary{String,Int32}">
+
+            <summary>Precomputed method name to operation index map.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a registry entry.</summary>
+
+            <param name = "manifest" Cref = "ToolManifest">Registered tool manifest.</param>
+
+            <param name = "methodindexes" Cref = "ImmutableDictionary{String,Int32}">Precomputed method name to operation index map.</param>
+
+        </constructor>
+
+    </record>
+
+    <record name = "RegistryState">
+
+        <main>
+
+            <summary>Immutable registry state snapshot.</summary>
+
+        </main>
+
+        <property name = "BySchemaID" Cref = "ImmutableDictionary{String,RegistryEntry}">
+
+            <summary>Registered manifests keyed by tool schema identifier.</summary>
+
+        </property>
+
+        <property name = "Locked" Cref = "Boolean">
+
+            <summary>True when manifest registration writes are locked.</summary>
+
+        </property>
+
+        <property name = "SchemaIDByType" Cref = "ImmutableDictionary{Type,String}">
+
+            <summary>Optional tool type bindings keyed to tool schema identifiers.</summary>
+
+        </property>
+
+        <property name = "UnlockCode" Cref = "Byte[]?">
+
+            <summary>Secure unlock code. Null while unlocked or permanently locked.</summary>
+
+        </property>
+
+        <property name = "Empty" Cref = "RegistryState">
+
+            <summary>Empty immutable registry state snapshot.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a registry state snapshot.</summary>
+
+            <param name = "byschemaid" Cref = "ImmutableDictionary{String,RegistryEntry}">Registered manifests keyed by tool schema identifier.</param>
+
+            <param name = "schemaidbytype" Cref = "ImmutableDictionary{Type,String}">Optional tool type bindings keyed to tool schema identifiers.</param>
+
+            <param name = "locked" Cref = "Boolean">True when manifest registration writes are locked.</param>
+
+            <param name = "unlockcode" Cref = "Byte[]?">Secure unlock code.</param>
+
+        </constructor>
+
+    </record>
+
+</ToolManifestRegistry>

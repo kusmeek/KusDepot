@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IUpdateManager>
+
+    <interface name = "IUpdateManager">
+
+        <main>
+
+            <summary>Update Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of an Update Manager.</remarks>
+
+        </main>
+
+    </interface>
+
+</IUpdateManager>

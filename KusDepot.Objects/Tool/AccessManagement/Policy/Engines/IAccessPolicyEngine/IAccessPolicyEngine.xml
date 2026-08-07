@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessPolicyEngine>
+
+    <interface name = "IAccessPolicyEngine">
+
+        <main>
+
+            <summary>Access-policy engine interface.</summary>
+
+            <remarks>
+                Evaluates access-management workflows from an <see cref="AccessPolicyContext"/>.
+            </remarks>
+
+        </main>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate an access-management workflow from a policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for the supplied context.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessPolicyEngine>

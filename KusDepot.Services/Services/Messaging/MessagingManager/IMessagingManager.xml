@@ -1,0 +1,17 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IMessagingManager>
+
+    <interface name = "IMessagingManager">
+
+        <main>
+
+            <summary>Messaging Manager Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of a Messaging Manager (Control/Debug/Error Bus Management).</remarks>
+
+        </main>
+
+    </interface>
+
+</IMessagingManager>

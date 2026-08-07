@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureSigningContext>
+
+    <struct name = "AccessKeySignatureSigningContext">
+
+        <main>
+
+            <summary>Access-key signature signing context.</summary>
+
+            <remarks>
+                Immutable signing input model supplied to access-key signers.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature signing context.</summary>
+
+            <returns Cref = "AccessKeySignatureSigningContext">Empty access-key signature signing context.</returns>
+
+        </constructor>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Current access-key realm identifier for the signing operation.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger?">
+
+            <summary>Optional logger available to the configured signer for diagnostics.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Current manifest hash associated with the key being issued.</summary>
+
+        </property>
+
+        <property name = "SignatureInfo" Cref = "AccessKeySignatureInfo">
+
+            <summary>Resolved signing metadata for the current signing operation. This may be the default value during signing-info discovery.</summary>
+
+        </property>
+
+        <property name = "SignedRegion" Cref = "ReadOnlyMemory{Byte}">
+
+            <summary>Canonical signed-region bytes for the current signing operation. This may be empty during signing-info discovery.</summary>
+
+        </property>
+
+        <property name = "SignerAccessManagerID" Cref = "Guid">
+
+            <summary>Access-manager identifier that will be written into the outer signer metadata.</summary>
+
+        </property>
+
+        <property name = "SignerToolID" Cref = "Guid">
+
+            <summary>Tool identifier that will be written into the outer signer metadata.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Subject for the key being issued.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Current tool schema identifier for the signing operation.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureSigningContext>

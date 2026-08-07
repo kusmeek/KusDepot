@@ -1,0 +1,113 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerQuery>
+
+    <class name = "AccessManagerQuery">
+
+        <main>
+
+            <summary>Query filters for AccessManager operations.</summary>
+
+        </main>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}?">
+
+            <summary>Optional audience filters.</summary>
+
+        </property>
+
+        <property name = "IncludeExpired" Cref = "Boolean">
+
+            <summary>True to include expired memberships in query results.</summary>
+
+        </property>
+
+        <property name = "ProtectedOperations" Cref = "ImmutableArray{Int32}?">
+
+            <summary>Optional protected-operation filters.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}?">
+
+            <summary>Optional scope filters.</summary>
+
+        </property>
+
+        <property name = "Subjects" Cref = "ImmutableArray{String}?">
+
+            <summary>Optional subject filters.</summary>
+
+        </property>
+
+        <method name = "Create">
+
+            <summary>Create a query from optional subject, operation, audience, and scope filters.</summary>
+
+            <param name = "subjects" Cref = "IEnumerable{String}?">Optional subject filters.</param>
+
+            <param name = "protectedoperations" Cref = "IEnumerable{Int32}?">Optional protected-operation filters.</param>
+
+            <param name = "audiences" Cref = "IEnumerable{String}?">Optional audience filters.</param>
+
+            <param name = "scopes" Cref = "IEnumerable{String}?">Optional scope filters.</param>
+
+            <param name = "includeexpired" Cref = "Boolean">True to include expired memberships.</param>
+
+            <returns Cref = "AccessManagerQuery">New query.</returns>
+
+        </method>
+
+        <method name = "SetAudiences">
+
+            <summary>Update the audience filters on the current query.</summary>
+
+            <param name = "audiences" Cref = "IEnumerable{String}?">Audience filters.</param>
+
+            <returns Cref = "AccessManagerQuery">Current query.</returns>
+
+        </method>
+
+        <method name = "SetIncludeExpired">
+
+            <summary>Update expired-membership inclusion on the current query.</summary>
+
+            <param name = "includeexpired" Cref = "Boolean">Expired-membership inclusion.</param>
+
+            <returns Cref = "AccessManagerQuery">Current query.</returns>
+
+        </method>
+
+        <method name = "SetProtectedOperations">
+
+            <summary>Update protected-operation filters on the current query.</summary>
+
+            <param name = "protectedoperations" Cref = "IEnumerable{Int32}?">Protected-operation filters.</param>
+
+            <returns Cref = "AccessManagerQuery">Current query.</returns>
+
+        </method>
+
+        <method name = "SetScopes">
+
+            <summary>Update scope filters on the current query.</summary>
+
+            <param name = "scopes" Cref = "IEnumerable{String}?">Scope filters.</param>
+
+            <returns Cref = "AccessManagerQuery">Current query.</returns>
+
+        </method>
+
+        <method name = "SetSubjects">
+
+            <summary>Update subject filters on the current query.</summary>
+
+            <param name = "subjects" Cref = "IEnumerable{String}?">Subject filters.</param>
+
+            <returns Cref = "AccessManagerQuery">Current query.</returns>
+
+        </method>
+
+    </class>
+
+</AccessManagerQuery>

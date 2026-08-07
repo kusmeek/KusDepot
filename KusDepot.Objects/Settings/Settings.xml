@@ -1,0 +1,80 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Settings>
+
+    <class name = "Settings">
+
+        <main>
+
+            <summary>Configuration.</summary>
+
+            <remarks>
+                Settings defines runtime configuration such as method synchronization timeout, exception behavior,
+                default timeouts, data import thresholds, and data isolation behavior.
+            </remarks>
+
+        </main>
+
+        <property name = "ConfigurationDataEnvironmentVariable" Cref = "String">
+
+            <summary>Serialized ToolConfiguration Environment Variable Name.</summary>
+
+        </property>
+
+        <property name = "ConfigurationPathEnvironmentVariable" Cref = "String">
+
+            <summary>ToolConfiguration File Path Environment Variable Name.</summary>
+
+        </property>
+
+        <property name = "ConsoleStopHostTimeout" Cref = "TimeSpan">
+
+            <summary>Default Console Host Stop Timeout.</summary>
+
+        </property>
+
+        <property name = "DataImportBufferLimit" Cref = "Int32">
+
+            <summary>The default size in bytes (2GB) beyond which content will be streamed from file.</summary>
+
+        </property>
+
+        <property name = "DataEncryptionConcurrency" Cref = "Int32">
+
+            <summary>The degree of concurrency for encryption and decryption operations.</summary>
+
+        </property>
+
+        <property name = "ExecuteCommandTimeout" Cref = "TimeSpan">
+
+            <summary>Command Execution Timeout.</summary>
+
+        </property>
+
+        <property name = "GetOutputTimeout" Cref = "TimeSpan">
+
+            <summary>GetOutput Timeout.</summary>
+
+        </property>
+
+        <property name = "HostStopTimeout" Cref = "TimeSpan">
+
+            <summary>ToolHost Stop Timeout.</summary>
+
+        </property>
+
+        <property name = "NoExceptions" Cref = "Boolean">
+
+            <summary>Default exception setting.</summary>
+
+        </property>
+
+        <property name = "SyncTime" Cref = "TimeSpan">
+
+            <summary>Method Synchronization Timeout.</summary>
+
+        </property>
+
+    </class>
+
+</Settings>

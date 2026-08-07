@@ -1,0 +1,114 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataStreamTransferManifest>
+
+	<record name = "DataStreamTransferManifest">
+
+		<main><summary>Manifest describing an append or follow stream-transfer session.</summary></main>
+
+		<field name = "ManifestFileName"><summary>Conventional file name for the persisted manifest JSON document.</summary></field>
+		<field name = "ObjectFileName"><summary>Conventional file name for the persisted refined object payload.</summary></field>
+		<field name = "StreamFileName"><summary>Conventional file name for the durable appended stream payload.</summary></field>
+
+		<property name = "AppendedLength" Cref = "Int64"><summary>Current durable appended length in bytes.</summary></property>
+		<property name = "Created" Cref = "DateTimeOffset"><summary>Creation timestamp.</summary></property>
+		<property name = "FaultMessage" Cref = "String?"><summary>Optional persisted fault detail.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode"><summary>Current transfer session mode.</summary></property>
+		<property name = "ObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional descriptive object summary.</summary></property>
+		<property name = "ObjectPayload" Cref = "Byte[]"><summary>Optional serialized object payload used for stream-transfer publication or refinement.</summary></property>
+		<property name = "ObjectSHA512" Cref = "Byte[]"><summary>SHA-512 of the serialized object payload when present.</summary></property>
+		<property name = "SegmentSizePolicy" Cref = "DataItemTransferSegmentSizePolicy"><summary>Advertised segment size guidance.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "SourceSessionID" Cref = "Guid?"><summary>Optional source session identifier for follower sessions.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Monotonic transfer state version.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Current transfer status.</summary></property>
+		<property name = "StreamSHA512" Cref = "Byte[]"><summary>Optional final SHA-512 of the durable stream payload.</summary></property>
+		<property name = "Updated" Cref = "DateTimeOffset"><summary>Last update timestamp.</summary></property>
+
+		<method name = "CanReadRange">
+			<summary>Determine whether a follower read range is currently available within the durable appended prefix.</summary>
+			<param name = "range" Cref = "DataItemTransferRange?">Requested range.</param>
+			<returns Cref = "Boolean">True when the range is currently readable.</returns>
+		</method>
+		<method name = "CanWriteRange">
+			<summary>Determine whether a source append range begins exactly at the current durable appended length.</summary>
+			<param name = "range" Cref = "DataItemTransferRange?">Requested range.</param>
+			<returns Cref = "Boolean">True when the range satisfies exact-tail append semantics.</returns>
+		</method>
+		<method name = "Deserialize">
+			<summary>Parse a manifest from UTF-8 JSON bytes.</summary>
+			<param name = "input" Cref = "Byte[]?">Serialized UTF-8 bytes.</param>
+			<returns Cref = "DataStreamTransferManifest?">Parsed manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "GetRealizedBytes">
+			<summary>Return the current durable appended byte count.</summary>
+			<returns Cref = "Int64">Durable appended byte count.</returns>
+		</method>
+		<method name = "Load">
+			<summary>Load a manifest from a file path.</summary>
+			<param name = "path" Cref = "String">Manifest file path.</param>
+			<returns Cref = "DataStreamTransferManifest?">Loaded manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "Parse">
+			<summary>Parse a manifest from JSON text.</summary>
+			<param name = "input" Cref = "String?">Serialized JSON text.</param>
+			<returns Cref = "DataStreamTransferManifest?">Parsed manifest when successful; otherwise null.</returns>
+		</method>
+		<method name = "Save">
+			<summary>Persist the manifest to a file path.</summary>
+			<param name = "path" Cref = "String">Destination file path.</param>
+			<returns Cref = "Boolean">True when the manifest was written successfully.</returns>
+		</method>
+		<method name = "Serialize">
+			<summary>Serialize the manifest to UTF-8 JSON bytes.</summary>
+			<returns Cref = "Byte[]">Serialized UTF-8 bytes.</returns>
+		</method>
+		<method name = "ToString">
+			<summary>Serialize the manifest to JSON text.</summary>
+			<returns Cref = "String">Serialized JSON text.</returns>
+		</method>
+		<method name = "ToState">
+			<summary>Materialize a stream-transfer state view from the manifest.</summary>
+			<returns Cref = "DataStreamTransferState">Current transfer state.</returns>
+		</method>
+		<method name = "Touch">
+			<summary>Return a manifest with updated timestamp and incremented state version.</summary>
+			<param name = "clearfault" Cref = "Boolean">True to clear any fault message.</param>
+			<returns Cref = "DataStreamTransferManifest">Updated manifest.</returns>
+		</method>
+		<method name = "TryParse">
+			<summary>Attempt to parse a manifest from JSON text.</summary>
+			<param name = "input" Cref = "String?">Serialized JSON text.</param>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Parsed manifest when successful.</param>
+			<returns Cref = "Boolean">True when parsing succeeded.</returns>
+		</method>
+		<method name = "Validate">
+			<summary>Determine whether the manifest content is internally valid.</summary>
+			<returns Cref = "Boolean">True when the manifest is valid.</returns>
+		</method>
+		<method name = "ValidateHash">
+			<summary>Determine whether a SHA-512 hash buffer has the expected length.</summary>
+			<param name = "hash" Cref = "Byte[]?">Candidate hash buffer.</param>
+			<returns Cref = "Boolean">True when the buffer length matches SHA-512 output.</returns>
+		</method>
+		<method name = "ValidateOptionalHash">
+			<summary>Determine whether an optional hash buffer is omitted or has the expected SHA-512 length.</summary>
+			<param name = "hash" Cref = "Byte[]?">Candidate hash buffer.</param>
+			<returns Cref = "Boolean">True when the buffer is omitted or valid.</returns>
+		</method>
+		<method name = "WithAppendedLength">
+			<summary>Return a manifest with an updated durable appended length, timestamp, and incremented state version.</summary>
+			<param name = "appendedlength" Cref = "Int64">New durable appended length.</param>
+			<returns Cref = "DataStreamTransferManifest">Updated manifest.</returns>
+		</method>
+		<method name = "WithStatus">
+			<summary>Return a manifest with an updated status, fault message, timestamp, and incremented state version.</summary>
+			<param name = "status" Cref = "DataItemTransferStatus">New transfer status.</param>
+			<param name = "faultmessage" Cref = "String?">Optional fault message.</param>
+			<returns Cref = "DataStreamTransferManifest">Updated manifest.</returns>
+		</method>
+
+	</record>
+
+</DataStreamTransferManifest>

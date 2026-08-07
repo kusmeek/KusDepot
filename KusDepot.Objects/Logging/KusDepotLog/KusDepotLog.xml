@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<KusDepotLog>
+  <class name="KusDepotLog">
+    <main>
+      <summary>Static logger.</summary>
+    </main>
+    <property name="Logger" Cref="Microsoft.Extensions.Logging.ILogger">
+      <summary>Gets the current ILogger instance used by KusDepotLog.</summary>
+      <returns Cref="Microsoft.Extensions.Logging.ILogger">The currently assigned ILogger or null if not initialized.</returns>
+    </property>
+    <method name="Critical">
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="CriticalEx">
+      <summary>Logs a critical event (<see cref="LogLevel.Critical"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Debug">
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="DebugEx">
+      <summary>Logs a debug event (<see cref="LogLevel.Debug"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Error">
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="ErrorEx">
+      <summary>Logs an error event (<see cref="LogLevel.Error"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Fatal">
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="FatalEx">
+      <summary>Logs a fatal event (mapped to <see cref="LogLevel.Critical"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Information">
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="InformationEx">
+      <summary>Logs an informational event (<see cref="LogLevel.Information"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Initialize" Cref="Boolean">
+      <summary>Initializes the logging system by creating a logger from the provided factory.</summary>
+      <param name="factory" Cref="Microsoft.Extensions.Logging.ILoggerFactory">The logger factory used to create the KusDepot logger.</param>
+      <returns Cref="Boolean">True if initialization succeeded; otherwise false.</returns>
+    </method>
+    <method name="Trace">
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="TraceEx">
+      <summary>Logs a trace event (<see cref="LogLevel.Trace"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Verbose">
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="VerboseEx">
+      <summary>Logs a verbose event (mapped to <see cref="LogLevel.Trace"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="Warning">
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>).</summary>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+    <method name="WarningEx">
+      <summary>Logs a warning event (<see cref="LogLevel.Warning"/>) with an exception.</summary>
+      <param name="exception" Cref="Exception">Exception to attach.</param>
+      <param name="message" Cref="String">The log message template.</param>
+      <param name="args" Cref="Object?[]">Template argument values.</param>
+    </method>
+  </class>
+</KusDepotLog>

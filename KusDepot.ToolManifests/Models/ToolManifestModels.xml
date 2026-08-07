@@ -1,0 +1,188 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestModels>
+
+	<class name = "MethodMetadata">
+
+		<main>
+
+			<summary>Represents one protected-operation method discovered on a tool type.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the method metadata container.</summary>
+
+			<param name = "methodName" Cref = "String">The source method name.</param>
+
+			<param name = "index" Cref = "Int32">The resolved protected-operation index.</param>
+
+			<param name = "description" Cref = "String">The manifest description for the method.</param>
+
+		</constructor>
+
+		<property name = "MethodName" Cref = "String"><summary>The source method name.</summary></property>
+		<property name = "Index" Cref = "Int32"><summary>The resolved protected-operation index.</summary></property>
+		<property name = "Description" Cref = "String"><summary>The manifest description for the method.</summary></property>
+
+	</class>
+
+	<class name = "OperationModel">
+
+		<main>
+
+			<summary>Represents one generated manifest operation descriptor.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the operation model container.</summary>
+
+			<param name = "methodName" Cref = "String">The method name to publish into the manifest.</param>
+
+			<param name = "index" Cref = "Int32">The protected-operation index to publish.</param>
+
+			<param name = "description" Cref = "String">The operation description to publish.</param>
+
+		</constructor>
+
+		<property name = "MethodName" Cref = "String"><summary>The method name to publish into the manifest.</summary></property>
+		<property name = "Index" Cref = "Int32"><summary>The protected-operation index to publish.</summary></property>
+		<property name = "Description" Cref = "String"><summary>The operation description to publish.</summary></property>
+
+	</class>
+
+	<class name = "HandwrittenManifestDescriptor">
+
+		<main>
+
+			<summary>Represents one statically analyzable handwritten manifest descriptor extracted from a manual manifest factory.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the handwritten manifest descriptor container.</summary>
+
+			<param name = "methodName" Cref = "String">The handwritten manifest method name.</param>
+
+			<param name = "index" Cref = "Int32">The handwritten manifest protected-operation index.</param>
+
+			<param name = "methodNameLocation" Cref = "Location">The source location of the handwritten manifest method-name expression.</param>
+
+			<param name = "indexLocation" Cref = "Location">The source location of the handwritten manifest index expression.</param>
+
+		</constructor>
+
+		<property name = "MethodName" Cref = "String"><summary>The handwritten manifest method name.</summary></property>
+		<property name = "Index" Cref = "Int32"><summary>The handwritten manifest protected-operation index.</summary></property>
+		<property name = "MethodNameLocation" Cref = "Location"><summary>The source location of the handwritten manifest method-name expression.</summary></property>
+		<property name = "IndexLocation" Cref = "Location"><summary>The source location of the handwritten manifest index expression.</summary></property>
+
+	</class>
+
+	<class name = "ToolModel">
+
+		<main>
+
+			<summary>Aggregates the metadata required to generate a manifest companion for one tool type, including its resolved companion namespace.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the tool generation model.</summary>
+
+			<param name = "toolTypeName" Cref = "String">The short tool type name.</param>
+
+			<param name = "namespace" Cref = "String">The resolved containing namespace for generated companion output.</param>
+
+			<param name = "companionName" Cref = "String">The generated companion type name.</param>
+
+			<param name = "companionQualifiedName" Cref = "String">The fully qualified generated companion type name.</param>
+
+			<param name = "toolTypeQualifiedName" Cref = "String">The fully qualified tool type name.</param>
+
+			<param name = "toolSchemaID" Cref = "String">The tool schema identifier to publish.</param>
+
+			<param name = "accessKeyRealmID" Cref = "String">The access-key realm identifier to publish.</param>
+
+			<param name = "toolSchemaVersion" Cref = "String">The schema version to publish.</param>
+
+			<param name = "operations" Cref = "ImmutableArray{OperationModel}">The generated operation descriptors.</param>
+
+		</constructor>
+
+		<property name = "ToolTypeName" Cref = "String"><summary>The short tool type name.</summary></property>
+		<property name = "Namespace" Cref = "String"><summary>The resolved containing namespace for generated companion output.</summary></property>
+		<property name = "CompanionName" Cref = "String"><summary>The generated companion type name.</summary></property>
+		<property name = "CompanionQualifiedName" Cref = "String"><summary>The fully qualified generated companion type name.</summary></property>
+		<property name = "ToolTypeQualifiedName" Cref = "String"><summary>The fully qualified tool type name.</summary></property>
+		<property name = "ToolSchemaID" Cref = "String"><summary>The tool schema identifier to publish.</summary></property>
+		<property name = "AccessKeyRealmID" Cref = "String"><summary>The access-key realm identifier to publish.</summary></property>
+		<property name = "ToolSchemaVersion" Cref = "String"><summary>The schema version to publish.</summary></property>
+		<property name = "Operations" Cref = "ImmutableArray{OperationModel}"><summary>The generated operation descriptors.</summary></property>
+
+	</class>
+
+	<class name = "ToolManifestMetadata">
+
+		<main>
+
+			<summary>Represents the manifest identity metadata declared directly on a tool type, including any configured companion namespace override.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the tool-manifest metadata container.</summary>
+
+			<param name = "toolSchemaID" Cref = "String">The tool schema identifier to publish.</param>
+
+			<param name = "accessKeyRealmID" Cref = "String">The access-key realm identifier to publish.</param>
+
+			<param name = "toolSchemaVersion" Cref = "String">The schema version to publish.</param>
+
+			<param name = "companionNamespace" Cref = "String">The optional companion namespace override to use for generated output.</param>
+
+			<param name = "companionTypeName" Cref = "String">The optional companion type-name override to use for generated output.</param>
+
+		</constructor>
+
+		<property name = "ToolSchemaID" Cref = "String"><summary>The tool schema identifier to publish.</summary></property>
+		<property name = "AccessKeyRealmID" Cref = "String"><summary>The access-key realm identifier to publish.</summary></property>
+		<property name = "ToolSchemaVersion" Cref = "String"><summary>The schema version to publish.</summary></property>
+		<property name = "CompanionNamespace" Cref = "String"><summary>The optional companion namespace override to use for generated output.</summary></property>
+		<property name = "CompanionTypeName" Cref = "String"><summary>The optional companion type-name override to use for generated output.</summary></property>
+
+	</class>
+
+	<class name = "AssemblyManifestMetadata">
+
+		<main>
+
+			<summary>Represents the assembly-level manifest generation metadata declared through <c>ToolManifestAssemblyAttribute</c>.</summary>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes the assembly-manifest metadata container.</summary>
+
+			<param name = "registerModuleInitializer" Cref = "Boolean">Whether generated assembly bootstrap code should register from a module initializer.</param>
+
+			<param name = "companionNamespace" Cref = "String">The optional namespace override to use for generated assembly bootstrap output.</param>
+
+			<param name = "companionTypeName" Cref = "String">The optional type-name override to use for generated assembly bootstrap output.</param>
+
+		</constructor>
+
+		<property name = "RegisterModuleInitializer" Cref = "Boolean"><summary>Whether generated assembly bootstrap code should register from a module initializer.</summary></property>
+		<property name = "CompanionNamespace" Cref = "String"><summary>The optional namespace override to use for generated assembly bootstrap output.</summary></property>
+		<property name = "CompanionTypeName" Cref = "String"><summary>The optional type-name override to use for generated assembly bootstrap output.</summary></property>
+
+	</class>
+
+</ToolManifestModels>

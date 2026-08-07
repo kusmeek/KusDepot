@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IDataItemTransferRegistry>
+  <interface name="IDataItemTransferRegistry">
+	<main>
+	  <summary>Provides transfer session conflict lookup services.</summary>
+	</main>
+	<method name="FindOpenConflictByItemId">
+		<summary>Locate the most relevant writer or source-session conflict for a transfer item identifier across segmented and stream storage.</summary>
+		<param name="itemid" Cref="Guid">Item identifier.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{DataItemTransferOpenConflict?}">Matching open-conflict descriptor when found.</returns>
+	</method>
+  </interface>
+</IDataItemTransferRegistry>

@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolFactory>
+
+    <delegate name = "ToolFactory">
+
+        <main>
+
+            <summary>Factory delegate for constructing a Tool. Provides the builder-resolved values that correspond to the primary Tool constructor parameters.</summary>
+
+            <typeparam name = "TTool">A Type of Tool.</typeparam>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Service Provider.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <returns Cref = "TTool">Tool of type specified.</returns>
+
+        </main>
+
+    </delegate>
+
+</ToolFactory>

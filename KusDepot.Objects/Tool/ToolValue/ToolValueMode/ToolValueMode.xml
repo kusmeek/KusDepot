@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueMode>
+
+    <enum name = "ToolValueMode">
+
+        <main>
+
+            <summary>ToolValue conversion mode.</summary>
+
+        </main>
+
+        <value name = "Parse">
+
+            <summary>Parse-mode value.</summary>
+
+        </value>
+
+        <value name = "Build">
+
+            <summary>Build-mode value.</summary>
+
+        </value>
+
+        <value name = "Custom">
+
+            <summary>Converter-owned custom value.</summary>
+
+        </value>
+
+        <value name = "Unhandled">
+
+            <summary>Unhandled value.</summary>
+
+        </value>
+
+    </enum>
+
+</ToolValueMode>

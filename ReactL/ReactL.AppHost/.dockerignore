@@ -1,0 +1,6 @@
+**/.dockerignore
+**/node_modules
+**/Dockerfile*
+**/bin
+**/obj
+target

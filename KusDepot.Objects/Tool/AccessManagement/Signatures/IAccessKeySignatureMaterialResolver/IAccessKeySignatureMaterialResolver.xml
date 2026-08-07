@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeySignatureMaterialResolver>
+
+    <interface name = "IAccessKeySignatureMaterialResolver">
+
+        <main>
+
+            <summary>Read-only access-key signature material resolver contract.</summary>
+
+            <remarks>
+                Resolves certificate-backed signing and verification material from the current signing or validation context.
+            </remarks>
+
+        </main>
+
+        <method name = "TryResolveSigningMaterial">
+
+            <summary>Try to resolve signing material for the current signing operation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation.</param>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Resolved signing material.</param>
+
+            <returns Cref = "Boolean">True when signing material was resolved; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryResolveVerificationMaterial">
+
+            <summary>Try to resolve verification material for the current validation operation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Validation context for the current operation.</param>
+
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Resolved verification material.</param>
+
+            <returns Cref = "Boolean">True when verification material was resolved; otherwise false.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessKeySignatureMaterialResolver>

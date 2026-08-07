@@ -1,0 +1,195 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DefaultAccessPolicyEngine>
+
+    <class name = "DefaultAccessPolicyEngine">
+
+        <main>
+
+            <summary>Default access-policy engine.</summary>
+
+            <remarks>
+                Encodes the default access-management policy behavior for authorization, issuance, and revocation.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create the singleton default access-policy engine.</summary>
+
+            <returns Cref = "DefaultAccessPolicyEngine">Default access-policy engine.</returns>
+
+        </constructor>
+
+        <property name = "Instance" Cref = "DefaultAccessPolicyEngine">
+
+            <summary>Singleton default access-policy engine instance.</summary>
+
+        </property>
+
+        <field name = "ClaimsRequired" Cref = "ClaimsRequiredStage">
+
+            <summary>Claims-required stage.</summary>
+
+        </field>
+
+        <field name = "Expiry" Cref = "ExpiryStage">
+
+            <summary>Expiry stage.</summary>
+
+        </field>
+
+        <field name = "ManifestMatch" Cref = "ManifestMatchStage">
+
+            <summary>Manifest-match stage.</summary>
+
+        </field>
+
+        <field name = "MembershipActive" Cref = "MembershipActiveStage">
+
+            <summary>Membership-active stage.</summary>
+
+        </field>
+
+        <field name = "OperationAllowed" Cref = "OperationAllowedStage">
+
+            <summary>Operation-allowed stage.</summary>
+
+        </field>
+
+        <field name = "OperationRequired" Cref = "OperationRequiredStage">
+
+            <summary>Operation-required stage.</summary>
+
+        </field>
+
+        <field name = "SubjectRequired" Cref = "SubjectRequiredStage">
+
+            <summary>Subject-required stage.</summary>
+
+        </field>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate the supplied access-policy context using the default access-management rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for the supplied context.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate the supplied access-policy context asynchronously using the default access-management rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous policy evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for the supplied context.</returns>
+
+        </method>
+
+        <method name = "EvaluateAccess">
+
+            <summary>Evaluate protected-operation authorization using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for protected-operation authorization.</returns>
+
+        </method>
+
+        <method name = "EvaluateAccessAsync">
+
+            <summary>Evaluate asynchronously protected-operation authorization using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous protected-operation evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for protected-operation authorization.</returns>
+
+        </method>
+
+        <method name = "EvaluateAuthorization">
+
+            <summary>Evaluate claim-only authorization using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for claim-only authorization.</returns>
+
+        </method>
+
+        <method name = "EvaluateAuthorizationAsync">
+
+            <summary>Evaluate asynchronously claim-only authorization using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous authorization evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for claim-only authorization.</returns>
+
+        </method>
+
+        <method name = "EvaluateIssuance">
+
+            <summary>Evaluate access-key issuance using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for issuance.</returns>
+
+        </method>
+
+        <method name = "EvaluateIssuanceAsync">
+
+            <summary>Evaluate asynchronously access-key issuance using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous issuance evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for issuance.</returns>
+
+        </method>
+
+        <method name = "EvaluateRequest">
+
+            <summary>Evaluate access-key request normalization results using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for request evaluation.</returns>
+
+        </method>
+
+        <method name = "EvaluateRevocation">
+
+            <summary>Evaluate access-key revocation using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Policy decision for revocation.</returns>
+
+        </method>
+
+        <method name = "EvaluateRevocationAsync">
+
+            <summary>Evaluate asynchronously access-key revocation using the default rules.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous revocation evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for revocation.</returns>
+
+        </method>
+
+    </class>
+
+</DefaultAccessPolicyEngine>

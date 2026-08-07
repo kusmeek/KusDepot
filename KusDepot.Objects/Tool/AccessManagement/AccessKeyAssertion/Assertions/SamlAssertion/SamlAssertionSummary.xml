@@ -1,0 +1,145 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SamlAssertionSummary>
+
+    <record name = "SamlAssertionSummary">
+
+        <main>
+
+            <summary>SAML 2.0-backed access-key assertion summary.</summary>
+
+            <remarks>
+                An immutable lightweight summary of SAML-specific assertion facts intended for runtime policy evaluation.
+            </remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "SamlAssertionSummary">New SamlAssertionSummary.</returns>
+
+        </constructor>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Audience restrictions carried by the SAML assertion summary.</summary>
+
+        </property>
+
+        <property name = "AssertionID" Cref = "String?">
+
+            <summary>SAML assertion identifier if present.</summary>
+
+        </property>
+
+        <property name = "AuthenticationContextClassReference" Cref = "String?">
+
+            <summary>SAML authentication context class reference if present.</summary>
+
+        </property>
+
+        <property name = "AuthenticationTime" Cref = "DateTimeOffset?">
+
+            <summary>Authentication instant if the SAML summary provides one; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Destination" Cref = "String?">
+
+            <summary>SAML destination value if present.</summary>
+
+        </property>
+
+        <property name = "InResponseTo" Cref = "String?">
+
+            <summary>Response correlation identifier if the SAML assertion was issued in response to a prior request.</summary>
+
+        </property>
+
+        <property name = "Issuer" Cref = "String?">
+
+            <summary>Issuer identifier if present.</summary>
+
+        </property>
+
+        <property name = "NameID" Cref = "String?">
+
+            <summary>SAML NameID value if present.</summary>
+
+        </property>
+
+        <property name = "NameIDFormat" Cref = "String?">
+
+            <summary>SAML NameID format URI if present.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Assertion expiration instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "NotBefore" Cref = "DateTimeOffset?">
+
+            <summary>Assertion not-before instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Recipient" Cref = "String?">
+
+            <summary>Subject confirmation recipient if present.</summary>
+
+        </property>
+
+        <property name = "SessionIndex" Cref = "String?">
+
+            <summary>SAML session index if present.</summary>
+
+        </property>
+
+        <property name = "SessionNotOnOrAfter" Cref = "DateTimeOffset?">
+
+            <summary>Session expiration instant if the SAML assertion provides one; otherwise null.</summary>
+
+        </property>
+
+        <property name = "SubjectConfirmationMethod" Cref = "String?">
+
+            <summary>SAML subject confirmation method if present.</summary>
+
+        </property>
+
+        <method name = "Copy">
+
+            <summary>Create a copy of the SAML assertion summary.</summary>
+
+            <returns Cref = "SamlAssertionSummary">Copied SAML assertion summary.</returns>
+
+        </method>
+
+        <method name = "HasAudience">
+
+            <summary>Determine whether the SAML assertion summary contains an audience restriction.</summary>
+
+            <param name = "audience" Cref = "String?">Audience to test.</param>
+
+            <returns Cref = "Boolean">True if the audience is present; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsExpiredAt">
+
+            <summary>Determine whether the SAML assertion summary would be expired at a specific instant.</summary>
+
+            <param name = "when" Cref = "DateTimeOffset">Instant to test against the assertion expiration time.</param>
+
+            <returns Cref = "Boolean">True if the assertion has an expiration time and that time is before the supplied instant; otherwise false.</returns>
+
+        </method>
+
+    </record>
+
+</SamlAssertionSummary>
