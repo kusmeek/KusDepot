@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferBlobReference>
+	<record name = "TransferBlobReference">
+		<main><summary>Describes immutable payload bytes stored outside the transfer metadata store.</summary></main>
+		<property name = "BlobName" Cref = "String"><summary>Gets the provider-specific immutable blob name.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the number of bytes stored in the blob.</summary></property>
+		<property name = "SHA512" Cref = "Byte[]"><summary>Gets the SHA-512 digest of the stored bytes.</summary></property>
+	</record>
+</TransferBlobReference>

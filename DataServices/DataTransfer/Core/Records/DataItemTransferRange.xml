@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemTransferRange>
+
+	<record name = "DataItemTransferRange">
+
+		<main><summary>Half-open byte range within a staged transfer stream.</summary></main>
+
+		<property name = "Offset" Cref = "Int64"><summary>Starting byte offset of the range.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Length in bytes of the range.</summary></property>
+		<property name = "EndOffsetExclusive" Cref = "Int64"><summary>Exclusive ending offset of the range.</summary></property>
+		<property name = "IsEmpty" Cref = "Boolean"><summary>Whether the range length is zero.</summary></property>
+
+		<method name = "Validate"><summary>Determine whether the range is non-negative and does not overflow.</summary><returns Cref = "Boolean">True when the range is valid.</returns></method>
+		<method name = "ContainsRange"><summary>Determine whether this range fully contains another range.</summary><param name = "range" Cref = "DataItemTransferRange?">Candidate contained range.</param><returns Cref = "Boolean">True when the candidate range is fully contained.</returns></method>
+		<method name = "Intersects"><summary>Determine whether this range intersects another range.</summary><param name = "range" Cref = "DataItemTransferRange?">Candidate intersecting range.</param><returns Cref = "Boolean">True when the ranges intersect.</returns></method>
+		<method name = "CanMerge"><summary>Determine whether this range can be merged with another range because they intersect or are adjacent.</summary><param name = "range" Cref = "DataItemTransferRange?">Candidate merge range.</param><returns Cref = "Boolean">True when the ranges may be merged.</returns></method>
+		<method name = "Merge"><summary>Merge this range with another intersecting or adjacent range.</summary><param name = "range" Cref = "DataItemTransferRange">Range to merge.</param><returns Cref = "DataItemTransferRange">Merged range.</returns></method>
+
+	</record>
+
+</DataItemTransferRange>

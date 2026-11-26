@@ -1,0 +1,65 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataSecurityRecipient>
+
+    <class name = "DataSecurityRecipient">
+
+        <main>
+
+            <summary>Represents an intended `DataItem` protection recipient.</summary>
+
+            <remarks>
+                A recipient may be identified by object identifier alone or by an explicit certificate that provides thumbprint and public-key matching material.
+            </remarks>
+
+        </main>
+
+        <constructor name = "ConstructorObject">
+
+            <summary>Create a recipient identified only by object identifier.</summary>
+
+            <param name = "objectid" Cref = "Guid">Object identifier for the recipient.</param>
+
+            <returns Cref = "DataSecurityRecipient">A recipient identified by object identifier.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorCertificate">
+
+            <summary>Create a recipient from a certificate and optional object identifier.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Recipient certificate.</param>
+
+            <param name = "objectid" Cref = "Guid?">Optional object identifier associated with the certificate.</param>
+
+            <returns Cref = "DataSecurityRecipient">A recipient identified by certificate material.</returns>
+
+        </constructor>
+
+        <property name = "ObjectId" Cref = "Guid?">
+
+            <summary>Optional object identifier for the recipient.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String?">
+
+            <summary>Optional thumbprint used to match the recipient certificate.</summary>
+
+        </property>
+
+        <property name = "PublicKeyHash" Cref = "Byte[]?">
+
+            <summary>Optional SHA-256 hash of the recipient public key used as a match hint.</summary>
+
+        </property>
+
+        <property name = "Certificate" Cref = "X509Certificate2?">
+
+            <summary>Optional direct certificate reference available while building the security context.</summary>
+
+        </property>
+
+    </class>
+
+</DataSecurityRecipient>

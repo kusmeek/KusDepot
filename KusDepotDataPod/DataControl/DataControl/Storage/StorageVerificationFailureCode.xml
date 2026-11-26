@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<StorageVerificationFailureCode>
+
+	<enum name = "StorageVerificationFailureCode">
+		<main><summary>Identifies a verified tenant-storage payload mismatch.</summary></main>
+		<field name = "InvalidLength"><summary>The stored payload length does not match the declared length.</summary></field>
+		<field name = "InvalidHash"><summary>The stored payload SHA-512 digest does not match the declared digest.</summary></field>
+	</enum>
+
+</StorageVerificationFailureCode>

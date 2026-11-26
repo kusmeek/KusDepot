@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SerializationKind>
+
+    <enum name = "SerializationKind">
+
+        <main>
+
+            <summary>Identifies the serializer used to produce the payload within a serialization envelope.</summary>
+
+            <remarks>
+                <para>Values:</para>
+                <list type="bullet">
+                    <item><description>Unknown (0x00): Reserved. Indicates an unrecognized or missing serializer kind.</description></item>
+                    <item><description>Orleans (0x01): Payload was produced by Orleans.Serialization.</description></item>
+                </list>
+            </remarks>
+
+        </main>
+
+        <field name = "Unknown">
+
+            <summary>Reserved. Indicates an unrecognized or missing serializer kind.</summary>
+
+        </field>
+
+        <field name = "Orleans">
+
+            <summary>Payload was produced by Orleans.Serialization.</summary>
+
+        </field>
+
+    </enum>
+
+</SerializationKind>

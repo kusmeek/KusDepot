@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureAlgorithm>
+
+    <enum name = "AccessKeySignatureAlgorithm">
+
+        <main>
+
+            <summary>Access-key signature algorithm discriminator.</summary>
+
+        </main>
+
+        <value name = "None">
+
+            <summary>No signature algorithm is present because the key is unsigned.</summary>
+
+        </value>
+
+        <value name = "RsaPssSha512">
+
+            <summary>RSA-PSS with SHA-512.</summary>
+
+        </value>
+
+    </enum>
+
+</AccessKeySignatureAlgorithm>

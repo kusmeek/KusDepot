@@ -1,0 +1,10 @@
+global using Cake.Common;
+global using Cake.Common.Tools.DotNet;
+global using Cake.Common.Tools.DotNet.Build;
+global using Cake.Common.Tools.DotNet.Pack;
+global using Cake.Common.Tools.DotNet.Test;
+global using Cake.Core;
+global using Cake.Frosting;
+global using System;
+global using System.IO;
+global using System.Linq;

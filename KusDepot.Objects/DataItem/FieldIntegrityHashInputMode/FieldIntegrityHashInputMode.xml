@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<FieldIntegrityHashInputMode>
+
+	<enum name="FieldIntegrityHashInputMode">
+
+		<main>
+			<summary>Identifies how an input value is used when updating a DataItem field-integrity digest.</summary>
+		</main>
+
+		<value name="HashRawData">
+			<summary>Compute SHA-512 over the supplied raw field bytes.</summary>
+		</value>
+
+		<value name="StorePrecomputedDigest">
+			<summary>Store the supplied digest without hashing it again.</summary>
+		</value>
+
+		<value name="ComputeContentProjection">
+			<summary>Compute the DataItem content-integrity digest from its explicit canonical projection.</summary>
+		</value>
+
+		<value name="Clear">
+			<summary>Remove the stored field-integrity digest.</summary>
+		</value>
+
+	</enum>
+
+</FieldIntegrityHashInputMode>

@@ -1,0 +1,57 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<HostRequest>
+
+    <class name = "HostRequest">
+
+        <main>
+
+            <summary>Hosting Access Request.</summary>
+
+        </main>
+
+        <property name = "Host" Cref = "ITool?">
+
+            <summary>Host Requesting Access.</summary>
+
+        </property>
+
+        <property name = "External" Cref = "Boolean">
+
+            <summary>True if external hosting request.</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "HostRequest">New HostRequest.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "host" Cref = "ITool">Host.</param>
+
+            <param name = "external" Cref = "Boolean">External.</param>
+
+            <returns Cref = "HostRequest">New HostRequest.</returns>
+
+        </constructor>
+
+        <method name = "Equals">
+
+            <summary>Determine equality.</summary>
+
+            <param name = "other" Cref = "HostRequest?">Other request.</param>
+
+            <returns Cref = "Boolean">True if equal.</returns>
+
+        </method>
+
+    </class>
+
+</HostRequest>

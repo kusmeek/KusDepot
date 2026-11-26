@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DeletionAgent>
+  <class name="DeletionAgent">
+	<main><summary>Reconciles catalog pending-delete items and processes unfinished, token-scoped deletion jobs.</summary></main>
+	<field name="jobs"><summary>Loads and persists unfinished deletion jobs, their progress, and retry state.</summary></field>
+	<field name="dataConfigs"><summary>Enumerates configured catalogs and resolves each catalog's recovery storage.</summary></field>
+	<field name="grains"><summary>Creates catalog grain references for pending-delete reconciliation.</summary></field>
+	<field name="options"><summary>Controls leader retry and scan polling intervals, startup and cycle jitter, candidate paging, and bounded retry backoff.</summary></field>
+	<field name="processor"><summary>Delegates each due job to the shared processor, which acquires the cross-process item lock.</summary></field>
+	<field name="leaderLock" Cref="IPostgresAdvisoryLeaderLock"><summary>Provides named PostgreSQL advisory-lock leadership for deletion reconciliation and job processing.</summary></field>
+	<constructor name="DeletionAgent">
+	  <summary>Initializes the deletion agent with catalog reconciliation, a deletion processor, and its polling and retry policy.</summary>
+	  <param name="jobs" Cref="IDataControlDeletionJobStore">Transient deletion-job store.</param>
+	  <param name="dataConfigs" Cref="IDataControlDataConfigsClient">Catalog enumeration and recovery-storage client.</param>
+	  <param name="grains" Cref="IGrainFactory">Orleans client factory for catalog grains.</param>
+	  <param name="processor" Cref="DataControlDeletionProcessor">Shared durable deletion-stage processor.</param>
+	  <param name="leaderLock" Cref="IPostgresAdvisoryLeaderLock">Named PostgreSQL advisory-lock provider.</param>
+	  <param name="options" Cref="IOptions{DeletionAgentOptions}">Deletion polling and retry configuration.</param>
+	</constructor>
+	<method name="ExecuteAsync"><summary>Applies startup jitter, acquires named PostgreSQL leadership, retries followers at the configured leader retry interval, and retains leadership across polling and cycle-jitter delays until shutdown.</summary><param name="stoppingToken" Cref="CancellationToken">Signals that the hosted service should stop.</param></method>
+	<method name="ProcessDueJobsAsync"><summary>Verifies leadership while enumerating configured catalogs, reconciling paged pending-delete items into jobs, and processing due jobs.</summary><param name="leadership" Cref="IPostgresAdvisoryLeaderLease">Current named leadership lease.</param><param name="cancel" Cref="CancellationToken">Cancellation token for the scan.</param></method>
+	<method name="ProcessJobAsync"><summary>Delegates a due candidate to the durable deletion processor.</summary><param name="candidate" Cref="DataControlDeletionJobState">Due deletion job candidate.</param><param name="cancel" Cref="CancellationToken">Cancellation token for the attempt.</param></method>
+	<method name="GetRandomDelay"><summary>Returns a uniformly selected delay between zero and the supplied maximum.</summary><param name="maximum" Cref="TimeSpan">Maximum delay.</param><returns Cref="TimeSpan">Random delay.</returns></method>
+  </class>
+</DeletionAgent>

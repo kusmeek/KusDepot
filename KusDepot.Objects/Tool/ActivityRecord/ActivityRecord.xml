@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ActivityRecord>
+  <class name="ActivityRecord">
+    <main>
+      <summary>A record describing the outcome of an Activity.</summary>
+    </main>
+    <constructor name="Constructor">
+      <summary>Initializes a new instance of the <see cref="ActivityRecord"/> class.</summary>
+      <param name="code">The <see cref="ActivityRecordCode"/> describing the outcome.</param>
+      <param name="message">Additional diagnostic information.</param>
+    </constructor>
+    <constructor name="ConstructorWithException">
+      <summary>Initializes a new instance of the <see cref="ActivityRecord"/> class with a preserved exception.</summary>
+      <param name="code">The <see cref="ActivityRecordCode"/> describing the outcome.</param>
+      <param name="message">Additional diagnostic information.</param>
+      <param name="exception">The exception associated with the terminal outcome.</param>
+    </constructor>
+    <constructor name="ConstructorWithOutput">
+      <summary>Initializes a new instance of the <see cref="ActivityRecord"/> class with exception and output-publication state.</summary>
+      <param name="code">The <see cref="ActivityRecordCode"/> describing the outcome.</param>
+      <param name="message">Additional diagnostic information.</param>
+      <param name="exception">The exception associated with the terminal outcome.</param>
+      <param name="hasoutput">True when an output entry was successfully published for the Activity.</param>
+    </constructor>
+    <property name="Code">
+      <summary>Gets the <see cref="ActivityRecordCode"/> that describes the Activity outcome.</summary>
+    </property>
+    <property name="Exception">
+      <summary>Gets the exception associated with the terminal Activity outcome, if any.</summary>
+    </property>
+    <property name="HasOutput">
+      <summary>Gets a value indicating whether an output entry was successfully published for the Activity.</summary>
+      <remarks>A true value includes a published entry whose payload is null. This records actual publication, unlike <see cref="CommandResult.HasOutput"/>, which expresses publication intent.</remarks>
+    </property>
+    <property name="Message">
+      <summary>Gets an optional diagnostic message associated with the Activity outcome.</summary>
+    </property>
+    <property name="TimeStamp">
+      <summary>Gets the time when the Activity record was created.</summary>
+    </property>
+  </class>
+  <enum name="ActivityRecordCode">
+    <main>
+      <summary>Defines values that describe the outcome of an Activity.</summary>
+    </main>
+    <field name="Canceled">
+      <summary>The Activity was canceled.</summary>
+    </field>
+    <field name="Failed">
+      <summary>The Activity did not complete successfully.</summary>
+    </field>
+    <field name="Faulted">
+      <summary>The Activity encountered an error and was faulted.</summary>
+    </field>
+    <field name="None">
+      <summary>No specific outcome is recorded for the Activity.</summary>
+    </field>
+    <field name="Success">
+      <summary>The Activity completed successfully.</summary>
+    </field>
+    <field name="TimedOut">
+      <summary>The Activity did not complete before the configured timeout elapsed.</summary>
+    </field>
+  </enum>
+</ActivityRecord>

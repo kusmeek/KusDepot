@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ISecurityIdentityDirectory>
+
+	<interface name = "ISecurityIdentityDirectory">
+
+		<main>
+
+			<summary>Resolves security identities from an identity directory.</summary>
+
+		</main>
+
+		<method name = "ResolveIdentityObjectId">
+
+			<summary>Resolve an identity by object identifier.</summary>
+
+			<param name = "objectid" Cref = "Guid">Object identifier to resolve.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the resolve operation.</param>
+
+			<returns Cref = "ValueTask{DataSecurityObject}">The resolved identity, or null when no identity matches the object identifier.</returns>
+
+		</method>
+
+		<method name = "ResolveIdentityThumbprint">
+
+			<summary>Resolve an identity by certificate thumbprint.</summary>
+
+			<param name = "thumbprint" Cref = "String">Certificate thumbprint to resolve.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the resolve operation.</param>
+
+			<returns Cref = "ValueTask{DataSecurityObject}">The resolved identity, or null when no identity matches the thumbprint.</returns>
+
+		</method>
+
+	</interface>
+
+</ISecurityIdentityDirectory>

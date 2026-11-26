@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DefaultAccessKeyAssertionGenerator>
+
+    <class name = "DefaultAccessKeyAssertionGenerator">
+
+        <main>
+
+            <summary>Default access-key assertion generator.</summary>
+
+            <remarks>
+                Coordinates an ordered set of access-key assertion generators.
+            </remarks>
+
+        </main>
+
+        <field name = "Generators" Cref = "ImmutableArray{IAccessKeyAssertionGeneratorMode}">
+
+            <summary>Ordered access-key assertion generators invoked during generation.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "generators" Cref = "IEnumerable{IAccessKeyAssertionGeneratorMode}?">Optional ordered access-key assertion generators.</param>
+
+            <returns Cref = "DefaultAccessKeyAssertionGenerator">New DefaultAccessKeyAssertionGenerator.</returns>
+
+        </constructor>
+
+        <method name = "Generate">
+
+            <summary>Generate access-key assertions by invoking each configured generator in order.</summary>
+
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+
+            <returns Cref = "ImmutableArray{AccessKeyAssertion}">Flattened generated access-key assertions.</returns>
+
+        </method>
+
+        <method name = "GenerateAsync">
+
+            <summary>Generate access-key assertions asynchronously by invoking each configured generator in order.</summary>
+
+            <param name = "context" Cref = "AccessKeyAssertionGeneratorContext">Approved normalized assertion-generator context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous assertion-generation flow.</param>
+
+            <returns Cref = "ValueTask{ImmutableArray{AccessKeyAssertion}}">Flattened generated access-key assertions.</returns>
+
+        </method>
+
+    </class>
+
+</DefaultAccessKeyAssertionGenerator>

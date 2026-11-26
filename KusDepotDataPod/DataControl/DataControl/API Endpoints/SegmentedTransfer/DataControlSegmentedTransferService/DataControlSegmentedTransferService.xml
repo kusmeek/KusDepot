@@ -1,0 +1,172 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlSegmentedTransferService>
+	<class name = "DataControlSegmentedTransferService">
+		<main><summary>Coordinates segmented transfer session operations backed by PostgreSQL state and Azure Blob payloads.</summary></main>
+
+		<field name = "sessions"><summary>Transfer-session state and payload store used by the segmented service.</summary></field>
+		<field name = "registry"><summary>Registry used to track active transfer sessions.</summary></field>
+		<field name = "coordinator"><summary>Coordinator used to acquire transfer mutation scopes.</summary></field>
+		<field name = "publications"><summary>Publication-transfer store used to manage publication journals.</summary></field>
+		<field name = "storageContext"><summary>Request-scoped authorized storage context that supplies the catalog binding.</summary></field>
+		<field name = "grainFactory"><summary>Orleans client factory used to read catalog-owned item identity and deletion state.</summary></field>
+		<field name = "publishedSource"><summary>Published transfer source used to resolve published payloads and snapshots.</summary></field>
+		<field name = "options"><summary>Configured transfer service options.</summary></field>
+
+		<constructor name = "DataControlSegmentedTransferService">
+			<summary>Initializes the segmented transfer service.</summary>
+			<param name = "sessions" Cref = "IDataControlTransferSessionStore">Transfer-session state and payload store.</param>
+			<param name = "registry" Cref = "IDataItemTransferRegistry">Transfer session registry.</param>
+			<param name = "coordinator" Cref = "IDataItemTransferCoordinator">Transfer coordinator.</param>
+			<param name = "publications" Cref = "IDataControlPublicationTransferStore">Publication-transfer store.</param>
+			<param name = "publishedSource" Cref = "IPublishedTransferSource">Published transfer source.</param>
+			<param name = "storageContext" Cref = "ITenantTransferStorageContext">Request-scoped authorized storage context.</param>
+			<param name = "grainFactory" Cref = "IGrainFactory">Orleans client factory used to read catalog-owned item state.</param>
+			<param name = "options" Cref = "IOptions{DataItemTransferServiceOptions}">Configured transfer service options.</param>
+		</constructor>
+
+		<method name = "LoadRequiredManifest">
+			<summary>Loads and validates the manifest identity and current catalog-owned item instance token for a segmented transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{DataItemTransferManifest}">The normalized transfer manifest.</returns>
+		</method>
+		<method name = "LoadRequiredManifestForWrite">
+			<summary>Loads a segmented transfer manifest and validates its identity and catalog-owned item instance token.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "forWrite" Cref = "Boolean">When true, load the lightweight write manifest without realized coverage; otherwise load and normalize coverage.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{DataItemTransferManifest}">The validated transfer manifest.</returns>
+		</method>
+		<method name = "TouchSessionActivity">
+			<summary>Renews the server-observed activity time for a successfully read, queried, or reopened segmented transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<exception cref = "OperationFailedException">The transfer session no longer exists.</exception>
+		</method>
+		<method name = "CreateManifest">
+			<summary>Creates the initial manifest for a segmented upload session bound to the active catalog item token or a fresh candidate token.</summary>
+			<param name = "request" Cref = "OpenUploadTransferRequest">Upload open request.</param>
+			<param name = "policy" Cref = "DataItemTransferSegmentSizePolicy">Effective segment-size policy.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token assigned to the upload.</param>
+			<returns Cref = "DataItemTransferManifest">The initial upload manifest.</returns>
+		</method>
+		<method name = "CreateStagedReadManifest">
+			<summary>Creates a staged-read manifest bound to the same item instance token as its existing source manifest.</summary>
+			<param name = "request" Cref = "OpenGetTransferRequest">Read open request.</param>
+			<param name = "source" Cref = "DataItemTransferManifest">Source transfer manifest.</param>
+			<returns Cref = "DataItemTransferManifest">The staged-read manifest.</returns>
+		</method>
+		<method name = "CreatePublishedReadManifest">
+			<summary>Creates a published-read manifest bound to the item instance token recorded by the validated published snapshot.</summary>
+			<param name = "request" Cref = "OpenGetTransferRequest">Read open request.</param>
+			<param name = "snapshot" Cref = "PublishedTransferSnapshot">Published transfer snapshot.</param>
+			<returns Cref = "DataItemTransferManifest">The published-read manifest.</returns>
+		</method>
+		<method name = "LoadRequiredPublishedSnapshot">
+			<summary>Loads and validates a published snapshot for the expected item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Expected active item instance token.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{PublishedTransferSnapshot}">The validated published snapshot.</returns>
+		</method>
+		<method name = "CreateRange">
+			<summary>Creates a transfer range from an offset and length.</summary>
+			<param name = "offset" Cref = "Int64">Range offset.</param>
+			<param name = "length" Cref = "Int64">Range length.</param>
+			<returns Cref = "DataItemTransferRange">The transfer range.</returns>
+		</method>
+		<method name = "ValidateIdentity">
+			<summary>Validates that a transfer identity contains non-empty session and item identifiers.</summary>
+			<param name = "identity" Cref = "DataItemTransferIdentity">Transfer identity to validate.</param>
+		</method>
+		<method name = "ValidateManifestIdentity">
+			<summary>Validates that a manifest belongs to the expected session and item and carries a non-empty item instance token.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to validate.</param>
+			<param name = "sessionid" Cref = "Guid">Expected session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier.</param>
+		</method>
+		<method name = "ValidateMutationScope">
+			<summary>Validates that a mutation scope belongs to the expected session and item.</summary>
+			<param name = "scope" Cref = "ITransferMutationScope">Mutation scope to validate.</param>
+			<param name = "sessionid" Cref = "Guid">Expected session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier.</param>
+		</method>
+		<method name = "ValidateAbortRequest">
+			<summary>Validates an abort request.</summary>
+			<param name = "request" Cref = "AbortTransferRequest">Abort request to validate.</param>
+		</method>
+		<method name = "ValidateRemoveRequest">
+			<summary>Validates that a remove request contains non-empty session and item identifiers.</summary>
+			<param name = "request" Cref = "RemoveTransferRequest">Remove request to validate.</param>
+		</method>
+		<method name = "ValidateOpenGetRequest">
+			<summary>Validates an open-get request.</summary>
+			<param name = "request" Cref = "OpenGetTransferRequest">Open-get request to validate.</param>
+		</method>
+		<method name = "ValidateReOpenGetRequest">
+			<summary>Validates a reopen-get request.</summary>
+			<param name = "request" Cref = "ReOpenGetTransferRequest">Reopen-get request to validate.</param>
+		</method>
+		<method name = "ValidateReOpenRequest">
+			<summary>Validates a reopen-upload request.</summary>
+			<param name = "request" Cref = "ReOpenUploadTransferRequest">Reopen-upload request to validate.</param>
+		</method>
+		<method name = "ValidateGetTransferSegmentRequest">
+			<summary>Validates a segmented transfer segment-read request.</summary>
+			<param name = "request" Cref = "GetTransferSegmentRequest">Segment-read request to validate.</param>
+		</method>
+		<method name = "ValidateOpenRequest">
+			<summary>Validates an open-upload request and its object payload.</summary>
+			<param name = "request" Cref = "OpenUploadTransferRequest">Open-upload request to validate.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+		</method>
+		<method name = "ValidatePublishRequest">
+			<summary>Validates a segmented publication request.</summary>
+			<param name = "request" Cref = "PublishSegmentedTransferRequest">Publication request to validate.</param>
+		</method>
+		<method name = "ValidatePutRequest">
+			<summary>Validates a segmented transfer segment-write request and payload for atomic writes and identical replay behavior.</summary>
+			<param name = "request" Cref = "PutTransferSegmentRequest">Segment-write request to validate.</param>
+			<param name = "payload" Cref = "Stream">Payload stream to validate.</param>
+		</method>
+		<method name = "ValidateSegmentLength">
+			<summary>Validates a segment length against the manifest policy and configured minimum and maximum enforcement settings.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Transfer manifest containing the segment-size policy.</param>
+			<param name = "length" Cref = "Int64">Segment length in bytes.</param>
+		</method>
+		<method name = "ValidateSessionWritable">
+			<summary>Validates that a manifest permits write operations.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateAbortableSession">
+			<summary>Validates that a segmented upload session is open or complete and can be aborted.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateSessionReadable">
+			<summary>Validates that a manifest permits read operations.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateManifestHashes">
+			<summary>Validates the object hash and stream length recorded in a manifest.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to validate.</param>
+			<param name = "objecthash" Cref = "Byte[]">Actual object payload hash.</param>
+			<param name = "streamlength" Cref = "Int64">Actual stream length.</param>
+		</method>
+		<method name = "ValidatePublishedSnapshot">
+			<summary>Validates that a published snapshot matches the requested item instance token and that its object payload matches its hash.</summary>
+			<param name = "snapshot" Cref = "PublishedTransferSnapshot">Snapshot to validate.</param>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Expected active item instance token.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+		</method>
+		<method name = "ValidatePublishedSnapshotIdentity">
+			<summary>Validates that a published snapshot matches the item instance token, stream length, object hash, and integrity recorded in a transfer manifest.</summary>
+			<param name = "snapshot" Cref = "PublishedTransferSnapshot">Published snapshot to validate.</param>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Transfer manifest whose published identity and integrity must match the snapshot.</param>
+		</method>
+	</class>
+</DataControlSegmentedTransferService>

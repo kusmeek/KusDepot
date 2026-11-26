@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<KeyMaterial>
+
+    <struct name = "KeyMaterial">
+
+        <main>
+
+            <summary>Transient key-construction material sent from <see cref="KeyMaker"/> into registered custom key factories.</summary>
+
+        </main>
+
+        <property name = "Certificate" Cref = "X509Certificate2?"><summary>Transient certificate material available to the custom key factory.</summary></property>
+        <property name = "ID" Cref = "Guid?"><summary>Transient identifier available to the custom key factory.</summary></property>
+        <property name = "Key" Cref = "Byte[]?"><summary>Transient key bytes available to the custom key factory.</summary></property>
+
+        <constructor name = "Constructor">
+            <summary>Create transient key-construction material.</summary>
+            <param name = "id" Cref = "Guid?">Transient identifier.</param>
+            <param name = "key" Cref = "Byte[]?">Transient key bytes.</param>
+            <param name = "certificate" Cref = "X509Certificate2?">Transient certificate material.</param>
+            <returns Cref = "KeyMaterial">New key material value.</returns>
+        </constructor>
+
+    </struct>
+
+</KeyMaterial>

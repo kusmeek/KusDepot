@@ -1,0 +1,201 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConsoleCommandObserverAdapter>
+
+    <class name = "ConsoleCommandObserverAdapter">
+
+        <main>
+
+            <summary>Adapts CliWrap Command events to a ConsoleCommandObserver.</summary>
+
+            <remarks>Implements IObserver{CommandEvent}.</remarks>
+
+        </main>
+
+        <field name = "observer">
+
+            <summary>Observer that handles streamed Command events.</summary>
+
+            <returns Cref = "ConsoleCommandObserver">Console Command Observer.</returns>
+
+        </field>
+
+        <field name = "sync">
+
+            <summary>Synchronizes event dispatch, completion state, and callback error collection.</summary>
+
+            <returns Cref = "Lock">Synchronization lock.</returns>
+
+        </field>
+
+        <field name = "callbackErrors">
+
+            <summary>Errors raised by observer callbacks other than expected cancellation.</summary>
+
+            <returns Cref = "List{Exception}">Collected callback errors.</returns>
+
+        </field>
+
+        <field name = "cancel">
+
+            <summary>Execution cancellation token supplied to observer callbacks.</summary>
+
+            <returns Cref = "CancellationToken">Execution cancellation token.</returns>
+
+        </field>
+
+        <field name = "started">
+
+            <summary>Tracked task for the started callback.</summary>
+
+            <returns Cref = "Task">Started callback task.</returns>
+
+        </field>
+
+        <field name = "stdout">
+
+            <summary>Tracked, ordered task chain for standard output callbacks.</summary>
+
+            <returns Cref = "Task">Standard output callback task.</returns>
+
+        </field>
+
+        <field name = "stderr">
+
+            <summary>Tracked, ordered task chain for standard error callbacks.</summary>
+
+            <returns Cref = "Task">Standard error callback task.</returns>
+
+        </field>
+
+        <field name = "exited">
+
+            <summary>Process exit event received from CliWrap, if any.</summary>
+
+            <returns Cref = "ExitedCommandEvent">Process exit event.</returns>
+
+        </field>
+
+        <field name = "completionStarted">
+
+            <summary>Indicates whether observer event dispatch has finished and completion is being published.</summary>
+
+            <returns Cref = "Boolean">Completion state.</returns>
+
+        </field>
+
+        <field name = "source">
+
+            <summary>TaskCompletionSource used to publish the process result and callback outcomes after dispatch completes.</summary>
+
+            <returns Cref = "Task{ConsoleCommandObserverCompletion}">Completion Task source.</returns>
+
+        </field>
+
+        <property name = "Completion">
+
+            <summary>Task that completes when the observed Command finishes.</summary>
+
+            <returns Cref = "Task{ConsoleCommandObserverCompletion}">Command and observer completion Task.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "observer" Cref = "ConsoleCommandObserver">Observer delegates.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Execution cancellation token passed to observer callbacks.</param>
+
+            <returns Cref = "ConsoleCommandObserverAdapter">New ConsoleCommandObserverAdapter.</returns>
+
+        </constructor>
+
+        <method name = "QueueCallback">
+
+            <summary>Queues a callback after the supplied task and records its outcome.</summary>
+
+            <param name = "previous" Cref = "Task">Task that must finish before this callback can run.</param>
+
+            <param name = "callback" Cref = "Func{Task}">Observer callback to invoke.</param>
+
+            <returns Cref = "Task">Tracked callback task.</returns>
+
+        </method>
+
+        <method name = "InvokeCallbackAsync">
+
+            <summary>Invokes an observer callback and records errors other than expected cancellation.</summary>
+
+            <param name = "callback" Cref = "Func{Task}">Observer callback to invoke.</param>
+
+            <returns Cref = "Task">Callback completion task.</returns>
+
+        </method>
+
+        <method name = "BeginCompletion">
+
+            <summary>Captures the tracked callbacks once event dispatch completes and starts finalization.</summary>
+
+            <param name = "processError" Cref = "Exception">Error reported by the event stream, if any.</param>
+
+        </method>
+
+        <method name = "CompleteAsync">
+
+            <summary>Waits for tracked callbacks, invokes the exit callback, and publishes the completion outcome.</summary>
+
+            <param name = "startedCallback" Cref = "Task">Tracked started callback.</param>
+
+            <param name = "stdoutCallback" Cref = "Task">Tracked standard output callback chain.</param>
+
+            <param name = "stderrCallback" Cref = "Task">Tracked standard error callback chain.</param>
+
+            <param name = "exitedEvent" Cref = "ExitedCommandEvent">Process exit event, if received.</param>
+
+            <param name = "processError" Cref = "Exception">Error reported by the event stream, if any.</param>
+
+            <returns Cref = "Task">Finalization task.</returns>
+
+        </method>
+
+        <method name = "OnCompleted">
+
+            <summary>Completes event dispatch and begins waiting for the tracked observer callbacks.</summary>
+
+        </method>
+
+        <method name = "OnError">
+
+            <summary>Completes event dispatch with the event-stream error and begins waiting for tracked callbacks.</summary>
+
+            <param name = "error" Cref = "Exception">Error reported by the event stream.</param>
+
+        </method>
+
+        <method name = "OnNext">
+
+            <summary>Queues the appropriate observer callback for a process event.</summary>
+
+            <param name = "value" Cref = "CommandEvent">Process event to dispatch.</param>
+
+            <remarks>Started is ordered before stdout and stderr callbacks. Each output stream preserves its own event order, while stdout and stderr can execute concurrently. Exit events are retained for finalization.</remarks>
+
+        </method>
+
+    </class>
+
+    <class name = "ConsoleCommandObserverCompletion">
+
+        <main>
+
+            <summary>Contains the process result and errors collected while dispatching console observer callbacks.</summary>
+
+            <remarks>Published after tracked Started and output callbacks have finished and OnExited has been invoked when an exit event was received.</remarks>
+
+        </main>
+
+    </class>
+
+</ConsoleCommandObserverAdapter>

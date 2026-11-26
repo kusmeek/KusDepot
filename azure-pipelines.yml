@@ -1,0 +1,28 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+- task: UseDotNet@2
+  displayName: '.NET SDK'
+  inputs:
+    packageType: sdk
+    version: '11.0.x'
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Labspace'
+  inputs:
+    command: build
+    projects: 'Labspace/Labspace.csproj'
+    arguments: '--configuration Release'
+
+- task: DotNetCoreCLI@2
+  displayName: 'KusDepot.Exam'
+  inputs:
+    command: test
+    projects: 'KusDepot.Exam/KusDepot.Exam.csproj'
+    arguments: '--configuration Release'

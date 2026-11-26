@@ -1,0 +1,47 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostConsoleLifetime>
+
+    <class name = "ToolHostConsoleLifetime">
+
+        <main>
+
+            <summary>ToolHost Console Lifetime.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Creates a console lifetime and registers process signal handlers.</summary>
+
+            <returns Cref = "ToolHostConsoleLifetime">New ToolHostConsoleLifetime.</returns>
+
+        </constructor>
+
+        <field name = "hostkey">
+
+            <summary>Host access key scoped to stop and dispose operations.</summary>
+
+        </field>
+
+        <field name = "Quit">
+
+            <summary>Registration for the POSIX quit signal.</summary>
+
+        </field>
+
+        <field name = "Interrupt">
+
+            <summary>Registration for the POSIX interrupt signal.</summary>
+
+        </field>
+
+        <field name = "Terminate">
+
+            <summary>Registration for the POSIX terminate signal.</summary>
+
+        </field>
+
+    </class>
+
+</ToolHostConsoleLifetime>

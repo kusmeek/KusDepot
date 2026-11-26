@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedTransferSnapshot>
+  <record name="PublishedTransferSnapshot">
+	<main>
+	  <summary>Immutable published-content snapshot used to open readable segmented transfer sessions.</summary>
+	</main>
+	<property name="ItemId" Cref="Guid"><summary>Immutable data item identifier.</summary></property>
+	<property name="ItemInstanceToken" Cref="Guid"><summary>Catalog-owned item instance token represented by the published snapshot.</summary></property>
+	<property name="ObjectPayload" Cref="Byte[]"><summary>Serialized published object payload.</summary></property>
+	<property name="ObjectSHA512" Cref="Byte[]"><summary>SHA-512 of the serialized published object payload.</summary></property>
+	<property name="Integrity" Cref="TransferContentIntegrity"><summary>Server-authoritative ordered integrity summary for the published stream payload.</summary></property>
+	<property name="IntegritySegments" Cref="TransferContentIntegritySegment[]"><summary>Canonical published segments used to compute the stream integrity summary.</summary></property>
+	<property name="StreamLength" Cref="Int64"><summary>Published stream length in bytes.</summary></property>
+	<property name="RealizedRanges" Cref="DataItemTransferRange[]"><summary>Initially realized ranges available to readable segmented sessions.</summary></property>
+	<property name="ObjectInfo" Cref="DataItemTransferObjectInfo?"><summary>Optional descriptive object summary for the published payload.</summary></property>
+  </record>
+</PublishedTransferSnapshot>

@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAsyncAccessPolicyStage>
+
+    <interface name = "IAsyncAccessPolicyStage">
+
+        <main>
+
+            <summary>Async access-policy stage interface.</summary>
+
+            <remarks>
+                Represents a single ordered policy rule that can participate asynchronously in a composite access-policy engine.
+            </remarks>
+
+        </main>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate a single ordered policy stage asynchronously from an access-policy context snapshot.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous policy-stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Stage decision for the supplied context. Composite engines stop on the first deny decision.</returns>
+
+        </method>
+
+    </interface>
+
+</IAsyncAccessPolicyStage>

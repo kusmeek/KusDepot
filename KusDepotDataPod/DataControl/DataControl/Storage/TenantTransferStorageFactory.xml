@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TenantTransferStorageFactory>
+  <interface name="ITenantTransferStorageFactory">
+	<main>
+	  <summary>Creates tenant transfer storage instances for a selected storage silo, session, item, and item instance token.</summary>
+	</main>
+	<method name="Create">
+		  <summary>Creates tenant transfer storage for a session, item, and item instance.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the transfer data.</param>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="itemid" Cref="Guid">Data item identifier.</param>
+		  <param name="itemInstanceToken" Cref="Guid">Item instance token used to isolate transfer artifacts.</param>
+	  <returns Cref="ITenantTransferStorage">Storage for the specified silo, transfer session, item, and item instance.</returns>
+	</method>
+	<method name="DeleteInstanceTransfersAsync">
+		<summary>Deletes transfer blobs under one item instance, including orphaned session prefixes and published artifacts.</summary>
+		<param name="silo" Cref="StorageSilo">Storage silo containing the transfer data.</param>
+		<param name="itemid" Cref="Guid">Data item identifier.</param>
+		<param name="itemInstanceToken" Cref="Guid">Item instance token whose transfer artifacts are removed.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Boolean}">True after all artifacts for the item instance are absent.</returns>
+	</method>
+  </interface>
+  <class name="TenantTransferStorageFactory">
+	<main>
+	  <summary>Creates tenant transfer storage instances.</summary>
+	</main>
+	<method name="DeleteInstanceTransfersAsync">
+		<summary>Deletes transfer blobs under one item instance, including orphaned session prefixes and published artifacts.</summary>
+		<param name="silo" Cref="StorageSilo">Storage silo containing the transfer data.</param>
+		<param name="itemid" Cref="Guid">Data item identifier.</param>
+		<param name="itemInstanceToken" Cref="Guid">Item instance token whose transfer artifacts are removed.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Boolean}">True after all artifacts for the item instance are absent.</returns>
+	</method>
+	<method name="Create">
+		  <summary>Creates tenant transfer storage for a session, item, and item instance.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the transfer data.</param>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="itemid" Cref="Guid">Data item identifier.</param>
+		  <param name="itemInstanceToken" Cref="Guid">Item instance token used to isolate transfer artifacts.</param>
+	  <returns Cref="ITenantTransferStorage">Storage for the specified silo, transfer session, item, and item instance.</returns>
+	</method>
+  </class>
+</TenantTransferStorageFactory>

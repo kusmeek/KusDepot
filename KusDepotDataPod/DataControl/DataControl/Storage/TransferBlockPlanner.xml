@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferBlockPlanner>
+	<class name = "TransferBlockPlanner">
+		<main>
+			<summary>Creates deterministic storage-block plans from staged logical transfer ranges.</summary>
+		</main>
+		<method name = "Create" Cref = "TransferBlockPlan">
+			<summary>Validate the staged logical ranges, order them by destination offset, and split them into deterministic storage blocks.</summary>
+			<remarks>The ranges must provide contiguous coverage beginning at offset zero. Each range may be split into multiple blocks when its length exceeds <paramref name="maximumBlockSizeBytes"/>. The resulting plan retains the source blob and source offset for every block and reports the total covered length.</remarks>
+			<param name = "logicalRanges" Cref = "IReadOnlyList{TransferRangeReference}">Logical ranges and their staged source blob references. The ranges must be valid, contiguous, non-overlapping, and collectively begin at offset zero.</param>
+			<param name = "maximumBlockSizeBytes" Cref = "Int64">Maximum number of bytes allowed in an individual storage block. Must be positive and no greater than the storage limit.</param>
+			<returns Cref = "TransferBlockPlan">A deterministic plan whose blocks are ordered by destination offset and assigned stable block identifiers.</returns>
+			<exception cref = "ArgumentNullException">Thrown when <paramref name="logicalRanges"/> is null.</exception>
+			<exception cref = "ArgumentException">Thrown when a range, source reference, blob length, or coverage sequence is invalid.</exception>
+			<exception cref = "ArgumentOutOfRangeException">Thrown when the maximum block size is not positive or exceeds the storage limit.</exception>
+		</method>
+		<method name = "CreateBlockID">
+			<summary>Create a deterministic Base64 block identifier from a zero-based block index.</summary>
+			<param name = "blockIndex" Cref = "Int32">Zero-based position of the block in the generated plan.</param>
+			<returns Cref = "String">Base64-encoded storage block identifier.</returns>
+		</method>
+		<method name = "ValidateReference">
+			<summary>Validate one logical range reference before it is added to the block plan.</summary>
+			<param name = "reference" Cref = "TransferRangeReference">Logical range and staged source blob reference to validate.</param>
+			<param name = "segmentIndex" Cref = "Int32">Zero-based position used to identify the reference in validation errors.</param>
+			<exception cref = "ArgumentException">Thrown when the reference is missing or invalid, its source blob name is empty, or its source blob length does not match the logical range length.</exception>
+		</method>
+	</class>
+</TransferBlockPlanner>

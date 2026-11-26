@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Library</OutputType>
+
+        <TargetFramework>net11.0</TargetFramework>
+
+        <AssemblyName>KusDepot.Data.Clients</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="Analysis">
+
+        <EnableTrimAnalyzer>False</EnableTrimAnalyzer>
+
+        <NoWarn>CA1031;CA1716;CA1822;CA2007;CA5394;CA5399</NoWarn>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <Features>runtime-async=on</Features>
+
+        <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
+
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+
+    </PropertyGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="NativeMethods.txt" />
+    </ItemGroup>
+
+    <ItemGroup Label="Diagram">
+
+      <None Include="DepotClients.cd" />
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+
+        <PackageReference Include="Microsoft.Windows.CsWin32">
+
+            <PrivateAssets>all</PrivateAssets>
+
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+
+        </PackageReference>
+
+		<PackageReference Include="Serilog" />
+
+		<ProjectReference Include="..\DataServices\DataServices.csproj" />
+
+        <ProjectReference Include="..\KusDepot.Objects\KusDepot.Objects.csproj" />
+
+    </ItemGroup>
+
+</Project>

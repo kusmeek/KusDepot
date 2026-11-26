@@ -1,0 +1,247 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerOptions>
+
+    <class name = "AccessManagerOptions">
+
+        <main>
+
+            <summary>Configuration for an <see cref="AccessManager"/>.</summary>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "id" Cref = "Guid?">Optional access-manager identifier override.</param>
+
+            <param name = "realmkey" Cref = "Byte[]?">Optional symmetric realm key override.</param>
+
+            <param name = "manifest" Cref = "ToolManifest?">Optional tool manifest override used to resolve the current manifest identity.</param>
+
+            <param name = "membershipcachesize" Cref = "Int32?">Optional maximum membership-cache entry count override.</param>
+
+            <param name = "initialmembershipcatalog" Cref = "AccessManagerMembershipCatalog?">Optional initial membership catalog.</param>
+
+            <param name = "keymaker" Cref = "KeyMaker?">Optional key-maker used for custom access-key construction.</param>
+
+            <param name = "keyassertiongenerator" Cref = "IAccessKeyAssertionGeneratorMode?">Optional access-key assertion generator used to produce embedded assertions for approved issuance flows.</param>
+
+            <param name = "signatureprocessor" Cref = "IAccessKeySignatureProcessorMode?">Optional signature processor used for signed access-key issuance signature validation facts.</param>
+
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode?">Optional access-policy engine override used instead of the default resolution path.</param>
+
+            <returns Cref = "AccessManagerOptions">New AccessManagerOptions.</returns>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Create access-manager options from explicit configuration values.</summary>
+
+            <param name = "id" Cref = "Guid?">Optional access-manager identifier override.</param>
+
+            <param name = "realmkey" Cref = "Byte[]?">Optional symmetric realm key override.</param>
+
+            <param name = "manifest" Cref = "ToolManifest?">Optional tool manifest override used to resolve the current manifest identity.</param>
+
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode?">Optional access-policy engine override used instead of the default resolution path.</param>
+
+            <param name = "membershipcachesize" Cref = "Int32?">Optional maximum membership-cache entry count override.</param>
+
+            <param name = "initialmembershipcatalog" Cref = "AccessManagerMembershipCatalog?">Optional initial membership catalog.</param>
+
+            <param name = "keymaker" Cref = "KeyMaker?">Optional key-maker used for custom access-key construction.</param>
+
+            <param name = "keyassertiongenerator" Cref = "IAccessKeyAssertionGeneratorMode?">Optional access-key assertion generator used to produce embedded assertions for approved issuance flows.</param>
+
+            <param name = "signatureprocessor" Cref = "IAccessKeySignatureProcessorMode?">Optional signature processor used for signed access-key issuance signature validation facts.</param>
+
+            <returns Cref = "AccessManagerOptions">New AccessManagerOptions.</returns>
+
+        </method>
+
+        <property name = "ID" Cref = "Guid?">
+
+            <summary>Optional access-manager identifier override.</summary>
+
+        </property>
+
+        <property name = "Manifest" Cref = "ToolManifest?">
+
+            <summary>Optional tool manifest override used to resolve the current manifest identity.</summary>
+
+        </property>
+
+        <field name = "manifest" Cref = "ToolManifest?">
+
+            <summary>Backing store for the configured manifest override.</summary>
+
+        </field>
+
+        <property name = "InitialMembershipCatalog" Cref = "AccessManagerMembershipCatalog?">
+
+            <summary>Optional initial membership catalog.</summary>
+
+        </property>
+
+        <field name = "initialmembershipcatalog" Cref = "AccessManagerMembershipCatalog?">
+
+            <summary>Backing store for the configured initial membership catalog.</summary>
+
+        </field>
+
+        <property name = "MembershipCacheSize" Cref = "Int32?">
+
+            <summary>Optional maximum membership-cache entry count override. Null uses <see cref="F:KusDepot.Security.MembershipCache.DefaultMaximumCount"/>.</summary>
+
+        </property>
+
+        <field name = "membershipcachesize" Cref = "Int32?">
+
+            <summary>Backing store for the configured membership-cache size.</summary>
+
+        </field>
+
+        <property name = "PolicyEngine" Cref = "IAccessPolicyEngineMode?">
+
+            <summary>Optional access-policy engine override used instead of the default resolution path.</summary>
+
+        </property>
+
+        <property name = "SignatureProcessor" Cref = "IAccessKeySignatureProcessorMode?">
+
+            <summary>Optional signature processor used for signed access-key issuance signature validation facts.</summary>
+
+        </property>
+
+        <property name = "KeyAssertionGenerator" Cref = "IAccessKeyAssertionGeneratorMode?">
+
+            <summary>Optional access-key assertion generator used to produce embedded assertions for approved issuance flows.</summary>
+
+        </property>
+
+        <property name = "KeyMaker" Cref = "KeyMaker?">
+
+            <summary>Optional key-maker registry/prototype used for custom access-key construction.</summary>
+
+        </property>
+
+        <field name = "keymaker" Cref = "KeyMaker?">
+
+            <summary>Backing store for the configured key-maker.</summary>
+
+        </field>
+
+        <field name = "keyassertiongenerator" Cref = "IAccessKeyAssertionGeneratorMode?">
+
+            <summary>Backing store for the configured access-key assertion generator.</summary>
+
+        </field>
+
+        <property name = "RealmKey" Cref = "Byte[]?">
+
+            <summary>Optional symmetric realm key override.</summary>
+
+        </property>
+
+        <field name = "realmkey" Cref = "Byte[]?">
+
+            <summary>Backing store for the configured symmetric realm key.</summary>
+
+        </field>
+
+        <method name = "SetID">
+
+            <summary>Update the access-manager identifier override on the current options instance.</summary>
+
+            <param name = "id" Cref = "Guid?">Replacement access-manager identifier override.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetManifest">
+
+            <summary>Update the tool manifest override on the current options instance.</summary>
+
+            <param name = "manifest" Cref = "ToolManifest?">Replacement tool manifest override.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetKeyAssertionGenerator">
+
+            <summary>Update the access-key assertion generator used for approved issuance flows on the current options instance.</summary>
+
+            <param name = "keyassertiongenerator" Cref = "IAccessKeyAssertionGeneratorMode?">Replacement access-key assertion generator mode.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetMembershipCacheSize">
+
+            <summary>Update the membership-cache size override on the current options instance.</summary>
+
+            <param name = "membershipcachesize" Cref = "Int32?">Replacement maximum membership-cache entry count override.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetInitialMembershipCatalog">
+
+            <summary>Update the initial membership catalog on the current options instance.</summary>
+
+            <param name = "initialmembershipcatalog" Cref = "AccessManagerMembershipCatalog?">Replacement initial membership catalog.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetPolicyEngine">
+
+            <summary>Update the access-policy engine override on the current options instance.</summary>
+
+            <param name = "policyengine" Cref = "IAccessPolicyEngineMode?">Replacement access-policy engine override.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetSignatureProcessor">
+
+            <summary>Update the signature processor used for signed access-key issuance signature validation facts on the current options instance.</summary>
+
+            <param name = "signatureprocessor" Cref = "IAccessKeySignatureProcessorMode?">Replacement signature processor mode.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetKeyMaker">
+
+            <summary>Update the key-maker registry/prototype used for custom access-key construction on the current options instance.</summary>
+
+            <param name = "keymaker" Cref = "KeyMaker?">Replacement key-maker registry/prototype.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+        <method name = "SetRealmKey">
+
+            <summary>Update the symmetric realm key override on the current options instance.</summary>
+
+            <param name = "realmkey" Cref = "Byte[]?">Replacement symmetric realm key override.</param>
+
+            <returns Cref = "AccessManagerOptions">Current access-manager options.</returns>
+
+        </method>
+
+    </class>
+
+</AccessManagerOptions>

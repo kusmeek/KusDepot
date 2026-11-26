@@ -1,0 +1,383 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Activity>
+
+    <class name = "Activity">
+
+        <main>
+
+            <summary>Task Tracking.</summary>
+
+            <remarks>Activities manage the state of one command execution. The associated CommandDetails instance is mutable execution state and must not be reused for another execution.</remarks>
+
+        </main>
+
+        <field name = "freemode" Cref = "Boolean">
+
+            <summary>True if the command runs in free mode and owns completion and record.</summary>
+
+        </field>
+
+        <field name = "cancel" Cref = "CancellationTokenSource?">
+
+            <summary>Cancellation Token Source.</summary>
+
+        </field>
+
+        <field name = "commandlifecycle" Cref = "Int32">
+
+            <summary>Atomic ownership marker for command-template lifecycle management.</summary>
+
+            <remarks>Zero indicates an unclaimed Activity; one indicates that the base Command template owns task tracking, terminal record publication, and cleanup.</remarks>
+
+        </field>
+
+        <field name = "details" Cref = "CommandDetails?">
+
+            <summary>Command Details.</summary>
+
+        </field>
+
+        <field name = "handle" Cref = "String?">
+
+            <summary>Execution Handle.</summary>
+
+        </field>
+
+        <field name = "id" Cref = "Guid?">
+
+            <summary>Identifier.</summary>
+
+        </field>
+
+        <field name = "logger" Cref = "ILogger?">
+
+            <summary>Logger.</summary>
+
+        </field>
+
+        <field name = "progress" Cref = "IProgress?">
+
+            <summary>Progress monitor.</summary>
+
+        </field>
+
+        <field name = "record" Cref = "ActivityRecord?">
+
+            <summary>Atomic write-once storage for the terminal Activity Record.</summary>
+
+        </field>
+
+        <field name = "started" Cref = "DateTimeOffset">
+
+            <summary>When this Activity began.</summary>
+
+        </field>
+
+        <field name = "task" Cref = "Task{Object?}">
+
+            <summary>Atomic write-once storage for the asynchronous completion task.</summary>
+
+        </field>
+
+        <field name = "timeout" Cref = "TimeSpan">
+
+            <summary>Timeout.</summary>
+
+        </field>
+
+        <property name = "Age" Cref = "TimeSpan">
+
+            <summary>Activity Age.</summary>
+
+        </property>
+
+        <property name = "FreeMode" Cref = "Boolean">
+
+            <summary>True if the command runs in free mode (tool does not await completion or set the ActivityRecord).</summary>
+
+        </property>
+
+        <property name = "Cancel" Cref = "CancellationTokenSource?">
+
+            <summary>Per-execution cancellation token source owned by this Activity.</summary>
+
+        </property>
+
+        <property name = "Details" Cref = "CommandDetails?">
+
+            <summary>Mutable command details associated with this single activity execution.</summary>
+
+        </property>
+
+        <property name = "Handle" Cref = "String?">
+
+            <summary>Execution Handle.</summary>
+
+        </property>
+
+        <property name = "ID" Cref = "Guid?">
+
+            <summary>Identifier.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger?">
+
+            <summary>Logger.</summary>
+
+        </property>
+
+        <property name = "Progress" Cref = "IProgress{Object}?">
+
+            <summary>Progress monitor.</summary>
+
+        </property>
+
+        <property name = "Record" Cref = "ActivityRecord?">
+
+            <summary>Gets the first terminal Activity Record published for this execution.</summary>
+
+        </property>
+
+        <property name = "Started" Cref = "DateTimeOffset?">
+
+            <summary>When this Activity began.</summary>
+
+        </property>
+
+        <property name = "State" Cref = "ActivityState">
+
+            <summary>Execution state of the Activity.</summary>
+
+        </property>
+
+        <property name = "Task" Cref = "Task{Object?}">
+
+            <summary>Gets or atomically assigns the asynchronous completion task; the first non-null assignment wins.</summary>
+
+            <remarks>For inherited Command template execution, this is the tracked runner that applies the terminal result and performs cleanup. In free mode, callers can observe background completion through this task and <see cref="Record"/>.</remarks>
+
+        </property>
+
+        <property name = "Timeout" Cref = "TimeSpan">
+
+            <summary>Timeout.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+        </constructor>
+
+        <method name = "CreateActivity">
+
+            <summary>Creates an Activity for a specific Command and execution mode.</summary>
+
+            <remarks>The supplied CommandDetails instance is associated with this Activity and may be populated with execution-specific cancellation state owned by this Activity. Use a new CommandDetails instance for each execution; reuse is not supported.</remarks>
+
+            <param name ="details" Cref = "CommandDetails?">Details.</param>
+
+            <param name ="command" Cref = "ICommand?">Command.</param>
+
+            <param name ="asynchronous" Cref = "Boolean">True for asynchronous execution; false for synchronous.</param>
+
+            <returns Cref = "Activity?">An Activity if the Command supports the requested mode; otherwise null.</returns>
+
+        </method>
+
+        <method name = "SetRecordByToolWithOutput">
+
+            <summary>Atomically set the ActivityRecord, preserved exception, and actual output-publication state when the tool is responsible for final disposition.</summary>
+
+            <remarks>Returns false for free-mode and command-template-owned activities. A true <paramref name="hasoutput"/> includes a successfully published null payload.</remarks>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <param name = "exception" Cref = "Exception?">Terminal exception.</param>
+
+            <param name = "hasoutput" Cref = "Boolean">True when an output entry was successfully published.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "TryClaimCommandLifecycle">
+
+            <summary>Atomically claims lifecycle ownership for the base Command execution template.</summary>
+
+            <returns Cref = "Boolean">True only when this call transitions the Activity from unclaimed to command-template-owned.</returns>
+
+            <remarks>A successful claim prevents the Tool from publishing the terminal record for this Activity.</remarks>
+
+        </method>
+
+        <method name = "SetRecordByCommandWithOutput">
+
+            <summary>Atomically set the ActivityRecord, preserved exception, and actual output-publication state when the command is responsible for final disposition.</summary>
+
+            <remarks>A true <paramref name="hasoutput"/> includes a successfully published null payload.</remarks>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <param name = "exception" Cref = "Exception?">Terminal exception.</param>
+
+            <param name = "hasoutput" Cref = "Boolean">True when an output entry was successfully published.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "TrySetTaskByCommand">
+
+            <summary>Atomically installs the command template's tracked completion task after lifecycle ownership has been claimed.</summary>
+
+            <param name = "task" Cref = "Task{Object?}">Tracked completion task.</param>
+
+            <returns Cref = "Boolean">True if the Activity is command-template-owned and the task was installed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetState">
+
+            <summary>Compute the current ActivityState for this Activity.</summary>
+
+            <returns Cref = "ActivityState">The current ActivityState.</returns>
+
+        </method>
+
+        <method name="IsTimedOut">
+
+            <summary>Determines whether the current activity has timed out based on its configured timeout and cancellation tokens.</summary>
+
+            <returns><see langword="true"/> if the activity has timed out; otherwise, <see langword="false"/>.</returns>
+
+        </method>
+
+        <method name = "LogWorkflowEvent">
+
+            <summary>Log a workflow event.</summary>
+
+            <param name = "action" Cref = "String?">Action name.</param>
+
+            <param name = "data" Cref = "String?">Event data.</param>
+
+            <returns Cref = "Boolean">True if appended.</returns>
+
+            <exception cref = "ArgumentException">Action is null or empty.</exception>
+
+            <exception cref = "InvalidOperationException">Command details are missing required event identity values.</exception>
+
+            <exception cref = "InvalidOperationException">Activity has no command details.</exception>
+
+        </method>
+
+        <method name = "SetRecordByTool">
+
+            <summary>Set the ActivityRecord when the tool is responsible for final disposition.</summary>
+
+            <remarks>Returns false for free-mode and command-template-owned activities.</remarks>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "SetRecordByToolWithException">
+
+            <summary>Atomically set the ActivityRecord and preserved exception when the tool is responsible for final disposition.</summary>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <param name = "exception" Cref = "Exception?">Terminal exception.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "SetRecordByCommand">
+
+            <summary>Set the ActivityRecord when the command is responsible for final disposition.</summary>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "SetRecordByCommandWithException">
+
+            <summary>Atomically set the ActivityRecord and preserved exception when the command is responsible for final disposition.</summary>
+
+            <param name = "code" Cref = "ActivityRecordCode">Activity Record Code.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+            <param name = "exception" Cref = "Exception?">Terminal exception.</param>
+
+            <returns Cref = "Boolean">True if the record was set.</returns>
+
+        </method>
+
+        <method name = "StartWorkflowAction">
+
+            <summary>Log the start of a workflow action.</summary>
+
+            <param name = "action" Cref = "String?">Action name.</param>
+
+            <param name = "data" Cref = "String?">Event data.</param>
+
+            <returns Cref = "Boolean">True if appended.</returns>
+
+            <exception cref = "ArgumentException">Action is null or empty.</exception>
+
+            <exception cref = "InvalidOperationException">Command details are missing required event identity values.</exception>
+
+        </method>
+
+        <method name = "StopWorkflowAction">
+
+            <summary>Log the conclusion of a workflow action.</summary>
+
+            <param name = "action" Cref = "String?">Action name.</param>
+
+            <param name = "data" Cref = "String?">Event data.</param>
+
+            <returns Cref = "Boolean">True if appended.</returns>
+
+            <exception cref = "ArgumentException">Action is null or empty.</exception>
+
+            <exception cref = "InvalidOperationException">Command details are missing required event identity values.</exception>
+
+        </method>
+
+        <method name = "CancelActivity">
+
+            <summary>Request cancellation for this Activity via its CancellationTokenSource.</summary>
+
+            <returns Cref = "Boolean">True if cancellation was requested; false if no token or already canceled.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Dispose of Activity.</summary>
+
+        </method>
+
+    </class>
+
+</Activity>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DeletionAgentOptions>
+  <class name="DeletionAgentOptions">
+	<main><summary>Controls durable deletion-job leader identity, polling, and bounded retry scheduling.</summary></main>
+	<field name="LeaderLockName" Cref="String"><summary>Stable PostgreSQL advisory-lock name used to elect one deletion leader.</summary></field>
+	<property name="PollingInterval" Cref="TimeSpan"><summary>Delay between completed scans of due deletion jobs by the elected leader.</summary></property>
+	<property name="LeaderRetryInterval" Cref="TimeSpan"><summary>Gets or sets the maximum randomized delay before a follower retries acquiring deletion leadership.</summary></property>
+	<property name="InitialJitterMaximum" Cref="TimeSpan"><summary>Maximum random delay before the first deletion scan.</summary></property>
+	<property name="CycleJitterMaximum" Cref="TimeSpan"><summary>Maximum random delay added after each deletion scan.</summary></property>
+	<property name="RetryBaseDelay" Cref="TimeSpan"><summary>Base delay used to calculate bounded exponential retry backoff.</summary></property>
+	<property name="MaximumRetryDelay" Cref="TimeSpan"><summary>Maximum delay between retry attempts, including jitter.</summary></property>
+	<property name="CandidatePageSize" Cref="Int32"><summary>Maximum number of due deletion jobs loaded per scan.</summary></property>
+  </class>
+</DeletionAgentOptions>

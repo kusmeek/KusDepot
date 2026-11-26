@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferSessionQuery>
+	<record name = "TransferSessionQuery">
+		<main><summary>Describes indexed filters for server-side transfer session queries.</summary></main>
+		<property name = "ItemID" Cref = "Guid"><summary>Gets the optional item identifier filter.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Gets the optional session identifier filter.</summary></property>
+		<property name = "CatalogName" Cref = "String"><summary>Gets the catalog filter, required for tenant-scoped session queries and optional only for admin inventory.</summary></property>
+		<property name = "SourceSessionID" Cref = "Guid"><summary>Gets the optional source session identifier filter.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Gets the optional transfer status filter.</summary></property>
+		<property name = "Family" Cref = "DataControlTransferFamily"><summary>Gets the optional transfer family filter.</summary></property>
+	</record>
+</TransferSessionQuery>

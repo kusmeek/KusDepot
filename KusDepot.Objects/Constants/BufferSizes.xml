@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<BufferSizes>
+  <class name="BufferSizes">
+	<main>
+	  <summary>Buffer size constants used for compression, conversion, hashing, and memory clearing operations.</summary>
+	</main>
+	<field name="CompressionBufferSize" Cref="Int32"><summary>Buffer size used for utility compression operations.</summary></field>
+	<field name="ConversionBufferSize" Cref="Int32"><summary>Buffer size used for utility conversion operations.</summary></field>
+	<field name="DataHashingBufferSize" Cref="Int32"><summary>Buffer size used when chunking content for hash calculations.</summary></field>
+	<field name="ZeroMemoryBufferSize" Cref="Int32"><summary>Size in bytes of the empty buffer used to zero memory streams.</summary></field>
+  </class>
+</BufferSizes>

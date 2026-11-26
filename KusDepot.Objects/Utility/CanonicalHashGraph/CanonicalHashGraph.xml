@@ -1,0 +1,937 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CanonicalHashGraph>
+
+	<class name = "CanonicalHashGraph">
+
+		<main>
+
+			<summary>Captures an object graph and produces its stable canonical encoding before hashing.</summary>
+
+			<remarks>
+				<para>This type converts a live CLR object graph into an explicit labeled graph, assigns source-independent canonical node IDs, and serializes that graph into an unambiguous byte sequence. The caller hashes those bytes; this class does not itself choose a digest algorithm.</para>
+				<para>A graph node represents a reference-type object or a synthetic structure such as a dictionary entry. An edge is a labeled relationship from one node to either another node or an atom. An atom is a framed scalar value encoded inline rather than represented as a node. Reference identity is used only while capturing the graph, to preserve aliases and cycles; process addresses and source traversal order are never serialized as identity.</para>
+				<para>Capture preserves ordered versus unordered collection semantics. Canonical labeling then removes dependence on enumeration order for unordered structures and on incidental node-allocation order. The final format frames kinds, labels, values, counts, and references so adjacent values cannot be confused by concatenation.</para>
+				<para>DataItems have explicit content projections instead of being reflected as arbitrary objects. MetaBaseIntegrity has a separate metadata view. These views are deliberately distinct: metadata hashes protect selected MetaBase fields, while DataItem content hashes protect the DataItem-specific content projection. A DataItem reached from metadata transitions to its content view, and a root MetaBase/DataItem may therefore have separate nodes for its metadata view and its content view. Separate view indexes preserve aliases and cycles within each view without collapsing the two meanings into one node.</para>
+				<para>Canonicalization uses color refinement followed, only when necessary, by individualization search. A color is a deterministic integer class label assigned to nodes with equal refinement signatures; it is not a digest or a security boundary. If refinement leaves nodes indistinguishable, search tries each candidate in an ambiguous color class and selects the lexicographically least complete encoding.</para>
+				<para>Cancellation and graph-size, depth, and search-state limits are checked during work. A limit, unsupported value, unavailable content source, or required nested DataItem gate that cannot be acquired immediately causes the graph operation to fail rather than produce a partial digest.</para>
+			</remarks>
+
+		</main>
+
+		<field name = "MaximumGraphNodes">
+
+			<summary>Maximum number of captured graph nodes, including synthetic dictionary-entry nodes.</summary>
+
+		</field>
+
+		<field name = "MaximumSearchStates">
+
+			<summary>Maximum number of canonical-labeling search states across the complete recursive search.</summary>
+
+		</field>
+
+		<field name = "MaximumGraphDepth">
+
+			<summary>Maximum active recursive depth while discovering nodes and edges.</summary>
+
+		</field>
+
+		<field name = "DomainSeparator">
+
+			<summary>Format-domain prefix written before the format version, profile, and canonical graph payload.</summary>
+
+		</field>
+
+		<field name = "FormatVersion">
+
+			<summary>Version byte identifying the canonical graph encoding layout and tag assignments.</summary>
+			<remarks>Version 0x01 is emitted immediately after DomainSeparator and before the profile byte. Increment this value when a released format changes incompatibly; do not reuse an earlier version for a different layout.</remarks>
+
+		</field>
+
+		<field name = "StrictUtf8">
+
+			<summary>UTF-8 encoder that rejects invalid surrogate sequences.</summary>
+
+		</field>
+
+		<field name = "profile">
+
+			<summary>Hashing behavior profile included in the encoding and used to select DataItem and MetaBase graph views.</summary>
+
+		</field>
+
+		<field name = "cancel">
+
+			<summary>Cancellation token observed during capture and canonicalization.</summary>
+
+		</field>
+
+		<field name = "rootDataItem">
+
+			<summary>Optional owner of the root content snapshot for a field-specific DataItem content digest.</summary>
+			<remarks>When present, this root is encoded from the snapshot captured by its caller while holding its data gate. Its own ID is omitted from this content projection because the signed assertion separately binds the digest to the DataItem ID. A later reference to the same source object through another graph view is not assumed to be the same semantic node.</remarks>
+
+		</field>
+
+		<field name = "rootContentSnapshot">
+
+			<summary>Root content-integrity snapshot captured while the owner DataItem data gate is held.</summary>
+			<remarks>The snapshot contains projection fields and captured collection structure/references, not a recursively computed child digest. It is disposed with other owned content resources after graph processing.</remarks>
+
+		</field>
+
+		<field name = "nodes">
+
+			<summary>Captured graph nodes in temporary discovery order; this order is replaced by canonical IDs before serialization.</summary>
+
+		</field>
+
+		<field name = "nodeIndices">
+
+			<summary>Reference-identity map for nodes represented by their ordinary-object or MetaBase metadata view.</summary>
+			<remarks>Pre-registering a node before traversing its outgoing edges makes self-references and cycles terminate. DataItem content-view nodes use a separate map so the same source DataItem can appear once as root metadata and once as referenced content.</remarks>
+
+		</field>
+
+		<field name = "contentNodeIndices">
+
+			<summary>Reference-identity map for DataItem nodes represented by their content view.</summary>
+			<remarks>Preserves aliasing and cycles among content-view references while keeping those nodes distinct from a root DataItem's metadata-view node.</remarks>
+
+		</field>
+
+		<field name = "contentSnapshotOverrides">
+
+			<summary>Captured content projections keyed by DataItem reference and reused by visits to that DataItem's content view.</summary>
+			<remarks>One captured projection per source DataItem avoids inconsistent duplicate snapshots when multiple graph edges alias the same item. The root snapshot, when supplied, is inserted here because its caller already owns the root gate.</remarks>
+
+		</field>
+
+		<field name = "snapshotOverrides">
+
+			<summary>Stable metadata-collection or MetaBase-field snapshots keyed by their source reference.</summary>
+			<remarks>MetaBase snapshot capture copies mutable collection structure while holding the MetaBase metadata gate. Repeated references to the same collection reuse one captured copy, preserving alias relationships during graph traversal.</remarks>
+
+		</field>
+
+		<field name = "rootMetaBase">
+
+			<summary>Root object for the MetaBaseIntegrity view.</summary>
+			<remarks>The root MetaBase ID is omitted because the metadata integrity contract treats that digest as a metadata projection. Nested MetaBase IDs remain part of their metadata nodes. If the root is also a DataItem and is referenced from one of its metadata values, that reference is traversed as a separate content-view node, with DataItem identity included.</remarks>
+
+		</field>
+
+		<field name = "searchStates">
+
+			<summary>Number of canonical-labeling states visited so far, shared by all recursive branches.</summary>
+
+		</field>
+
+		<field name = "graphDepth">
+
+			<summary>Current active recursive graph-discovery depth; decremented as each node's outgoing edges finish being captured.</summary>
+
+		</field>
+
+		<constructor name = "CanonicalHashGraph">
+
+			<summary>Initialize one graph capture and canonicalization operation.</summary>
+			<remarks>The root DataItem and root snapshot must either both be supplied or both be null. Supplying them selects field-specific root-content semantics; omitting them lets the profile determine the root view.</remarks>
+
+			<param name = "profile" Cref = "DeterministicHashingProfile">Hashing profile. ContentIntegrity makes a root DataItem's Utility graph hash include type, ID, and content; MetaBaseIntegrity selects the root metadata projection and its root-versus-nested ID rules.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<param name = "rootDataItem" Cref = "DataItem?">Optional owner for a root content snapshot. Its field-specific content view excludes its root ID.</param>
+
+			<param name = "rootContentSnapshot" Cref = "ContentIntegritySnapshot?">Optional root snapshot captured by the owner.</param>
+
+		</constructor>
+
+		<method name = "Compute">
+
+			<summary>Capture the root value, canonicalize its graph, and return the framed canonical graph bytes.</summary>
+
+			<param name = "input" Cref = "Object?">Graph root.</param>
+
+			<returns Cref = "Byte[]">Canonical graph encoding.</returns>
+			
+			<remarks>
+				<para>Operation order: establish the root view; register a supplied root content snapshot; recursively capture nodes and labeled edges; refine node colors; individualize unresolved symmetric nodes if needed; serialize using canonical IDs. The caller normally applies SHA-512 to the returned bytes.</para>
+				<para>DataItem projection hooks run under their item's Data gate. The root field-specific snapshot is already captured under the root gate; nested DataItem gate acquisition is immediate and nonblocking. The encoder does not promise a graph-wide atomic snapshot, so callers must keep mutable graph values and external content stable for the duration of hashing.</para>
+				<para>Owned content snapshots/streams are disposed in the finally path, including on cancellation or encoding failure. Metadata snapshots are kept separate from content snapshots. Under MetaBaseIntegrity, the root MetaBase uses metadata view; DataItems found among metadata values use content view. If the root itself is a DataItem, its root metadata node and content-reference node are distinct nodes, so a metadata-to-content cycle is represented rather than erased.</para>
+			</remarks>
+
+		</method>
+
+		<method name = "GetCanonicalTypeNameCore">
+
+			<summary>Format a CLR type using a canonical descriptor while controlling generic-parameter owner expansion.</summary>
+
+			<param name = "type" Cref = "Type">Type to describe.</param>
+
+			<param name = "includeGenericParameterOwner" Cref = "Boolean">True to include the declaring type or method context for generic parameters; false to prevent recursive owner expansion while formatting that context.</param>
+
+			<returns Cref = "String">Framed canonical type descriptor.</returns>
+
+			<remarks>Array rank and SZ-array status, pointer and by-reference shape, generic-parameter kind and position, named-type segments, and generic arguments are represented explicitly. Function-pointer types are rejected because their signature and calling-convention shape is not encoded. Owner expansion is suppressed only while writing owner context, yielding a finite descriptor for open generic types.</remarks>
+
+		</method>
+
+		<method name = "GetCanonicalNamedTypeName">
+
+			<summary>Format a named type and its declaring-type chain with generic arguments assigned to their declaring segments.</summary>
+
+			<param name = "definition" Cref = "Type">Named type definition.</param>
+
+			<param name = "arguments" Cref = "Type[]">Generic arguments in reflection order.</param>
+
+			<param name = "includeGenericParameterOwner" Cref = "Boolean">Whether generic parameter owner context is included in argument descriptors.</param>
+
+			<returns Cref = "String">Framed descriptor for the named type and its declaring segments.</returns>
+
+		</method>
+
+		<method name = "GetGenericParameterOwnerName">
+
+			<summary>Describe the declaring type or method that owns a generic parameter.</summary>
+
+			<param name = "type" Cref = "Type">Generic parameter type.</param>
+
+			<returns Cref = "String">Canonical owner descriptor.</returns>
+
+			<remarks>Type-owned parameters use their declaring type descriptor; method-owned parameters use a descriptor that includes the declaring type, method name, generic arity, parameter signature, and return type when available.</remarks>
+
+		</method>
+
+		<method name = "GetCanonicalMethodOwnerName">
+
+			<summary>Describe the method context that owns a method generic parameter.</summary>
+
+			<param name = "method" Cref = "MethodBase">Declaring method.</param>
+
+			<returns Cref = "String">Canonical method owner descriptor.</returns>
+
+		</method>
+
+		<method name = "RemoveGenericArity">
+
+			<summary>Remove a trailing CLR generic arity suffix from a named type segment.</summary>
+
+			<param name = "name" Cref = "String">Reflection name segment.</param>
+
+			<returns Cref = "String">Name without a valid trailing backtick-and-number arity suffix.</returns>
+
+		</method>
+
+		<method name = "FrameTypeName">
+
+			<summary>Prefix a type-descriptor string with its character length.</summary>
+
+			<param name = "value" Cref = "String">Descriptor component.</param>
+
+			<returns Cref = "String">Length-framed descriptor component.</returns>
+
+		</method>
+
+		<method name = "PopulateContentIntegritySnapshot">
+			<summary>Add the captured projection fields to a canonical graph node.</summary>
+			<param name = "snapshot" Cref = "ContentIntegritySnapshot">Captured content fields.</param>
+			<param name = "node" Cref = "HashGraphNode">Graph node being populated.</param>
+			<remarks>Projection field names become property-edge labels and are traversed in the snapshot's stable ordinal key order. Nested values are fed back through GetValue so aliases and cycles share the operation-wide graph tables. When this is a nested DataItem content node, its type and ID are encoded as an Identity edge before the projection; a field-specific root DataItem omits that identity edge because assertion data binds its ID separately.</remarks>
+		</method>
+
+		<method name = "GetValue">
+
+			<summary>Convert a value into a framed atom or a reference to a captured graph node.</summary>
+
+			<param name = "input" Cref = "Object?">Value to capture.</param>
+
+			<param name = "rootMetaBaseView" Cref = "Boolean">Whether this visit is specifically the root MetaBase metadata view. This flag is not inherited by child values; a referenced DataItem is classified by its own content view.</param>
+
+			<returns Cref = "HashGraphValue">A HashGraphValue containing either a kind-tagged atom or a temporary node index.</returns>
+
+			<remarks>Scalars are handled before reference lookup because they have value semantics. For reference types, lookup uses the appropriate view table: ordinary/metadata view or DataItem content view. A node is inserted in that table before its edges are traversed, which is the cycle-termination rule. A ContentIntegrityValue is consumed as a digest atom and is not retained as a graph node.</remarks>
+
+		</method>
+
+		<method name = "PopulateNode">
+
+			<summary>Populate a captured node according to its active semantic view or runtime structure.</summary>
+
+			<param name = "input" Cref = "Object">Source object.</param>
+
+			<param name = "node" Cref = "HashGraphNode">Node to populate.</param>
+
+			<param name = "snapshot" Cref = "Object">Stable collection snapshot, when available.</param>
+
+			<param name = "rootMetaBaseView" Cref = "Boolean">True only when this node is the root MetaBase metadata view. Referenced DataItems are instead populated from content projections.</param>
+
+			<remarks>Dispatch order matters: root/nested MetaBase metadata snapshots are expanded according to MetaBaseIntegrity; DataItem content snapshots are expanded as explicit projections; dictionaries, arrays, enumerables, and ordinary public-property objects use their corresponding structural traversal. This prevents DataItem metadata from leaking into content integrity and prevents arbitrary reflected DataItem fields from silently defining the security contract.</remarks>
+
+		</method>
+
+		<method name = "PopulateDictionary">
+
+			<summary>Capture each dictionary entry as a synthetic node with separately labeled key and value edges.</summary>
+
+			<param name = "dictionary" Cref = "System.Collections.IDictionary">Dictionary.</param>
+
+			<param name = "node" Cref = "HashGraphNode">Dictionary node receiving unordered entry edges.</param>
+
+			<remarks>Dictionary enumeration order is not semantic. Synthetic entry nodes keep each key associated with its own value while allowing canonical labeling to order entries globally with the rest of the graph. Keys and values are traversed normally, so references and cycles inside either are preserved.</remarks>
+
+		</method>
+
+		<method name = "PopulateArray">
+
+			<summary>Capture array rank, each dimension's length and lower bound, and elements in array enumeration order.</summary>
+
+			<param name = "array" Cref = "Array">Array.</param>
+
+			<param name = "node" Cref = "HashGraphNode">Array node.</param>
+
+		</method>
+
+		<method name = "PopulateEnumerable">
+
+			<summary>Capture enumerable elements as ordered or unordered labeled incidences according to the declared collection semantics.</summary>
+
+			<param name = "enumerable" Cref = "System.Collections.IEnumerable">Enumerable.</param>
+
+			<param name = "node" Cref = "HashGraphNode">Parent node.</param>
+
+			<param name = "unordered" Cref = "Boolean">True for recognized set-like/bag collections; false when enumeration position is part of the value.</param>
+
+			<remarks>Ordered elements receive position-bearing edge labels. Unordered elements receive the same element-edge label and their graph neighborhoods participate in canonical labeling, so insertion/enumeration order does not enter the encoding.</remarks>
+
+		</method>
+
+		<method name = "PopulateObject">
+
+			<summary>Capture readable public instance properties, sorted and labeled by property name, declaring type, and property type.</summary>
+
+			<param name = "input" Cref = "Object">Object.</param>
+
+			<param name = "node" Cref = "HashGraphNode">Object node receiving property edges.</param>
+
+			<remarks>This is the fallback for ordinary non-DataItem objects, not the DataItem integrity contract. DataItems must use their explicit content snapshot; reflecting them would accidentally bind integrity to implementation fields, metadata, caches, or serializer details.</remarks>
+
+		</method>
+
+		<method name = "SearchCanonicalEncoding">
+
+			<summary>Resolve any remaining node symmetries by bounded individualization search and return the lexicographically least complete encoding.</summary>
+
+			<param name = "nodes" Cref = "List{HashGraphNode}">Captured nodes.</param>
+
+			<param name = "root" Cref = "HashGraphValue">Root value.</param>
+
+			<param name = "individualized" Cref = "Int32[]">Per-node branch markers. Zero means not selected; a positive value distinguishes a node chosen at a search depth.</param>
+
+			<param name = "profile" Cref = "DeterministicHashingProfile">Hashing profile.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<param name = "searchStates" Cref = "Int32">Shared count of states visited across all branches; exceeding MaximumSearchStates fails the operation.</param>
+
+			<param name = "depth" Cref = "Int32">Current recursion depth used to give each chosen node a branch-specific marker.</param>
+
+			<returns Cref = "Byte[]">The least bytewise encoding among the explored symmetry-breaking branches.</returns>
+
+			<remarks>A color is an integer label for an equivalence class of nodes with identical signatures at the current refinement stage. A color class is the set of nodes sharing that label. If every class is a singleton, colors define a complete node order. Otherwise the first ambiguous class is individualized one candidate at a time; each branch refines again, and the minimum final encoding is selected. Search-state accounting and cancellation are shared across branches.</remarks>
+
+		</method>
+
+		<method name = "RefineColors">
+
+			<summary>Iteratively refine the partition of nodes using each node's label, root status, branch marker, and incoming/outgoing graph relationships.</summary>
+
+			<param name = "nodes" Cref = "List{HashGraphNode}">Captured nodes.</param>
+
+			<param name = "root" Cref = "HashGraphValue">Root.</param>
+
+			<param name = "individualized" Cref = "Int32[]">Individualization markers.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Int32[]">Stable colors: equal integers mean nodes remain in the same refinement class; different integers mean their signatures differ at the stable refinement stage.</returns>
+
+			<remarks>
+				<para>A partition is the grouping of node indexes by equal color. Initial signatures use intrinsic node labels, root designation, and individualization markers. Each refinement round also incorporates the colors of outgoing targets and incoming sources together with edge labels. Signatures are bytewise sorted and assigned deterministic consecutive colors by AssignColors.</para>
+				<para>Refinement separates nodes that have distinguishable local graph neighborhoods; it does not prove that nodes in one class are isomorphic, nor choose an arbitrary identity for them. A stable partition with a multi-node class is passed to individualization search. This is why color numbers are temporary canonicalization aids, not hashed values or source node IDs.</para>
+			</remarks>
+
+		</method>
+
+		<method name = "BuildNodeSignature">
+
+			<summary>Build a framed structural signature used to classify one node during color refinement.</summary>
+
+			<param name = "nodes" Cref = "List{HashGraphNode}">Captured nodes.</param>
+
+			<param name = "root" Cref = "HashGraphValue">Root.</param>
+
+			<param name = "index" Cref = "Int32">Node index.</param>
+
+			<param name = "individualized" Cref = "Int32[]">Individualization markers.</param>
+
+			<param name = "outgoingColors" Cref = "Int32[]?">Current colors of outgoing target nodes, or null for initial coloring.</param>
+
+			<param name = "incomingColors" Cref = "Int32[]?">Current colors of incoming source nodes, or null for initial coloring.</param>
+
+			<param name = "incoming" Cref = "List{ValueTuple{Int32,Byte[]}}[]">For each target node, source-node indexes and labels of edges entering it.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Byte[]">Length-framed signature. Equal signatures receive equal colors.</returns>
+
+			<remarks>The signature is independent of discovery-order edge enumeration: outgoing and incoming incidence signatures are each bytewise sorted before inclusion. It records multiplicity, so repeated edges remain observable. The root marker distinguishes the graph root even when another node has the same label and neighborhoods.</remarks>
+
+		</method>
+
+		<method name = "BuildIncidenceSignature">
+
+			<summary>Build the refinement signature for one labeled outgoing edge to either a node color or an atom.</summary>
+
+			<param name = "label" Cref = "Byte[]">Edge label.</param>
+
+			<param name = "value" Cref = "HashGraphValue">Target.</param>
+
+			<param name = "colors" Cref = "Int32[]?">Node colors.</param>
+
+			<returns Cref = "Byte[]">Incidence signature.</returns>
+
+		</method>
+
+		<method name = "AssignColors">
+
+			<summary>Sort node signatures lexicographically and assign one deterministic consecutive color to each distinct signature.</summary>
+
+			<param name = "signatures" Cref = "Byte[][]">Node signatures.</param>
+
+			<returns Cref = "Int32[]">Color per original signature index; equal signatures have equal colors.</returns>
+
+		</method>
+
+		<method name = "FindAmbiguousClass">
+
+			<summary>Find the lowest-numbered color class that contains more than one node.</summary>
+
+			<param name = "colors" Cref = "Int32[]">Node colors.</param>
+
+			<returns Cref = "Int32[]?">Members of the first ambiguous class in temporary node-index order, or null if all classes are singletons.</returns>
+
+			<remarks>Temporary member order only determines branch enumeration; it does not determine the result because SearchCanonicalEncoding evaluates each candidate and selects the least final byte sequence.</remarks>
+
+		</method>
+
+		<method name = "SerializeCanonicalGraph">
+
+			<summary>Serialize the graph after stable colors define a unique canonical ID for every node.</summary>
+
+			<param name = "nodes" Cref = "List{HashGraphNode}">Captured nodes.</param>
+
+			<param name = "root" Cref = "HashGraphValue">Root.</param>
+
+			<param name = "colors" Cref = "Int32[]">Discrete singleton-class colors that define the final source-independent node order.</param>
+
+			<param name = "profile" Cref = "DeterministicHashingProfile">Hashing profile.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+			<returns Cref = "Byte[]">Domain-separated encoding containing profile, root value, node count, node labels, and sorted edges.</returns>
+
+			<remarks>Source discovery indexes are translated to canonical IDs before any references are emitted. Node and edge counts and payloads are length/value framed. Edges are sorted by their complete serialized bytes, preserving duplicate-edge multiplicity. These choices make the output independent of capture order while retaining graph topology.</remarks>
+
+		</method>
+
+		<method name = "SerializeEdge">
+
+			<summary>Serialize a length-framed edge label followed by its canonical target value.</summary>
+
+			<param name = "edge" Cref = "HashGraphEdge">Edge.</param>
+
+			<param name = "canonicalIDs" Cref = "Int32[]">Canonical node IDs.</param>
+
+			<returns Cref = "Byte[]">Framed edge.</returns>
+
+		</method>
+
+		<method name = "SerializeValue">
+
+			<summary>Serialize a tagged atom payload or a tagged reference to a canonical node ID.</summary>
+
+			<param name = "value" Cref = "HashGraphValue">Value.</param>
+
+			<param name = "canonicalIDs" Cref = "Int32[]">Canonical node IDs.</param>
+
+			<returns Cref = "Byte[]">Framed value.</returns>
+
+		</method>
+
+		<method name = "TryEncodeScalar">
+
+			<summary>Encode a supported scalar as a type-kind-tagged atom using a deterministic exact representation.</summary>
+
+			<param name = "input" Cref = "Object">Value.</param>
+
+			<param name = "encoded" Cref = "Byte[]?">Encoded scalar, if supported.</param>
+
+			<returns Cref = "Boolean">True and the framed atom when supported; otherwise false so the caller captures a graph node.</returns>
+
+			<remarks>Type tags prevent values of different CLR scalar types from colliding. Floating-point values are encoded from their bit patterns, decimal from its four integer words, enums from canonical enum type plus exact underlying integer, and GUIDs from canonical byte order. String-like values use strict UTF-8 so invalid surrogate sequences fail rather than being silently replaced.</remarks>
+
+		</method>
+
+		<method name = "EncodeEnumValue">
+
+			<summary>Encode an enum's exact underlying integer.</summary>
+
+			<param name = "value" Cref = "Object">Enum value.</param>
+
+			<param name = "underlyingType" Cref = "Type">Underlying type.</param>
+
+			<returns Cref = "Byte[]">Little-endian integer.</returns>
+
+		</method>
+
+		<method name = "GetCanonicalTypeName">
+
+			<summary>Format a CLR type name deterministically without assembly identity.</summary>
+
+			<param name = "type" Cref = "Type">Type.</param>
+
+			<returns Cref = "String">Canonical name used in node labels and type-bearing scalar atoms.</returns>
+
+			<remarks>Excluding assembly identity prevents assembly version, file, and load-context details from perturbing the graph format. Framed namespace and declaring-type segments, generic arguments and parameter owners, SZ versus multidimensional array shape, and by-reference/pointer shape remain represented by the formatter.</remarks>
+
+		</method>
+
+		<method name = "IsGraphUnorderedCollection">
+
+			<summary>Identify collection types whose enumeration order is not part of their value semantics.</summary>
+
+			<param name = "type" Cref = "Type">Type.</param>
+
+			<returns Cref = "Boolean">True for recognized unordered set-like or bag collections; otherwise false and elements remain ordered.</returns>
+
+		</method>
+
+		<method name = "IsGraphUnorderedDictionary">
+
+			<summary>Identify dictionary types whose entry enumeration order is not part of their value semantics.</summary>
+
+			<param name = "type" Cref = "Type">Type.</param>
+
+			<returns Cref = "Boolean">True when entries are canonicalized as an unordered set of key/value pairs.</returns>
+
+		</method>
+
+		<method name = "CreateNodeLabel">
+
+			<summary>Create a node label that frames node kind, canonical type name, and optional shape/detail bytes.</summary>
+
+			<param name = "kind" Cref = "Byte">Node kind.</param>
+
+			<param name = "typeName" Cref = "String">Type name.</param>
+
+			<param name = "detail" Cref = "ReadOnlySpan{Byte}">Detail.</param>
+
+			<returns Cref = "Byte[]">Node label.</returns>
+
+		</method>
+
+		<method name = "CreateEdgeLabel">
+
+			<summary>Create an edge label that frames the relationship kind and optional property/position name.</summary>
+
+			<param name = "kind" Cref = "Byte">Edge kind.</param>
+
+			<param name = "name" Cref = "ReadOnlySpan{Byte}">Name.</param>
+
+			<returns Cref = "Byte[]">Edge label.</returns>
+
+		</method>
+
+		<method name = "EncodeAtom">
+
+			<summary>Create an atom by framing its scalar kind tag and length-prefixed payload.</summary>
+
+			<param name = "kind" Cref = "Byte">Scalar kind.</param>
+
+			<param name = "value" Cref = "ReadOnlySpan{Byte}">Payload.</param>
+
+			<returns Cref = "Byte[]">Encoded atom.</returns>
+
+		</method>
+
+		<method name = "EncodeDataItemIdentity">
+
+			<summary>Encode a DataItem's canonical runtime type and optional stable ID as one identity atom.</summary>
+			<remarks>Used for nested DataItem content nodes and Utility-root DataItem graph hashing, where identity belongs in the graph. A field-specific root content digest does not prepend this identity because its signed assertion binds the root ID separately.</remarks>
+
+			<param name = "type" Cref = "Type">Runtime DataItem type.</param>
+
+			<param name = "id" Cref = "Guid?">Optional DataItem identifier.</param>
+
+			<returns Cref = "Byte[]">Framed identity atom.</returns>
+
+		</method>
+
+		<method name = "CreateFramedValue">
+
+			<summary>Frame a payload with its kind byte and length.</summary>
+
+			<param name = "kind" Cref = "Byte">Value kind.</param>
+
+			<param name = "value" Cref = "ReadOnlySpan{Byte}">Payload.</param>
+
+			<returns Cref = "Byte[]">Framed value.</returns>
+
+		</method>
+
+		<method name = "GuidToCanonicalBytes">
+
+			<summary>Encode a Guid in big-endian canonical form.</summary>
+
+			<param name = "value" Cref = "Guid">Guid.</param>
+
+			<returns Cref = "Byte[]">Sixteen bytes.</returns>
+
+		</method>
+
+		<method name = "EncodeInt16">
+
+			<summary>Encode a signed 16-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "Int16">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeUInt16">
+
+			<summary>Encode an unsigned 16-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "UInt16">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeInt32">
+
+			<summary>Encode a signed 32-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "Int32">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeUInt32">
+
+			<summary>Encode an unsigned 32-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "UInt32">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeInt64">
+
+			<summary>Encode a signed 64-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "Int64">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeUInt64">
+
+			<summary>Encode an unsigned 64-bit little-endian integer.</summary>
+
+			<param name = "value" Cref = "UInt64">Value.</param>
+
+			<returns Cref = "Byte[]">Encoded value.</returns>
+
+		</method>
+
+		<method name = "EncodeInt32Array">
+
+			<summary>Encode contiguous little-endian signed 32-bit integers.</summary>
+
+			<param name = "values" Cref = "ReadOnlySpan{Int32}">Values.</param>
+
+			<returns Cref = "Byte[]">Encoded array.</returns>
+
+		</method>
+
+		<method name = "WriteByte">
+
+			<summary>Append a byte.</summary>
+
+			<param name = "output" Cref = "System.Buffers.ArrayBufferWriter{Byte}">Writer.</param>
+
+			<param name = "value" Cref = "Byte">Value.</param>
+
+		</method>
+
+		<method name = "WriteInt32">
+
+			<summary>Append a little-endian 32-bit integer.</summary>
+
+			<param name = "output" Cref = "System.Buffers.ArrayBufferWriter{Byte}">Writer.</param>
+
+			<param name = "value" Cref = "Int32">Value.</param>
+
+		</method>
+
+		<method name = "WriteInt64">
+
+			<summary>Append a little-endian 64-bit integer.</summary>
+
+			<param name = "output" Cref = "System.Buffers.ArrayBufferWriter{Byte}">Writer.</param>
+
+			<param name = "value" Cref = "Int64">Value.</param>
+
+		</method>
+
+		<method name = "WriteLengthPrefixed">
+
+			<summary>Append a 32-bit little-endian byte count followed by exactly that many bytes.</summary>
+			<remarks>Length-prefixing prevents ambiguous concatenations such as ["ab","c"] and ["a","bc"] from sharing a representation.</remarks>
+
+			<param name = "output" Cref = "System.Buffers.ArrayBufferWriter{Byte}">Writer.</param>
+
+			<param name = "value" Cref = "ReadOnlySpan{Byte}">Bytes.</param>
+
+		</method>
+
+		<method name = "WriteRaw">
+
+			<summary>Append an unframed byte span.</summary>
+
+			<param name = "output" Cref = "System.Buffers.ArrayBufferWriter{Byte}">Writer.</param>
+
+			<param name = "value" Cref = "ReadOnlySpan{Byte}">Bytes.</param>
+
+		</method>
+
+		<method name = "CompareBytes">
+
+			<summary>Compare byte arrays lexicographically as unsigned bytes, using length as the final tie-breaker for equal prefixes.</summary>
+
+			<param name = "left" Cref = "Byte[]">First array.</param>
+
+			<param name = "right" Cref = "Byte[]">Second array.</param>
+
+			<returns Cref = "Int32">Comparison result.</returns>
+
+		</method>
+
+		<class name = "HashGraphKind">
+
+			<main>
+
+				<summary>Kind tags used to distinguish canonical graph nodes, edges, values, and scalar atoms.</summary>
+
+				<remarks>
+					<para>These byte values are format tags, not CLR enum values exposed as user data. Category ranges are globally disjoint even where a tag appears in an intermediate signature and in final serialization.</para>
+					<list type = "table">
+						<listheader><term>Range</term><description>Purpose</description></listheader>
+						<item><term>0x00</term><description>Reserved; no tag assigned.</description></item>
+						<item><term>0x01-0x0F</term><description>Edge-kind tags; currently 0x01-0x06 are assigned.</description></item>
+						<item><term>0x10-0x1F</term><description>Reserved for future tag domains.</description></item>
+						<item><term>0x20-0x3F</term><description>Inline atom tags; currently 0x20-0x3C are assigned, with NullAtom first at 0x20.</description></item>
+						<item><term>0x40-0x4F</term><description>Graph-node kind tags; currently 0x40-0x43 are assigned.</description></item>
+						<item><term>0x50-0x5F</term><description>Reserved for future tag domains.</description></item>
+						<item><term>0x60-0x6F</term><description>Serialized graph-value discriminators; currently 0x60-0x61 are assigned.</description></item>
+						<item><term>0x70-0x7F</term><description>Color-refinement incidence discriminators; currently 0x70-0x71 are assigned.</description></item>
+						<item><term>0x80-0xFF</term><description>Unassigned; reserve for later protocol-defined domains.</description></item>
+					</list>
+					<para>Do not assign a tag from a different category's range or consume a reserved code without updating this allocation table. A tag change changes canonical encodings and digests; after release, incompatible changes require a new FormatVersion.</para>
+				</remarks>
+
+			</main>
+
+			<field name = "NullAtom"><summary>Null scalar atom.</summary></field>
+			<field name = "PropertyEdge"><summary>Object-property or metadata-field edge.</summary></field>
+			<field name = "DictionaryFieldEdge"><summary>Dictionary key/value edge.</summary></field>
+			<field name = "DictionaryEntryEdge"><summary>Dictionary-entry edge.</summary></field>
+			<field name = "OrderedElementEdge"><summary>Ordered collection element edge.</summary></field>
+			<field name = "UnorderedElementEdge"><summary>Unordered collection element edge.</summary></field>
+			<field name = "ByteArrayPayloadEdge"><summary>Byte-array payload edge.</summary></field>
+			<field name = "EnumAtom"><summary>Enum scalar atom.</summary></field>
+			<field name = "ByteAtom"><summary>Byte scalar atom.</summary></field>
+			<field name = "SByteAtom"><summary>SByte scalar atom.</summary></field>
+			<field name = "BooleanAtom"><summary>Boolean scalar atom.</summary></field>
+			<field name = "CharAtom"><summary>Char scalar atom.</summary></field>
+			<field name = "Int16Atom"><summary>Int16 scalar atom.</summary></field>
+			<field name = "UInt16Atom"><summary>UInt16 scalar atom.</summary></field>
+			<field name = "Int32Atom"><summary>Int32 scalar atom.</summary></field>
+			<field name = "UInt32Atom"><summary>UInt32 scalar atom.</summary></field>
+			<field name = "Int64Atom"><summary>Int64 scalar atom.</summary></field>
+			<field name = "UInt64Atom"><summary>UInt64 scalar atom.</summary></field>
+			<field name = "IntPtrAtom"><summary>IntPtr scalar atom.</summary></field>
+			<field name = "UIntPtrAtom"><summary>UIntPtr scalar atom.</summary></field>
+			<field name = "HalfAtom"><summary>Half scalar atom.</summary></field>
+			<field name = "SingleAtom"><summary>Single scalar atom.</summary></field>
+			<field name = "DoubleAtom"><summary>Double scalar atom.</summary></field>
+			<field name = "DecimalAtom"><summary>Decimal scalar atom.</summary></field>
+			<field name = "BigIntegerAtom"><summary>BigInteger scalar atom.</summary></field>
+			<field name = "GuidAtom"><summary>Guid scalar atom.</summary></field>
+			<field name = "StringAtom"><summary>String scalar atom.</summary></field>
+			<field name = "DateTimeAtom"><summary>DateTime scalar atom.</summary></field>
+			<field name = "DateTimeOffsetAtom"><summary>DateTimeOffset scalar atom.</summary></field>
+			<field name = "TimeSpanAtom"><summary>TimeSpan scalar atom.</summary></field>
+			<field name = "VersionAtom"><summary>Version scalar atom.</summary></field>
+			<field name = "UriAtom"><summary>Uri scalar atom.</summary></field>
+			<field name = "TypeAtom"><summary>Type scalar atom.</summary></field>
+			<field name = "ByteArrayAtom"><summary>Byte-array scalar atom.</summary></field>
+			<field name = "DataItemIdentityAtom"><summary>DataItem identity scalar atom.</summary></field>
+			<field name = "ObjectNode"><summary>General object graph node.</summary></field>
+			<field name = "DictionaryEntryNode"><summary>Dictionary-entry graph node.</summary></field>
+			<field name = "ArrayNode"><summary>Array graph node.</summary></field>
+			<field name = "ByteArrayNode"><summary>Byte-array graph node.</summary></field>
+			<field name = "ValueAtom"><summary>Atom value discriminator.</summary></field>
+			<field name = "ValueNodeReference"><summary>Node-reference value discriminator.</summary></field>
+			<field name = "IncidenceNodeReference"><summary>Node-reference incidence discriminator.</summary></field>
+			<field name = "IncidenceAtom"><summary>Atom incidence discriminator.</summary></field>
+
+		</class>
+
+		<class name = "HashGraphNode">
+
+			<main>
+
+				<summary>One captured reference-identity vertex, consisting of a framed structural label and outgoing labeled edges.</summary>
+				<remarks>Node indexes are temporary indexes into the capture list. They must be translated to canonical IDs before serialization. Nodes are registered before their outgoing edges are populated so self-cycles and longer cycles resolve to existing nodes.</remarks>
+
+			</main>
+
+			<field name = "Label">
+
+				<summary>Node type, kind, and shape label.</summary>
+
+			</field>
+
+			<field name = "Edges">
+
+				<summary>Outgoing labeled edges.</summary>
+
+			</field>
+
+			<constructor name = "HashGraphNode">
+
+				<summary>Initialize a graph node.</summary>
+
+				<param name = "label" Cref = "Byte[]">Node label.</param>
+
+			</constructor>
+
+		</class>
+
+		<class name = "HashGraphEdge">
+
+			<main>
+
+				<summary>One directed, labeled relationship whose target is either an inline atom or a graph-node reference.</summary>
+				<remarks>Edge labels encode the relationship category and any property name, dictionary role, or ordered position. Duplicate edges are retained; canonical serialization sorts their complete framed encodings rather than deduplicating them.</remarks>
+
+			</main>
+
+			<field name = "Label">
+
+				<summary>Framed edge label.</summary>
+
+			</field>
+
+			<field name = "Value">
+
+				<summary>Edge target value.</summary>
+
+			</field>
+
+			<constructor name = "HashGraphEdge">
+
+				<summary>Initialize a graph edge.</summary>
+
+				<param name = "label" Cref = "Byte[]">Edge label.</param>
+
+				<param name = "value" Cref = "HashGraphValue">Edge target.</param>
+
+			</constructor>
+
+		</class>
+
+		<class name = "HashGraphValue">
+
+			<main>
+
+				<summary>Discriminated value representation: either an inline framed atom or a reference to a temporary captured node.</summary>
+				<remarks>When IsNode is true, NodeIndex is meaningful and Atom is null. When IsNode is false, Atom is meaningful and NodeIndex is unused. The node index is replaced by a canonical ID only during final serialization.</remarks>
+
+			</main>
+
+			<field name = "IsNode">
+
+			<summary>True when the value references a captured node; false when it contains an inline atom.</summary>
+
+			</field>
+
+			<field name = "NodeIndex">
+
+			<summary>Temporary index of the referenced node in the capture list; not a canonical ID.</summary>
+
+			</field>
+
+			<field name = "Atom">
+
+			<summary>Kind-tagged and framed atom bytes when IsNode is false; otherwise null.</summary>
+
+			</field>
+
+			<constructor name = "HashGraphValue">
+
+				<summary>Initialize a graph value.</summary>
+
+				<param name = "isNode" Cref = "Boolean">Node reference discriminator.</param>
+
+				<param name = "nodeIndex" Cref = "Int32">Referenced node index.</param>
+
+				<param name = "atom" Cref = "Byte[]?">Atom bytes.</param>
+
+			</constructor>
+
+			<method name = "FromNode">
+
+				<summary>Create a node reference value.</summary>
+
+				<param name = "nodeIndex" Cref = "Int32">Referenced node index.</param>
+
+				<returns Cref = "HashGraphValue">Node reference.</returns>
+
+			</method>
+
+			<method name = "FromAtom">
+
+				<summary>Create an atom value.</summary>
+
+				<param name = "atom" Cref = "Byte[]">Framed atom.</param>
+
+				<returns Cref = "HashGraphValue">Atom.</returns>
+
+			</method>
+
+		</class>
+
+	</class>
+
+</CanonicalHashGraph>

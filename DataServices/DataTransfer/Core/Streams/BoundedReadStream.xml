@@ -1,0 +1,108 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BoundedReadStream>
+
+	<class name = "BoundedReadStream">
+
+		<main>
+
+			<summary>Seekable read-only stream window over a bounded region of an existing source stream.</summary>
+
+		</main>
+
+		<field name = "Source" Cref = "Stream"><summary>The underlying source stream that backs the bounded window.</summary></field>
+		<field name = "Origin" Cref = "Int64"><summary>The absolute byte offset in the source stream where the bounded window begins.</summary></field>
+		<field name = "WindowLength" Cref = "Int64"><summary>The length in bytes exposed by the bounded window.</summary></field>
+		<field name = "LeaveOpen" Cref = "Boolean"><summary>True when disposing the wrapper should not dispose the underlying source stream.</summary></field>
+		<field name = "disposed" Cref = "Boolean"><summary>Tracks whether the stream has been disposed.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Create a bounded read-only view over a seekable source stream.</summary>
+			<param name = "source" Cref = "Stream">The readable, seekable source stream.</param>
+			<param name = "origin" Cref = "Int64">The byte offset where the window begins.</param>
+			<param name = "length" Cref = "Int64">The number of bytes exposed by the window.</param>
+			<param name = "leaveopen" Cref = "Boolean">True to leave the source stream open when this wrapper is disposed.</param>
+		</constructor>
+
+		<property name = "CanRead" Cref = "Boolean"><summary>Gets a value indicating whether the underlying source stream supports reading.</summary></property>
+		<property name = "CanSeek" Cref = "Boolean"><summary>Gets a value indicating whether the underlying source stream supports seeking.</summary></property>
+		<property name = "CanWrite" Cref = "Boolean"><summary>Gets a value indicating whether this wrapper supports writing.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the bounded window length in bytes.</summary></property>
+		<property name = "Position" Cref = "Int64"><summary>Gets or sets the current position within the bounded window.</summary></property>
+		
+		<method name = "Flush">
+			<summary>Flush the underlying source stream.</summary>
+		</method>
+		<method name = "FlushAsync">
+			<summary>Asynchronously flush the underlying source stream.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that completes when the underlying flush operation completes.</returns>
+		</method>
+		<method name = "Read">
+			<summary>Read bytes from the bounded window.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<returns Cref = "Int32">The number of bytes read from the bounded window.</returns>
+		</method>
+		<method name = "ReadSpan">
+			<summary>Read bytes into the supplied span from the bounded window.</summary>
+			<param name = "buffer" Cref = "Span{Byte}">Destination span for the read bytes.</param>
+			<returns Cref = "Int32">The number of bytes read from the bounded window.</returns>
+		</method>
+		<method name = "ReadAsync">
+			<summary>Asynchronously read bytes from the bounded window.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "ReadAsyncMemory">
+			<summary>Asynchronously read bytes into the supplied memory from the bounded window.</summary>
+			<param name = "buffer" Cref = "Memory{Byte}">Destination memory for the read bytes.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask{Int32}">A task-like value that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "Seek">
+			<summary>Change the position within the bounded window.</summary>
+			<param name = "offset" Cref = "Int64">Byte offset relative to <c>origin</c>.</param>
+			<param name = "origin" Cref = "SeekOrigin">Reference point used to obtain the new position.</param>
+			<returns Cref = "Int64">The new position within the bounded window.</returns>
+		</method>
+		<method name = "SetLength">
+			<summary>Writing is not supported.</summary>
+			<param name = "value" Cref = "Int64">Unused desired length.</param>
+		</method>
+		<method name = "Write">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "Byte[]">Unused source buffer.</param>
+			<param name = "offset" Cref = "Int32">Unused source offset.</param>
+			<param name = "count" Cref = "Int32">Unused byte count.</param>
+		</method>
+		<method name = "WriteSpan">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "ReadOnlySpan{Byte}">Unused source buffer.</param>
+		</method>
+		<method name = "WriteAsync">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "Byte[]">Unused source buffer.</param>
+			<param name = "offset" Cref = "Int32">Unused source offset.</param>
+			<param name = "count" Cref = "Int32">Unused byte count.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task">A task that faults because writing is not supported.</returns>
+		</method>
+		<method name = "WriteAsyncMemory">
+			<summary>Writing is not supported.</summary>
+			<param name = "buffer" Cref = "ReadOnlyMemory{Byte}">Unused source buffer.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "ValueTask">A task-like value that faults because writing is not supported.</returns>
+		</method>
+		<method name = "Dispose">
+			<summary>Dispose the bounded stream wrapper and optionally the underlying source stream.</summary>
+			<param name = "disposing" Cref = "Boolean">True when called from deterministic disposal; otherwise false.</param>
+		</method>
+
+	</class>
+
+</BoundedReadStream>

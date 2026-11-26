@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+
+<TransferPublicationPhase>
+	<enum name = "TransferPublicationPhase">
+		<main><summary>Durable phase of a transfer publication operation.</summary></main>
+		<value name = "Prepared"><summary>The publication request has been recorded but publication processing has not started.</summary></value>
+		<value name = "Publishing"><summary>The transfer session is undergoing publication validation and assembly.</summary></value>
+		<value name = "Published"><summary>Publication artifacts have been written or adopted successfully.</summary></value>
+		<value name = "CatalogUpdated"><summary>The catalog has been updated for the published item.</summary></value>
+		<value name = "Finalized"><summary>The transfer session has reached its terminal published state.</summary></value>
+		<value name = "OperatorActionRequired"><summary>Publication conflict requires operator action before publication may resume.</summary></value>
+		<value name = "Failed"><summary>The publication operation reached an unrecovered failure state.</summary></value>
+	</enum>
+</TransferPublicationPhase>

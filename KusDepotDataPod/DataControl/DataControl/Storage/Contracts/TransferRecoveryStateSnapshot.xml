@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferRecoveryStateSnapshot>
+  <record name="TransferRecoveryStateSnapshot">
+	<main><summary>Contains a consistent administrative view of a transfer session and its persisted recovery state.</summary><remarks>The snapshot includes session and publication journal state together with the session's segmented ranges and stream chunks. Session and journal may be absent when no corresponding row exists.</remarks></main>
+	<property name="Session" Cref="TransferSessionState"><summary>Gets the transfer session, or null when it does not exist.</summary></property>
+	<property name="Journal" Cref="TransferPublicationJournalState"><summary>Gets the publication journal, or null when no journal exists for the session.</summary></property>
+	<property name="SegmentedRanges" Cref="IReadOnlyList{SegmentedTransferRangeState}"><summary>Gets the persisted segmented transfer ranges ordered by offset.</summary></property>
+	<property name="StreamChunks" Cref="IReadOnlyList{StreamTransferChunkState}"><summary>Gets the persisted stream append chunks ordered by offset.</summary></property>
+  </record>
+</TransferRecoveryStateSnapshot>

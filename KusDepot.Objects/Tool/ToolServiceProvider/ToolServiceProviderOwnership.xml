@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolServiceProviderOwnership>
+
+	<enum name = "ToolServiceProviderOwnership">
+
+		<main>
+
+			<summary>Specifies which component owns the service provider carried by a ToolServiceProvider.</summary>
+
+		</main>
+
+		<field name = "External">
+
+			<summary>The service provider is owned by the caller and is not disposed by the Tool.</summary>
+
+		</field>
+
+		<field name = "Tool">
+
+			<summary>The Tool owns the service provider and disposes it with the Tool.</summary>
+
+		</field>
+
+	</enum>
+
+</ToolServiceProviderOwnership>

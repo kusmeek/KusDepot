@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Main">
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net11.0</TargetFramework>
+		<AssemblyName>KusDepotDataPod.Infrastructure</AssemblyName>
+		<RootNamespace>KusDepotDataPod.Infrastructure</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup Label="Packages or Projects">
+		<PackageReference Include="OpenTelemetry.Api" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+		<PackageReference Include="Pulumi" />
+		<PackageReference Include="Pulumi.AzureNative" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionRollbackFailedException>
+
+	<class name = "DataProtectionRollbackFailedException">
+
+		<main>
+
+			<summary>Exception thrown when a data protection operation fails and its rollback also fails.</summary>
+
+			<remarks>The operation did not complete successfully, and automatic rollback could not restore the prior state. The destination, backup, and staging paths identify files that may require manual recovery. The inner exception contains the original operation error and rollback errors.</remarks>
+
+		</main>
+
+		<property name = "Operation"><summary>Gets the name of the failed data protection operation, such as EncryptData or DecryptData.</summary></property>
+
+		<property name = "DestinationPath"><summary>Gets the destination file path involved in rollback, when available.</summary></property>
+
+		<property name = "BackupPath"><summary>Gets the backup file path requiring recovery, when available.</summary></property>
+
+		<property name = "StagingPath"><summary>Gets the staging file path requiring recovery, when available.</summary></property>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes an exception describing a failed operation and failed rollback.</summary>
+
+			<param name = "operation" Cref = "String">Name of the failed data protection operation.</param>
+
+			<param name = "destinationPath" Cref = "String?">Destination file path involved in rollback, when available.</param>
+
+			<param name = "backupPath" Cref = "String?">Backup file path requiring recovery, when available.</param>
+
+			<param name = "stagingPath" Cref = "String?">Staging file path requiring recovery, when available.</param>
+
+			<param name = "innerException" Cref = "Exception">Original operation and rollback errors.</param>
+
+			<returns Cref = "DataProtectionRollbackFailedException">The operation rollback failure exception.</returns>
+
+		</constructor>
+
+	</class>
+
+</DataProtectionRollbackFailedException>

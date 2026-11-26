@@ -1,0 +1,207 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TokenAssertion>
+
+    <record name = "TokenAssertion">
+
+        <main>
+
+            <summary>Token-backed access-key assertion.</summary>
+
+            <remarks>
+                An immutable access-key assertion that stores raw token evidence together with normalized issuer, audience, scope, tenant, subject, and authentication metadata extracted at issue time.
+            </remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "TokenAssertion">New TokenAssertion.</returns>
+
+        </constructor>
+
+        <property name = "SerializationIdentifier" Cref = "String">
+
+            <summary>Stable registry identifier used by the assertion envelope for token payload dispatch.</summary>
+
+        </property>
+
+        <property name = "AuthenticationContextClassReference" Cref = "String?">
+
+            <summary>OIDC authentication context class reference (`acr`) if present.</summary>
+
+        </property>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Normalized audiences carried by the token assertion.</summary>
+
+        </property>
+
+        <property name = "AuthenticationMethods" Cref = "ImmutableArray{String}">
+
+            <summary>Normalized authentication methods carried by the token assertion.</summary>
+
+        </property>
+
+        <property name = "AuthenticationTime" Cref = "DateTimeOffset?">
+
+            <summary>Authentication instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "AuthorizedParty" Cref = "String?">
+
+            <summary>OIDC authorized party (`azp`) if present.</summary>
+
+        </property>
+
+        <property name = "ClientID" Cref = "String?">
+
+            <summary>Client identifier if present.</summary>
+
+        </property>
+
+        <property name = "IssuedAt" Cref = "DateTimeOffset?">
+
+            <summary>Assertion issuance instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Issuer" Cref = "String?">
+
+            <summary>Issuer identifier if present.</summary>
+
+        </property>
+
+        <property name = "JwtID" Cref = "String?">
+
+            <summary>JWT identifier (`jti`) if present.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Assertion expiration instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "NotBefore" Cref = "DateTimeOffset?">
+
+            <summary>Assertion not-before instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "ObjectID" Cref = "String?">
+
+            <summary>Object identifier if present.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}">
+
+            <summary>Normalized scopes carried by the token assertion.</summary>
+
+        </property>
+
+        <property name = "SessionID" Cref = "String?">
+
+            <summary>OIDC session identifier (`sid`) if present.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String?">
+
+            <summary>Subject identifier if present.</summary>
+
+        </property>
+
+        <property name = "TenantID" Cref = "String?">
+
+            <summary>Tenant identifier if present.</summary>
+
+        </property>
+
+        <property name = "Token" Cref = "Byte[]">
+
+            <summary>Raw token bytes carried by the assertion.</summary>
+
+        </property>
+
+        <field name = "token" Cref = "Byte[]">
+
+            <summary>Backing storage for cloned token bytes.</summary>
+
+        </field>
+
+        <property name = "TokenType" Cref = "TokenKeyType">
+
+            <summary>Token classification.</summary>
+
+        </property>
+
+        <method name = "Copy">
+
+            <summary>Create a copy of the token assertion.</summary>
+
+            <returns Cref = "TokenAssertion">Copied token assertion.</returns>
+
+        </method>
+
+        <method name = "HasAuthenticationMethod">
+
+            <summary>Determine whether the token assertion contains a normalized authentication method.</summary>
+
+            <param name = "authenticationmethod" Cref = "String?">Authentication method to test.</param>
+
+            <returns Cref = "Boolean">True if the authentication method is present; otherwise false.</returns>
+
+        </method>
+
+        <method name = "IsExpiredAt">
+
+            <summary>Determine whether the token assertion would be expired at a specific instant.</summary>
+
+            <param name = "when" Cref = "DateTimeOffset">Instant to test against the assertion expiration time.</param>
+
+            <returns Cref = "Boolean">True if the assertion has an expiration time and that time is before the supplied instant; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SerializePayload">
+
+            <summary>Serialize the token assertion payload into the private concrete contract used by the base assertion envelope.</summary>
+
+            <returns Cref = "Byte[]">Serialized token assertion payload bytes.</returns>
+
+        </method>
+
+        <method name = "ToSummary">
+
+            <summary>Project the token assertion into its runtime summary representation.</summary>
+
+            <returns Cref = "AccessKeyAssertionSummary">Runtime summary projection.</returns>
+
+        </method>
+
+        <method name = "DeserializePayload">
+
+            <summary>Reconstruct a token assertion from serialized payload bytes.</summary>
+
+            <param name = "payload" Cref = "ReadOnlyMemory{Byte}">Serialized token assertion payload bytes.</param>
+
+            <returns Cref = "AccessKeyAssertion">Reconstructed token assertion, or null if payload deserialization fails.</returns>
+
+        </method>
+
+        <field name = "SerializationIdentifierValue" Cref = "String">
+
+            <summary>Stable registry identifier for the token assertion payload contract.</summary>
+
+        </field>
+
+    </record>
+
+</TokenAssertion>

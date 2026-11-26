@@ -1,0 +1,158 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PostgresTransferStateStore>
+	<class name = "PostgresTransferStateStore">
+		<main><summary>Persists provider-neutral transfer metadata in the DataControl PostgreSQL database.</summary></main>
+		<field name = "contexts" Cref = "IDbContextFactory{DataControlDbContext}"><summary>Factory used to create DataControl database contexts.</summary></field>
+		<method name = "LoadSessionsCoreAsync">
+			<summary>Applies indexed filters and an optional catalog restriction before materializing session state.</summary>
+			<param name = "sessions" Cref = "IQueryable{DataControlTransferSessionRow}">Session query to filter.</param>
+			<param name = "query" Cref = "TransferSessionQuery">Optional session filters.</param>
+			<param name = "catalogname" Cref = "String">Required catalog restriction for tenant-scoped queries, or null for authorized admin inventory.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionState}}">Matching session states.</returns>
+		</method>
+		<method name = "LoadStaleTransferSessionCandidatesAsync">
+			<summary>Loads a bounded cursor page of sessions owned by the specified catalog whose last server-observed activity is at or before a fixed cleanup cutoff.</summary>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the candidates.</param>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive activity cutoff for this scan.</param>
+			<param name = "after" Cref = "TransferSessionCleanupCandidate">Exclusive cursor from the preceding page, or null for the first page.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of lightweight candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionCleanupCandidate}}">The next stale-session candidate page.</returns>
+		</method>
+		<method name = "HasDependentSessionAsync">
+			<summary>Checks for any catalog-scoped staged-read or stream-follow dependent before removing a source session, including stale dependents that may be cleaned later in the scan.</summary>
+			<param name = "sourcesessionid" Cref = "Guid">Source transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog restriction for the dependent lookup.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when a dependent prevents source cleanup.</returns>
+		</method>
+		<method name = "HasPublicationJournalAsync">
+			<summary>Checks whether a catalog-scoped publication journal exists for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog restriction for the journal lookup.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the journal must protect the session from explicit closure.</returns>
+		</method>
+		<method name = "TouchTransferSessionAsync">
+			<summary>Advances the server-observed activity timestamp for one catalog and item-scoped session without changing its manifest or transfer state version.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the session.</param>
+			<param name = "activity" Cref = "DateTimeOffset">Observed activity time.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the matching session was touched.</returns>
+		</method>
+		<method name = "LoadJournalsForInstanceAsync">
+			<summary>Loads journal states belonging to the exact catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationJournalState}}">Matching journals ordered by session identifier.</returns>
+		</method>
+		<method name = "DeleteJournalsForInstanceAsync">
+			<summary>Deletes journal rows belonging to the exact catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when one or more journals were deleted.</returns>
+		</method>
+		<method name = "LoadStreamChunkAsync">
+			<summary>Loads one stream chunk by offset through its catalog-owned parent session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "offset" Cref = "Int64">Append offset.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{StreamTransferChunkState}">The matching stream chunk, or null.</returns>
+		</method>
+		<method name = "PromoteStagedReadSessionAsync">
+			<summary>Conditionally promotes an existing segmented staged-read follow row to published-read state when its source session and item instance token match.</summary>
+			<param name = "session" Cref = "TransferSessionState">Published-read state to persist.</param>
+			<param name = "sourcesessionid" Cref = "Guid">Expected source session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the row.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the row matched the required identity and staged-read mode.</returns>
+		</method>
+		<constructor name = "PostgresTransferStateStore">
+			<summary>Initializes a PostgreSQL transfer state store.</summary>
+			<param name = "contexts" Cref = "IDbContextFactory{DataControlDbContext}">Factory used to create DataControl database contexts.</param>
+		</constructor>
+		<method name = "ApplySessionState">
+			<summary>Copies provider-neutral session state into its PostgreSQL row.</summary>
+			<param name = "row" Cref = "DataControlTransferSessionRow">Database row to update.</param>
+			<param name = "state" Cref = "TransferSessionState">Session state to apply.</param>
+		</method>
+		<method name = "ApplyJournalState">
+			<summary>Copies provider-neutral publication journal state into its PostgreSQL row.</summary>
+			<param name = "row" Cref = "DataControlPublicationJournalRow">Database row to update.</param>
+			<param name = "state" Cref = "TransferPublicationJournalState">Publication journal state to apply.</param>
+		</method>
+		<method name = "GetManifestProjection">
+			<summary>Extracts and validates the catalog, item instance token, and source-session projection from a serialized transfer manifest.</summary>
+			<param name = "state" Cref = "TransferSessionState">Transfer session state containing the serialized manifest.</param>
+			<returns>The catalog name and optional source session identifier projected from the manifest.</returns>
+		</method>
+		<method name = "ToSessionState">
+			<summary>Converts a PostgreSQL session row into provider-neutral session state.</summary>
+			<param name = "row" Cref = "DataControlTransferSessionRow">Database row to convert.</param>
+			<returns Cref = "TransferSessionState">Converted session state.</returns>
+		</method>
+		<method name = "CommitSegmentedRangeAsync">
+			<summary>Atomically commits a verified segmented range and its updated session manifest only when the persisted session and manifest item instance tokens match, while accepting identical retries.</summary>
+			<param name = "range" Cref = "SegmentedTransferRangeState">Verified range to persist or compare.</param>
+			<param name = "updatedsession" Cref = "TransferSessionState">Session state with the proposed range coverage and version.</param>
+			<param name = "expectedstateversion" Cref = "Int64">Session version on which the write was based.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the parent session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{SegmentedTransferWriteResult}">Committed, replayed, or rejected range result with authoritative version.</returns>
+		</method>
+		<method name = "ToSegmentedRangeState">
+			<summary>Converts a PostgreSQL segmented-range row into provider-neutral range state.</summary>
+			<param name = "row" Cref = "DataControlSegmentedRangeRow">Database row to convert.</param>
+			<returns Cref = "SegmentedTransferRangeState">Converted segmented-range state.</returns>
+		</method>
+		<method name = "ToStreamChunkState">
+			<summary>Converts a PostgreSQL stream-chunk row into provider-neutral chunk state.</summary>
+			<param name = "row" Cref = "DataControlStreamChunkRow">Database row to convert.</param>
+			<returns Cref = "StreamTransferChunkState">Converted stream-chunk state.</returns>
+		</method>
+		<method name = "ToJournalState">
+			<summary>Converts a PostgreSQL publication-journal row into provider-neutral journal state.</summary>
+			<param name = "row" Cref = "DataControlPublicationJournalRow">Database row to convert.</param>
+			<returns Cref = "TransferPublicationJournalState">Converted publication journal state.</returns>
+		</method>
+		<method name = "ToJournalIntegrity">
+			<summary>Reconstructs the compact journal integrity summary from its PostgreSQL columns.</summary>
+			<param name = "row" Cref = "DataControlPublicationJournalRow">Publication journal row containing the integrity columns.</param>
+			<returns Cref = "TransferContentIntegrity">The reconstructed integrity summary, or null when its required values are incomplete.</returns>
+		</method>
+		<method name = "ToBlob">
+			<summary>Builds a Blob reference when all persisted Blob metadata is present.</summary>
+			<param name = "name" Cref = "String">Persisted Blob name.</param>
+			<param name = "length" Cref = "Int64">Persisted Blob length.</param>
+			<param name = "sha512" Cref = "Byte[]">Persisted SHA-512 digest.</param>
+			<returns Cref = "TransferBlobReference">The Blob reference, or null when required metadata is absent.</returns>
+		</method>
+		<method name = "ValidateRange">
+			<summary>Validates a non-empty transfer range and its immutable Blob payload metadata.</summary>
+			<param name = "sessionid" Cref = "Guid">Owning transfer session identifier.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Range to validate.</param>
+			<param name = "payload" Cref = "TransferBlobReference">Blob payload metadata to validate.</param>
+		</method>
+		<method name = "ValidatePayload">
+			<summary>Validates the required name, length, and SHA-512 metadata for an immutable Blob payload.</summary>
+			<param name = "payload" Cref = "TransferBlobReference">Blob payload metadata to validate.</param>
+		</method>
+		<method name = "EnsureSamePayload">
+			<summary>Ensures a retry presents the same immutable Blob metadata as an existing record.</summary>
+			<param name = "blobName" Cref = "String">Existing Blob name.</param>
+			<param name = "length" Cref = "Int64">Existing Blob length.</param>
+			<param name = "sha512" Cref = "Byte[]">Existing SHA-512 digest.</param>
+			<param name = "payload" Cref = "TransferBlobReference">Retry Blob metadata to compare.</param>
+			<param name = "kind" Cref = "String">Payload kind used in the conflict message.</param>
+		</method>
+	</class>
+</PostgresTransferStateStore>

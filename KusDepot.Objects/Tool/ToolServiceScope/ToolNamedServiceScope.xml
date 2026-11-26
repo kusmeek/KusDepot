@@ -1,0 +1,140 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolNamedServiceScope>
+
+	<class name = "ToolNamedServiceScope">
+
+		<main>
+
+			<summary>Internal owner for one named Tool service scope.</summary>
+
+			<remarks>Tracks the underlying scope instance, handle reference count, and disposal for one Tool-owned named scope.</remarks>
+
+		</main>
+
+		<field name = "remove" Cref = "Func{String,ToolNamedServiceScope,Boolean}">
+
+			<summary>Registry callback used to remove this named scope by name and owner identity before final disposal work begins.</summary>
+
+		</field>
+
+		<field name = "scope" Cref = "AsyncServiceScope">
+
+			<summary>Underlying async service scope owned by this named Tool service scope.</summary>
+
+		</field>
+
+		<field name = "sync" Cref = "Lock">
+
+			<summary>Synchronization lock that guards reference-count and state transitions.</summary>
+
+		</field>
+
+		<field name = "refcount" Cref = "Int32">
+
+			<summary>Number of active public Tool service scope handles currently acquired.</summary>
+
+		</field>
+
+		<field name = "disposing" Cref = "Boolean">
+
+			<summary>True once this named Tool service scope has retired from acquisition and entered disposal.</summary>
+
+		</field>
+
+		<constructor name = "Constructor">
+
+			<summary>Create a new named Tool service scope owner.</summary>
+
+			<param name = "name" Cref = "String">Scope name.</param>
+
+			<param name = "scope" Cref = "AsyncServiceScope">Underlying async service scope.</param>
+
+			<param name = "remove" Cref = "Func{String,ToolNamedServiceScope,Boolean}">Registry removal callback.</param>
+
+			<param name = "isdefault" Cref = "Boolean">True when this is the reserved default Tool service scope.</param>
+
+			<returns Cref = "ToolNamedServiceScope">New named Tool service scope owner.</returns>
+
+		</constructor>
+
+		<property name = "IsDefault">
+
+			<summary>True when this named Tool service scope is the reserved default scope.</summary>
+
+			<returns Cref = "Boolean">True if this is the default Tool service scope.</returns>
+
+		</property>
+
+		<property name = "Name">
+
+			<summary>Name of the Tool service scope.</summary>
+
+			<returns Cref = "String">Scope name.</returns>
+
+		</property>
+
+		<property name = "ServiceProvider">
+
+			<summary>Scoped service provider owned by this named Tool service scope.</summary>
+
+			<returns Cref = "IServiceProvider">Scoped service provider.</returns>
+
+		</property>
+
+		<method name = "Acquire">
+
+			<summary>Acquire a new public handle for this named Tool service scope.</summary>
+
+			<returns Cref = "ToolServiceScope?">Public Tool service scope handle, or null when acquisition is no longer allowed.</returns>
+
+		</method>
+
+		<method name = "Release">
+
+			<summary>Release one handle reference synchronously, disposing a non-default named scope when its final handle is released.</summary>
+
+		</method>
+
+		<method name = "ReleaseAsync">
+
+			<summary>Release one handle reference asynchronously, disposing a non-default named scope when its final handle is released.</summary>
+
+			<returns Cref = "ValueTask">A ValueTask that represents the asynchronous release operation.</returns>
+
+		</method>
+
+		<method name = "Dispose">
+
+			<summary>Dispose the named Tool service scope synchronously.</summary>
+
+		</method>
+
+		<method name = "DisposeAsync">
+
+			<summary>Dispose the named Tool service scope asynchronously.</summary>
+
+			<returns Cref = "ValueTask">A ValueTask that represents the asynchronous disposal operation.</returns>
+
+		</method>
+
+		<method name = "DisposeCore">
+
+			<summary>Dispose the underlying async service scope synchronously.</summary>
+
+			<remarks>Called only after disposal ownership has been claimed by the named scope state machine.</remarks>
+
+		</method>
+
+		<method name = "DisposeAsyncCore">
+
+			<summary>Dispose the underlying async service scope asynchronously.</summary>
+
+			<remarks>Called only after disposal ownership has been claimed by the named scope state machine.</remarks>
+
+			<returns Cref = "ValueTask">A ValueTask that represents the underlying scope disposal operation.</returns>
+
+		</method>
+
+	</class>
+
+</ToolNamedServiceScope>

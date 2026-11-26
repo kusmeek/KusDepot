@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<BinarySizes>
+  <class name="BinarySizes">
+	<main>
+	  <summary>Binary size constants.</summary>
+	</main>
+	<field name="KiB" Cref="Int32"><summary>One kibibyte, or 1,024 bytes.</summary></field>
+	<field name="MiB" Cref="Int32"><summary>One mebibyte, or 1,024 kibibytes.</summary></field>
+	<field name="GiB" Cref="Int32"><summary>One gibibyte, or 1,024 mebibytes.</summary></field>
+	<field name="TiB" Cref="Int64"><summary>One tebibyte, or 1,024 gibibytes.</summary></field>
+	<field name="PiB" Cref="Int64"><summary>One pebibyte, or 1,024 tebibytes.</summary></field>
+  </class>
+</BinarySizes>

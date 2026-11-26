@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommonIdentificationData>
+  <record name="CommonIdentificationData">
+    <main>
+      <summary>Unsigned data contract for a signed common-identification artifact.</summary>
+    </main>
+
+    <property name="Version" Cref="Byte"><summary>Version.</summary></property>
+    <property name="Id" Cref="Guid"><summary>Stable unique identifier for the common-identification artifact.</summary></property>
+    <property name="IssuerObjectId" Cref="Guid"><summary>Directory-resolvable issuer object identifier used to locate the signer certificate.</summary></property>
+    <property name="SubjectObjectId" Cref="Guid?"><summary>Optional directory-resolvable subject object identifier carried by the artifact.</summary></property>
+    <property name="CreatedAt" Cref="DateTimeOffset"><summary>UTC creation instant for the artifact.</summary></property>
+    <property name="NotBefore" Cref="DateTimeOffset"><summary>UTC lower validity boundary for verification.</summary></property>
+    <property name="ExpiresAt" Cref="DateTimeOffset?"><summary>Optional UTC upper validity boundary for verification. Null means no expiration boundary.</summary></property>
+    <property name="Purpose" Cref="String"><summary>Required stable purpose token for verifier-side purpose checks.</summary></property>
+    <property name="Thumbprint" Cref="String"><summary>Required signer certificate thumbprint.</summary></property>
+
+    <method name="Create">
+      <summary>Create common-identification data using the current version.</summary>
+      <param name="issuerobjectid" Cref="Guid">Required issuer object identifier.</param>
+      <param name="purpose" Cref="String">Required purpose token.</param>
+      <param name="thumbprint" Cref="String">Required signer certificate thumbprint.</param>
+      <param name="subjectobjectid" Cref="Guid?">Optional subject object identifier.</param>
+      <param name="createdat" Cref="DateTimeOffset?">Optional creation instant. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="notbefore" Cref="DateTimeOffset?">Optional lower validity boundary. Null uses the resolved creation instant.</param>
+      <param name="expiresat" Cref="DateTimeOffset?">Optional upper validity boundary.</param>
+      <param name="id" Cref="Guid?">Optional explicit data identification. Null creates a new <see cref="Guid"/>.</param>
+      <returns Cref="CommonIdentificationData">Data instance using the current version.</returns>
+    </method>
+
+    <method name="CreateSecurityObject">
+      <summary>Create common-identification data from an issuer security object using the current version.</summary>
+      <param name="issuer" Cref="DataSecurityObject">Required issuer identification supplying the object identifier and thumbprint.</param>
+      <param name="purpose" Cref="String">Required purpose token.</param>
+      <param name="subjectobjectid" Cref="Guid?">Optional subject object identifier.</param>
+      <param name="createdat" Cref="DateTimeOffset?">Optional creation instant. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="notbefore" Cref="DateTimeOffset?">Optional lower validity boundary. Null uses the resolved creation instant.</param>
+      <param name="expiresat" Cref="DateTimeOffset?">Optional upper validity boundary.</param>
+      <param name="id" Cref="Guid?">Optional explicit data identification. Null creates a new <see cref="Guid"/>.</param>
+      <returns Cref="CommonIdentificationData">Data instance using the current version.</returns>
+    </method>
+  </record>
+</CommonIdentificationData>

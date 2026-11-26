@@ -1,0 +1,117 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandExecutionMode>
+
+    <class name = "CommandExecutionMode">
+
+        <main>
+
+            <summary>Defines execution mode configuration for a Command.</summary>
+
+        </main>
+
+        <property name = "AllowAsynchronous" Cref = "Boolean">
+
+            <summary>True if asynchronous execution is permitted.</summary>
+
+        </property>
+
+        <property name = "AllowFreeMode" Cref = "Boolean">
+
+            <summary>True if commands may run in free mode (tool does not await completion or set the ActivityRecord).</summary>
+
+        </property>
+
+        <property name = "AllowSynchronous" Cref = "Boolean">
+
+            <summary>True if synchronous execution is permitted.</summary>
+
+        </property>
+
+        <field name = "Locked" Cref = "Boolean">
+
+            <summary>True if the execution model is locked and cannot be changed.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "CommandExecutionMode">New CommandExecutionMode.</returns>
+
+        </constructor>
+
+        <method name = "Configure">
+
+            <summary>Configure synchronous, asynchronous, and free mode capabilities.</summary>
+
+            <param name = "allowsynchronous" Cref = "Boolean">True to allow synchronous execution.</param>
+
+            <param name = "allowasynchronous" Cref = "Boolean">True to allow asynchronous execution.</param>
+
+            <param name = "allowfreemode" Cref = "Boolean">True to allow free mode execution.</param>
+
+            <returns Cref = "Boolean">True if the configuration was applied; false if locked or invalid.</returns>
+
+        </method>
+
+        <method name = "AllowBoth">
+
+            <summary>Allow both synchronous and asynchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowBothFreeMode">
+
+            <summary>Allow synchronous and asynchronous execution, with support for free mode.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowAll">
+
+            <summary>Allow all execution modes. Equivalent to <see cref="AllowBothFreeMode"/>.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowAsynchronousOnly">
+
+            <summary>Allow only asynchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowAsynchronousFreeMode">
+
+            <summary>Allow only asynchronous execution, with support for free mode.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "AllowSynchronousOnly">
+
+            <summary>Allow only synchronous execution.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+        <method name = "Lock">
+
+            <summary>Lock the execution model to prevent further changes.</summary>
+
+            <returns Cref = "Boolean">True if the operation succeeded.</returns>
+
+        </method>
+
+    </class>
+
+</CommandExecutionMode>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentIntegritySnapshot>
+
+	<class name="ContentIntegritySnapshot">
+
+		<main>
+			<summary>Captured, explicit DataItem content fields for canonical integrity traversal.</summary>
+			<remarks>The snapshot copies projection structure and references only. It is not a digest, does not recursively hash DataItems, and does not deep-copy referenced values.</remarks>
+		</main>
+
+		<property name="Fields" Cref="ImmutableSortedDictionary{String,Object?}">
+			<summary>Ordinally keyed content-projection fields captured while the owning DataItem data gate is held.</summary>
+		</property>
+
+		<field name="ownedResources" Cref="ImmutableArray{IDisposable}">
+			<summary>Disposable resources created while capturing this projection and released when the snapshot is disposed.</summary>
+		</field>
+
+		<method name="Dispose">
+			<summary>Release resources owned by the captured projection.</summary>
+			<remarks>Attempts to dispose every owned resource. Throws AggregateException after the full attempt if one or more resources fail to dispose.</remarks>
+		</method>
+
+		<constructor name="Constructor">
+			<summary>Create an immutable, ordinally keyed content projection.</summary>
+			<param name="fields" Cref="IEnumerable{KeyValuePair{String,Object?}}">Explicit projection fields and their captured values.</param>
+			<param name="ownedResources" Cref="IEnumerable{IDisposable}?">Optional disposable resources created for this snapshot.</param>
+		</constructor>
+
+	</class>
+
+	<class name="ContentIntegrityValue">
+
+		<main>
+			<summary>A byte-array or stream-backed content value hashed by the canonical encoder.</summary>
+			<remarks>The byte array or stream is retained by reference. Stream content is read incrementally; after successful hashing, a seekable stream is returned to position zero. Disposing the value disposes its stream, if any.</remarks>
+		</main>
+
+		<field name="bytes" Cref="Byte[]?">
+			<summary>The optional content buffer used when this value is byte-backed; null when it is stream-backed.</summary>
+		</field>
+
+		<field name="stream" Cref="Stream?">
+			<summary>The optional source stream used when this value is stream-backed; null when it is byte-backed.</summary>
+		</field>
+
+		<constructor name="Constructor">
+			<summary>Create a content value from an optional byte array and optional stream.</summary>
+			<param name="bytes" Cref="Byte[]?">Content bytes; null when this value is not byte-backed.</param>
+			<param name="stream" Cref="Stream?">Content stream; null when this value is not stream-backed.</param>
+		</constructor>
+
+		<method name="ComputeDigest">
+			<summary>Compute a SHA-512 digest of the represented content.</summary>
+			<param name="cancel" Cref="CancellationToken">Token checked between stream reads to cancel hashing.</param>
+			<returns Cref="Byte[]">The content digest.</returns>
+			<remarks>Byte-backed content is hashed directly. Stream-backed content must be readable and is consumed from its current position; if seekable, its position is reset to zero only after a successful read to end. The rented working buffer is cleared and returned even if hashing fails or is canceled. A missing or unreadable stream causes InvalidOperationException.</remarks>
+		</method>
+
+		<method name="Dispose">
+			<summary>Dispose the captured stream, if any.</summary>
+		</method>
+
+		<method name="FromBytes">
+			<summary>Create a content value backed by an optional byte array.</summary>
+			<param name="bytes" Cref="Byte[]?">Content bytes.</param>
+			<returns Cref="ContentIntegrityValue">The content value.</returns>
+		</method>
+
+		<method name="FromStream">
+			<summary>Create a content value backed by an optional stream.</summary>
+			<param name="stream" Cref="Stream?">Content stream.</param>
+			<returns Cref="ContentIntegrityValue">The content value.</returns>
+		</method>
+
+	</class>
+
+</ContentIntegritySnapshot>

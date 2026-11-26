@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AzureBlobPublishedTransferSource>
+  <class name="AzureBlobPublishedTransferSource">
+	<main>
+	  <summary>Loads and streams published transfer artifacts from authorized Azure Blob Storage.</summary>
+	</main>
+	<field name="DataConfigs">
+	  <summary>DataControl configuration client used to resolve tenant storage authorized for the current request.</summary>
+	</field>
+	<field name="RequestContext">
+	  <summary>Request context used to obtain the caller's bearer token.</summary>
+	</field>
+	<constructor name="AzureBlobPublishedTransferSource">
+	  <summary>Initializes a published transfer source using DataControl configuration and request authentication.</summary>
+	  <param name="dataconfigs" Cref="IDataControlDataConfigsClient">Client used to resolve authorized tenant storage.</param>
+	  <param name="requestcontext" Cref="IPublishedTransferRequestContext">Request context that supplies the bearer token.</param>
+	</constructor>
+	<method name="TryLoadSnapshot">
+	  <summary>Loads and validates the published object, integrity artifact, and optional stream metadata for an item instance.</summary>
+	  <remarks>The published object digest, serialized item descriptor, stream integrity summary, and stream blob metadata are validated before a snapshot is returned. A null result indicates missing authorization, unavailable artifacts, invalid integrity data, an item identity mismatch, or another validation failure.</remarks>
+	  <param name="itemid" Cref="Guid">Identifier of the published item to load.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Active item instance token represented by the snapshot.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedTransferSnapshot}">A validated published transfer snapshot, or null when the published state cannot be loaded or validated.</returns>
+	</method>
+	<method name="OpenReadRange">
+	  <summary>Opens a readable range over the published stream blob for a validated item-instance-scoped snapshot.</summary>
+	  <param name="snapshot" Cref="PublishedTransferSnapshot">Published snapshot identifying the item whose stream should be read.</param>
+	  <param name="range" Cref="DataItemTransferRange">Positive byte range to download from the published stream.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream}">A streaming response containing the requested range, or null when authentication, validation, storage resolution, or the stream blob is unavailable.</returns>
+	</method>
+	<method name="GetToken">
+	  <summary>Gets the bearer token associated with the current published-transfer request.</summary>
+	  <returns Cref="String">The bearer token, or an empty string when no token is available.</returns>
+	</method>
+  </class>
+</AzureBlobPublishedTransferSource>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IDataControlDeletionJobStore>
+  <interface name="IDataControlDeletionJobStore">
+	<main><summary>Persists retryable deletion work using catalog, item, and item instance token identity.</summary></main>
+	<method name="AdvanceDeletionAsync">
+	  <summary>Advances one deletion stage for an exact catalog, item, and item instance token.</summary>
+	  <param name="catalogname">Catalog that owns the item.</param>
+	  <param name="itemid">Item identifier.</param>
+	  <param name="itemInstanceToken">Token identifying the item instance.</param>
+	  <param name="expectedprogress">Required current job stage.</param>
+	  <param name="progress">Next stage, which must immediately follow the expected stage.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns><see langword="true"/> when exactly one job was advanced.</returns>
+	</method>
+	<method name="EnsureDeletionJobAsync">
+	  <summary>Creates a job if absent and returns the job for the exact item instance.</summary>
+	  <param name="catalogname">Catalog that owns the item.</param>
+	  <param name="itemid">Item identifier.</param>
+	  <param name="itemInstanceToken">Token identifying the item instance.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns>The existing or newly created deletion-job state.</returns>
+	</method>
+	<method name="LoadDeletionJobAsync">
+	  <summary>Loads the job for the exact catalog, item, and item instance token.</summary>
+	  <param name="catalogname">Catalog that owns the item.</param>
+	  <param name="itemid">Item identifier.</param>
+	  <param name="itemInstanceToken">Token identifying the item instance.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns>The matching job state, or <see langword="null"/> when none exists.</returns>
+	</method>
+	<method name="LoadDueDeletionJobsAsync">
+	  <summary>Loads a bounded batch of deletion jobs whose retry time is due.</summary>
+	  <param name="now">Current UTC time used to determine whether a job is due.</param>
+	  <param name="pageSize">Maximum number of jobs to return; must be positive.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns>Due jobs ordered by retry time and last update.</returns>
+	</method>
+	<method name="RecordDeletionFailureAsync">
+	  <summary>Records a failed attempt and schedules the job for a later retry.</summary>
+	  <param name="catalogname">Catalog that owns the item.</param>
+	  <param name="itemid">Item identifier.</param>
+	  <param name="itemInstanceToken">Token identifying the item instance.</param>
+	  <param name="error">Failure detail to persist.</param>
+	  <param name="nextattempt">Time when another attempt may run.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns><see langword="true"/> when exactly one job was updated.</returns>
+	</method>
+	<method name="DeleteDeletionJobAsync">
+	  <summary>Deletes the job for the exact catalog, item, and item instance token.</summary>
+	  <param name="catalogname">Catalog that owns the item.</param>
+	  <param name="itemid">Item identifier.</param>
+	  <param name="itemInstanceToken">Token identifying the item instance.</param>
+	  <param name="cancel">Cancellation token.</param>
+	  <returns><see langword="true"/> when exactly one job was deleted.</returns>
+	</method>
+  </interface>
+</IDataControlDeletionJobStore>

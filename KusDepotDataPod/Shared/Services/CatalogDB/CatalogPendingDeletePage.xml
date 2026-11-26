@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CatalogPendingDeletePage>
+  <record name="CatalogPendingDeletePage">
+	<main><summary>A page of catalog item identities that are pending deletion.</summary></main>
+	<property name="Items" Cref="CatalogItemIdentity[]"><summary>Pending-delete item identities in item-ID order.</summary></property>
+	<property name="NextAfterItemID" Cref="Guid"><summary>Exclusive continuation key for the next page, or null when no more items remain.</summary></property>
+	<constructor name="CatalogPendingDeletePage">
+	  <summary>Creates a pending-delete page and its optional continuation key.</summary>
+	  <param name="items" Cref="CatalogItemIdentity[]">Item identities in this page.</param>
+	  <param name="nextAfterItemID" Cref="Guid">Continuation key for the next page, or null.</param>
+	</constructor>
+  </record>
+</CatalogPendingDeletePage>

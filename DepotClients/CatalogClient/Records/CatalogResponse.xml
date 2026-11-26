@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CatalogResponse>
+
+	<record name = "CatalogResponse">
+
+		<main>
+
+			<summary>Represents an HTTP response returned by a catalog client operation.</summary>
+
+			<typeparam name = "T">The type of the deserialized response data.</typeparam>
+
+		</main>
+
+		<property name = "Content">
+
+			<summary>Gets the raw response content.</summary>
+
+		</property>
+
+		<property name = "Data">
+
+			<summary>Gets the deserialized response data, when the response contains a payload.</summary>
+
+		</property>
+
+		<property name = "StatusCode">
+
+			<summary>Gets the HTTP status code returned by the server.</summary>
+
+		</property>
+
+	</record>
+
+</CatalogResponse>

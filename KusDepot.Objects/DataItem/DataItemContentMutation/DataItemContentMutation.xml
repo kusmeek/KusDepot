@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemContentMutation>
+	<class name="DataItemContentMutation">
+		<main><summary>Rollback-on-dispose scope for a content mutation performed while a DataItem data gate is held.</summary><remarks>The scope captures the shared DataItem state and an optional type-specific payload memento. Call Commit only after payload, integrity, and assertion updates succeed. If the scope is disposed without commit, it restores payload first, then shared state.</remarks></main>
+		<field name="item"><summary>Item whose content transition is in progress.</summary></field>
+		<field name="snapshot"><summary>Captured shared and type-specific state to restore if the mutation is rejected.</summary></field>
+		<field name="committed"><summary>Whether the content mutation has been accepted.</summary></field>
+		<constructor name="Constructor"><summary>Capture the item's current state for a content mutation.</summary><param name="item" Cref="DataItem">Item being changed. Its data gate must already be held.</param></constructor>
+		<method name="Commit"><summary>Run the caller's commit action and accept the mutation.</summary><param name="commit" Cref="Action">Commit action, such as updating the item's modification timestamp. It must not throw after performing an irreversible side effect.</param></method>
+		<method name="Dispose"><summary>Restore the captured state unless the mutation was committed.</summary></method>
+	</class>
+</DataItemContentMutation>

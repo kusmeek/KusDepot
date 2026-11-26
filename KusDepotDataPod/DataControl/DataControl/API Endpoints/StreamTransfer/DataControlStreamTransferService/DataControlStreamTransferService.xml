@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlStreamTransferService>
+	<class name = "DataControlStreamTransferService">
+		<main><summary>Coordinates stream transfer session operations backed by PostgreSQL state and Azure Blob payloads.</summary></main>
+
+		<field name = "sessions"><summary>Transfer-session state and payload store used by the stream service.</summary></field>
+		<field name = "registry"><summary>Registry used to track active transfer sessions.</summary></field>
+		<field name = "coordinator"><summary>Coordinator used to acquire transfer item, session, and mutation scopes.</summary></field>
+		<field name = "publications"><summary>Publication-transfer store used to manage publication journals.</summary></field>
+		<field name = "storageContext"><summary>Request-scoped authorized storage context that supplies the catalog binding.</summary></field>
+		<field name = "grainFactory"><summary>Orleans client factory used to read catalog-owned item identity and deletion state.</summary></field>
+		<field name = "options"><summary>Configured transfer service options.</summary></field>
+
+		<constructor name = "DataControlStreamTransferService">
+			<summary>Initializes the stream transfer service.</summary>
+			<param name = "sessions" Cref = "IDataControlTransferSessionStore">Transfer-session state and payload store.</param>
+			<param name = "registry" Cref = "IDataItemTransferRegistry">Transfer session registry.</param>
+			<param name = "coordinator" Cref = "IDataItemTransferCoordinator">Transfer scope coordinator.</param>
+			<param name = "publications" Cref = "IDataControlPublicationTransferStore">Publication-transfer store.</param>
+			<param name = "storageContext" Cref = "ITenantTransferStorageContext">Request-scoped authorized storage context.</param>
+			<param name = "grainFactory" Cref = "IGrainFactory">Orleans client factory used to read catalog-owned item state.</param>
+			<param name = "options" Cref = "IOptions{DataItemTransferServiceOptions}">Configured transfer service options.</param>
+		</constructor>
+
+		<method name = "LoadRequiredManifest">
+			<summary>Loads and validates the manifest identity and current catalog-owned item instance token for a stream transfer session.</summary>
+			<param name = "sessionID" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemID" Cref = "Guid">Data item identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{DataStreamTransferManifest}">The validated stream transfer manifest.</returns>
+		</method>
+		<method name = "TouchSessionActivity">
+			<summary>Renews the server-observed activity time for a successfully read, queried, or reopened stream transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Data item identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<exception cref = "OperationFailedException">The transfer session no longer exists.</exception>
+		</method>
+		<method name = "CreateOpenManifest">
+			<summary>Creates the initial stream-source manifest bound to the active catalog item token or a fresh candidate token.</summary>
+			<param name = "request" Cref = "OpenStreamTransferRequest">Stream open request.</param>
+			<param name = "policy" Cref = "DataItemTransferSegmentSizePolicy">Effective segment-size policy.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token assigned to the upload.</param>
+			<returns Cref = "DataStreamTransferManifest">The initial source manifest.</returns>
+		</method>
+		<method name = "CreateFollowerManifest">
+			<summary>Creates a follower manifest bound to the same item instance token as its existing stream source manifest.</summary>
+			<param name = "request" Cref = "OpenFollowStreamTransferRequest">Follower open request.</param>
+			<param name = "source" Cref = "DataStreamTransferManifest">Source manifest.</param>
+			<returns Cref = "DataStreamTransferManifest">The initial follower manifest.</returns>
+		</method>
+		<method name = "SynchronizeFollowerManifest">
+			<summary>Synchronizes follower state and payload metadata from its source manifest without changing the item instance token inherited when the follower was opened.</summary>
+			<param name = "follower" Cref = "DataStreamTransferManifest">Follower manifest to update.</param>
+			<param name = "source" Cref = "DataStreamTransferManifest">Current source manifest.</param>
+			<returns Cref = "DataStreamTransferManifest">The updated follower manifest.</returns>
+		</method>
+		<method name = "ReadRequiredCompletionStreamHash">
+			<summary>Reads and hashes the complete realized stream payload.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Stream manifest describing the payload.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Byte[]}">The SHA-512 hash of the completed stream.</returns>
+		</method>
+		<method name = "ToServerSessionInfo">
+			<summary>Converts a stream manifest into the server session information shape.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Stream manifest to convert.</param>
+			<returns Cref = "DataControlServerSessionInfo">Server session information.</returns>
+		</method>
+		<method name = "CreateRange">
+			<summary>Creates a transfer range from an offset and length.</summary>
+			<param name = "offset" Cref = "Int64">Range offset.</param>
+			<param name = "length" Cref = "Int64">Range length.</param>
+			<returns Cref = "DataItemTransferRange">The transfer range.</returns>
+		</method>
+		<method name = "ClampPolicy">
+			<summary>Clamps a requested segment-size policy to the service default policy.</summary>
+			<param name = "requested" Cref = "DataItemTransferSegmentSizePolicy">Requested segment-size policy.</param>
+			<param name = "serviceDefault" Cref = "DataItemTransferSegmentSizePolicy">Service default segment-size policy.</param>
+			<returns Cref = "DataItemTransferSegmentSizePolicy">The effective segment-size policy.</returns>
+		</method>
+		<method name = "ValidateIdentity">
+			<summary>Validates a transfer identity.</summary>
+			<param name = "identity" Cref = "DataItemTransferIdentity">Transfer identity to validate.</param>
+		</method>
+		<method name = "ValidateManifestIdentity">
+			<summary>Validates that a manifest belongs to the expected session and item and carries a non-empty item instance token.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest to validate.</param>
+			<param name = "sessionID" Cref = "Guid">Expected session identifier.</param>
+			<param name = "itemID" Cref = "Guid">Expected item identifier.</param>
+		</method>
+		<method name = "ValidateMutationScope">
+			<summary>Validates that a mutation scope belongs to the expected session and item.</summary>
+			<param name = "scope" Cref = "ITransferMutationScope">Mutation scope to validate.</param>
+			<param name = "sessionID" Cref = "Guid">Expected session identifier.</param>
+			<param name = "itemID" Cref = "Guid">Expected item identifier.</param>
+		</method>
+		<method name = "ValidateAbortRequest">
+			<summary>Validates an abort request.</summary>
+			<param name = "request" Cref = "AbortTransferRequest">Abort request to validate.</param>
+		</method>
+		<method name = "ValidateRemoveRequest">
+			<summary>Validates that a remove request contains non-empty session and item identifiers.</summary>
+			<param name = "request" Cref = "RemoveTransferRequest">Remove request to validate.</param>
+		</method>
+		<method name = "ValidateOpenFollowRequest">
+			<summary>Validates an open-follower request.</summary>
+			<param name = "request" Cref = "OpenFollowStreamTransferRequest">Open-follower request to validate.</param>
+		</method>
+		<method name = "ValidateReOpenFollowRequest">
+			<summary>Validates a reopen-follower request.</summary>
+			<param name = "request" Cref = "ReOpenFollowStreamTransferRequest">Reopen-follower request to validate.</param>
+		</method>
+		<method name = "ValidateReOpenRequest">
+			<summary>Validates a reopen-source request.</summary>
+			<param name = "request" Cref = "ReOpenStreamTransferRequest">Reopen-source request to validate.</param>
+		</method>
+		<method name = "ValidateReadRequest">
+			<summary>Validates a stream segment-read request.</summary>
+			<param name = "request" Cref = "GetStreamTransferSegmentRequest">Segment-read request to validate.</param>
+		</method>
+		<method name = "ValidateWriteRequest">
+			<summary>Validates a stream segment-write request and payload.</summary>
+			<param name = "request" Cref = "PutStreamTransferSegmentRequest">Segment-write request to validate.</param>
+			<param name = "payload" Cref = "Stream">Payload stream to validate.</param>
+		</method>
+		<method name = "ValidateCompleteRequest">
+			<summary>Validates a stream completion request.</summary>
+			<param name = "request" Cref = "PublishStreamTransferRequest">Completion request to validate.</param>
+		</method>
+		<method name = "ValidOptionalHash">
+			<summary>Determines whether an optional SHA-512 hash has an accepted length.</summary>
+			<param name = "hash" Cref = "Byte[]">Optional hash value.</param>
+			<returns Cref = "Boolean">True when the hash is absent, empty, or a SHA-512 hash.</returns>
+		</method>
+		<method name = "ValidateReadable">
+			<summary>Validates that a stream manifest permits read operations.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateAbortableSession">
+			<summary>Validates that a stream upload session is open or complete and can be aborted.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateWritableSource">
+			<summary>Validates that a stream manifest permits source writes.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest to validate.</param>
+		</method>
+		<method name = "ValidateSegmentLength">
+			<summary>Validates a segment length against the effective session policy.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest containing the session policy.</param>
+			<param name = "length" Cref = "Int64">Segment length to validate.</param>
+		</method>
+		<method name = "ValidateHash">
+			<summary>Validates two SHA-512 hash values.</summary>
+			<param name = "actual" Cref = "Byte[]">Actual hash.</param>
+			<param name = "expected" Cref = "Byte[]">Expected hash.</param>
+			<param name = "message" Cref = "String">Failure message.</param>
+		</method>
+		<method name = "ValidateOpenRequest">
+			<summary>Validates an open-source request and its object payload.</summary>
+			<param name = "request" Cref = "OpenStreamTransferRequest">Open-source request to validate.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+		</method>
+	</class>
+</DataControlStreamTransferService>

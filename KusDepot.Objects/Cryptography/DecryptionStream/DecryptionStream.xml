@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DecryptionStream>
+    <class name="DecryptionStream">
+        <main>
+            <summary>
+                Read-only stream wrapper that replays a single prefixed byte before continuing reads from an inner stream.
+            </summary>
+            <remarks>
+                <para>The logical stream exposed by this wrapper is: Prefix + Inner[InnerOrigin..].</para>
+                <para>When the inner stream supports seeking, this wrapper preserves seek, length, and position semantics for the logical combined stream by translating wrapper-relative offsets into inner-stream offsets beyond the replay prefix byte.</para>
+                <para>The wrapper does not support writing and does not own the lifetime of the inner stream.</para>
+            </remarks>
+        </main>
+
+        <constructor name="Constructor">
+            <summary>
+                Initializes a new replaying decryption stream.
+            </summary>
+            <param name="inner" Cref="Stream">Inner stream to continue reading after the prefixed byte has been replayed.</param>
+            <param name="prefix" Cref="Byte">Single prefixed byte to replay before reading from the inner stream.</param>
+            <remarks>
+                <para>If the inner stream supports seeking, its current position is captured as InnerOrigin and used as the start of the logical inner segment.</para>
+            </remarks>
+        </constructor>
+
+        <field name="Inner">
+            <summary>
+                Inner stream that supplies bytes after the prefixed byte has been consumed.
+            </summary>
+        </field>
+
+        <field name="InnerOrigin">
+            <summary>
+                Starting position of the inner stream when the wrapper is created.
+            </summary>
+            <remarks>
+                <para>All seek, length, and position calculations are measured relative to this captured origin rather than absolute position zero of the inner stream.</para>
+            </remarks>
+        </field>
+
+        <field name="Prefix">
+            <summary>
+                Single prefixed byte replayed before reads flow through to the inner stream.
+            </summary>
+        </field>
+
+        <field name="PrefixOffset">
+            <summary>
+                Current replay-state offset for the prefixed byte.
+            </summary>
+            <remarks>
+                <para>This value is zero before the prefix byte has been exposed and one after it has been consumed.</para>
+                <para>It forms the prefix portion of the wrapper Position calculation.</para>
+            </remarks>
+        </field>
+
+        <property name="CanRead">
+            <summary>
+                Gets a value indicating whether the stream supports reading.
+            </summary>
+            <remarks>
+                <para>This value is delegated directly from the inner stream.</para>
+            </remarks>
+        </property>
+
+        <property name="CanSeek">
+            <summary>
+                Gets a value indicating whether the stream supports seeking.
+            </summary>
+            <remarks>
+                <para>This value is delegated directly from the inner stream.</para>
+                <para>When false, Length, Position, and Seek are not supported.</para>
+            </remarks>
+        </property>
+
+        <property name="CanWrite">
+            <summary>
+                Gets a value indicating whether the stream supports writing.
+            </summary>
+            <remarks>
+                <para>This wrapper is read-only and always returns false.</para>
+            </remarks>
+        </property>
+
+        <property name="Length">
+            <summary>
+                Gets the logical length of the replay stream.
+            </summary>
+            <remarks>
+                <para>When supported, Length = 1 + ( Inner.Length - InnerOrigin ).</para>
+                <para>This is the total logical length of the one-byte replay prefix plus the readable suffix of the inner stream beginning at the captured origin.</para>
+            </remarks>
+        </property>
+
+        <property name="Position">
+            <summary>
+                Gets or sets the current logical position within the replay stream.
+            </summary>
+            <remarks>
+                <para>Getter: Position = PrefixOffset + ( Inner.Position - InnerOrigin ).</para>
+                <para>Setter: if the assigned value is zero or one, PrefixOffset is moved to that value and Inner.Position is reset to InnerOrigin; otherwise PrefixOffset is set to one and Inner.Position is set to InnerOrigin + ( value - 1 ).</para>
+                <para>The position is always relative to the logical combined stream, not the absolute coordinate space of the inner stream.</para>
+            </remarks>
+        </property>
+
+        <method name="Flush">
+            <summary>
+                Flushes the stream.
+            </summary>
+            <remarks>
+                <para>This is a no-op because the wrapper only replays a single byte and performs no writes.</para>
+            </remarks>
+        </method>
+
+        <method name="Read">
+            <summary>
+                Reads bytes into an array buffer.
+            </summary>
+            <param name="buffer" Cref="Byte[]">Destination buffer.</param>
+            <param name="offset" Cref="Int32">Starting offset within the destination buffer.</param>
+            <param name="count" Cref="Int32">Maximum number of bytes to read.</param>
+            <returns Cref="Int32">Number of bytes read.</returns>
+            <remarks>
+                <para>This overload validates arguments, projects the requested segment as a span, and delegates to the span-based read implementation.</para>
+            </remarks>
+        </method>
+
+        <method name="ReadSpan">
+            <summary>
+                Reads bytes into a span buffer.
+            </summary>
+            <param name="buffer" Cref="Span{Byte}">Destination buffer.</param>
+            <returns Cref="Int32">Number of bytes read.</returns>
+            <remarks>
+                <para>The algorithm is: if the replay prefix byte has not yet been consumed and the destination buffer is non-empty, write Prefix to the first destination element, set PrefixOffset to one, then if buffer still has remaining capacity read the remainder from the inner stream.</para>
+                <para>The returned count is the sum of the replayed prefix byte, when present, and bytes read from Inner.</para>
+            </remarks>
+        </method>
+
+        <method name="ReadAsync">
+            <summary>
+                Reads bytes asynchronously into an array buffer.
+            </summary>
+            <param name="buffer" Cref="Byte[]">Destination buffer.</param>
+            <param name="offset" Cref="Int32">Starting offset within the destination buffer.</param>
+            <param name="count" Cref="Int32">Maximum number of bytes to read.</param>
+            <param name="cancellationToken" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task{Int32}">Number of bytes read.</returns>
+            <remarks>
+                <para>This overload validates arguments, projects the requested segment as memory, and delegates to the memory-based async read implementation.</para>
+            </remarks>
+        </method>
+
+        <method name="ReadAsyncMemory">
+            <summary>
+                Reads bytes asynchronously into a memory buffer.
+            </summary>
+            <param name="buffer" Cref="Memory{Byte}">Destination buffer.</param>
+            <param name="cancellationToken" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="ValueTask{Int32}">Number of bytes read.</returns>
+            <remarks>
+                <para>The algorithm is identical to the synchronous span read: if the replay prefix byte has not yet been consumed and the destination buffer is non-empty, write Prefix to the first destination element, set PrefixOffset to one, then asynchronously read any remaining capacity from the inner stream.</para>
+                <para>The returned count is the sum of the replayed prefix byte, when present, and bytes read from Inner.</para>
+            </remarks>
+        </method>
+
+        <method name="Seek">
+            <summary>
+                Sets the logical position within the replay stream.
+            </summary>
+            <param name="offset" Cref="Int64">Byte offset.</param>
+            <param name="origin" Cref="SeekOrigin">Reference point.</param>
+            <returns Cref="Int64">New logical position.</returns>
+            <remarks>
+                <para>The target wrapper position is computed using the supplied origin against the logical combined stream.</para>
+                <para>SeekOrigin.Begin uses offset directly, SeekOrigin.Current uses Position + offset, and SeekOrigin.End uses Length + offset.</para>
+                <para>After target calculation, the Position setter performs translation into PrefixOffset and Inner.Position.</para>
+            </remarks>
+        </method>
+
+        <method name="SetLength">
+            <summary>
+                Sets the length of the stream.
+            </summary>
+            <param name="value" Cref="Int64">Desired stream length.</param>
+            <remarks>
+                <para>This member is not supported because the wrapper is read-only and does not own the inner stream length.</para>
+            </remarks>
+        </method>
+
+        <method name="Write">
+            <summary>
+                Writes bytes from an array buffer.
+            </summary>
+            <param name="buffer" Cref="Byte[]">Source buffer.</param>
+            <param name="offset" Cref="Int32">Starting offset within the source buffer.</param>
+            <param name="count" Cref="Int32">Number of bytes to write.</param>
+            <remarks>
+                <para>This member is not supported because the wrapper is read-only.</para>
+            </remarks>
+        </method>
+
+        <method name="WriteSpan">
+            <summary>
+                Writes bytes from a span buffer.
+            </summary>
+            <param name="buffer" Cref="ReadOnlySpan{Byte}">Source buffer.</param>
+            <remarks>
+                <para>This member is not supported because the wrapper is read-only.</para>
+            </remarks>
+        </method>
+
+        <method name="WriteAsync">
+            <summary>
+                Writes bytes asynchronously from an array buffer.
+            </summary>
+            <param name="buffer" Cref="Byte[]">Source buffer.</param>
+            <param name="offset" Cref="Int32">Starting offset within the source buffer.</param>
+            <param name="count" Cref="Int32">Number of bytes to write.</param>
+            <param name="cancellationToken" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="Task">Asynchronous write operation.</returns>
+            <remarks>
+                <para>This member is not supported because the wrapper is read-only.</para>
+            </remarks>
+        </method>
+
+        <method name="WriteAsyncMemory">
+            <summary>
+                Writes bytes asynchronously from a memory buffer.
+            </summary>
+            <param name="buffer" Cref="ReadOnlyMemory{Byte}">Source buffer.</param>
+            <param name="cancellationToken" Cref="CancellationToken">Cancellation token.</param>
+            <returns Cref="ValueTask">Asynchronous write operation.</returns>
+            <remarks>
+                <para>This member is not supported because the wrapper is read-only.</para>
+            </remarks>
+        </method>
+    </class>
+</DecryptionStream>

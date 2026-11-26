@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferBlock>
+	<record name = "TransferBlock">
+		<main><summary>Describes one storage block used to assemble a published stream from a logical transfer range.</summary></main>
+		<property name = "BlockID" Cref = "String"><summary>Deterministic destination block identifier.</summary></property>
+		<property name = "DestinationOffset" Cref = "Int64"><summary>Destination stream offset at which the block is assembled.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Number of bytes represented by the block.</summary></property>
+		<property name = "LogicalSegmentIndex" Cref = "Int32"><summary>Zero-based index of the logical transfer segment containing the block.</summary></property>
+		<property name = "LogicalRange" Cref = "DataItemTransferRange"><summary>Logical transfer range containing the block.</summary></property>
+		<property name = "Source" Cref = "TenantTransferBlobReference"><summary>Staged tenant-storage blob containing the source bytes.</summary></property>
+		<property name = "SourceOffset" Cref = "Int64"><summary>Offset within the source blob at which the block begins.</summary></property>
+	</record>
+</TransferBlock>

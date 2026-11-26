@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataItemProtectionTransaction>
+
+	<class name="DataItemProtectionTransaction">
+
+		<main>
+			<summary>Coordinates ordered commit, reverse-order rollback, and post-commit completion actions for one DataItem protection transition.</summary>
+			<remarks>Commit actions are attempted in enlistment order. If a commit action fails, rollback is attempted in reverse order for every operation whose commit was started, including the failing operation, so each rollback action must be safe when its corresponding commit did not finish. Completion actions run only after every commit action succeeds and are not rollbackable; a completion failure is reported as a committed-but-not-fully-cleaned-up transaction. Disposal rolls back prepared or committed work, but does not retry a rollback that has already failed or undo a transaction after completion has begun.</remarks>
+		</main>
+
+		<field name="operations" Cref="List{Operation}">
+			<summary>Ordered transaction actions enlisted before commit.</summary>
+		</field>
+
+		<field name="operation" Cref="String">
+			<summary>Name of the data protection operation used when reporting rollback failure.</summary>
+		</field>
+
+		<field name="state" Cref="State">
+			<summary>Current transaction lifecycle state.</summary>
+		</field>
+
+		<constructor name="Constructor">
+			<summary>Creates a protection transaction for the specified operation.</summary>
+			<param name="operation" Cref="String">Name of the data protection operation, such as EncryptData or DecryptData.</param>
+		</constructor>
+
+		<method name="Enlist">
+			<summary>Add an operation to commit, compensate, and optionally complete with the transaction.</summary>
+			<param name="commit" Cref="Func{ValueTask}">Action that publishes one staged part of the protection transition.</param>
+			<param name="rollback" Cref="Func{ValueTask}">Compensation action that restores the pre-transaction state, including when commit only partially completed.</param>
+			<param name="complete" Cref="Func{ValueTask}?">Optional irreversible cleanup action to run after all commit actions succeed.</param>
+			<remarks>Actions execute in enlistment order for commit and completion. Rollback executes in reverse order. Enlisting is permitted only before commit begins.</remarks>
+		</method>
+
+		<method name="CommitAsync">
+			<summary>Run all enlisted commit actions in order.</summary>
+			<returns Cref="ValueTask">A value task that completes when all commit actions succeed.</returns>
+			<remarks>If a commit action fails, all started operations are rolled back in reverse order. The original commit exception is rethrown when rollback succeeds; if compensation also fails, a DataProtectionRollbackFailedException contains the operation name, available staged-file recovery paths, and an aggregate of the commit and rollback errors.</remarks>
+		</method>
+
+		<method name="CompleteAsync">
+			<summary>Run enlisted post-commit cleanup actions after a successful commit.</summary>
+			<returns Cref="ValueTask">A value task that completes when all completion actions succeed.</returns>
+			<remarks>Completion actions are irreversible and are not rolled back. If one fails, the transaction is reported as committed but incompletely cleaned up; a later call may retry unfinished actions, while actions already completed are skipped.</remarks>
+		</method>
+
+		<method name="RollbackAsync">
+			<summary>Run compensating actions in reverse order.</summary>
+			<returns Cref="ValueTask">A value task that completes when rollback succeeds.</returns>
+			<remarks>A prepared transaction rolls back all enlisted operations, allowing staged resources to be discarded. A committed or faulted transaction rolls back operations whose commit was started, or whose rollback remains required from prepared-state cleanup, and whose rollback has not already succeeded. All eligible rollback actions are attempted; if any fail, a DataProtectionRollbackFailedException retains all operation and rollback errors and is not automatically retried during disposal.</remarks>
+		</method>
+
+		<method name="CreateRollbackFailedException">
+			<summary>Create the public exception describing a failed operation rollback.</summary>
+			<param name="operationError" Cref="Exception?">The original commit error, when the transaction failed during commit.</param>
+			<param name="rollbackErrors" Cref="IEnumerable{Exception}">Errors raised by rollback actions.</param>
+			<returns Cref="DataProtectionRollbackFailedException">The exception containing the operation name, available recovery paths, and all operation and rollback errors.</returns>
+		</method>
+
+		<method name="FindRollbackError">
+			<summary>Find a staged-file rollback error in an exception tree.</summary>
+			<param name="error" Cref="Exception">The exception or aggregate to inspect.</param>
+			<returns Cref="StagedFileTransformRollbackException?">The first staged-file rollback error found, or null when none is present.</returns>
+		</method>
+
+		<method name="DisposeAsync">
+			<summary>Roll back prepared or committed work that has not entered post-commit completion.</summary>
+			<returns Cref="ValueTask">A value task that completes when required rollback succeeds.</returns>
+		</method>
+
+		<method name="RollbackAttemptedAsync">
+			<summary>Attempt every required compensation in reverse commit order.</summary>
+			<returns Cref="ValueTask{List{Exception}?}">Null when all compensations succeed; otherwise the list of compensation failures.</returns>
+		</method>
+
+		<class name="Operation">
+			<summary>Commit, rollback, and optional completion delegates for one transaction operation.</summary>
+			<remarks>Each operation records whether commit began, whether rollback remains required, and whether post-commit cleanup succeeded, allowing failed compensations and cleanup actions to be retried without repeating successful actions.</remarks>
+			<property name="Commit"><summary>Commit action for this operation.</summary></property>
+			<property name="Rollback"><summary>Compensation action for this operation.</summary></property>
+			<property name="Complete"><summary>Optional post-commit completion action for this operation.</summary></property>
+			<property name="CommitAttempted"><summary>Whether the commit action has started.</summary></property>
+			<property name="RollbackRequired"><summary>Whether compensation is still required.</summary></property>
+			<property name="RollbackCompleted"><summary>Whether compensation has succeeded.</summary></property>
+			<property name="CompletionCompleted"><summary>Whether post-commit cleanup has succeeded.</summary></property>
+		</class>
+
+		<enum name="State">
+			<main>
+				<summary>Lifecycle state of the protection transaction.</summary>
+			</main>
+			<value name="Prepared"><summary>Actions may be enlisted; no commit action has started.</summary></value>
+			<value name="Committing"><summary>Commit actions are running in order.</summary></value>
+			<value name="Committed"><summary>All commit actions succeeded; rollback remains available.</summary></value>
+			<value name="Completing"><summary>Irreversible post-commit cleanup is running.</summary></value>
+			<value name="Completed"><summary>All commit and cleanup actions succeeded.</summary></value>
+			<value name="RollingBack"><summary>Compensation actions are running in reverse order.</summary></value>
+			<value name="RolledBack"><summary>All required compensations succeeded.</summary></value>
+			<value name="Faulted"><summary>Commit or rollback failed and recovery requires caller attention.</summary></value>
+			<value name="FaultedAfterCommit"><summary>Commit succeeded, but post-commit cleanup failed and cannot be fully rolled back.</summary></value>
+		</enum>
+
+	</class>
+
+</DataItemProtectionTransaction>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferPublicationRecoveryAgent>
+  <class name="TransferPublicationRecoveryAgent">
+	<main>
+	  <summary>Runs jittered periodic recovery for durable publication journals left by interrupted publication workflows.</summary>
+	</main>
+	<field name="scopes">
+	  <summary>Factory used to create a scoped service provider for each recovery attempt.</summary>
+	</field>
+	<field name="coordinator">
+	  <summary>Coordinates exclusive item access across concurrent and cross-process transfer operations.</summary>
+	</field>
+	<field name="grainFactory">
+	  <summary>Creates Orleans clients used to update catalog grains during publication recovery.</summary>
+	</field>
+	<field name="dataConfigs">
+	  <summary>Resolves configured tenant storage for trusted publication-recovery candidates.</summary>
+	</field>
+	<field name="storageFactory">
+	  <summary>Creates token-scoped tenant storage instances used to read and clean recovery artifacts.</summary>
+	</field>
+	<field name="options">
+	  <summary>Controls scan polling, leader retry, jitter, candidate paging, and terminal failure handling.</summary>
+	</field>
+	  <field name="leaderLock">
+		<summary>Provides a named PostgreSQL advisory-lock lease so only one replica scans and processes recovery journals at a time.</summary>
+	</field>
+	<constructor name="TransferPublicationRecoveryAgent">
+	  <summary>Initializes the publication recovery agent dependencies and recovery policy.</summary>
+	  <param name="scopes" Cref="IServiceScopeFactory">Factory used to create a scoped service provider for each recovery attempt.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Coordinates exclusive item access across concurrent and cross-process transfer operations.</param>
+	  <param name="grainFactory" Cref="IGrainFactory">Creates Orleans clients used to update catalog grains during publication recovery.</param>
+	  <param name="dataConfigs" Cref="IDataControlDataConfigsClient">Resolves configured tenant storage for trusted recovery candidates.</param>
+	  <param name="storageFactory" Cref="ITenantTransferStorageFactory">Creates storage clients for token-scoped publication artifacts.</param>
+	  <param name="leaderLock" Cref="IPostgresAdvisoryLeaderLock">Provides exclusive named database-backed worker leadership.</param>
+	  <param name="options" Cref="IOptions{TransferPublicationRecoveryAgentOptions}">Controls scan polling, leader retry, jitter, candidate paging, and terminal failure threshold.</param>
+	</constructor>
+	<method name="ExecuteAsync">
+	  <summary>Waits a randomized startup delay, acquires named PostgreSQL advisory-lock leadership, retries followers at the configured leader retry interval, verifies the lock connection, scans candidates in configured pages up to a fixed UTC cutoff, and retains leadership across jittered recovery cycles until the host is stopping.</summary>
+	  <param name="stoppingToken" Cref="CancellationToken">Signals that the hosted service must stop scanning and exit.</param>
+	</method>
+	<method name = "CreateRecoveryStore">
+		<summary>Selects the trusted candidate's catalog in the scoped tenant storage context before recovery accesses payloads.</summary>
+		<param name = "publications" Cref = "IDataControlPublicationTransferStore">Publication store used for recovery.</param>
+		<param name = "silo" Cref = "StorageSilo">Configured storage silo for the candidate catalog.</param>
+		<param name = "serviceProvider" Cref = "IServiceProvider">Scoped services containing tenant storage context.</param>
+		<returns Cref = "IDataControlPublicationTransferStore">Publication store with its tenant context initialized.</returns>
+	</method>
+	<method name="GetRandomDelay">
+	  <summary>Returns a uniformly selected delay from zero through the supplied maximum, inclusive.</summary>
+	  <param name="maximum" Cref="TimeSpan">Maximum permitted delay.</param>
+	  <returns Cref="TimeSpan">Random delay, or zero when the maximum is zero.</returns>
+	</method>
+	<method name="RecoverPublicationAsync">
+	  <summary>Acquires cross-process item and session locks for a candidate, reloads the current journal, confirms that its catalog-owned item instance token is still active, removes finalized journals without requiring a storage silo, then finalizes or records failure according to the configured recovery policy.</summary>
+	  <param name="candidate" Cref="TransferPublicationRecoveryCandidate">Lightweight candidate from the current recovery scan.</param>
+	  <param name="publications" Cref="IDataControlPublicationTransferStore">Scoped publication store used to load, advance, and retire the journal.</param>
+	  <param name="serviceProvider" Cref="IServiceProvider">Scoped service provider used to resolve the transfer-family services.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the recovery attempt.</param>
+	</method>
+	<method name="RecoverSegmentedAsync">
+	  <summary>Recovers a segmented publication only when the session manifest item instance token matches the journal, then resumes the artifact, catalog, and transfer-finalization phases.</summary>
+	  <param name="journal" Cref="TransferPublicationJournal">Durable journal describing the interrupted segmented publication.</param>
+	  <param name="silo" Cref="StorageSilo">Configured storage silo that owns the transfer artifacts.</param>
+	  <param name="mutationScope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks for the recovery attempt.</param>
+	  <param name="segmented" Cref="IDataItemSegmentedTransferService">Segmented transfer service used to resume and finalize the publication.</param>
+	  <param name="publications" Cref="IDataControlPublicationTransferStore">Scoped publication store used to load transfer artifacts and advance the journal.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the recovery attempt.</param>
+	  <returns Cref="Task{PublicationRecoveryResult}">A task that reports whether all phases are finalized or provides the reason recovery must be retried.</returns>
+	</method>
+	<method name="RecoverStreamAsync">
+	  <summary>Recovers a stream publication only when the session manifest item instance token matches the journal, then replays journal-authoritative preparation and resumes artifact, catalog, and transfer-finalization phases.</summary>
+	  <param name="journal" Cref="TransferPublicationJournal">Durable journal describing the interrupted stream publication.</param>
+	  <param name="silo" Cref="StorageSilo">Configured storage silo that owns the transfer artifacts.</param>
+	  <param name="mutationScope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks for the recovery attempt.</param>
+	  <param name="stream" Cref="IDataStreamTransferService">Stream transfer service used to resume and finalize the publication.</param>
+	  <param name="publications" Cref="IDataControlPublicationTransferStore">Scoped publication store used to load transfer artifacts and advance the journal.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the recovery attempt.</param>
+	  <returns Cref="Task{PublicationRecoveryResult}">A task that reports whether all phases are finalized or provides the reason recovery must be retried.</returns>
+	</method>
+	<method name="RecordFailureAsync">
+	  <summary>Records a recovery failure and retains the journal in the Failed phase when the configured retry threshold is reached.</summary>
+	  <param name="journal" Cref="TransferPublicationJournal">Journal whose attempt metadata should be updated.</param>
+	  <param name="publications" Cref="IDataControlPublicationTransferStore">Scoped publication store used to record the journal failure and terminal phase.</param>
+	  <param name="error" Cref="String">Failure reason produced by the recovery attempt.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for recording the failure.</param>
+	</method>
+  </class>
+</TransferPublicationRecoveryAgent>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferPublicationRecoveryCandidate>
+	<record name="TransferPublicationRecoveryCandidate">
+		<main>
+			<summary>Identifies a recoverable publication journal without materializing its payload.</summary>
+			<param name="Updated" Cref="DateTimeOffset">Journal update timestamp used for stable keyset ordering.</param>
+			<param name="SessionID" Cref="Guid">Transfer session identifier.</param>
+			<param name="ItemID" Cref="Guid">Item identifier used to acquire the mutation lock.</param>
+			<param name="OperationID" Cref="Guid">Publication operation identifier checked after acquiring the lock.</param>
+			<param name="CatalogName" Cref="String">Owning catalog used to scope journal and transfer-session recovery.</param>
+		</main>
+	</record>
+</TransferPublicationRecoveryCandidate>

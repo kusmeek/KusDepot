@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommonIdentificationFactory>
+  <class name="CommonIdentificationFactory">
+    <main>
+      <summary>Create, serialize, and parse signed common-identification artifacts.</summary>
+      <remarks>
+        <para>Envelope Layout:</para>
+        <list type="bullet">
+          <item><description>[0]                  : EnvelopeVersion (1 byte)</description></item>
+          <item><description>[1]                  : SignatureAlgorithm (1 byte, `1` = RSA-PSS SHA-512)</description></item>
+          <item><description>[2..5]               : DataLength (UInt32, big-endian) = D</description></item>
+          <item><description>[6..(6+D-1)]         : Canonical common-identification data bytes</description></item>
+          <item><description>[..]                 : SignatureLength (UInt32, big-endian) = S</description></item>
+          <item><description>[..]                 : Signature bytes</description></item>
+        </list>
+        <para>Canonical Data Layout:</para>
+        <list type="bullet">
+          <item><description>[0]                  : DataVersion (1 byte)</description></item>
+          <item><description>[1..16]              : identification Id (Guid bytes)</description></item>
+          <item><description>[17..32]             : IssuerObjectId (Guid bytes)</description></item>
+          <item><description>[33]                 : HasSubjectObjectId (1 byte)</description></item>
+          <item><description>[34..49]             : Optional SubjectObjectId (Guid bytes when present)</description></item>
+          <item><description>[..]                 : CreatedAtUnix (Int64, big-endian, seconds)</description></item>
+          <item><description>[..]                 : NotBeforeUnix (Int64, big-endian, seconds)</description></item>
+          <item><description>[..]                 : HasExpiresAt (1 byte)</description></item>
+          <item><description>[..]                 : Optional ExpiresAtUnix (Int64, big-endian, seconds when present)</description></item>
+          <item><description>[..]                 : PurposeLength (UInt16, big-endian) = P</description></item>
+          <item><description>[..]                 : Purpose UTF-8 bytes</description></item>
+          <item><description>[..]                 : ThumbprintLength (UInt16, big-endian) = T</description></item>
+          <item><description>[..]                 : Thumbprint UTF-8 bytes</description></item>
+        </list>
+        <para>Security Properties:</para>
+        <list type="bullet">
+          <item><description>The signature target is the canonical common-identification data bytes only.</description></item>
+          <item><description>Verification requires the resolved signer certificate thumbprint to match the data thumbprint exactly.</description></item>
+          <item><description>`NotBefore` is mandatory. `ExpiresAt` is optional and, when absent, the artifact has no expiration boundary.</description></item>
+        </list>
+      </remarks>
+    </main>
+
+    <field name="DataVersion" Cref="Byte"><summary>Current canonical common-identification data version.</summary></field>
+    <field name="EnvelopeVersion" Cref="Byte"><summary>Current signed envelope version.</summary></field>
+    <field name="SignatureAlgorithmRsaSha512Pss" Cref="Byte"><summary>Internal signature algorithm discriminator for RSA-PSS SHA-512.</summary></field>
+    <field name="ByteSize" Cref="Int32"><summary>Serialized size of a single byte field.</summary></field>
+    <field name="GuidSize" Cref="Int32"><summary>Serialized size of a Guid value written with <see cref="M:System.Guid.TryWriteBytes(System.Span{System.Byte})"/>.</summary></field>
+    <field name="Int64Size" Cref="Int32"><summary>Serialized size of a 64-bit integer field.</summary></field>
+    <field name="UInt16Size" Cref="Int32"><summary>Serialized size of a 16-bit unsigned integer field.</summary></field>
+    <field name="UInt32Size" Cref="Int32"><summary>Serialized size of a 32-bit unsigned integer field.</summary></field>
+    <method name="TryCreateArtifact">
+      <summary>Create a signed <see cref="CommonIdentification"/> artifact from canonical data and an issuer certificate.</summary>
+      <param name="data" Cref="CommonIdentificationData">Canonical common-identification data to serialize and sign.</param>
+      <param name="certificate" Cref="X509Certificate2?">Issuer certificate containing the RSA private key used to sign the canonical data. The certificate thumbprint must match <see cref="P:KusDepot.CommonIdentificationData.Thumbprint"/> exactly.</param>
+      <param name="identification" Cref="CommonIdentification">Output signed common-identification artifact.</param>
+      <returns Cref="Boolean">True when the data was valid and the signed artifact was created successfully; otherwise false.</returns>
+    </method>
+
+    <method name="TryCreateBytes">
+      <summary>Create serialized signed common-identification bytes from canonical data and an issuer certificate.</summary>
+      <param name="data" Cref="CommonIdentificationData">Canonical common-identification data to serialize and sign.</param>
+      <param name="certificate" Cref="X509Certificate2?">Issuer certificate containing the RSA private key used to sign the canonical data.</param>
+      <param name="identification" Cref="Byte[]">Output signed common-identification bytes.</param>
+      <returns Cref="Boolean">True when the artifact was created and serialized successfully; otherwise false.</returns>
+    </method>
+
+    <method name="TryReadArtifact">
+      <summary>Read serialized signed common-identification bytes into a parsed <see cref="CommonIdentification"/> artifact without performing trust or time validation.</summary>
+      <param name="identification" Cref="ReadOnlySpan{Byte}">Serialized signed common-identification bytes.</param>
+      <param name="artifact" Cref="CommonIdentification">Output parsed common-identification artifact.</param>
+      <returns Cref="Boolean">True when the envelope and canonical data were parsed successfully; otherwise false.</returns>
+    </method>
+
+    <method name="TryReadParts">
+      <summary>Read serialized signed common-identification bytes into canonical data and signature parts.</summary>
+      <param name="identification" Cref="ReadOnlySpan{Byte}">Serialized signed common-identification bytes.</param>
+      <param name="data" Cref="CommonIdentificationData">Output canonical common-identification data.</param>
+      <param name="signature" Cref="Byte[]">Output embedded signature bytes.</param>
+      <returns Cref="Boolean">True when the envelope and canonical data were parsed successfully; otherwise false.</returns>
+    </method>
+
+    <method name="BuildEnvelope">
+		<summary>Build the signed binary envelope for a parsed common-identification artifact.</summary>
+		<param name="identification" Cref="CommonIdentification">Parsed artifact to serialize.</param>
+		<returns Cref="Byte[]">Canonical signed envelope bytes.</returns>
+	</method>
+    <method name="TryReadEnvelope">
+		<summary>Read the outer signed envelope into canonical data and signature byte segments.</summary>
+		<param name="identification" Cref="ReadOnlySpan{Byte}">Serialized signed common-identification bytes.</param>
+		<param name="databytes" Cref="ReadOnlySpan{Byte}">Output canonical data bytes.</param>
+		<param name="signaturebytes" Cref="ReadOnlySpan{Byte}">Output signature bytes.</param>
+		<returns Cref="Boolean">True when the envelope structure was well formed; otherwise false.</returns>
+	</method>
+    <method name="TryReadData">
+		<summary>Parse canonical data bytes into a structured <see cref="CommonIdentificationData"/> instance.</summary>
+		<param name="databytes" Cref="ReadOnlySpan{Byte}">Canonical common-identification data bytes.</param>
+		<param name="data" Cref="CommonIdentificationData">Output parsed common-identification data.</param>
+		<returns Cref="Boolean">True when the canonical data parsed and passed invariant validation; otherwise false.</returns>
+	</method>
+    <method name="TryWriteData">
+		<summary>Serialize canonical common-identification data into its fixed binary layout.</summary>
+		<param name="data" Cref="CommonIdentificationData">Canonical common-identification data to serialize.</param>
+		<param name="databytes" Cref="Byte[]">Output canonical common-identification data bytes.</param>
+		<returns Cref="Boolean">True when serialization succeeded; otherwise false.</returns>
+	</method>
+    <method name="TryReadOptionalDateTimeOffset">
+		<summary>Read an optional Unix-seconds DateTimeOffset field from the canonical binary layout.</summary>
+		<param name="reader" Cref="KusDepot.Serialization.Buffers.BufferSpanReader">Reference reader positioned on the optional date value.</param>
+		<param name="present" Cref="Boolean">True when the optional value is present in the payload.</param>
+		<param name="value" Cref="DateTimeOffset?">Output optional DateTimeOffset value.</param>
+	  <returns Cref="Boolean">True when parsing succeeded; otherwise false.</returns>
+	</method>
+    <method name="TryReadOptionalGuid">
+		<summary>Read an optional Guid field from the canonical binary layout.</summary>
+	  <param name="reader" Cref="KusDepot.Serialization.Buffers.BufferSpanReader">Reference reader positioned on the optional Guid value.</param>
+		<param name="present" Cref="Boolean">True when the optional Guid is present in the payload.</param>
+		<param name="value" Cref="Guid?">Output optional Guid value.</param>
+		<returns Cref="Boolean">True when parsing succeeded; otherwise false.</returns>
+	</method>
+    <method name="TryReadUtf8String">
+		<summary>Read a length-prefixed UTF-8 string field from the canonical binary layout.</summary>
+		<param name="reader" Cref="KusDepot.Serialization.Buffers.BufferSpanReader">Reference reader positioned on the string field.</param>
+		<param name="value" Cref="String">Output decoded string.</param>
+		<returns Cref="Boolean">True when parsing and UTF-8 decoding succeeded; otherwise false.</returns>
+	</method>
+  </class>
+</CommonIdentificationFactory>

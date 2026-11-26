@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<StagedFileTransformRollbackException>
+
+	<class name = "StagedFileTransformRollbackException">
+
+		<main>
+
+			<summary>Internal exception describing a failed staged-file rollback.</summary>
+
+			<remarks>Preserves the destination, backup, and staging paths so recovery artifacts can be identified without deleting ambiguous files. The underlying filesystem error is available as the inner exception.</remarks>
+
+		</main>
+
+		<property name = "DestinationPath"><summary>Gets the intended destination path.</summary></property>
+
+		<property name = "BackupPath"><summary>Gets the path of the original-file backup, when available.</summary></property>
+
+		<property name = "StagingPath"><summary>Gets the path of the staged replacement, when available.</summary></property>
+
+	</class>
+
+</StagedFileTransformRollbackException>

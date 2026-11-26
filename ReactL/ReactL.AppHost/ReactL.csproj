@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <AssemblyName>ReactorLab</AssemblyName>
+
+        <TargetFramework>net11.0</TargetFramework>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+        <DockerfileContext>../..</DockerfileContext>
+
+        <AspireUseCliBundle>True</AspireUseCliBundle>
+
+        <DockerfileTag>kusdepotreactorlab</DockerfileTag>
+
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Settings">
+
+      <None Update="appsettings.json">
+
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+      </None>
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+
+        <PackageReference Include="Aspire.Hosting.Dotnet" />
+
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" IsAspireProjectResource="false" />
+
+        <PackageReference Include="Serilog.AspNetCore" IsAspireProjectResource="false" />
+
+        <PackageReference Include="Serilog.Sinks.Console" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\..\KusDepot.ASPR\KusDepot.ASPR.csproj" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\..\ReactF\ReactF.fsproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\ReactG\ReactG.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\ReactJ\ReactJ.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\ReactN\ReactN.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\ReactP\ReactP.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\ReactR\ReactR.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\..\Reacts\Reacts.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+    </ItemGroup>
+
+</Project>

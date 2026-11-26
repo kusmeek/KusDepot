@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Delete>
+  <class name="DataControl">
+	<method name="Delete">
+	  <summary>Attempts to delete an item immediately while holding its item lock; if the lock is busy or retryable work remains, records durable work and returns HTTP 202 for background continuation.</summary>
+	  <param name="id" Cref="String">Published item identifier.</param>
+	  <param name="gf" Cref="IGrainFactory">Orleans grain factory for catalog access.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Cross-process item mutation coordinator.</param>
+	  <param name="deletionProcessor" Cref="DataControlDeletionProcessor">Shared durable deletion-stage processor.</param>
+	  <param name="hc" Cref="HttpContext">Request context containing tenant authorization and caller cancellation.</param>
+	  <returns Cref="Task{IResult}">Returns HTTP 200 when cleanup completes in this request, HTTP 202 when durable cleanup is queued or remains pending, HTTP 400 for an invalid item identifier, HTTP 401 when authorization fails, HTTP 404 when the item does not exist or is already deleted, HTTP 409 for an upload or recoverable-publication conflict detected after acquiring the item lock, or HTTP 500 for an unexpected failure. If the item lock is busy, the intent is queued without upload/publication conflict checks. No status URL is returned.</returns>
+	</method>
+  </class>
+</Delete>

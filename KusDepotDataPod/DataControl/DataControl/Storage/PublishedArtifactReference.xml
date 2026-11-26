@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedArtifactReference>
+	<record name = "PublishedArtifactReference">
+		<main><summary>Describes a verified final artifact in the tenant's published container.</summary></main>
+		<property name = "BlobName" Cref = "String"><summary>Final artifact blob name.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Final artifact length in bytes.</summary></property>
+		<property name = "SHA512" Cref = "Byte[]"><summary>SHA-512 digest of the final artifact content when available; server-side assembled stream artifacts may not provide a flat digest because their integrity is represented by the transfer integrity tree.</summary></property>
+	</record>
+</PublishedArtifactReference>

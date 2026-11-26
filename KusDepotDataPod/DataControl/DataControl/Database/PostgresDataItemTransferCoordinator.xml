@@ -1,0 +1,78 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PostgresDataItemTransferCoordinator>
+	<class name = "PostgresDataItemTransferCoordinator">
+		<main><summary>Coordinates transfer ownership with PostgreSQL advisory locks.</summary></main>
+		<field name = "dataSource" Cref = "NpgsqlDataSource"><summary>Configured PostgreSQL data source used to open connections for advisory locks.</summary></field>
+		<constructor name = "PostgresDataItemTransferCoordinator">
+			<summary>Initializes a PostgreSQL transfer coordinator.</summary>
+			<param name = "dataSource" Cref = "NpgsqlDataSource">Configured PostgreSQL data source used to open advisory-lock connections.</param>
+		</constructor>
+		<method name = "AcquireLockAsync">
+			<summary>Opens a PostgreSQL connection and acquires an advisory lock for a namespaced identifier.</summary>
+			<param name = "kind" Cref = "String">Lock namespace.</param>
+			<param name = "id" Cref = "Guid">Identifier to lock.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IAsyncDisposable}">An owned lock handle that releases the advisory lock and connection when disposed.</returns>
+		</method>
+		<method name = "AcquireAdvisoryLockAsync">
+			<summary>Acquire an advisory lock on an existing connection.</summary>
+			<param name = "connection" Cref = "NpgsqlConnection">Connection that will own the lock.</param>
+			<param name = "key" Cref = "Int64">Advisory-lock key.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task">The asynchronous lock acquisition.</returns>
+		</method>
+		<method name = "ComputeLockKey">
+			<summary>Computes the PostgreSQL advisory-lock key for a namespaced identifier.</summary>
+			<param name = "kind" Cref = "String">Lock namespace.</param>
+			<param name = "id" Cref = "Guid">Identifier to include in the lock key.</param>
+			<returns Cref = "Int64">The deterministic signed advisory-lock key.</returns>
+		</method>
+	</class>
+	<class name = "TransferMutationScope">
+		<main><summary>Owns the item and session advisory locks for one transfer mutation scope.</summary></main>
+		<field name = "lease" Cref = "ITransferItemLockLease"><summary>Lease owning both advisory locks and their connection.</summary></field>
+		<field name = "released" Cref = "Int32"><summary>Tracks whether the scope has released its locks.</summary></field>
+		<constructor name = "TransferMutationScope">
+			<summary>Initializes a mutation scope with its acquired item and session locks.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier protected by the scope.</param>
+			<param name = "sessionid" Cref = "Guid">Session identifier protected by the scope.</param>
+			<param name = "lease" Cref = "ITransferItemLockLease">Lease owning the acquired locks.</param>
+		</constructor>
+		<property name = "ItemID" Cref = "Guid"><summary>Gets the item identifier protected by the scope.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Gets the session identifier protected by the scope.</summary></property>
+		<method name = "DisposeAsync"><summary>Releases the session lock and then the item lock once.</summary></method>
+	</class>
+	<class name = "PostgresItemLockLease">
+		<main><summary>Owns an item lock and optionally a session lock on one PostgreSQL connection.</summary></main>
+		<field name = "dataSource" Cref = "NpgsqlDataSource"><summary>Data source that owns the connection pool.</summary></field>
+		<field name = "connection" Cref = "NpgsqlConnection"><summary>Connection that owns the advisory locks.</summary></field>
+		<field name = "itemKey" Cref = "Int64"><summary>Item advisory-lock key.</summary></field>
+		<field name = "gate" Cref = "SemaphoreSlim"><summary>Serializes acquisition and disposal of the lease.</summary></field>
+		<field name = "sessionKey" Cref = "Int64?" ><summary>Acquired session advisory-lock key, if any.</summary></field>
+		<field name = "released" Cref = "Boolean"><summary>Tracks whether the connection has been released.</summary></field>
+		<constructor name = "PostgresItemLockLease">
+			<summary>Initializes a lease for an acquired item lock.</summary>
+			<param name = "dataSource" Cref = "NpgsqlDataSource">Data source that owns the connection pool.</param>
+			<param name = "connection" Cref = "NpgsqlConnection">Connection that owns the item lock.</param>
+			<param name = "itemKey" Cref = "Int64">Item advisory-lock key.</param>
+		</constructor>
+		<method name = "ReleaseLockAsync">
+			<summary>Release an advisory lock held by the lease connection.</summary>
+			<param name = "key" Cref = "Int64">Advisory-lock key.</param>
+			<returns Cref = "Task">The asynchronous release operation.</returns>
+		</method>
+	</class>
+	<class name = "PostgresLock">
+		<main><summary>Owns one PostgreSQL advisory lock and its connection.</summary></main>
+		<field name = "connection" Cref = "NpgsqlConnection"><summary>The PostgreSQL connection that owns the advisory lock.</summary></field>
+		<field name = "key" Cref = "Int64"><summary>The advisory-lock key to release.</summary></field>
+		<field name = "released" Cref = "Int32"><summary>Tracks whether the lock has been released.</summary></field>
+		<constructor name = "PostgresLock">
+			<summary>Initializes an owned PostgreSQL advisory lock.</summary>
+			<param name = "connection" Cref = "NpgsqlConnection">Connection that owns the advisory lock.</param>
+			<param name = "key" Cref = "Int64">Advisory-lock key.</param>
+		</constructor>
+		<method name = "DisposeAsync"><summary>Releases the PostgreSQL advisory lock and disposes its connection once.</summary></method>
+	</class>
+</PostgresDataItemTransferCoordinator>

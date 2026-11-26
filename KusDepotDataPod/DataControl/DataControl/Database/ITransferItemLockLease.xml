@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ITransferItemLockLease>
+	<interface name = "ITransferItemLockLease">
+		<main><summary>Owns an item advisory lock and optionally one session advisory lock on the same connection.</summary></main>
+		<method name = "AcquireSessionLockAsync">
+			<summary>Acquire the session lock while retaining the item lock.</summary>
+			<remarks>Only one session lock may be acquired. The caller must dispose the lease even if acquisition fails. Disposing releases the session lock before the item lock. If the database acquisition fails, the lease is invalidated and must not be used.</remarks>
+			<param name = "sessionid" Cref = "Guid">Session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task">The asynchronous lock acquisition.</returns>
+		</method>
+	</interface>
+</ITransferItemLockLease>

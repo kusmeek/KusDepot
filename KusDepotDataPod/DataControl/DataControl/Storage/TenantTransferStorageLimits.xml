@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TenantTransferStorageLimits>
+	<class name = "TenantTransferStorageLimits">
+		<main><summary>Azure Blob Storage block-size and block-count limits used by tenant transfer publication.</summary></main>
+		<field name = "MaximumBlockSizeBytes" Cref = "Int64"><summary>Maximum number of bytes allowed in one storage block.</summary></field>
+		<field name = "MaximumBlockCount" Cref = "Int32"><summary>Maximum number of committed blocks allowed in a blob.</summary></field>
+		<method name = "CountBlocks"><summary>Count the destination blocks needed for a nonempty logical range.</summary><param name = "length" Cref = "Int64">Length of the range in bytes.</param><param name = "maximumBlockSizeBytes" Cref = "Int64">Maximum size of each destination block in bytes.</param><returns Cref = "Int64">The number of destination blocks needed to cover the range.</returns><exception cref = "ArgumentOutOfRangeException">Thrown when either length or maximum block size is not positive.</exception></method>
+		<method name = "ValidateBudget"><summary>Validate that requested destination blocks fit within the publication budget.</summary><param name = "sessionid" Cref = "Guid">Transfer session identifier associated with a budget failure.</param><param name = "currentBlocks" Cref = "Int64">Number of blocks already planned.</param><param name = "requestedBlocks" Cref = "Int64">Number of additional blocks requested.</param><exception cref = "InvalidOperationException">Thrown when either block count is negative.</exception><exception cref = "PublicationBlockLimitException">Thrown when the current or combined count exceeds the maximum.</exception></method>
+	</class>
+</TenantTransferStorageLimits>

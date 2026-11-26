@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<GetTransferIntegrityEvidence>
+
+	<record name="GetTransferIntegrityEvidenceRequest">
+		<main><summary>Requests authoritative integrity evidence for a transfer prefix.</summary></main>
+		<property name="ItemID" Cref="Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name="SessionID" Cref="Guid"><summary>Transfer session identifier.</summary></property>
+		<property name="TransferFamily" Cref="DataControlTransferFamily"><summary>Transfer family of the requested session.</summary></property>
+		<property name="PrefixLength" Cref="Int64"><summary>Exact prefix length for which integrity evidence is requested.</summary></property>
+	</record>
+
+	<record name="GetTransferIntegrityEvidenceResponse">
+		<main><summary>Returns authoritative integrity evidence for a transfer prefix.</summary></main>
+		<property name="ItemID" Cref="Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name="SessionID" Cref="Guid"><summary>Requested transfer session identifier.</summary></property>
+		<property name="SourceSessionID" Cref="Guid"><summary>Canonical source session identifier, when the requested session follows another transfer.</summary></property>
+		<property name="SourceStateVersion" Cref="Int64?"><summary>Source state version associated with this evidence snapshot, or null for immutable published content.</summary></property>
+		<property name="Integrity" Cref="TransferContentIntegrity"><summary>Integrity summary for the requested prefix.</summary></property>
+		<property name="Segments" Cref="TransferContentIntegritySegment[]"><summary>Canonical source segments covering the requested prefix.</summary></property>
+		<property name="IsPublished" Cref="Boolean"><summary>True when the requested prefix is backed by immutable published content.</summary></property>
+	</record>
+
+</GetTransferIntegrityEvidence>

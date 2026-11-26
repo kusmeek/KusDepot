@@ -1,0 +1,288 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MultiMediaItem>
+
+    <class name = "MultiMediaItem">
+
+        <main>
+
+            <summary>Audio | Image | Video.</summary>
+
+            <remarks>This item wraps a live stream and/or contains media images or samples for consumption.</remarks>
+
+        </main>
+
+        <method name = "CaptureContentIntegritySnapshot_NoSync">
+            <summary>Capture the MultiMediaItem content projection used by canonical content-integrity hashing.</summary>
+            <remarks>Uses encrypted bytes when encrypted, in-memory bytes when resident, or a stream-backed value for streamed content. Media metadata is excluded.</remarks>
+            <returns Cref = "ContentIntegritySnapshot">Captured MultiMediaItem content projection.</returns>
+        </method>
+
+        <method name = "CaptureContentMutationMemento_NoSync">
+            <summary>Capture the resident media bytes for rollback of a rejected content update.</summary>
+            <remarks>The memento restores the prior Content array reference; DataItemStateSnapshot restores shared protection and integrity state.</remarks>
+            <returns Cref = "DataItemContentMutationMemento">Memento for the current media payload.</returns>
+        </method>
+
+
+        <field name = "Album" Cref = "String?">
+
+            <summary>Media Album.</summary>
+
+        </field>
+
+        <field name = "Artist" Cref = "String?">
+
+            <summary>Media Artist.</summary>
+
+        </field>
+
+        <content name = "Content" Cref = "Byte[]?">
+
+            <summary>Item Content.</summary>
+
+        </content>
+
+        <field name = "Language" Cref = "String?">
+
+            <summary>Current Language.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "MultiMediaItemSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "Title" Cref = "String?">
+
+            <summary>Media Title.</summary>
+
+        </field>
+
+        <field name = "Year" Cref = "Int32?">
+
+            <summary>Year.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "MultiMediaItem">New MultiMediaItem.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Media Content.</param>
+
+            <param name = "file" Cref = "String?">File.</param>
+
+            <param name = "id" Cref = "Guid?">Media ID.</param>
+
+            <param name = "name" Cref = "String?">Item Name.</param>
+
+            <param name = "artist" Cref = "String?">Media Artist.</param>
+
+            <param name = "notes" Cref = "IEnumerable{String}?">Media Notes.</param>
+
+            <param name = "tags" Cref = "IEnumerable{String}?">Tags.cs.</param>
+
+            <param name = "title" Cref = "String?">Media Title.</param>
+
+            <param name = "type" Cref = "String?">Media DataType.</param>
+
+            <returns Cref = "MultiMediaItem">MultiMediaItem.</returns>
+
+        </constructor>
+
+        <method name = "op_Explicit">
+
+            <summary>Store array in MultiMediaItem.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Item Content.</param>
+
+            <returns Cref = "MultiMediaItem?">MultiMediaItem created from Content.</returns>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "MultiMediaItem?">A MultiMediaItem.</param>
+
+            <param name = "b" Cref = "MultiMediaItem?">Other MultiMediaItem.</param>
+
+            <returns Cref = "Boolean">True if MultiMediaItems are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "MultiMediaItem?">A MultiMediaItem.</param>
+
+            <param name = "b" Cref = "MultiMediaItem?">Other MultiMediaItem.</param>
+
+            <returns Cref = "Boolean">True if MultiMediaItems are not equal.</returns>
+
+        </method>
+
+        <method name = "FromFile">
+
+            <summary>Create from file.</summary>
+
+            <param name = "path" Cref = "String">Absolute path and file name.</param>
+
+            <returns Cref = "MultiMediaItem?">Object created from file.</returns>
+
+        </method>
+
+        <method name = "GetAlbum">
+
+            <summary>Get Album.</summary>
+
+            <returns Cref = "String?">Album.</returns>
+
+        </method>
+
+        <method name = "GetArtist">
+
+            <summary>Get Artist.</summary>
+
+            <returns Cref = "String?">Artist.</returns>
+
+        </method>
+
+        <method name = "GetContent">
+
+            <summary>Get Content.</summary>
+
+            <remarks>Returns resident content without checking streamed mode or reading the file. Use GetContentStream for streamed content.</remarks>
+
+            <returns Cref = "Byte[]?">Content.</returns>
+
+        </method>
+
+        <method name = "GetLanguage">
+
+            <summary>Get Language.</summary>
+
+            <returns Cref = "String?">Language.</returns>
+
+        </method>
+
+        <method name = "GetTitle">
+
+            <summary>Get Title.</summary>
+
+            <returns Cref = "String?">Title.</returns>
+
+        </method>
+
+        <method name = "GetYear">
+
+            <summary>Get Year.</summary>
+
+            <returns Cref = "Int32?">Year.</returns>
+
+        </method>
+
+        <method name = "OnDeserialized">
+
+            <summary>Serialization Support.</summary>
+
+            <param name = "context" Cref = "StreamingContext">Unused.</param>
+
+        </method>
+
+        <method name = "Parse">
+
+            <summary>Parse MultiMediaItem.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <returns Cref = "MultiMediaItem?">Parsed MultiMediaItem.</returns>
+
+        </method>
+
+        <method name = "SetAlbum">
+
+            <summary>Set Album.</summary>
+
+            <param name = "album" Cref = "String?">Album.</param>
+
+            <returns Cref = "Boolean">True if Album was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetArtist">
+
+            <summary>Set Artist.</summary>
+
+            <param name = "artist" Cref = "String?">Artist.</param>
+
+            <returns Cref = "Boolean">True if Artist was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetContent">
+
+            <summary>Set Content.</summary>
+
+            <param name = "content" Cref = "Byte[]?">Content.</param>
+
+            <param name = "security" Cref = "DataItemSecurityContext?">Security context.</param>
+
+            <returns Cref = "Boolean">Returns true if Content was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetLanguage">
+
+            <summary>Set Language.</summary>
+
+            <param name = "language" Cref = "String?">Language.</param>
+
+            <returns Cref = "Boolean">Returns true if Language was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetTitle">
+
+            <summary>Set Title.</summary>
+
+            <param name = "title" Cref = "String?">Title.</param>
+
+            <returns Cref = "Boolean">Returns true if Title was set successfully.</returns>
+
+        </method>
+
+        <method name = "SetYear">
+
+            <summary>Set Year.</summary>
+
+            <param name = "year" Cref = "Int32?">Year.</param>
+
+            <returns Cref = "Boolean">Returns true if Year was set successfully.</returns>
+
+        </method>
+
+        <property name = "ExtensionData" Cref = "ExtensionDataObject?">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</MultiMediaItem>

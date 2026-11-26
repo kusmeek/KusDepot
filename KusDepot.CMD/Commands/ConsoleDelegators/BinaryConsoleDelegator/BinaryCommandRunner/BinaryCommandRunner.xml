@@ -1,0 +1,121 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryCommandRunner>
+
+    <class name = "BinaryCommandRunner">
+
+        <main>
+
+            <summary>Runs the command and binds binary CliWrap output and error streams to <see cref="BinaryCommandObserver"/> callbacks.</summary>
+
+        </main>
+
+        <field name = "observer" Cref = "BinaryCommandObserver">
+
+            <summary>Binary Command Observer used to receive notifications and data.</summary>
+
+        </field>
+
+        <field name = "buffered" Cref = "Boolean">
+
+            <summary>Indicates whether RunAsync will return a <see cref="BinaryCommandResult"/> with binary output buffers.</summary>
+
+        </field>
+
+        <field name = "StdOutRelay" Cref = "BinaryOutputRelay">
+
+            <summary>Relay that delivers stdout to its observer callback and optionally captures bytes for a buffered result.</summary>
+
+        </field>
+
+        <field name = "StdErrRelay" Cref = "BinaryOutputRelay">
+
+            <summary>Relay that delivers stderr to its observer callback and optionally captures bytes for a buffered result.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Initializes a new BinaryCommandRunner with the specified observer and buffering behavior.</summary>
+
+            <param name = "observer" Cref = "BinaryCommandObserver">Binary Command Observer.</param>
+
+            <param name = "buffered" Cref = "Boolean">True to return a <see cref="BinaryCommandResult"/> with binary output; false to stream output to the observer.</param>
+
+            <returns Cref = "BinaryCommandRunner">New BinaryCommandRunner.</returns>
+
+        </constructor>
+
+        <method name = "CreateStdOutTarget">
+
+            <summary>Creates a PipeTarget that drains standard output into the stdout relay.</summary>
+
+            <returns Cref = "PipeTarget">PipeTarget that writes stdout into the pipe.</returns>
+
+        </method>
+
+        <method name = "CreateStdErrTarget">
+
+            <summary>Creates a PipeTarget that drains standard error into the stderr relay.</summary>
+
+            <returns Cref = "PipeTarget">PipeTarget that writes stderr into the pipe.</returns>
+
+        </method>
+
+        <method name = "RunAsync">
+
+            <summary>Runs the specified CliWrap command, wiring its output and error streams into the observer and returning the final result.</summary>
+
+            <remarks>Starts both observer callbacks before command execution. Each relay drains its process stream independently, and buffered mode captures output while the command is running. If process startup fails, both observer streams complete empty and the launch error is propagated; the exit callback is reserved for a process that started.</remarks>
+
+            <param name = "command" Cref = "CliWrap.Command">CliWrap command to execute.</param>
+
+            <param name = "ct" Cref = "CancellationToken">Forceful cancellation token for the command.</param>
+
+            <param name = "gt" Cref = "CancellationToken">Graceful cancellation token for the command.</param>
+
+            <returns Cref = "Task{CommandResult?}">Task that produces a <see cref="CommandResult"/> when the command and observer processing have completed.</returns>
+
+            <exception Cref = "OperationCanceledException">The forceful or graceful cancellation token cancels command execution.</exception>
+
+        </method>
+
+        <method name = "ObserveAndDrainAsync">
+
+            <summary>Invokes an observer callback on its live stream and drains any bytes the callback leaves unread.</summary>
+
+            <param name = "callback" Cref = "Func{Stream,CancellationToken,Task}">Observer callback for the stream and execution cancellation token.</param>
+
+            <param name = "stream" Cref = "Stream">Live observer-side output stream.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Forceful command cancellation token passed to the callback.</param>
+
+            <returns Cref = "Task{Exception?}">A task that completes after the callback and remaining stream data have completed, returning any callback or drain failure.</returns>
+
+        </method>
+
+        <method name = "IsExpectedCancellation">
+
+            <summary>Determine whether an operation-canceled exception was caused by the supplied cancellation token.</summary>
+
+            <param name = "e" Cref = "OperationCanceledException">Cancellation exception to evaluate.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Token supplied to the operation.</param>
+
+            <returns Cref = "Boolean">True only when the supplied token has been canceled and the exception carries that same token.</returns>
+
+        </method>
+
+        <method name = "CreateBufferedResult">
+
+            <summary>Creates a <see cref="BinaryCommandResult"/> from the captured stdout and stderr bytes.</summary>
+
+            <param name = "baseresult" Cref = "ProcessCommandResult">Base process command result to augment with binary output.</param>
+
+            <returns Cref = "BinaryCommandResult">A result containing the process metadata and complete captured output.</returns>
+
+        </method>
+
+    </class>
+
+</BinaryCommandRunner>

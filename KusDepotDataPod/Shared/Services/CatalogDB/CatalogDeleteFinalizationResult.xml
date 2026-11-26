@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CatalogDeleteFinalizationResult>
+  <enum name="CatalogDeleteFinalizationResult">
+	<main><summary>Outcome of conditionally finalizing deletion for a catalog item instance.</summary></main>
+	<field name="Removed"><summary>The matching pending-delete item was removed.</summary></field>
+	<field name="AlreadyAbsent"><summary>No catalog item with the requested ID exists.</summary></field>
+	<field name="TokenMismatch"><summary>A different item instance currently owns the requested ID.</summary></field>
+	<field name="NotPending"><summary>The matching item exists but is not pending deletion.</summary></field>
+  </enum>
+</CatalogDeleteFinalizationResult>

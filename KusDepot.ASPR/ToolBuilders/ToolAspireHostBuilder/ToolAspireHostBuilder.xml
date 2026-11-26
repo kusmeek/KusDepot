@@ -1,0 +1,107 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolAspireHostBuilder>
+
+    <class name = "ToolAspireHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Aspire Tools.</summary>
+
+        </main>
+
+        <field name = "Link" Cref = "Boolean">
+
+            <summary>True when the Tool host lifetime should also be registered in the distributed application services.</summary>
+
+        </field>
+
+        <field name = "Connect" Cref = "Boolean">
+
+            <summary>True when a shared <see cref="IToolConnect"/> instance should be registered in the distributed application services.</summary>
+
+        </field>
+
+        <field name = "Console" Cref = "Boolean">
+
+            <summary>True when the ToolAspireHost should use console lifetime behavior.</summary>
+
+        </field>
+
+        <field name = "builder" Cref = "IDistributedApplicationBuilder?">
+
+            <summary>The managed <see cref="IDistributedApplicationBuilder"/> used for distributed application composition.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolAspireHostActions" Cref = "List{ConfigureToolAspireHostAction}">
+
+            <summary>Ordered ToolAspireHost configuration actions.</summary>
+
+        </field>
+
+        <method name = "CreateApplicationConnection">
+
+            <summary>Create and register the shared connection when application connection is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime; no connection is created when it is absent.</param>
+
+            <returns Cref = "ToolConnect?">The registered connection, or null when connection is disabled or no Tool lifetime is available.</returns>
+
+            <remarks>Registers the connection in the distributed application services.</remarks>
+
+        </method>
+
+        <method name = "LinkApplicationLifetime">
+
+            <summary>Register the Tool host lifetime in distributed application services when lifetime linking is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime to register.</param>
+
+            <remarks>Does nothing when linking is disabled or no Tool lifetime is available.</remarks>
+
+        </method>
+
+        <method name = "configuretoolaspirehost">
+
+            <summary>Execute Tool Aspire Host Configuration Actions.</summary>
+
+            <param name = "toolaspirehost" Cref = "IToolAspireHost">Built ToolAspireHost.</param>
+
+        </method>
+
+        <method name = "configuretoolaspirehostasync">
+
+            <summary>Execute ToolAspireHost configuration actions asynchronously.</summary>
+
+            <param name = "toolaspirehost" Cref = "IToolAspireHost">Built ToolAspireHost.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolAspireHost_NoSync">
+
+            <summary>Add a tool Aspire host configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolAspireHost}">Configuration action.</param>
+
+            <remarks>Registers a synchronous ToolAspireHost-configuration step in the shared ordered ToolAspireHost-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolAspireHostAsync_NoSync">
+
+            <summary>Add an async ToolAspireHost configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Func{ToolBuilderContext,IToolAspireHost,CancellationToken,Task}">Async configuration action.</param>
+
+            <remarks>Registers an asynchronous ToolAspireHost-configuration step in the shared ordered ToolAspireHost-configuration pipeline.</remarks>
+
+        </method>
+
+    </class>
+
+</ToolAspireHostBuilder>

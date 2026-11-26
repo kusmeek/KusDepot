@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TenantTransferStorageContext>
+  <interface name="ITenantTransferStorageContext">
+	<main>
+	  <summary>Maintains the selected storage silo for the current tenant transfer request and resolves transfer storage instances.</summary>
+	</main>
+	<property name="CatalogName">
+	  <summary>Gets the catalog name for the current transfer request.</summary>
+	  <returns Cref="String">Selected catalog name.</returns>
+	  <exception cref="InvalidOperationException">The storage silo has not been selected.</exception>
+	</property>
+	<method name="Set">
+	  <summary>Selects the storage silo used to resolve tenant transfer storage.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo selected for the current transfer request.</param>
+	</method>
+	<method name="Get">
+	  <summary>Creates tenant transfer storage for a session, item, and item instance using the selected storage silo.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="itemid" Cref="Guid">Data item identifier.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Item instance token used to isolate the staging paths.</param>
+	  <returns Cref="ITenantTransferStorage">Storage for the specified transfer session, item, and item instance.</returns>
+	  <exception cref="InvalidOperationException">The storage silo has not been selected.</exception>
+	</method>
+  </interface>
+  <class name="TenantTransferStorageContext">
+	<main>
+	  <summary>Stores the request-selected storage silo and creates tenant transfer storage instances.</summary>
+	</main>
+	<field name="factory">
+	  <summary>Factory used to create tenant transfer storage instances.</summary>
+	</field>
+	<field name="silo">
+	  <summary>Storage silo selected for the current transfer request.</summary>
+	</field>
+	<property name="CatalogName">
+	  <summary>Gets the catalog name for the current transfer request.</summary>
+	  <returns Cref="String">Selected catalog name.</returns>
+	  <exception cref="InvalidOperationException">The storage silo has not been selected.</exception>
+	</property>
+	<constructor name="TenantTransferStorageContext">
+	  <summary>Initializes a tenant transfer storage context.</summary>
+	  <param name="factory" Cref="ITenantTransferStorageFactory">Factory used to create tenant transfer storage instances.</param>
+	  <exception cref="ArgumentNullException">The storage factory is null.</exception>
+	</constructor>
+	<method name="Set">
+	  <summary>Selects the storage silo used by subsequent storage resolution.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo selected for the current transfer request.</param>
+	  <exception cref="ArgumentNullException">The storage silo is null.</exception>
+	</method>
+	<method name="Get">
+	  <summary>Creates tenant transfer storage for a session, item, and item instance using the selected storage silo.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="itemid" Cref="Guid">Data item identifier.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Item instance token used to isolate the staging paths.</param>
+	  <returns Cref="ITenantTransferStorage">Storage for the specified transfer session, item, and item instance.</returns>
+	  <exception cref="InvalidOperationException">The storage silo has not been selected.</exception>
+	</method>
+  </class>
+</TenantTransferStorageContext>

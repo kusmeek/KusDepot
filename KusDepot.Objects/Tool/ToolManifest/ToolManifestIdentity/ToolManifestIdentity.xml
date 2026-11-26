@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolManifestIdentity>
+
+    <class name = "ToolManifestIdentity">
+
+        <main>
+
+            <summary>Cached tool manifest identity.</summary>
+
+            <remarks>A cached projection of the manifest fields.</remarks>
+
+        </main>
+
+        <property name = "AccessKeyRealmID" Cref = "String"><summary>Current access-key realm identifier used for schema-realm decryptability and validation.</summary></property>
+
+        <property name = "ManifestHash" Cref = "String"><summary>Deterministic manifest hash used for schema drift validation.</summary></property>
+
+        <property name = "ToolSchemaID" Cref = "String"><summary>Tool schema identifier.</summary></property>
+
+        <method name = "CreateManifest">
+
+            <summary>Create a cached tool manifest identity from a tool manifest.</summary>
+
+            <param name = "manifest" Cref = "ToolManifest?">Tool manifest.</param>
+
+            <returns Cref = "ToolManifestIdentity">Cached tool manifest identity.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Create a cached tool manifest identity.</summary>
+
+            <param name = "accesskeyrealmid" Cref = "String?">AccessKeyRealmID.</param>
+
+            <param name = "manifesthash" Cref = "String?">ManifestHash.</param>
+
+            <param name = "toolschemaid" Cref = "String?">ToolSchemaID.</param>
+
+            <returns Cref = "ToolManifestIdentity">Cached tool manifest identity.</returns>
+
+        </method>
+
+        <method name = "Clone">
+
+            <summary>Create a clone of the cached tool manifest identity.</summary>
+
+            <returns Cref = "ToolManifestIdentity">Cloned tool manifest identity.</returns>
+
+        </method>
+
+    </class>
+
+</ToolManifestIdentity>

@@ -1,0 +1,35 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?> 
+
+<Tag>
+
+    <record name = "TagQuery">
+
+        <main>
+
+            <summary>Supports querying Tag records in the Catalog.</summary>
+
+        </main>
+
+        <property name = "CatalogPageSize" Cref = "Int32?"><summary>Maximum records to return on this page. Omitted values use the server default; valid values are 1 through 100.</summary></property>
+
+        <property name = "CatalogPageToken" Cref = "String?"><summary>Opaque token from the previous page. Reuse it with the same filters to continue.</summary></property>
+
+        <property name = "Tags" Cref = "String[]?"><summary>Tags.</summary></property>
+
+    </record>
+
+    <record name = "TagResponse">
+
+        <main>
+
+            <summary>Catalog service response.</summary>
+
+        </main>
+
+        <property name = "IDs" Cref = "Guid[]"><summary>Distinct matching item IDs in page order.</summary></property>
+
+        <property name = "NextCatalogPageToken" Cref = "String?"><summary>Opaque token to request the next page, or null when no page remains.</summary></property>
+
+    </record>
+
+</Tag>

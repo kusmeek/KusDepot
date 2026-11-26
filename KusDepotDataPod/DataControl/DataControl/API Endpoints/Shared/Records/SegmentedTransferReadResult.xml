@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SegmentedTransferReadResult>
+  <record name="SegmentedTransferReadResult">
+	<main>
+		  <summary>Represents a segmented transfer read operation result containing streamed payload bytes and footer metadata.</summary>
+	</main>
+		<property name="Footer" Cref="TransferSegmentFooter"><summary>Shared footer metadata describing the streamed payload bytes.</summary></property>
+		<property name="Payload" Cref="Stream"><summary>Readable payload stream returned for the realized transfer range.</summary></property>
+		<method name="FinalizeFooter"><summary>Finalize the streamed payload hash and return the completed footer metadata.</summary><returns Cref="TransferSegmentFooter">Completed footer metadata including the final segment SHA-512.</returns></method>
+		<method name="Dispose"><summary>Dispose the owned payload stream and release any underlying staged file handles.</summary></method>
+  </record>
+</SegmentedTransferReadResult>

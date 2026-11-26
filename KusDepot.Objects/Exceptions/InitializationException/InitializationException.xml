@@ -1,0 +1,47 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<InitializationException>
+
+    <class name = "InitializationException">
+
+        <main>
+
+            <summary>Initialization Exception.</summary>
+
+            <remarks>Thrown by Initialize if a required field is null.</remarks>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "InitializationException">New Initialization Exception.</returns>
+
+        </constructor>
+
+        <constructor name = "MessageConstructor">
+
+            <summary>Constructor With Message.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <returns Cref = "InitializationException">New Initialization Exception.</returns>
+
+        </constructor> 
+
+        <constructor name = "MessageInnerExceptionConstructor">
+
+            <summary>Constructor With Message And Inner Exception.</summary>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name = "innerException" Cref = "Exception">Inner Exception.</param>
+
+            <returns Cref = "InitializationException">New Initialization Exception.</returns>
+
+        </constructor>
+
+    </class>
+
+</InitializationException>

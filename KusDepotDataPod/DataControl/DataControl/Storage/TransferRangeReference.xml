@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferRangeReference>
+	<record name = "TransferRangeReference">
+		<main><summary>Associates a logical transfer range with its staged tenant-storage blob.</summary></main>
+		<property name = "Range" Cref = "DataItemTransferRange"><summary>Logical transfer range represented by the staged blob.</summary></property>
+		<property name = "Blob" Cref = "TenantTransferBlobReference"><summary>Staged blob containing the logical range bytes.</summary></property>
+	</record>
+</TransferRangeReference>

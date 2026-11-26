@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ICatalogDB>
+  <interface name="ICatalogDB">
+	<main><summary>Catalog grain contract for querying, publishing, and token-fenced lifecycle management of catalog items.</summary></main>
+	<method name="AddUpdate">
+	  <summary>Creates or updates an active catalog item only for the supplied item instance token.</summary>
+	  <param name="descriptor">Item descriptor to create or update.</param>
+	  <param name="itemInstanceToken">Candidate or current token for this continuous item instance.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the operation.</param>
+	  <returns><see langword="true"/> when the catalog update succeeds.</returns>
+	</method>
+	<method name="BeginDelete">
+	  <summary>Marks the current item instance as pending deletion.</summary>
+	  <param name="itemID">Item identifier to mark for deletion.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the operation.</param>
+	  <returns>The current item identity, or <see langword="null"/> when absent.</returns>
+	</method>
+	<method name="FinalizeDelete">
+	  <summary>Removes the pending item only when its current token matches the supplied token.</summary>
+	  <param name="itemID">Item identifier to remove.</param>
+	  <param name="itemInstanceToken">Expected token for the item instance being deleted.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the operation.</param>
+	  <returns>The catalog deletion finalization outcome.</returns>
+	</method>
+	<method name="GetItemIdentity">
+	  <summary>Returns the token for an active item, excluding items pending deletion.</summary>
+	  <param name="itemID">Item identifier to look up.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the lookup.</param>
+	  <returns>The active item identity, or <see langword="null"/> when absent or pending deletion.</returns>
+	</method>
+	<method name="GetItemState">
+	  <summary>Returns the current item token and pending-delete state.</summary>
+	  <param name="itemID">Item identifier to look up.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the lookup.</param>
+	  <returns>The current item state, or <see langword="null"/> when absent.</returns>
+	</method>
+	<method name="GetPendingDeletes">
+	  <summary>Returns a keyset-paged list of items pending deletion.</summary>
+	  <param name="afterItemID">Exclusive item-ID continuation key, or <see langword="null"/> to start at the beginning.</param>
+	  <param name="pageSize">Maximum number of items to return; must be between 1 and 500.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>A page of pending-delete item identities and the next continuation key.</returns>
+	</method>
+	<method name="Exists">
+	  <summary>Checks whether an item exists as an active catalog item.</summary>
+	  <param name="id">Item identifier to check.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns><see langword="true"/> when the active item exists, <see langword="false"/> when absent or pending deletion, or <see langword="null"/> when the query fails.</returns>
+	</method>
+	<method name="SearchCommands">
+	  <summary>Searches active catalog items and their commands using the supplied filters and paging options.</summary>
+	  <param name="query">Optional command search filters and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching command results and any continuation token.</returns>
+	</method>
+	<method name="SearchElements">
+	  <summary>Searches active catalog items using the supplied element filters and paging options.</summary>
+	  <param name="query">Optional element search filters and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching element results and any continuation token.</returns>
+	</method>
+	<method name="SearchMedia">
+	  <summary>Searches active catalog items and their media metadata using the supplied filters and paging options.</summary>
+	  <param name="query">Optional media search filters and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching media results and any continuation token.</returns>
+	</method>
+	<method name="SearchNotes">
+	  <summary>Searches note values associated with active catalog items.</summary>
+	  <param name="query">Optional note terms and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching item identifiers and any continuation token.</returns>
+	</method>
+	<method name="SearchServices">
+	  <summary>Searches active catalog items and their service metadata using the supplied filters and paging options.</summary>
+	  <param name="query">Optional service search filters and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching service results and any continuation token.</returns>
+	</method>
+	<method name="SearchTags">
+	  <summary>Searches tag values associated with active catalog items.</summary>
+	  <param name="query">Optional tag terms and page request.</param>
+	  <param name="tracecontext">Optional trace context.</param>
+	  <param name="cancel">Cancellation token for the query.</param>
+	  <returns>Matching item identifiers and any continuation token.</returns>
+	</method>
+  </interface>
+</ICatalogDB>

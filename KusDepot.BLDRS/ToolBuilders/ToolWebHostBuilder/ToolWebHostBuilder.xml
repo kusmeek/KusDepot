@@ -1,0 +1,121 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolWebHostBuilder>
+
+    <class name = "ToolWebHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Web Tools.</summary>
+
+        </main>
+
+        <field name = "Link" Cref = "Boolean">
+
+            <summary>True when the Tool host lifetime should also be registered in the managed WebApplication services.</summary>
+
+        </field>
+
+        <field name = "Connect" Cref = "Boolean">
+
+            <summary>True when a shared <see cref="IToolConnect"/> instance should be registered in the managed WebApplication services.</summary>
+
+        </field>
+
+        <field name = "Console" Cref = "Boolean">
+
+            <summary>True when the ToolWebHost should use console lifetime behavior.</summary>
+
+        </field>
+
+        <field name = "builder" Cref = "WebApplicationBuilder?">
+
+            <summary>The managed <see cref="WebApplicationBuilder"/> used for ASP.NET Core application composition.</summary>
+
+        </field>
+
+        <field name = "ConfigureWebApplicationActions" Cref = "List{Action{WebApplication}}">
+
+            <summary>WebApplication Configuration Actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolWebHostActions" Cref = "List{ConfigureToolWebHostAction}">
+
+            <summary>Ordered ToolWebHost configuration actions.</summary>
+
+        </field>
+
+        <method name = "CreateApplicationConnection">
+
+            <summary>Create and register the shared connection when application connection is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime; no connection is created when it is absent.</param>
+
+            <returns Cref = "ToolConnect?">The registered connection, or null when connection is disabled or no Tool lifetime is available.</returns>
+
+            <remarks>Registers the connection in the managed <see cref="WebApplicationBuilder"/> services.</remarks>
+
+        </method>
+
+        <method name = "LinkApplicationLifetime">
+
+            <summary>Register the Tool host lifetime in managed WebApplication services when lifetime linking is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime to register.</param>
+
+            <remarks>Does nothing when linking is disabled or no Tool lifetime is available.</remarks>
+
+        </method>
+
+        <method name = "configurewebapplication">
+
+            <summary>Execute WebApplication Configuration Actions.</summary>
+
+            <param name = "webapplication" Cref = "WebApplication">Built WebApplication.</param>
+
+        </method>
+
+        <method name = "configuretoolwebhost">
+
+            <summary>Execute Tool Web Host Configuration Actions.</summary>
+
+            <param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+        </method>
+
+        <method name = "configuretoolwebhostasync">
+
+            <summary>Execute ToolWebHost configuration actions asynchronously.</summary>
+
+            <param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolWebHost_NoSync">
+
+            <summary>Add a tool web host configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolWebHost}">Configuration action.</param>
+
+            <remarks>Registers a synchronous ToolWebHost-configuration step in the shared ordered ToolWebHost-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolWebHostAsync_NoSync">
+
+            <summary>Add an async ToolWebHost configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Func{ToolBuilderContext,IToolWebHost,CancellationToken,Task}">Async configuration action.</param>
+
+            <remarks>Registers an asynchronous ToolWebHost-configuration step in the shared ordered ToolWebHost-configuration pipeline.</remarks>
+
+        </method>
+
+    </class>
+
+</ToolWebHostBuilder>

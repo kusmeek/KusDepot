@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<JsonContext>
+
+    <class name = "JsonContext">
+
+        <main>
+
+            <summary>Provides AOT-compatible JsonTypeInfo metadata used by JsonUtility.</summary>
+
+        </main>
+
+    </class>
+
+</JsonContext>

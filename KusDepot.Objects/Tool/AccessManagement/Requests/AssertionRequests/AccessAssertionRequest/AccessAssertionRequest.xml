@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessAssertionRequest>
+
+    <class name = "AccessAssertionRequest">
+
+        <main>
+
+            <summary>Requested access assertion.</summary>
+
+            <remarks>
+                Model used to express requested assertions.
+            </remarks>
+
+        </main>
+
+        <property name = "AssertionType" Cref = "String">
+
+            <summary>Requested assertion type token.</summary>
+
+        </property>
+
+        <property name = "Required" Cref = "Boolean">
+
+            <summary>True when the requested assertion is required rather than optional.</summary>
+
+        </property>
+
+    </class>
+
+</AccessAssertionRequest>

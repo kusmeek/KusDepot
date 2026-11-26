@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SelfKey>
+
+	<class name = "SelfKey">
+
+		<main>
+
+			<summary>AccessKey-shaped identity for the exact Tool instance to which it is bound.</summary>
+
+			<remarks>SelfKey is not a membership credential and carries no operation permissions. Its exact object reference is trusted only by the AccessManager that created it; copied or deserialized instances are not bound identities.</remarks>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Creates a local Tool identity.</summary>
+
+			<remarks>The owning Tool binds the instance to its AccessManager during initialization.</remarks>
+
+			<returns Cref = "SelfKey">New SelfKey.</returns>
+
+		</constructor>
+
+	</class>
+
+</SelfKey>

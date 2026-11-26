@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessPolicyEngineMode>
+
+    <interface name = "IAccessPolicyEngineMode">
+
+        <main>
+
+            <summary>Access-policy engine mode marker interface.</summary>
+
+            <remarks>
+                Marks sync-capable, async-capable, or dual-mode policy-engine implementations.
+            </remarks>
+
+        </main>
+
+    </interface>
+
+</IAccessPolicyEngineMode>

@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureInfo>
+
+    <struct name = "AccessKeySignatureInfo">
+
+        <main>
+
+            <summary>Access-key signing metadata.</summary>
+
+            <remarks>
+                Represents the signing-time metadata supplied by a signature processor for signed envelope creation.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature info value.</summary>
+
+            <returns Cref = "AccessKeySignatureInfo">Empty access-key signature info value.</returns>
+
+        </constructor>
+
+        <property name = "Algorithm" Cref = "AccessKeySignatureAlgorithm">
+
+            <summary>Signature algorithm to declare in the outer access-key envelope.</summary>
+
+        </property>
+
+        <property name = "SignerKeyIDFormat" Cref = "AccessKeySignerKeyIdFormat">
+
+            <summary>Format discriminator for the signer key identifier.</summary>
+
+        </property>
+
+        <property name = "SignerKeyID" Cref = "ImmutableArray{Byte}">
+
+            <summary>Signer key identifier bytes to embed in the outer access-key envelope.</summary>
+
+        </property>
+
+        <property name = "SignatureLength" Cref = "Int32">
+
+            <summary>Expected signature byte length used to size the final signed envelope.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureInfo>

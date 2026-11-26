@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<IDataControlNotificationSubscriptionHandle>
+
+	<interface name="IDataControlNotificationSubscriptionHandle">
+
+		<main>
+
+			<summary>Defines the lifetime-owned notification wait handle used by persistent follow-session subscriptions.</summary>
+
+		</main>
+
+		<method name="WaitForWakeAsync">
+
+			<summary>Wait for the next wake hint observed by this persistent notification subscription handle.</summary>
+
+			<param name="wait" Cref="TimeSpan">Wait duration to apply to the notification wait. Positive values bound the wait, and <see cref="Timeout.InfiniteTimeSpan"/> waits until a wake, connection failure, disposal, or cancellation occurs.</param>
+
+			<param name="cancel" Cref="CancellationToken">Cancellation Token.</param>
+
+			<returns Cref="Task{Boolean}">A task that completes with true when a wake hint is observed; otherwise false when the wait elapses without a wake.</returns>
+
+		</method>
+
+	</interface>
+
+</IDataControlNotificationSubscriptionHandle>

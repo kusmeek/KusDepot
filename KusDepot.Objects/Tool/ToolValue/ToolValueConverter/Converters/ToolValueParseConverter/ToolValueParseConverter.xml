@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueParseConverter>
+
+    <class name = "ToolValueParseConverter">
+
+        <main>
+
+            <summary>Parse-mode ToolValue converter.</summary>
+
+        </main>
+
+    </class>
+
+</ToolValueParseConverter>

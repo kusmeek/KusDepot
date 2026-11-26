@@ -1,0 +1,73 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<RateLimitedReadStream>
+
+	<class name = "RateLimitedReadStream">
+
+		<main><summary>Read-only stream wrapper that paces bytes through a shared <see cref="AsyncByteRateLimiter"/> and limits individual source reads to 80 KiB.</summary></main>
+
+		<field name = "MaximumReadSize" Cref = "Int32"><summary>The maximum number of bytes requested from the source in any single read operation.</summary></field>
+		<field name = "Source" Cref = "Stream"><summary>The underlying readable source stream.</summary></field>
+		<field name = "Limiter" Cref = "AsyncByteRateLimiter"><summary>The shared byte-rate budget applied to bytes read from the source.</summary></field>
+		<field name = "LeaveOpen" Cref = "Boolean"><summary>True when disposing the wrapper should leave the source stream open.</summary></field>
+		<field name = "Disposed" Cref = "Boolean"><summary>Tracks whether this wrapper has been disposed.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Creates a rate-limited read-only wrapper over a readable source stream.</summary>
+			<param name = "source" Cref = "Stream">The readable source stream.</param>
+			<param name = "limiter" Cref = "AsyncByteRateLimiter">The shared limiter to charge for bytes read.</param>
+			<param name = "leaveopen" Cref = "Boolean">True to leave the source stream open when this wrapper is disposed.</param>
+		</constructor>
+
+		<property name = "CanRead" Cref = "Boolean"><summary>Gets a value indicating whether the wrapper can read.</summary></property>
+		<property name = "CanSeek" Cref = "Boolean"><summary>Gets a value indicating whether the source supports seeking.</summary></property>
+		<property name = "CanWrite" Cref = "Boolean"><summary>Gets a value indicating that the wrapper does not support writing.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the length reported by the underlying source stream.</summary></property>
+		<property name = "Position" Cref = "Int64"><summary>Gets or sets the position reported by the underlying source stream.</summary></property>
+
+		<method name = "Flush"><summary>Flushing has no effect on this read-only wrapper.</summary></method>
+		<method name = "FlushAsync">
+			<summary>Asynchronously flushes this read-only wrapper; no operation is performed.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A completed task.</returns>
+		</method>
+		<method name = "Read">
+			<summary>Reads bytes from the source and waits for the shared limiter to pace the bytes returned.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<returns Cref = "Int32">The number of bytes read from the source.</returns>
+		</method>
+		<method name = "ReadSpan">
+			<summary>Reads bytes from the source span and waits for the shared limiter to pace the bytes returned.</summary>
+			<param name = "buffer" Cref = "Span{Byte}">Destination span for the read bytes.</param>
+			<returns Cref = "Int32">The number of bytes read from the source.</returns>
+		</method>
+		<method name = "ReadAsync">
+			<summary>Asynchronously reads bytes from the source and waits for the shared limiter to pace the bytes returned.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer for the read bytes.</param>
+			<param name = "offset" Cref = "Int32">Start offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of bytes read and paced.</returns>
+		</method>
+		<method name = "ReadAsyncMemory">
+			<summary>Asynchronously reads bytes into memory and waits for the shared limiter to pace the bytes returned.</summary>
+			<param name = "buffer" Cref = "Memory{Byte}">Destination memory for the read bytes.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "ValueTask{Int32}">A task-like value that completes with the number of bytes read and paced.</returns>
+		</method>
+		<method name = "Seek">
+			<summary>Seeks the underlying source stream.</summary>
+			<param name = "offset" Cref = "Int64">The desired offset.</param>
+			<param name = "origin" Cref = "SeekOrigin">The reference origin.</param>
+			<returns Cref = "Int64">The new source position.</returns>
+		</method>
+		<method name = "SetLength"><summary>Changing the stream length is not supported.</summary><param name = "value" Cref = "Int64">Unused desired length.</param></method>
+		<method name = "Write"><summary>Writing is not supported.</summary><param name = "buffer" Cref = "Byte[]">Unused source buffer.</param><param name = "offset" Cref = "Int32">Unused source offset.</param><param name = "count" Cref = "Int32">Unused byte count.</param></method>
+		<method name = "Dispose"><summary>Disposes this wrapper and optionally the source stream.</summary><param name = "disposing" Cref = "Boolean">True when called from deterministic disposal.</param></method>
+		<method name = "DisposeAsync"><summary>Asynchronously disposes this wrapper and optionally the source stream.</summary></method>
+
+	</class>
+
+</RateLimitedReadStream>

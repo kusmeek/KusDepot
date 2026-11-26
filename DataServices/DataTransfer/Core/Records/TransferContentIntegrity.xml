@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferContentIntegrity>
+
+	<record name = "TransferContentIntegrity">
+		<main><summary>Describes server-authoritative integrity for ordered verified transfer content.</summary></main>
+		<property name = "Algorithm" Cref = "String"><summary>Canonical integrity algorithm identifier.</summary></property>
+		<property name = "Digest" Cref = "Byte[]"><summary>Digest of the ordered verified content-segment metadata.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Total verified content length.</summary></property>
+		<property name = "SegmentCount" Cref = "Int64"><summary>Number of verified content segments used to compute the digest.</summary></property>
+		<method name = "Validate"><summary>Validates the integrity record.</summary><returns Cref = "Boolean">True when the integrity record is valid.</returns></method>
+	</record>
+
+	<record name = "TransferContentIntegritySegment">
+		<main><summary>Describes one verified content segment used by the canonical integrity digest.</summary></main>
+		<property name = "Offset" Cref = "Int64"><summary>Segment offset.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Segment length.</summary></property>
+		<property name = "SHA512" Cref = "Byte[]"><summary>Verified segment SHA-512 digest.</summary></property>
+	</record>
+
+	<class name = "TransferContentIntegrityCalculator">
+		<main><summary>Computes the server-authoritative ordered content integrity digest.</summary></main>
+		<field name = "Algorithm" Cref = "String"><summary>Canonical algorithm identifier.</summary></field>
+		<field name = "LeafDomain" Cref = "Byte[]"><summary>Domain-separation prefix used when hashing an individual verified segment.</summary></field>
+		<field name = "NodeDomain" Cref = "Byte[]"><summary>Domain-separation prefix used when hashing an internal integrity-tree node.</summary></field>
+		<field name = "EmptyDomain" Cref = "Byte[]"><summary>Domain-separation prefix used when hashing content with no verified segments.</summary></field>
+		<method name = "Compute">
+			<summary>Computes integrity from ordered verified segment metadata.</summary>
+			<param name = "segments" cref = "IEnumerable{TransferContentIntegritySegment}">Verified content segments to include in the integrity calculation.</param>
+			<returns Cref = "TransferContentIntegrity">Computed content integrity.</returns>
+		</method>
+		<method name = "ComputeRoot">
+			<summary>Computes the root digest for a collection of segment or tree-node digests.</summary>
+			<param name = "nodes" Cref = "IReadOnlyList{Byte[]}">Ordered digest nodes to combine.</param>
+			<returns Cref = "Byte[]">Root digest for the supplied nodes.</returns>
+		</method>
+	</class>
+
+</TransferContentIntegrity>

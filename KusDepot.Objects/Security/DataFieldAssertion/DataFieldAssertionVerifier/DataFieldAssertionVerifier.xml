@@ -1,0 +1,105 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldAssertionVerifier>
+
+    <class name = "DataFieldAssertionVerifier">
+
+        <main>
+
+            <summary>Verify signed `DataFieldAssertion` artifacts using explicit certificates or resolver-style certificate lookups.</summary>
+
+            <remarks>
+                Verification is intentionally limited to canonical assertion-data validation, time evaluation, thumbprint binding, and signature verification. Purpose remains informational and does not participate in verification success or failure.
+            </remarks>
+
+        </main>
+
+        <method name = "TryValidateData">
+
+            <summary>Validate structural and invariant rules for canonical assertion data.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data to validate.</param>
+
+            <returns Cref = "Boolean">True when required fields and invariants are satisfied; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryValidateEvaluation">
+
+            <summary>Validate the time-bound rules of canonical assertion data for a specific evaluation instant.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data under evaluation.</param>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset">Evaluation instant.</param>
+
+            <returns Cref = "Boolean">True when the assertion is valid at the evaluation instant; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryVerifyArtifact">
+
+            <summary>Verify a parsed `DataFieldAssertion` artifact using an explicitly supplied certificate and evaluation time.</summary>
+
+            <param name = "assertion" Cref = "DataFieldAssertion?">Parsed signed field assertion artifact.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate used to verify the signature and thumbprint binding.</param>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset?">Optional evaluation time. Null uses `DateTimeOffset.UtcNow`.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Output verified canonical assertion data when verification succeeds.</param>
+
+            <returns Cref = "Boolean">True when the artifact verified successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryVerifyBytes">
+
+            <summary>Verify serialized signed field assertion bytes using an explicitly supplied certificate and evaluation time.</summary>
+
+            <param name = "assertion" Cref = "ReadOnlySpan{Byte}">Serialized signed field assertion bytes.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate used to verify the signature and thumbprint binding.</param>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset?">Optional evaluation time. Null uses `DateTimeOffset.UtcNow`.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Output verified canonical assertion data.</param>
+
+            <returns Cref = "Boolean">True when the serialized artifact parsed and verified successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryVerifyArtifactResolver">
+
+            <summary>Verify a parsed `DataFieldAssertion` artifact using a resolver-style certificate lookup keyed by `IssuerObjectId`.</summary>
+
+            <param name = "assertion" Cref = "DataFieldAssertion?">Parsed signed field assertion artifact.</param>
+
+            <param name = "issuercertificateresolver" Cref = "Func{Guid,X509Certificate2}?">Resolver that returns the issuer certificate for a given issuer object identifier.</param>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset?">Optional evaluation time. Null uses `DateTimeOffset.UtcNow`.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Output verified canonical assertion data.</param>
+
+            <returns Cref = "Boolean">True when the artifact verified successfully through the resolver; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryVerifyBytesResolver">
+
+            <summary>Verify serialized signed field assertion bytes using a resolver-style certificate lookup keyed by `IssuerObjectId`.</summary>
+
+            <param name = "assertion" Cref = "ReadOnlySpan{Byte}">Serialized signed field assertion bytes.</param>
+
+            <param name = "issuercertificateresolver" Cref = "Func{Guid,X509Certificate2}?">Resolver that returns the issuer certificate for a given issuer object identifier.</param>
+
+            <param name = "evaluatedat" Cref = "DateTimeOffset?">Optional evaluation time. Null uses `DateTimeOffset.UtcNow`.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Output verified canonical assertion data.</param>
+
+            <returns Cref = "Boolean">True when the serialized artifact verified successfully through the resolver; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</DataFieldAssertionVerifier>

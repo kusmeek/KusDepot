@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<StagedFileTransform>
+
+	<class name="StagedFileTransform">
+
+		<main>
+			<summary>Owns a transformed sibling file until it is committed, rolled back, or completed.</summary>
+			<remarks>The staged output and optional digest are provisional until commit. Commit replaces the destination while retaining the original as a sibling backup. Rollback restores the original when committed or deletes uncommitted staged output. Complete deletes the retained backup after the containing DataItem transaction succeeds. Disposal rolls back unfinished work. Filesystem failures during rollback or cleanup are allowed to propagate so callers can report incomplete recovery.</remarks>
+		</main>
+
+		<field name="destinationPath" Cref="String">
+			<summary>Absolute path of the destination file to be replaced.</summary>
+		</field>
+
+		<field name="digest" Cref="Byte[]">
+			<summary>Optional SHA-512 digest of transformed file bytes, retained as an internal defensive copy.</summary>
+		</field>
+
+		<field name="stagingPath" Cref="String?">
+			<summary>Absolute path of the provisional sibling output file, or null after it has been committed or discarded.</summary>
+		</field>
+
+		<field name="backupPath" Cref="String?">
+			<summary>Absolute path of the original-file backup retained after commit until completion or rollback.</summary>
+		</field>
+
+		<field name="state" Cref="State">
+			<summary>Lifecycle state preventing invalid repeated commit, rollback, or completion calls.</summary>
+		</field>
+
+		<property name="DestinationPath" Cref="String">
+			<summary>Get the absolute destination path associated with this transform.</summary>
+		</property>
+
+		<property name="StagingPath" Cref="String?">
+			<summary>Get the provisional staged output path, or null if no staged output remains.</summary>
+		</property>
+
+		<property name="BackupPath" Cref="String?">
+			<summary>Get the retained original-file backup path, or null when no backup is retained.</summary>
+		</property>
+
+		<property name="Digest" Cref="Byte[]">
+			<summary>Get a defensive copy of the transformed-file SHA-512 digest, or null when hashing was not requested.</summary>
+		</property>
+
+		<property name="IsCommitted" Cref="Boolean">
+			<summary>Get whether the staged output currently occupies the destination and its backup is retained.</summary>
+		</property>
+
+		<constructor name="Constructor">
+			<summary>Create an owner for a successfully staged file transform.</summary>
+			<param name="destinationPath" Cref="String">Destination file path that will be replaced on commit.</param>
+			<param name="stagingPath" Cref="String">Sibling file containing the fully transformed output.</param>
+			<param name="digest" Cref="Byte[]?">Optional 64-byte SHA-512 digest computed while writing the transformed output.</param>
+			<remarks>Stores absolute paths and copies the supplied digest. It requires the staging file to share the destination directory so replacement and backup remain on the same volume. It does not open or validate file contents until commit.</remarks>
+		</constructor>
+
+		<method name="Commit">
+			<summary>Atomically replace the destination with the staged output while retaining the original as a sibling backup.</summary>
+			<remarks>Requires the prepared staging output and original destination to exist. On success the staging path is consumed, the backup path is retained, and rollback remains possible until completion. If the filesystem reports an error after moving the original, the instance inspects the staging and backup paths to retain a recoverable committed state when possible.</remarks>
+		</method>
+
+		<method name="Rollback">
+			<summary>Discard a prepared output or restore the original destination after commit.</summary>
+			<remarks>When prepared, deletes the staged output. When committed, atomically replaces the transformed destination with the retained original backup. Filesystem exceptions propagate; a failed rollback leaves the instance available for diagnosis and possible recovery.</remarks>
+		</method>
+
+		<method name="Complete">
+			<summary>Finalize a committed transform by deleting its retained original-file backup.</summary>
+			<remarks>Call only after all related DataItem state has committed successfully. A deletion failure propagates and leaves the backup path recorded.</remarks>
+		</method>
+
+		<method name="Dispose">
+			<summary>Roll back any prepared or committed transform that has not been finalized.</summary>
+			<remarks>Disposal is a safety rollback, not successful completion. Exceptions from rollback propagate to signal incomplete recovery.</remarks>
+		</method>
+
+		<enum name="State">
+			<main>
+				<summary>Lifecycle state of the staged file transform.</summary>
+			</main>
+			<value name="Prepared"><summary>The transformed sibling file is staged and the destination is unchanged.</summary></value>
+			<value name="Committed"><summary>The destination contains transformed bytes and the original backup is retained.</summary></value>
+			<value name="Completed"><summary>The transformed destination is final and the original backup has been deleted.</summary></value>
+			<value name="RolledBack"><summary>The original destination has been preserved or restored and staged output discarded.</summary></value>
+		</enum>
+
+	</class>
+
+</StagedFileTransform>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ITransferMutationScope>
+  <interface name="ITransferMutationScope">
+	<main>
+		<summary>Owns the item and session locks required for a transfer mutation workflow.</summary>
+	  <remarks>The item lock is acquired before the session lock and both locks are released when the scope is disposed.</remarks>
+	</main>
+	<property name="ItemID">
+		<summary>Gets the item identifier protected by this mutation scope.</summary>
+	  <value>Item identifier owned by the scope.</value>
+	</property>
+	<property name="SessionID">
+		<summary>Gets the session identifier protected by this mutation scope.</summary>
+	  <value>Session identifier owned by the scope.</value>
+	</property>
+  </interface>
+</ITransferMutationScope>

@@ -1,0 +1,157 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeyCertificateSignatureProcessor>
+
+    <class name = "AccessKeyCertificateSignatureProcessor">
+
+        <main>
+
+            <summary>Certificate-backed access-key signature processor.</summary>
+
+        </main>
+
+        <field name = "materialresolver" Cref = "IAccessKeySignatureMaterialResolver">
+
+            <summary>Resolver used to locate signing and verification material for certificate-backed operations.</summary>
+
+        </field>
+
+        <field name = "materialstore" Cref = "IAccessKeySignatureMaterialStore?">
+
+            <summary>Optional mutable store capability exposed by the configured resolver when registration operations are supported.</summary>
+
+        </field>
+
+        <constructor name = "ConstructorStore">
+
+            <summary>Create a certificate-backed signature processor with a built-in in-memory material store.</summary>
+
+            <param name = "materialstore" Cref = "AccessKeyInMemorySignatureMaterialStore">Material store used for mutable signing and verification material registration operations.</param>
+
+            <returns Cref = "AccessKeyCertificateSignatureProcessor">Certificate-backed signature processor.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a certificate-backed signature processor using the supplied material resolver and material store.</summary>
+
+            <param name = "materialresolver" Cref = "IAccessKeySignatureMaterialResolver">Material resolver used for signing and verification lookup.</param>
+
+            <param name = "materialstore" Cref = "IAccessKeySignatureMaterialStore">Material store used for mutable signing and verification material registration operations.</param>
+
+            <returns Cref = "AccessKeyCertificateSignatureProcessor">Certificate-backed signature processor.</returns>
+
+        </constructor>
+
+        <method name = "GetSigningInfo">
+
+            <summary>Get signing metadata from the resolved signing material for the current signing operation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation.</param>
+
+            <returns Cref = "AccessKeySignatureInfo">Signing metadata, or the default value when no signing material could be resolved.</returns>
+
+        </method>
+
+        <method name = "TryAddVerificationMaterial">
+
+            <summary>Try to register verification material in the underlying material store when one is available.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Verification material to register.</param>
+
+            <returns Cref = "Boolean">True when the verification material was stored; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryClearCurrentSigningMaterial">
+
+            <summary>Try to clear the current signing material selection in the underlying material store when one is available.</summary>
+
+            <returns Cref = "Boolean">True when the current signing material selection was cleared; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryGetCurrentSigningMaterial">
+
+            <summary>Try to get the current signing material selection from the underlying material store when one is available.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Current signing material selection.</param>
+
+            <returns Cref = "Boolean">True when current signing material was resolved; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryRemoveVerificationMaterial">
+
+            <summary>Try to remove verification material from the underlying material store when one is available.</summary>
+
+            <param name = "signerkeyidformat" Cref = "AccessKeySignerKeyIdFormat">Format discriminator for the signer key identifier to remove.</param>
+
+            <param name = "signerkeyid" Cref = "ReadOnlyMemory{Byte}">Signer key identifier bytes to remove.</param>
+
+            <returns Cref = "Boolean">True when matching verification material was removed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryResolveSigningMaterial">
+
+            <summary>Try to resolve signing material for the current signing operation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation.</param>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Resolved signing material.</param>
+
+            <returns Cref = "Boolean">True when signing material was resolved; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryResolveVerificationMaterial">
+
+            <summary>Try to resolve verification material for the current validation operation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Validation context for the current operation.</param>
+
+            <param name = "material" Cref = "AccessKeySignatureVerificationMaterial">Resolved verification material.</param>
+
+            <returns Cref = "Boolean">True when verification material was resolved; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySetCurrentSigningMaterial">
+
+            <summary>Try to set the current signing material selection in the underlying material store when one is available.</summary>
+
+            <param name = "material" Cref = "AccessKeySignatureSigningMaterial">Signing material to use for future signing operations.</param>
+
+            <returns Cref = "Boolean">True when the current signing material selection was updated; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySign">
+
+            <summary>Try to sign the canonical signed region for the current operation using the resolved certificate private key.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation.</param>
+
+            <param name = "signature" Cref = "Span{Byte}">Destination signature buffer.</param>
+
+            <param name = "written" Cref = "Int32">Number of signature bytes written.</param>
+
+            <returns Cref = "Boolean">True when signing succeeded; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Verify">
+
+            <summary>Verify the canonical signed region for the current operation using thumbprint-resolved certificate material.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureValidationContext">Validation context for the current operation.</param>
+
+            <returns Cref = "SignatureValidation">Verification facts for downstream policy evaluation.</returns>
+
+        </method>
+
+    </class>
+
+</AccessKeyCertificateSignatureProcessor>

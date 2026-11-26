@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ParsedSerializationHeader>
+
+    <struct name = "ParsedSerializationHeader">
+
+        <main>
+
+            <summary>Parsed representation of a serialization envelope header.</summary>
+
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>FormatVersion: The envelope format version byte.</description></item>
+                    <item><description>Kind: The serializer kind that produced the payload.</description></item>
+                    <item><description>SerializerVersion: The version string of the serializer assembly.</description></item>
+                    <item><description>LibraryVersion: The version string of the library assembly.</description></item>
+                    <item><description>HeaderLength: The total length of the header in bytes.</description></item>
+                </list>
+            </remarks>
+
+        </main>
+
+        <field name = "FormatVersion">
+
+            <summary>The envelope format version byte.</summary>
+
+        </field>
+
+        <field name = "Kind">
+
+            <summary>The serializer kind that produced the payload.</summary>
+
+        </field>
+
+        <field name = "SerializerVersion">
+
+            <summary>The version string of the serializer assembly.</summary>
+
+        </field>
+
+        <field name = "LibraryVersion">
+
+            <summary>The version string of the library assembly.</summary>
+
+        </field>
+
+        <field name = "HeaderLength">
+
+            <summary>The total length of the header in bytes.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Initialize a ParsedSerializationHeader from parsed binary header values.</summary>
+
+            <param name = "formatversion" cref = "Byte">The envelope format version byte.</param>
+
+            <param name = "kind" cref = "SerializationKind">The serializer kind that produced the payload.</param>
+
+            <param name = "serializerversion" cref = "String">The serializer assembly version string.</param>
+
+            <param name = "libraryversion" cref = "String">The library assembly version string.</param>
+
+            <param name = "headerlength" cref = "Int32">The total length of the header in bytes.</param>
+
+        </constructor>
+
+    </struct>
+
+</ParsedSerializationHeader>

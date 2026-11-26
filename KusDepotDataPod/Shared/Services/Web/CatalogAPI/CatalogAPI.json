@@ -1,0 +1,1905 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "Catalog | catalog",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5006"
+    }
+  ],
+  "paths": {
+    "/Catalog/Elements": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchElements",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ElementQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ElementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Services": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchServices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ServiceQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Commands": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchCommands",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CommandQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Media": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchMedia",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/MediaQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Notes": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchNotes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/NoteQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Tags": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "Returns one page of matching catalog items in ID order. Set CatalogPageSize from 1 to 100 (default 50). Valid searches with no matches return 200 with an empty collection.",
+        "operationId": "SearchTags",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TagQuery"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Catalog/Health": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Command": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "CommandHandle": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "CommandHandle."
+          },
+          "CommandSpecifications": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "CommandSpecifications."
+          },
+          "CommandType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Command Implementing Type."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Command records in the Catalog."
+      },
+      "CommandQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "CommandHandle": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "CommandHandle."
+          },
+          "CommandSpecifications": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "CommandSpecifications."
+          },
+          "CommandType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Command Implementing Type."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Command records in the Catalog."
+      },
+      "CommandResponse": {
+        "type": "object",
+        "properties": {
+          "Commands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Command"
+            },
+            "description": "Matching records."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      },
+      "Element": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DataType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DataType."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Language": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Language."
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Element records in the Catalog."
+      },
+      "ElementQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DataType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DataType."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Language": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Language."
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Element records in the Catalog."
+      },
+      "ElementResponse": {
+        "type": "object",
+        "properties": {
+          "Elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Element"
+            },
+            "description": "Matching records."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      },
+      "Media": {
+        "type": "object",
+        "properties": {
+          "Album": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Album."
+          },
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "Artist": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Artist."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DataType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DataType."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Language": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Language."
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Title": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Title."
+          },
+          "Year": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Year."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Media records in the Catalog."
+      },
+      "MediaQuery": {
+        "type": "object",
+        "properties": {
+          "Album": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Album."
+          },
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "Artist": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Artist."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DataType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DataType."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Language": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Language."
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Title": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Title."
+          },
+          "Year": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Year."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Media records in the Catalog."
+      },
+      "MediaResponse": {
+        "type": "object",
+        "properties": {
+          "Media": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Media"
+            },
+            "description": "Matching records."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      },
+      "NoteQuery": {
+        "type": "object",
+        "properties": {
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Note records in the Catalog."
+      },
+      "NoteResponse": {
+        "type": "object",
+        "properties": {
+          "IDs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Distinct matching item IDs in page order."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceInterfaces": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service Interfaces."
+          },
+          "ServiceSpecifications": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service specifications."
+          },
+          "ServiceType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service Implementing Type."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents Service records in the Catalog."
+      },
+      "ServiceQuery": {
+        "type": "object",
+        "properties": {
+          "Application": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Application."
+          },
+          "ApplicationVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ApplicationVersion."
+          },
+          "BornOn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "BornOn."
+          },
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "ContentStreamed": {
+            "type": [
+              "null",
+              "boolean"
+            ],
+            "description": "ContentStreamed."
+          },
+          "DistinguishedName": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "DistinguishedName."
+          },
+          "FILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "FILE."
+          },
+          "ID": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ID.",
+            "format": "uuid"
+          },
+          "Modified": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Modified."
+          },
+          "Name": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Name."
+          },
+          "Notes": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Notes."
+          },
+          "ObjectFILE": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectFILE."
+          },
+          "ObjectType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ObjectType."
+          },
+          "ServiceInterfaces": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service Interfaces."
+          },
+          "ServiceSpecifications": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service specifications."
+          },
+          "ServiceType": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Service Implementing Type."
+          },
+          "ServiceVersion": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "ServiceVersion."
+          },
+          "Size": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Size."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          },
+          "Version": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Version."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Service records in the Catalog."
+      },
+      "ServiceResponse": {
+        "type": "object",
+        "properties": {
+          "Services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            },
+            "description": "Matching records."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      },
+      "TagQuery": {
+        "type": "object",
+        "properties": {
+          "CatalogPageSize": {
+            "maximum": 100,
+            "minimum": 1,
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "description": "Maximum records to return on this page. Defaults to 50; valid values are 1 through 100.",
+            "format": "int32",
+            "default": 50
+          },
+          "CatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque continuation token from the previous page. Reuse it with the same filters."
+          },
+          "Tags": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Supports querying Tag records in the Catalog."
+      },
+      "TagResponse": {
+        "type": "object",
+        "properties": {
+          "IDs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Distinct matching item IDs in page order."
+          },
+          "NextCatalogPageToken": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "description": "Opaque token to request the next page, or null when no page remains."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Catalog service response."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Catalog"
+    }
+  ]
+}

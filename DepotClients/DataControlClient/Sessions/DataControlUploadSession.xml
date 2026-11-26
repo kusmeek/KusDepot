@@ -1,0 +1,182 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlUploadSession>
+
+	<class name = "DataControlUploadSession">
+
+		<main>
+
+			<summary>Client-side upload session that persists local state and sends either finite segmented ranges or stream append extents to DataControl.</summary>
+
+		</main>
+
+		<field name = "client" Cref = "IDataControlClient"><summary>The DataControl client used to issue segmented or stream transfer service calls.</summary></field>
+		<field name = "storage" Cref = "DataControlClientWorkingDirectoryStorage"><summary>The local working directory storage that persists segmented or stream upload state and source content.</summary></field>
+		<field name = "token" Cref = "String?"><summary>The optional bearer token used for authenticated service calls.</summary></field>
+		<field name = "StreamSource" Cref = "Stream?"><summary>The live stream source retained for stream-upload sessions.</summary></field>
+		<field name = "CompletionMode" Cref = "StreamCompletionMode"><summary>The configured completion behavior used by one-call stream upload helpers.</summary></field>
+		<field name = "MaxBytes" Cref = "Int64?"><summary>The optional byte limit applied by bounded stream upload completion helpers.</summary></field>
+		<field name = "disposed" Cref = "Int32"><summary>Interlocked disposal state for the upload session.</summary></field>
+		<field name = "OperationGate" Cref = "SemaphoreSlim"><summary>Per-session asynchronous gate that serializes operations which read or modify upload state and owned resources.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Create a client-side upload session wrapper.</summary>
+			<param name = "client" Cref = "IDataControlClient">The DataControl client used for service calls.</param>
+			<param name = "storage" Cref = "DataControlClientWorkingDirectoryStorage">The local working directory storage for the session.</param>
+			<param name = "token" Cref = "String?">Optional bearer token used for authenticated service calls.</param>
+			<param name = "session" Cref = "DataControlTransferSessionInfo">The current persisted session metadata and transfer state.</param>
+			<param name = "streamsource" Cref = "Stream?">Optional live source stream retained for stream-family upload sessions.</param>
+			<param name = "completionmode" Cref = "StreamCompletionMode">Configured completion behavior for stream-family uploads.</param>
+			<param name = "maxbytes" Cref = "Int64?">Optional maximum number of bytes the stream upload helper should append before stopping.</param>
+		</constructor>
+
+		<property name = "Session" Cref = "DataControlTransferSessionInfo"><summary>Gets the current local upload session metadata and transfer state snapshot.</summary></property>
+
+		<method name = "Dispose">
+			<summary>Synchronously release locally owned stream and cryptographic resources without changing remote transfer state.</summary>
+		</method>
+		<method name = "TryAdvanceSegmentedState">
+			<summary>Derive a segmented upload state only when the response proves the expected new range transition.</summary>
+			<param name = "state" Cref = "DataItemTransferState">Previous local transfer state.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Requested range.</param>
+			<param name = "response" Cref = "PutTransferSegmentResponse?">Server response.</param>
+			<returns Cref = "DataItemTransferState?">Derived state, or null when an authoritative refresh is required.</returns>
+		</method>
+		<method name = "ThrowIfBlockLimitExceeded">
+			<summary>Throw a typed exception for a recognized publication block-limit response.</summary>
+			<param name = "status" Cref = "HttpStatusCode">HTTP response status.</param>
+			<param name = "content" Cref = "String?">Problem Details response body.</param>
+			<exception cref = "TransferBlockLimitExceededException">Thrown when the response identifies a publication block-limit failure and contains the required fields.</exception>
+		</method>
+		<method name = "DisposeAsync">
+			<summary>Asynchronously release locally owned stream and cryptographic resources without changing remote transfer state.</summary>
+			<returns Cref = "ValueTask">A value task that completes when locally owned resources have been released.</returns>
+		</method>
+		<method name = "AbortCore">
+			<summary>Run the remote abort and local cleanup operation while the session operation gate is held.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote transfer was aborted and local state was removed; otherwise false.</returns>
+		</method>
+		<method name = "PublishCore">
+			<summary>Run segmented or stream publication and persist the resulting state while the session operation gate is held.</summary>
+			<param name = "finalitem" Cref = "DataItem?">Optional metadata-only final item payload for stream-family publication.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlUploadCompletionResult?}">A task that completes with the finalized upload result, or null when completion is not possible or does not succeed.</returns>
+		</method>
+
+		<method name = "UploadNext">
+			<summary>Upload the next planned finite range or stream append extent from the local persisted source content.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the next upload operation succeeds and local state is refreshed; otherwise false.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+			<exception cref = "TransferBlockLimitExceededException">Thrown when the requested range exceeds the publication block budget, regardless of NoExceptions.</exception>
+		</method>
+		<method name = "DeleteLocalStateCore">
+			<summary>Delete the local upload session state while the session operation gate is held.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local session state directory is deleted successfully; otherwise false.</returns>
+		</method>
+		<method name = "UploadSegmentNext">
+			<summary>Upload the next planned finite segmented range from the local persisted source content and return the exact range accepted for progress reporting.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataItemTransferRange?}">A task that completes with the exact segmented range uploaded and persisted locally, or null when no segmented upload can be performed or the operation does not succeed.</returns>
+		</method>
+		<method name = "RemoveTransferCore">
+			<summary>Run remote transfer removal and local cleanup while the session operation gate is held.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote removal succeeds and local state is removed; otherwise false.</returns>
+		</method>
+		<method name = "UploadToCompletion">
+			<summary>Upload remaining finite ranges or stream extents until the session reaches its configured stopping condition or no additional upload can be performed.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successfully uploaded finite segment or stream extent.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully uploaded finite segments or stream extents.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+			<exception cref = "TransferBlockLimitExceededException">Thrown when the requested range exceeds the publication block budget, regardless of NoExceptions.</exception>
+		</method>
+		<method name = "UploadNextCore">
+			<summary>Run one finite range or stream append upload while the session operation gate is held.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the next upload operation succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "UploadToCompletionCore">
+			<summary>Run the upload-to-completion loop while the session operation gate is held.</summary>
+			<param name = "progress" Cref = "IProgress{DataItemTransferProgress}?">Optional progress receiver notified after each successfully uploaded finite segment or stream extent.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of successfully uploaded finite segments or stream extents.</returns>
+		</method>
+		<method name = "Publish">
+			<summary>Publish the upload session through segmented or stream publication and persist the resulting state locally.</summary>
+			<param name = "finalitem" Cref = "DataItem?">Optional metadata-only final item payload for stream-family publication. When supplied, its ID is overwritten to the session item ID and its serialized payload becomes the published object metadata while the uploaded stream bytes remain the session content.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{DataControlUploadCompletionResult?}">A task that completes with the finalized upload result, or null when completion is not possible or does not succeed.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+			<exception cref = "TransferBlockLimitExceededException">Thrown when the publication plan exceeds the block budget, regardless of NoExceptions.</exception>
+		</method>
+		<method name = "CreateFinalPublishedObjectPayload">
+			<summary>Validate and serialize the optional final published item payload for a stream-family publication.</summary>
+			<param name = "finalitem" Cref = "DataItem">The metadata-only final item whose ID is forced to the session item ID before serialization.</param>
+			<returns Cref = "Byte[]">The serialized final object payload to send with stream publication.</returns>
+			<exception cref = "ArgumentNullException">Thrown when the supplied final item is null.</exception>
+			<exception cref = "InvalidOperationException">Thrown when the supplied final item cannot be forced to the session item ID or exposes FILE-backed, in-memory, or stream-returning content.</exception>
+		</method>
+		<method name = "DeleteLocalState">
+			<summary>Delete the local working directory state for the current upload session without contacting the service.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the local session state directory is deleted successfully; otherwise false.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+		</method>
+		<method name = "RemoveTransfer">
+			<summary>Remove the retained remote upload transfer session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote removal succeeds and local state is removed; otherwise false.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+		</method>
+		<method name = "Abort">
+			<summary>Abort the remote upload session and delete the corresponding local working directory state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when the remote abort succeeds and local state is removed; otherwise false.</returns>
+			<exception cref = "ObjectDisposedException">Thrown when the upload session has been disposed.</exception>
+		</method>
+		<method name = "CreateProgress">
+			<summary>Create a transfer progress snapshot for a completed uploaded range.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The refreshed transfer state after the successful upload.</param>
+			<param name = "latestrange" Cref = "DataItemTransferRange">The range that was most recently uploaded.</param>
+			<returns Cref = "DataItemTransferProgress">A progress snapshot describing the updated upload state.</returns>
+		</method>
+		<method name = "UploadStreamNext">
+			<summary>Upload the next available buffered stream extent, replenishing the local buffer from the retained source stream when needed, and refresh persisted stream state.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Boolean}">A task that completes with true when a stream extent upload succeeds and local state is refreshed; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextRange">
+			<summary>Plan the next upload range from the first normalized missing range using the effective segment size policy.</summary>
+			<param name = "state" Cref = "DataItemTransferState">The current upload transfer state.</param>
+			<remarks>The algorithm starts from the first missing range. It then clamps the preferred segment size into the configured minimum and maximum bounds. If taking that planned prefix would leave behind a non-terminal tail smaller than the minimum segment size, the current request is reduced so the remaining tail grows back to at least the minimum size. When no split is needed, the original missing range is returned unchanged.</remarks>
+			<returns Cref = "DataItemTransferRange">The next range to upload.</returns>
+		</method>
+		<method name = "BufferNextStreamPayload">
+			<summary>Append the next chunk of bytes from the retained live stream source into the local buffered stream file.</summary>
+			<param name = "path" Cref = "String">The local buffered stream file path.</param>
+			<param name = "requestedLength" Cref = "Int64">The maximum number of bytes to buffer from the live source.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+			<returns Cref = "Task{Int64}">A task that completes with the number of bytes appended to the local buffered stream file.</returns>
+		</method>
+		<method name = "HasReachedConfiguredByteLimit">
+			<summary>Determine whether the current stream upload state has reached the configured maximum byte count.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The current stream upload state.</param>
+			<returns Cref = "Boolean">True when a maximum byte count is configured and the appended length meets or exceeds it; otherwise false.</returns>
+		</method>
+		<method name = "PlanNextAppendLength">
+			<summary>Plan the next stream extent length using the effective preferred segment size and any configured byte limit.</summary>
+			<param name = "state" Cref = "DataStreamTransferState">The current stream upload state.</param>
+			<returns Cref = "Int64">The number of bytes to attempt to buffer and upload next.</returns>
+		</method>
+		<method name = "DisposeStreamSource">
+			<summary>Dispose the retained live stream source using asynchronous disposal when available.</summary>
+			<returns Cref = "ValueTask">A value task that completes when disposal has finished.</returns>
+		</method>
+
+	</class>
+
+</DataControlUploadSession>

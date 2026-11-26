@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MembershipCache>
+
+    <class name = "MembershipCache">
+
+        <main>
+
+            <summary>Cache of resolved access token identities.</summary>
+
+        </main>
+
+        <constructor name = "Constructor" Cref = "MembershipCache">
+
+            <summary>Create a membership cache with empty entries, a synchronization lock, and a configured maximum entry count.</summary>
+
+            <param name = "maximumcount" Cref = "Int32">Maximum number of cached membership entries before the cache resets.</param>
+
+        </constructor>
+
+        <field name = "DefaultMaximumCount" Cref = "Int32">
+
+            <summary>Default maximum number of cached membership entries before the cache resets.</summary>
+
+        </field>
+
+        <field name = "MaximumCount" Cref = "Int32">
+
+            <summary>Configured maximum number of cached membership entries before the cache resets.</summary>
+
+        </field>
+
+        <field name = "Entries" Cref = "Dictionary{MembershipCacheKey,AccessKeyToken}">
+
+            <summary>Cached token identities keyed by derived membership cache keys.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "Lock">
+
+            <summary>Cache synchronization lock.</summary>
+
+        </field>
+
+        <method name = "Clear">
+
+            <summary>Clear cached membership entries.</summary>
+
+        </method>
+
+        <method name = "Remove">
+
+            <summary>Remove a cached membership entry.</summary>
+
+            <param name = "key" Cref = "MembershipCacheKey">Derived membership cache key.</param>
+
+            <returns Cref = "Boolean">True if the entry existed and was removed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryGet">
+
+            <summary>Try to get a cached token identity.</summary>
+
+            <param name = "key" Cref = "MembershipCacheKey">Derived membership cache key.</param>
+
+            <param name = "token" Cref = "AccessKeyToken">Cached token identity.</param>
+
+            <returns Cref = "Boolean">True if the entry exists; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySet">
+
+            <summary>Cache a token identity.</summary>
+
+            <param name = "key" Cref = "MembershipCacheKey">Derived membership cache key.</param>
+
+            <param name = "token" Cref = "AccessKeyToken">Token identity to cache.</param>
+
+            <returns Cref = "Boolean">True if cached; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</MembershipCache>

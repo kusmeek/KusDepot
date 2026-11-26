@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentLengthStream>
+  <class name="ContentLengthStream">
+	<main>
+	  <summary>Provides a non-seekable read-only view of a stream with a known content length.</summary>
+	</main>
+	<field name="inner">
+	  <summary>Underlying stream that supplies the content.</summary>
+	</field>
+	<field name="length">
+	  <summary>Known content length exposed by this wrapper.</summary>
+	</field>
+	<constructor name="ContentLengthStream">
+	  <summary>Initializes a content-length stream wrapper.</summary>
+	  <param name="inner" Cref="Stream">Underlying readable stream.</param>
+	  <param name="length" Cref="Int64">Known content length.</param>
+	  <exception cref="ArgumentNullException">The underlying stream is null.</exception>
+	  <exception cref="ArgumentOutOfRangeException">The content length is negative.</exception>
+	</constructor>
+	<property name="CanRead">
+	  <summary>Gets a value indicating whether the underlying stream can be read.</summary>
+	</property>
+	<property name="CanSeek">
+	  <summary>Gets a value indicating whether seeking is supported.</summary>
+	</property>
+	<property name="CanWrite">
+	  <summary>Gets a value indicating whether writing is supported.</summary>
+	</property>
+	<property name="Length">
+	  <summary>Gets the known content length.</summary>
+	</property>
+	<property name="Position">
+	  <summary>Gets or sets the stream position.</summary>
+	  <exception cref="NotSupportedException">The stream does not support positioning.</exception>
+	</property>
+	<method name="Flush">
+	  <summary>Flushes the stream.</summary>
+	  <exception cref="NotSupportedException">The stream is read-only.</exception>
+	</method>
+	<method name="Read">
+	  <summary>Reads bytes from the underlying stream.</summary>
+	  <param name="buffer" Cref="Byte[]">Destination buffer.</param>
+	  <param name="offset" Cref="Int32">Zero-based destination offset.</param>
+	  <param name="count" Cref="Int32">Maximum number of bytes to read.</param>
+	  <returns Cref="Int32">Number of bytes read.</returns>
+	</method>
+	<method name="ReadAsyncMemory">
+	  <summary>Asynchronously reads bytes from the underlying stream.</summary>
+	  <param name="buffer" Cref="Memory{Byte}">Destination memory.</param>
+	  <param name="cancellationToken" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="ValueTask{Int32}">Number of bytes read.</returns>
+	</method>
+	<method name="ReadAsyncArray">
+	  <summary>Asynchronously reads bytes from the underlying stream.</summary>
+	  <param name="buffer" Cref="Byte[]">Destination buffer.</param>
+	  <param name="offset" Cref="Int32">Zero-based destination offset.</param>
+	  <param name="count" Cref="Int32">Maximum number of bytes to read.</param>
+	  <param name="cancellationToken" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{Int32}">Number of bytes read.</returns>
+	</method>
+	<method name="Seek">
+	  <summary>Sets the stream position.</summary>
+	  <param name="offset" Cref="Int64">Position offset.</param>
+	  <param name="origin" Cref="SeekOrigin">Position reference point.</param>
+	  <returns Cref="Int64">The resulting position.</returns>
+	  <exception cref="NotSupportedException">The stream does not support seeking.</exception>
+	</method>
+	<method name="SetLength">
+	  <summary>Sets the stream length.</summary>
+	  <param name="value" Cref="Int64">New stream length.</param>
+	  <exception cref="NotSupportedException">The stream is read-only.</exception>
+	</method>
+	<method name="Write">
+	  <summary>Writes bytes to the stream.</summary>
+	  <param name="buffer" Cref="Byte[]">Source buffer.</param>
+	  <param name="offset" Cref="Int32">Zero-based source offset.</param>
+	  <param name="count" Cref="Int32">Number of bytes to write.</param>
+	  <exception cref="NotSupportedException">The stream is read-only.</exception>
+	</method>
+	<method name="Dispose">
+	  <summary>Releases the underlying stream when disposing synchronously.</summary>
+	  <param name="disposing" Cref="Boolean">Whether managed resources should be released.</param>
+	</method>
+	<method name="DisposeAsync">
+	  <summary>Asynchronously releases the underlying stream.</summary>
+	  <returns Cref="ValueTask">A task representing disposal.</returns>
+	</method>
+  </class>
+</ContentLengthStream>

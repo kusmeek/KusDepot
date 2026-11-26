@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommonIdentificationVerifier>
+  <class name="CommonIdentificationVerifier">
+    <main>
+      <summary>Verify signed common-identification artifacts using explicit certificates or directory-style resolvers.</summary>
+      <remarks>This verifier is separated from <see cref="CommonIdentificationFactory"/> so artifact verification remains distinct from artifact creation and parsing responsibilities.</remarks>
+    </main>
+
+    <method name="TryValidateData"><summary>Validate structural and invariant rules for canonical common-identification data.</summary><param name="data" Cref="CommonIdentificationData">Canonical common-identification data to validate.</param><returns Cref="Boolean">True when required fields and invariants are satisfied; otherwise false.</returns></method>
+    <method name="TryValidateEvaluation"><summary>Validate the time-bound rules of canonical common-identification data for a specific evaluation instant.</summary><param name="data" Cref="CommonIdentificationData">Canonical common-identification data under evaluation.</param><param name="evaluatedat" Cref="DateTimeOffset">Evaluation instant.</param><returns Cref="Boolean">True when the artifact is valid at the evaluation instant; otherwise false.</returns></method>
+
+    <method name="TryVerifyArtifact">
+      <summary>Verify a parsed <see cref="CommonIdentification"/> artifact using an explicitly supplied certificate and evaluation time.</summary>
+      <param name="identification" Cref="CommonIdentification?">Parsed signed common-identification artifact.</param>
+      <param name="certificate" Cref="X509Certificate2?">Certificate used to verify the signature and thumbprint binding.</param>
+      <param name="evaluatedat" Cref="DateTimeOffset?">Optional evaluation time. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="data" Cref="CommonIdentificationData">Output verified canonical common-identification data when signature, thumbprint, and time checks all succeed.</param>
+      <returns Cref="Boolean">True when the artifact verified successfully; otherwise false.</returns>
+    </method>
+
+    <method name="TryVerifyBytes">
+      <summary>Verify serialized signed common-identification bytes using an explicitly supplied certificate and evaluation time.</summary>
+      <param name="identification" Cref="ReadOnlySpan{Byte}">Serialized signed common-identification bytes.</param>
+      <param name="certificate" Cref="X509Certificate2?">Certificate used to verify the signature and thumbprint binding.</param>
+      <param name="evaluatedat" Cref="DateTimeOffset?">Optional evaluation time. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="data" Cref="CommonIdentificationData">Output verified canonical common-identification data.</param>
+      <returns Cref="Boolean">True when the serialized artifact parsed and verified successfully; otherwise false.</returns>
+    </method>
+
+    <method name="TryVerifyArtifactResolver">
+      <summary>Verify a parsed <see cref="CommonIdentification"/> artifact using a directory-style certificate resolver keyed by <see cref="P:KusDepot.CommonIdentificationData.IssuerObjectId"/>.</summary>
+      <param name="identification" Cref="CommonIdentification?">Parsed signed common-identification artifact.</param>
+      <param name="issuercertificateresolver" Cref="Func{Guid,X509Certificate2}?">Resolver that returns the issuer certificate for a given issuer object identifier.</param>
+      <param name="evaluatedat" Cref="DateTimeOffset?">Optional evaluation time. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="data" Cref="CommonIdentificationData">Output verified canonical common-identification data.</param>
+      <returns Cref="Boolean">True when the artifact verified successfully through the resolver; otherwise false.</returns>
+    </method>
+
+    <method name="TryVerifyBytesResolver">
+      <summary>Verify serialized signed common-identification bytes using a directory-style certificate resolver keyed by <see cref="P:KusDepot.CommonIdentificationData.IssuerObjectId"/>.</summary>
+      <param name="identification" Cref="ReadOnlySpan{Byte}">Serialized signed common-identification bytes.</param>
+      <param name="issuercertificateresolver" Cref="Func{Guid,X509Certificate2}?">Resolver that returns the issuer certificate for a given issuer object identifier.</param>
+      <param name="evaluatedat" Cref="DateTimeOffset?">Optional evaluation time. Null uses <see cref="P:System.DateTimeOffset.UtcNow"/>.</param>
+      <param name="data" Cref="CommonIdentificationData">Output verified canonical common-identification data.</param>
+      <returns Cref="Boolean">True when the serialized artifact verified successfully through the resolver; otherwise false.</returns>
+    </method>
+  </class>
+</CommonIdentificationVerifier>

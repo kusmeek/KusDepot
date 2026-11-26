@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CatalogItemIdentity>
+  <record name="CatalogItemIdentity">
+	<main><summary>Identity of a catalog item instance, including its catalog-owned fencing token.</summary></main>
+	<property name="ItemID" Cref="Guid"><summary>Catalog item identifier.</summary></property>
+	<property name="ItemInstanceToken" Cref="Guid"><summary>Non-empty token identifying this continuous item instance.</summary></property>
+	<constructor name="CatalogItemIdentity">
+	  <summary>Creates an item identity from a non-empty item ID and instance token.</summary>
+	  <param name="itemID">Catalog item identifier; must not be empty.</param>
+	  <param name="itemInstanceToken">Item instance token; must not be empty.</param>
+	</constructor>
+  </record>
+</CatalogItemIdentity>

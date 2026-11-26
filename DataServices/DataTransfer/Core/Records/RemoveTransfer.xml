@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<RemoveTransfer>
+
+	<record name = "RemoveTransferRequest">
+		<main><summary>Request to remove retained transfer session state.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+	</record>
+
+	<record name = "RemoveTransferResponse">
+		<main><summary>Response indicating whether retained transfer session resources were removed.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Removed" Cref = "Boolean"><summary>Whether retained transfer resources were removed.</summary></property>
+	</record>
+
+</RemoveTransfer>

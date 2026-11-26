@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AsyncByteRateLimiter>
+
+	<class name = "AsyncByteRateLimiter">
+
+		<main><summary>Coordinates smooth asynchronous pacing for a shared byte-per-second budget.</summary></main>
+
+		<field name = "NextAvailableTimestamp" Cref = "Int64"><summary>The monotonic timestamp at which the next byte reservation may finish.</summary></field>
+		<field name = "BytesPerSecond" Cref = "Int64"><summary>The maximum number of bytes paced per second.</summary></field>
+		<field name = "Gate" Cref = "SemaphoreSlim"><summary>Serializes pacing-slot reservations made against this shared budget.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Initializes a shared byte-rate budget.</summary>
+			<param name = "bytespersecond" Cref = "Int64">The positive maximum number of bytes paced per second.</param>
+		</constructor>
+
+		<method name = "WaitAsync">
+			<summary>Reserves a pacing slot for the specified byte count and asynchronously waits for that slot to complete.</summary>
+			<param name = "bytecount" Cref = "Int32">The non-negative number of bytes to account for.</param>
+			<param name = "cancel" Cref = "CancellationToken">A token used to cancel reservation or the wait. Cancellation after reservation does not reclaim the reserved time slot.</param>
+			<returns Cref = "ValueTask">A task-like value that completes when the byte count has been paced.</returns>
+		</method>
+
+	</class>
+
+</AsyncByteRateLimiter>

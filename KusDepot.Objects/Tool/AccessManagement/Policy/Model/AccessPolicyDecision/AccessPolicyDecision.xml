@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessPolicyDecision>
+
+    <struct name = "AccessPolicyDecision">
+
+        <main>
+
+            <summary>Access-policy evaluation result.</summary>
+
+            <remarks>
+                An immutable decision returned by access-manager policy evaluators to allow or deny issuance, access, or revocation flows.
+            </remarks>
+
+        </main>
+
+        <property name = "Allowed" Cref = "Boolean">
+
+            <summary>True when the policy evaluation allows the current flow to proceed.</summary>
+
+        </property>
+
+        <property name = "Reason" Cref = "String">
+
+            <summary>Optional human-readable denial reason. Empty when no reason is supplied.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a default access-policy decision.</summary>
+
+            <returns Cref = "AccessPolicyDecision">Default access-policy decision.</returns>
+
+        </constructor>
+
+        <method name = "Allow">
+
+            <summary>Create an allow decision.</summary>
+
+            <returns Cref = "AccessPolicyDecision">Allow decision.</returns>
+
+        </method>
+
+        <method name = "Deny">
+
+            <summary>Create a deny decision.</summary>
+
+            <param name = "reason" Cref = "String?">Optional denial reason.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny decision.</returns>
+
+        </method>
+
+    </struct>
+
+</AccessPolicyDecision>

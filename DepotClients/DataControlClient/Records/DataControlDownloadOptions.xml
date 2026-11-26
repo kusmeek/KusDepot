@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownloadOptions>
+
+	<record name="DataControlDownloadOptions">
+
+		<main>
+
+			<summary>Configures the client download helpers.</summary>
+
+		</main>
+
+		<property name="Mode" Cref="DataControlDownloadMode">
+
+			<summary>Selects published download, staged follow, or stream follow behavior.</summary>
+
+		</property>
+
+		<property name="SourceSessionID" Cref="Guid?">
+
+			<summary>Required source session identifier for staged-follow and stream-follow download modes.</summary>
+
+		</property>
+
+		<property name="BindLiveStreamItem" Cref="Boolean">
+
+			<summary>Whether the opened or resumed stream-follow session should bind a live DataStreamItem to the buffered follow stream.</summary>
+
+		</property>
+
+		<property name="DownloadRequestSizeBytes" Cref="Int64">
+
+			<summary>Maximum payload bytes requested by the client per download request. Must be positive; defaults to 8 MiB. This controls client request chunking, not server upload policy or integrity segment boundaries. Larger values can increase per-request memory use.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlDownloadOptions>

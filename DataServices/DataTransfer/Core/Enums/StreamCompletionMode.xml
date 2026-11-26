@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<StreamCompletionMode>
+
+	<enum name = "StreamCompletionMode">
+		<main><summary>Completion behavior for stream upload and follow helpers.</summary></main>
+		<value name = "UntilSourceCompletes"><summary>Continue until the source stream naturally completes and the transfer can be finalized.</summary></value>
+		<value name = "UntilByteLimit"><summary>Continue until the configured byte limit is reached.</summary></value>
+	</enum>
+
+</StreamCompletionMode>

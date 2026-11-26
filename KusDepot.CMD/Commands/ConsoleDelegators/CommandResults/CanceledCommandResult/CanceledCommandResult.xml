@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CanceledCommandResult>
+
+    <class name = "CanceledCommandResult">
+
+        <main>
+
+            <summary>Canceled Command Result.</summary>
+
+            <remarks>Represents a command result for a canceled operation.</remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a CanceledCommandResult.</summary>
+
+            <remarks>Initializes the base CommandResult with exit code 1 and default start/exit times.</remarks>
+
+        </constructor>
+
+    </class>
+
+</CanceledCommandResult>

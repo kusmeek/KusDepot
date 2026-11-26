@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StreamTransferAppendResult>
+  <record name="StreamTransferAppendResult">
+	<main>
+	  <summary>Describes the outcome of attempting to append a staged stream transfer payload range.</summary>
+	</main>
+	<property name="Accepted" Cref="Boolean"><summary>True when the append request was accepted by storage.</summary></property>
+	<property name="AppendedLength" Cref="Int64"><summary>The durable appended length after the attempted append completes.</summary></property>
+	<property name="Range" Cref="DataItemTransferRange"><summary>The requested range associated with this append outcome.</summary></property>
+	<property name="Replayed" Cref="Boolean"><summary>True when an identical append was already committed or was reconciled.</summary></property>
+	<property name="StateVersion" Cref="Int64"><summary>The durable session state version after the append attempt completes.</summary></property>
+	<method name="Create">
+	  <summary>Create a normalized stream transfer append result.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Requested range associated with the append attempt.</param>
+	  <param name="accepted" Cref="Boolean">True when the append was accepted.</param>
+	  <param name="appendedlength" Cref="Int64">Durable appended length after the append attempt.</param>
+	  <param name="stateversion" Cref="Int64">Durable state version after the append attempt completes.</param>
+	  <param name="replayed" Cref="Boolean">True when matching content was already committed or reconciled.</param>
+	  <returns Cref="StreamTransferAppendResult">Normalized append outcome.</returns>
+	</method>
+  </record>
+</StreamTransferAppendResult>

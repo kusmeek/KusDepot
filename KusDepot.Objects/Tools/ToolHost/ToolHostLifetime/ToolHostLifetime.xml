@@ -1,0 +1,129 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolHostLifetime>
+
+    <class name = "ToolHostLifetime">
+
+        <main>
+
+            <summary>ToolHost Lifetime.</summary>
+
+            <remarks>A lifetime binds to one host. Lifecycle notifications and disposal require the LifeKey returned by Bind.</remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Creates an unbound ToolHost lifetime.</summary>
+
+            <returns Cref = "ToolHostLifetime">ToolHostLifetime.</returns>
+
+        </constructor>
+
+        <field name = "StartingSource">
+
+            <summary>Cancellation source for the application starting notification.</summary>
+
+        </field>
+
+        <field name = "StartedSource">
+
+            <summary>Cancellation source for the application started notification.</summary>
+
+        </field>
+
+        <field name = "StoppingSource">
+
+            <summary>Cancellation source for the application stopping notification.</summary>
+
+        </field>
+
+        <field name = "StoppedSource">
+
+            <summary>Cancellation source for the application stopped notification.</summary>
+
+        </field>
+
+        <field name = "lifekey">
+
+            <summary>Opaque lifecycle notification key.</summary>
+
+        </field>
+
+        <field name = "bound">
+
+            <summary>Indicates whether this lifetime has been bound.</summary>
+
+        </field>
+
+        <property name = "LifeID">
+
+            <summary>Gets the current ID of the bound host.</summary>
+
+            <returns Cref = "Guid?">Bound host ID, if available.</returns>
+
+        </property>
+
+        <property name = "ToolHost">
+
+            <summary>Gets the host bound to this lifetime.</summary>
+
+            <returns Cref = "IToolHost?">Bound host, if available.</returns>
+
+        </property>
+
+        <method name = "Bind">
+
+            <summary>Binds this lifetime to one host and returns its opaque notification key.</summary>
+
+            <param name = "toolhost" Cref = "IToolHost">Host to bind.</param>
+
+            <returns Cref = "Guid">Opaque lifecycle notification key.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Disposes lifetime resources when supplied with the owning host's key. Direct concurrent calls are not supported.</summary>
+
+            <param name = "lifekey" Cref = "Guid">Key returned when the lifetime was bound.</param>
+
+        </method>
+
+        <method name = "TryBeginDispose">
+
+            <summary>Validates the owning host key and transitions the lifetime to disposed.</summary>
+
+            <param name = "lifekey" Cref = "Guid">Key returned when the lifetime was bound.</param>
+
+            <returns Cref = "Boolean">True when disposal should proceed.</returns>
+
+        </method>
+
+        <method name = "DisposeLifetimeResources">
+
+            <summary>Provides derived lifetimes a hook to release resources after keyed disposal begins.</summary>
+
+        </method>
+
+        <method name = "IsBoundTo">
+
+            <summary>Checks whether a notification or disposal key matches the current binding.</summary>
+
+            <param name = "lifekey" Cref = "Guid">Notification key to check.</param>
+
+            <returns Cref = "Boolean">True when the lifetime is bound and the key matches.</returns>
+
+        </method>
+
+        <property name = "Logger">
+
+            <summary>Gets or sets the logger used for lifetime diagnostics.</summary>
+
+            <returns Cref = "ILogger?">Lifetime logger, if assigned.</returns>
+
+        </property>
+
+    </class>
+
+</ToolHostLifetime>

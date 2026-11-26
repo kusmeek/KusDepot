@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AtomicFilePublisher>
+
+	<class name = "AtomicFilePublisher">
+
+		<main>
+
+			<summary>Internal helper for atomically creating files without overwriting existing destinations.</summary>
+
+		</main>
+
+		<method name = "Write">
+
+			<summary>Write content to a unique staging file beside the destination, then publish it with a create-only move.</summary>
+
+			<param name = "path" Cref = "String">Destination file path.</param>
+
+			<param name = "write" Cref = "Action{Stream}">Callback that writes the complete file contents to the staging stream.</param>
+
+			<param name = "createDirectory" Cref = "Boolean">Whether to create the destination directory when it does not exist.</param>
+
+			<returns Cref = "Boolean">True if the staged file was published; false if the destination already exists, including when another writer creates it during publication.</returns>
+
+			<remarks>The staging file is created in the destination directory, flushed, closed, and moved without overwrite. Unpublished staging files are removed on failure.</remarks>
+
+		</method>
+
+	</class>
+
+</AtomicFilePublisher>

@@ -1,0 +1,38 @@
+{
+  "DaprSupervisorConfig": {
+    "PlacementManager": {
+      "BinPath": "c:/kusdepotbin/daprsvc",
+      "ProcessName": "placement",
+      "ListenAddress": "0.0.0.0",
+      "GrpcPort": 6050,
+      "HealthzPort": 7050,
+      "MetricsPort": 8050,
+      "Interval": 24,
+      "Timeout": 20
+    },
+    "SchedulerManager": {
+      "BinPath": "c:/kusdepotbin/daprsvc",
+      "ProcessName": "scheduler",
+      "ListenAddress": "0.0.0.0",
+      "GrpcPort": 6060,
+      "HealthzPort": 7060,
+      "MetricsPort": 8060,
+      "Interval": 24,
+      "Timeout": 20
+    },
+    "SidecarManager": {
+      "BinPath": "c:/kusdepotbin/daprsvc",
+      "ConfigPath": "c:/kusdepotbin/daprsvc/config/config.yaml",
+      "ResourcesPath": "c:/kusdepotbin/daprsvc/components",
+      "ProcessName": "daprd",
+      "ListenAddress": "0.0.0.0",
+      "GrpcPort": 10000,
+      "HttpPort": 11000,
+      "MetricsPort": 12000,
+      "Interval": 30,
+      "Timeout": 60,
+      "AppID": "toolworkflow",
+      "AppPort": 26000
+    }
+  }
+}

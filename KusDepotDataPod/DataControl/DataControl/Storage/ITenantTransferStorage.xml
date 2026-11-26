@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ITenantTransferStorage>
+  <interface name="ITenantTransferStorage">
+	<main>
+	  <summary>Tenant-scoped storage boundary for transfer staging, publication assembly, and cleanup.</summary>
+	</main>
+	<method name="DeleteTransferAsync">
+	  <summary>Delete all staging artifacts for the transfer while preserving final published artifacts.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when staging artifacts are absent after the operation.</returns>
+	</method>
+	<method name="OpenObjectAsync">
+	  <summary>Open the staged serialized object payload.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream}">Readable staged object stream, or null when it is unavailable.</returns>
+	</method>
+	<method name="OpenRangeAsync">
+	  <summary>Open a staged logical transfer range.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Logical range to open.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream}">Readable staged range stream, or null when it is unavailable.</returns>
+	</method>
+	<method name="OpenChunkAsync">
+	  <summary>Open a staged stream operation chunk.</summary>
+	  <param name="operationid" Cref="Guid">Stream operation identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream}">Readable staged chunk stream, or null when it is unavailable.</returns>
+	</method>
+	<method name="OpenPublicationObjectAsync">
+	  <summary>Open the serialized publication object payload for a transfer operation.</summary>
+	  <param name="operationid" Cref="Guid">Publication operation identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream}">Readable publication object stream, or null when it is unavailable.</returns>
+	</method>
+	<method name="PublishObjectAsync">
+	  <summary>Publish a staged object into the final item namespace using a server-side tenant-storage operation.</summary>
+	  <param name="source" Cref="TenantTransferBlobReference">Staged object reference.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Final object reference, or null when publication fails.</returns>
+	</method>
+	<method name="TryLoadPublishedObjectAsync">
+	  <summary>Loads the final object artifact reference for this item instance when the artifact exists.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Published object reference, or null when it is absent.</returns>
+	</method>
+	<method name="TryLoadPublishedStreamAsync">
+	  <summary>Loads the final stream artifact reference for this item instance when the artifact exists.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Published stream reference, or null when it is absent.</returns>
+	</method>
+	<method name="TryLoadPublishedIntegrityAsync">
+	  <summary>Loads the final integrity artifact reference for this item instance when the artifact exists.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Published integrity reference, or null when it is absent.</returns>
+	</method>
+	<method name="AssembleStreamAsync">
+	  <summary>Assemble a final stream from a destination-ordered block plan within tenant storage.</summary>
+	  <param name="plan" Cref="TransferBlockPlan">Validated block plan.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Final stream reference, or null when assembly fails.</returns>
+	</method>
+	<method name="SaveIntegrityAsync">
+	  <summary>Write the final integrity artifact after content verification.</summary>
+	  <param name="payload" Cref="Stream">Integrity artifact payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Final integrity reference, or null when the write fails.</returns>
+	</method>
+	<method name="SaveObjectAsync">
+	  <summary>Save the staged serialized object payload.</summary>
+	  <param name="payload" Cref="Stream">Object payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Staged object reference, or null when the write is rejected.</returns>
+	</method>
+	<method name="ReplaceObjectAsync">
+	  <summary>Replace the staged serialized object payload.</summary>
+	  <param name="payload" Cref="Stream">Replacement object payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Staged object reference, or null when the write fails.</returns>
+	</method>
+	<method name="SaveRangeAsync">
+	  <summary>Save a logical segmented-transfer range under the transfer prefix without replacing an existing immutable Blob.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Logical range being stored.</param>
+	  <param name="payload" Cref="Stream">Range payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Staged range reference, or null when the write is rejected.</returns>
+	</method>
+  <method name="SaveVerifiedRangeAsync">
+	  <summary>Stream and save a logical segmented-transfer range while verifying its declared length and SHA-512 digest.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Logical range being stored.</param>
+	  <param name="payload" Cref="Stream">Range payload.</param>
+	  <param name="expectedLength" Cref="Int64">Declared payload length.</param>
+	  <param name="expectedSHA512" Cref="Byte[]">Declared SHA-512 digest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Verified staged range reference, or null when validation or storage fails.</returns>
+	</method>
+  <method name="SaveVerifiedChunkAsync">
+	  <summary>Stream and save a stream operation chunk while verifying its declared length and SHA-512 digest.</summary>
+	  <param name="operationid" Cref="Guid">Stream operation identifier.</param>
+	  <param name="range" Cref="DataItemTransferRange">Logical range represented by the chunk.</param>
+	  <param name="payload" Cref="Stream">Chunk payload.</param>
+	  <param name="expectedLength" Cref="Int64">Declared payload length.</param>
+	  <param name="expectedSHA512" Cref="Byte[]">Declared SHA-512 digest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Verified staged chunk reference, or null when validation or storage fails.</returns>
+	</method>
+	<method name="SavePublicationObjectAsync">
+	  <summary>Save the serialized publication object payload for a transfer operation.</summary>
+	  <param name="operationid" Cref="Guid">Publication operation identifier.</param>
+	  <param name="payload" Cref="Stream">Publication object payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">Publication object reference, or null when the write is rejected.</returns>
+	</method>
+  </interface>
+</ITenantTransferStorage>

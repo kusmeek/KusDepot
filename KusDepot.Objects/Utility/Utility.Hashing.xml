@@ -1,0 +1,101 @@
+<Utility>
+
+    <class name = "Utility">
+
+        <method name = "GenerateDeterministicHashCode">
+
+            <summary>Generate a stable, framed content-integrity hash code using canonical type names, exact scalar representations, and alias/cycle preservation.</summary>
+
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+
+            <returns Cref = "Int32">Deterministic content-integrity hash code.</returns>
+
+        </method>
+
+        <method name = "GenerateDeterministicHashCodeAsync">
+            <summary>Generate a stable content-integrity hash code using the synchronous canonical encoder.</summary>
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Int32}">Deterministic graph-identity hash code.</returns>
+        </method>
+
+        <method name = "GenerateDeterministicSHA512">
+            <summary>Generate a stable SHA-512 content-integrity hash of a length-framed canonical graph encoding.</summary>
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+            <param name = "profile" Cref = "DeterministicHashingProfile">Hashing behavior profile.</param>
+            <returns Cref = "Byte[]">SHA-512 digest.</returns>
+            <remarks>Preserves aliases and cycles, normalizes unordered graph structure, and applies exact scalar bit representations. Type names omit assembly identity. Unsupported or over-limit graphs fail under the configured exception policy.</remarks>
+        </method>
+
+        <method name = "GenerateDeterministicSHA512Async">
+            <summary>Generate a stable SHA-512 content-integrity hash of a canonical graph encoding asynchronously.</summary>
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+            <param name = "profile" Cref = "DeterministicHashingProfile">Hashing behavior profile.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Byte[]}">SHA-512 digest.</returns>
+            <remarks>Uses the same graph encoder as the synchronous API and checks cancellation during capture and canonical labeling.</remarks>
+        </method>
+
+        <method name = "ComputeSHA512Async">
+            <summary>Compute a SHA-512 hash for binary content in bounded chunks.</summary>
+            <param name = "payload" Cref = "Byte[]">Binary content.</param>
+            <param name = "chunksize" Cref = "Int32">Chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Byte[]}">SHA-512 digest.</returns>
+        </method>
+
+        <method name = "ComputeSHA512AsyncMemory">
+            <summary>Compute a SHA-512 hash for memory content in bounded chunks.</summary>
+            <param name = "payload" Cref = "ReadOnlyMemory{Byte}">Binary content.</param>
+            <param name = "chunksize" Cref = "Int32">Chunk size.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Byte[]}">SHA-512 digest.</returns>
+        </method>
+
+        <method name = "GenerateDeterministicHashCodeCore">
+
+            <summary>Generate a deterministic graph-identity hash code using a shared serialization pipeline.</summary>
+
+            <param name = "obj" Cref = "Object">Object graph root.</param>
+
+            <param name = "profile" Cref = "DeterministicHashingProfile">Internal deterministic hashing behavior profile.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Int32">Deterministic graph-identity hash code.</returns>
+
+        </method>
+
+        <method name = "GenerateDeterministicSHA512Core">
+
+            <summary>Build and hash the canonical, framed graph encoding with SHA-512.</summary>
+
+            <param name = "obj" Cref = "Object?">Object graph root.</param>
+
+            <param name = "profile" Cref = "DeterministicHashingProfile">Internal deterministic hashing behavior profile.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Byte[]">Deterministic graph-identity SHA-512 hash bytes.</returns>
+
+        </method>
+
+        <method name = "GenerateContentIntegritySHA512">
+
+            <summary>Compute the SHA-512 content-integrity digest for a DataItem's captured content projection.</summary>
+
+            <param name = "owner" Cref = "DataItem">DataItem whose content is represented by the supplied snapshot.</param>
+
+            <param name = "snapshot" Cref = "ContentIntegritySnapshot">Explicit content fields captured for the owner.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Token forwarded to canonical graph encoding to request cancellation.</param>
+
+            <returns Cref = "Byte[]">The SHA-512 digest of the canonical encoding of the owner's content projection.</returns>
+
+            <remarks>Encodes the supplied snapshot using the ContentIntegrity profile and hashes the resulting canonical graph bytes.</remarks>
+
+        </method>
+
+    </class>
+
+</Utility>

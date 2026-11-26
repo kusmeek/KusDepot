@@ -1,0 +1,222 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ITransferStateStore>
+	<interface name = "ITransferStateStore">
+		<main><summary>Stores transfer metadata and durable publish state independently from payload bytes.</summary></main>
+
+		<method name = "LoadRecoveryStateForAdminAsync">
+			<summary>Loads a consistent administrative snapshot of one session, its publication journal, and its persisted transfer ranges and chunks.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferRecoveryStateSnapshot}">The recovery snapshot; its session is null when the session does not exist.</returns>
+		</method>
+		<method name = "LoadStaleTransferSessionCandidatesAsync">
+			<summary>Loads a bounded cursor page of tenant-scoped sessions whose last server-observed activity is at or before a fixed cleanup cutoff.</summary>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the candidates.</param>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive activity cutoff for this scan.</param>
+			<param name = "after" Cref = "TransferSessionCleanupCandidate">Exclusive cursor from the preceding page for the same catalog, or null for the first page.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of lightweight candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionCleanupCandidate}}">The next stale-session candidate page.</returns>
+		</method>
+		<method name = "HasDependentSessionAsync">
+			<summary>Checks whether the catalog contains any staged-read or stream-follow session that depends on the specified source session.</summary>
+			<param name = "sourcesessionid" Cref = "Guid">Source transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the dependent session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when a dependent session exists and the source must be retained.</returns>
+		</method>
+		<method name = "HasPublicationJournalAsync">
+			<summary>Checks whether the catalog contains publication recovery state for the specified transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when publication state exists and session closure must be refused.</returns>
+		</method>
+		<method name = "DeleteJournalsForInstanceAsync">
+			<summary>Deletes publication journals only for one catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when one or more matching journals were removed.</returns>
+		</method>
+		<method name = "TouchTransferSessionAsync">
+			<summary>Advances the server-observed activity timestamp for one catalog and item-scoped session without changing its manifest or transfer state version.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the session.</param>
+			<param name = "activity" Cref = "DateTimeOffset">Observed activity time.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the matching session was touched.</returns>
+		</method>
+		<method name = "LoadJournalsForInstanceAsync">
+			<summary>Loads publication journal states for one catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationJournalState}}">Matching journal states.</returns>
+		</method>
+		<method name = "PurgeRecoveryStateAsync">
+			<summary>Conditionally deletes one session's publication journal and session state when its recorded freshness values still match.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier for the session.</param>
+			<param name = "expectedsessionstateversion" Cref = "Int64">Expected session state version from the inspection snapshot.</param>
+			<param name = "expectedoperationid" Cref = "Guid">Expected journal operation identifier, or null when no journal exists.</param>
+			<param name = "expectedphase" Cref = "TransferPublicationPhase">Expected journal phase, or null when no journal exists.</param>
+			<param name = "expectedjournalupdated" Cref = "DateTimeOffset">Expected journal update time, or null when no journal exists.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when the expected state was deleted; otherwise false.</returns>
+		</method>
+		<method name = "LoadSessionAsync">
+			<summary>Loads one transfer session when it belongs to the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferSessionState}">The transfer session, or null when it does not exist in the catalog.</returns>
+		</method>
+		<method name = "LoadStreamChunkAsync">
+			<summary>Loads one immutable stream append chunk at the specified offset when its session belongs to the catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "offset" Cref = "Int64">Append offset.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{StreamTransferChunkState}">The chunk at that offset, or null when none exists.</returns>
+		</method>
+		<method name = "LoadSessionsAsync">
+			<summary>Loads transfer sessions for the required catalog using indexed server-side filters.</summary>
+			<param name = "query" Cref = "TransferSessionQuery">Indexed filters with a required authorized CatalogName.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionState}}">The sessions matching the filters.</returns>
+		</method>
+		<method name = "LoadSessionsForAdminAsync">
+			<summary>Loads transfer sessions across catalogs for an admin-authorized inventory operation.</summary>
+			<param name = "query" Cref = "TransferSessionQuery">Optional indexed filters.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionState}}">The sessions matching the filters across catalogs.</returns>
+		</method>
+		<method name = "SaveSessionAsync">
+			<summary>Creates or updates one transfer session without changing its owning catalog or immutable identity.</summary>
+			<param name = "session" Cref = "TransferSessionState">Transfer session state to persist.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must match the session manifest.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the persistence operation.</returns>
+		</method>
+		<method name = "DeleteSessionAsync">
+			<summary>Deletes one transfer session only when it belongs to the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when a session in the catalog was deleted.</returns>
+		</method>
+		<method name = "FindOpenConflictAsync">
+			<summary>Finds the newest writer session in a catalog that blocks a new transfer for an item.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name to search.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{DataItemTransferOpenConflict}">The blocking open conflict, or null when no conflict exists.</returns>
+		</method>
+		<method name = "LoadSegmentedRangesAsync">
+			<summary>Loads all realized ranges for a segmented transfer in the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{SegmentedTransferRangeState}}">The realized ranges ordered by their accepted ordinal.</returns>
+		</method>
+		<method name = "LoadSegmentedCoverageAsync">
+			<summary>Loads merged coverage intervals for a session in the authorized catalog.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "catalogname">Authorized catalog.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>Coverage intervals ordered by offset.</returns>
+		</method>
+		<method name = "LoadSegmentedRangeAsync">
+			<summary>Loads an individual segment at an exact offset.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "offset">Segment offset.</param>
+			<param name = "catalogname">Authorized catalog.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>The matching segment or null.</returns>
+		</method>
+		<method name = "IsSegmentedRangeCoveredAsync">
+			<summary>Checks whether merged coverage contains the entire requested range.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "range">Requested range.</param>
+			<param name = "catalogname">Authorized catalog.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>True when the range is covered.</returns>
+		</method>
+		<method name = "HasSegmentedRangeOverlapAsync">
+			<summary>Checks whether the requested range intersects merged coverage.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "range">Requested range.</param>
+			<param name = "catalogname">Authorized catalog.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>True when the range overlaps coverage.</returns>
+		</method>
+		<method name = "CommitSegmentedRangeAsync">
+			<summary>Atomically commits a verified segmented range and updated manifest only when the persisted session item instance token matches, or recognizes an identical retry for that instance.</summary>
+			<param name = "range" Cref = "SegmentedTransferRangeState">Verified range to persist or compare.</param>
+			<param name = "updatedsession" Cref = "TransferSessionState">Session state with the proposed range coverage and version.</param>
+			<param name = "expectedstateversion" Cref = "Int64">Session version on which the write was based.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the parent session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{SegmentedTransferWriteResult}">The committed, replayed, or rejected range with authoritative version.</returns>
+		</method>
+		<method name = "LoadStreamChunksAsync">
+			<summary>Loads all immutable append chunks for a stream transfer in the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{StreamTransferChunkState}}">The append chunks ordered by their accepted ordinal.</returns>
+		</method>
+		<method name = "CommitStreamAppendAsync">
+			<summary>Atomically commits a verified stream chunk and its updated session manifest only when the persisted session item instance token matches, or recognizes an identical retry at an occupied offset for that instance.</summary>
+			<param name = "chunk" Cref = "StreamTransferChunkState">Verified append chunk state to persist or compare.</param>
+			<param name = "updatedsession" Cref = "TransferSessionState">Session state with the proposed appended length and version.</param>
+			<param name = "expectedstateversion" Cref = "Int64">Session version on which the append was based.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the parent session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{StreamTransferAppendResult}">The committed or replayed append result with authoritative progress.</returns>
+		</method>
+		<method name = "LoadJournalAsync">
+			<summary>Loads one durable publication journal only when it belongs to the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournalState}">The publication journal, or null when it does not exist in the catalog.</returns>
+		</method>
+		<method name = "LoadRecoverableJournalCandidatesAsync">
+			<summary>Loads a bounded page of lightweight journal candidates before a fixed scan cutoff.</summary>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive update-time cutoff for the scan.</param>
+			<param name = "after" Cref = "TransferPublicationRecoveryCandidate">Exclusive keyset cursor from the previous page, if any.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationRecoveryCandidate}}">The next page of candidates.</returns>
+		</method>
+		<method name = "SaveJournalAsync">
+			<summary>Creates or updates one durable publication journal only when its catalog and item instance token match the parent transfer session.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournalState">Publication journal state to persist.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the persistence operation.</returns>
+		</method>
+		<method name = "PromoteStagedReadSessionAsync">
+			<summary>Atomically promotes an existing segmented staged-read follow session to published-read mode when its source and catalog match.</summary>
+			<param name = "session" Cref = "TransferSessionState">Published-read state to persist for the existing staged-read session.</param>
+			<param name = "sourcesessionid" Cref = "Guid">Expected source session identifier of the staged-read session.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when the existing eligible session was promoted; otherwise false.</returns>
+		</method>
+		<method name = "DeleteJournalAsync">
+			<summary>Deletes one durable publication journal only when it belongs to the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog name that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when a journal in the catalog was deleted.</returns>
+		</method>
+	</interface>
+</ITransferStateStore>

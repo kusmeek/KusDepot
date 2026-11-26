@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferSegmentSizePolicyResolver>
+	<class name = "TransferSegmentSizePolicyResolver">
+		<main><summary>Resolves an uploader's requested segment-size policy against the server policy.</summary><remarks>The effective minimum is the greater of the two minimums, and the effective maximum is the lesser of the two maximums. The preferred size is clamped to those effective bounds. Incompatible policies are rejected rather than widening either side of the server/request intersection.</remarks></main>
+		<method name = "Resolve" Cref = "DataItemTransferSegmentSizePolicy">
+			<summary>Computes the effective policy for a transfer session.</summary>
+			<param name = "requested" Cref = "DataItemTransferSegmentSizePolicy">Uploader-requested policy, or null to use the server policy unchanged.</param>
+			<param name = "serverDefault" Cref = "DataItemTransferSegmentSizePolicy">Validated server policy that defines the allowed policy bounds.</param>
+			<returns>The server policy when no request is supplied; otherwise, the policy with intersected minimum and maximum bounds and a preferred size clamped to that intersection.</returns>
+			<exception cref = "InvalidOperationException">The configured server policy is invalid.</exception>
+			<exception cref = "ArgumentException">The requested policy is invalid or its bounds do not overlap the server policy.</exception>
+		</method>
+	</class>
+</TransferSegmentSizePolicyResolver>

@@ -1,0 +1,221 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldAssertionFactory>
+
+    <class name = "DataFieldAssertionFactory">
+
+        <main>
+
+            <summary>Create, serialize, and parse signed `DataFieldAssertion` artifacts.</summary>
+
+            <remarks>
+                The factory owns canonical assertion-data serialization and the outer signed envelope format for `DataFieldAssertion` artifacts.
+
+                <para>The canonical assertion-data layout is ordered as: Version, AssertionId, DataItemId, FieldLength, Field, FieldState, HashAlgorithm, HashLength, Hash, IssuerObjectId, SubjectPresent, optional SubjectObjectId, CreatedAt, NotBeforePresent, optional NotBefore, ExpiresAtPresent, optional ExpiresAt, PurposePresent, optional PurposeLength and Purpose, ThumbprintLength, and Thumbprint.</para>
+
+                <para>The outer signed assertion envelope is ordered as: EnvelopeVersion, SignatureAlgorithm, DataLength, Data, SignatureLength, and Signature.</para>
+
+                <para>The factory also owns the parsing helpers that read optional fields and validate the canonical binary layout before signature verification occurs.</para>
+            </remarks>
+
+        </main>
+
+        <field name = "DataVersion" Cref = "Byte">
+
+            <summary>Current canonical assertion-data version.</summary>
+
+        </field>
+
+        <field name = "EnvelopeVersion" Cref = "Byte">
+
+            <summary>Current signed assertion envelope version.</summary>
+
+        </field>
+
+        <field name = "SignatureAlgorithmRsaSha512Pss" Cref = "Byte">
+
+            <summary>Internal signature algorithm discriminator for RSA-PSS SHA-512.</summary>
+
+        </field>
+
+        <method name = "TryCreateArtifact">
+
+            <summary>Create a signed `DataFieldAssertion` artifact from canonical assertion data and a signer certificate.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data to serialize and sign.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the RSA private key used to sign the canonical assertion data.</param>
+
+            <param name = "assertion" Cref = "DataFieldAssertion">Output signed assertion artifact.</param>
+
+            <returns Cref = "Boolean">True when the assertion was created successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryCreateBytes">
+
+            <summary>Create serialized signed assertion bytes from canonical assertion data and a signer certificate.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data to serialize and sign.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2?">Certificate containing the RSA private key used to sign the canonical assertion data.</param>
+
+            <param name = "assertion" Cref = "Byte[]">Output signed assertion bytes.</param>
+
+            <returns Cref = "Boolean">True when the assertion was created and serialized successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadArtifact">
+
+            <summary>Read serialized signed assertion bytes into a parsed `DataFieldAssertion` artifact without performing trust validation.</summary>
+
+            <param name = "assertion" Cref = "ReadOnlySpan{Byte}">Serialized signed assertion bytes.</param>
+
+            <param name = "artifact" Cref = "DataFieldAssertion">Output parsed assertion artifact.</param>
+
+            <returns Cref = "Boolean">True when the signed envelope and canonical data were parsed successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadParts">
+
+            <summary>Read serialized signed assertion bytes into canonical data and signature parts.</summary>
+
+            <param name = "assertion" Cref = "ReadOnlySpan{Byte}">Serialized signed assertion bytes.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Output canonical assertion data.</param>
+
+            <param name = "signature" Cref = "Byte[]">Output embedded signature bytes.</param>
+
+            <returns Cref = "Boolean">True when the signed envelope and canonical data were parsed successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteData">
+
+            <summary>Serialize canonical assertion data into its binary layout.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data to serialize.</param>
+
+            <param name = "databytes" Cref = "Byte[]">Output canonical assertion bytes.</param>
+
+            <returns Cref = "Boolean">True when serialization succeeded; otherwise false.</returns>
+
+        </method>
+		
+		<method name ="TryValidateData">
+
+            <summary>Validate the canonical assertion data to ensure it meets the necessary criteria for creating a valid assertion.</summary>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Canonical assertion data to validate.</param>
+
+            <returns Cref = "Boolean">True if the data is valid; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "BuildEnvelope">
+
+            <summary>Build the outer signed assertion envelope from canonical assertion data and signature bytes.</summary>
+
+            <param name = "assertion" Cref = "DataFieldAssertion">Signed assertion artifact to serialize.</param>
+
+            <returns Cref = "Byte[]">Serialized signed assertion envelope bytes.</returns>
+
+        </method>
+
+        <method name = "TryReadData">
+
+            <summary>Parse canonical assertion data from the serialized binary payload.</summary>
+
+            <param name = "databytes" Cref = "ReadOnlySpan{Byte}">Serialized canonical assertion-data bytes.</param>
+
+            <param name = "data" Cref = "DataFieldAssertionData">Parsed canonical assertion data.</param>
+
+            <returns Cref = "Boolean">True when the canonical assertion-data payload parsed successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadEnvelope">
+
+            <summary>Parse the outer signed assertion envelope into canonical data and signature spans.</summary>
+
+            <param name = "assertion" Cref = "ReadOnlySpan{Byte}">Serialized signed assertion envelope bytes.</param>
+
+            <param name = "databytes" Cref = "ReadOnlySpan{Byte}">Parsed canonical assertion-data span.</param>
+
+            <param name = "signaturebytes" Cref = "ReadOnlySpan{Byte}">Parsed signature span.</param>
+
+            <returns Cref = "Boolean">True when the outer signed assertion envelope parsed successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadByteArray">
+
+            <summary>Read a length-prefixed byte array from the canonical assertion-data reader.</summary>
+
+            <param name = "reader" Cref = "BufferSpanReader">Canonical assertion-data reader.</param>
+
+            <param name = "value" Cref = "Byte[]">Parsed byte-array value.</param>
+
+            <returns Cref = "Boolean">True when the byte array was read successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadOptionalDateTimeOffset">
+
+            <summary>Read an optional Unix-time value and convert it to `DateTimeOffset` when present.</summary>
+
+            <param name = "reader" Cref = "BufferSpanReader">Canonical assertion-data reader.</param>
+
+            <param name = "present" Cref = "Boolean">True when the optional value is present in the payload.</param>
+
+            <param name = "value" Cref = "DateTimeOffset?">Parsed optional date-time value.</param>
+
+            <returns Cref = "Boolean">True when the optional value was read successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadOptionalGuid">
+
+            <summary>Read an optional Guid value when the presence marker indicates that one is available.</summary>
+
+            <param name = "reader" Cref = "BufferSpanReader">Canonical assertion-data reader.</param>
+
+            <param name = "present" Cref = "Boolean">True when the optional Guid is present in the payload.</param>
+
+            <param name = "value" Cref = "Guid?">Parsed optional Guid value.</param>
+
+            <returns Cref = "Boolean">True when the optional Guid was read successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadOptionalUtf8String">
+
+            <summary>Read an optional UTF-8 string when the presence marker indicates that one is available.</summary>
+
+            <param name = "reader" Cref = "BufferSpanReader">Canonical assertion-data reader.</param>
+
+            <param name = "present" Cref = "Boolean">True when the optional string is present in the payload.</param>
+
+            <param name = "value" Cref = "String?">Parsed optional UTF-8 string.</param>
+
+            <returns Cref = "Boolean">True when the optional string was read successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUtf8String">
+
+            <summary>Read a length-prefixed UTF-8 string from the canonical assertion-data reader.</summary>
+
+            <param name = "reader" Cref = "BufferSpanReader">Canonical assertion-data reader.</param>
+
+            <param name = "value" Cref = "String">Parsed UTF-8 string value.</param>
+
+            <returns Cref = "Boolean">True when the string was read successfully; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</DataFieldAssertionFactory>

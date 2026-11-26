@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferPublicationRecoveryAgentOptions>
+  <class name="TransferPublicationRecoveryAgentOptions">
+	<main>
+	  <summary>Options that control durable publication recovery scheduling, leader identity, jitter, and terminal failure handling.</summary>
+	</main>
+	<field name="LeaderLockName" Cref="String"><summary>Stable PostgreSQL advisory-lock name used to elect one recovery leader.</summary></field>
+	<property name="PollingInterval" Cref="TimeSpan">
+	  <summary>Delay between completed journal recovery scans by the elected leader.</summary>
+	</property>
+	<property name="LeaderRetryInterval" Cref="TimeSpan">
+	  <summary>Gets or sets the maximum randomized delay before a follower retries acquiring recovery leadership.</summary>
+	</property>
+	<property name="InitialJitterMaximum" Cref="TimeSpan">
+	  <summary>Maximum random delay before the first recovery scan.</summary>
+	</property>
+	<property name="CycleJitterMaximum" Cref="TimeSpan">
+	  <summary>Maximum random delay added after each completed recovery scan.</summary>
+	</property>
+	<property name="CandidatePageSize" Cref="Int32">
+	  <summary>Maximum number of lightweight recovery candidates fetched by each database query.</summary>
+	</property>
+	<property name="TerminalFailureThreshold" Cref="Int32">
+	  <summary>Number of recorded recovery failures after which a journal is terminalized and retired.</summary>
+	</property>
+  </class>
+</TransferPublicationRecoveryAgentOptions>

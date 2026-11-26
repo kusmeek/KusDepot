@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TokenAssertionRequest>
+
+    <class name = "TokenAssertionRequest">
+
+        <main>
+
+            <summary>Request a token assertion.</summary>
+
+        </main>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "TokenAssertionRequest">New token assertion request.</returns>
+
+        </constructor>
+
+    </class>
+
+</TokenAssertionRequest>

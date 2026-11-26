@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<CatalogClientOptions>
+
+	<record name="CatalogClientOptions">
+
+		<main>
+
+			<summary>Configures the HTTP transport used by a Catalog client.</summary>
+
+		</main>
+
+		<property name="HttpClient" Cref="HttpClient?">
+
+			<summary>Optional HTTP client used for Catalog requests. When supplied, its BaseAddress and default Authorization header must be unset and must remain unset while this Catalog client is using it.</summary>
+
+		</property>
+
+		<property name="HttpClientOwned" Cref="Boolean">
+
+			<summary>Indicates that CatalogClient takes responsibility for disposing the supplied HttpClient. Has no effect when HttpClient is not specified; internally created clients are always disposed by CatalogClient.</summary>
+
+		</property>
+
+	</record>
+
+</CatalogClientOptions>

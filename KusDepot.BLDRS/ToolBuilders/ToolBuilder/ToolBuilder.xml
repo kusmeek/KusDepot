@@ -1,0 +1,445 @@
+﻿<?xml version = "1.0" encoding = "utf-8"?>
+
+<ToolBuilder>
+
+    <class name = "ToolBuilder">
+
+        <main>
+
+            <summary>Build Tools.</summary>
+
+        </main>
+
+        <field name = "seal" Cref = "Boolean">
+
+            <summary>Seal Tool if true.</summary>
+
+        </field>
+
+        <field name = "Start" Cref = "Boolean">
+
+            <summary>Start Tool after Build.</summary>
+
+        </field>
+
+        <field name = "BuildStarted" Cref = "Boolean">
+
+            <summary>True when a build has started.</summary>
+
+        </field>
+
+        <field name = "Context" Cref = "ToolBuilderContext?">
+
+            <summary>Tool Builder Context.</summary>
+
+        </field>
+
+        <field name = "AccessManager" Cref = "IAccessManager?">
+
+            <summary>Access Manager.</summary>
+
+        </field>
+
+        <field name = "ContainerBuilder" Cref = "ContainerBuilder?">
+
+            <summary>Container Builder.</summary>
+
+        </field>
+
+        <field name = "ExternalServiceProvider" Cref = "IServiceProvider?">
+
+            <summary>External ServiceProvider.</summary>
+
+        </field>
+
+        <field name = "ExternalServiceProviderOwnership" Cref = "ToolServiceProviderOwnership">
+
+            <summary>Ownership policy for the external service provider.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "SemaphoreSlim">
+
+            <summary>Synchronization semaphore.</summary>
+
+        </field>
+
+        <field name = "BuildToolInstance" Cref = "ITool?">
+
+            <summary>Tool currently owned by the build operation.</summary>
+
+        </field>
+
+        <field name = "BuildServiceProviderInstance" Cref = "ToolServiceProvider?">
+
+            <summary>ToolServiceProvider wrapper temporarily owned by the build operation.</summary>
+
+        </field>
+
+        <field name = "BuildHostInstance" Cref = "IHost?">
+
+            <summary>Host or application currently owned by the build operation.</summary>
+
+        </field>
+
+        <field name = "BuilderDisposed" Cref = "Int32">
+
+            <summary>Nonzero after the builder has been disposed.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolServicesActions" Cref = "List{ConfigureToolServicesAction}">
+
+            <summary>Ordered Tool service configuration actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolActions" Cref = "List{ConfigureToolAction}">
+
+            <summary>Ordered Tool configuration actions.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolConfigurationActions" Cref = "List{Action{ToolBuilderContext,IConfigurationBuilder}}">
+
+            <summary>Tool-scoped configuration actions.</summary>
+
+        </field>
+
+        <field name = "RegisteredCommands" Cref = "List{RegisteredCommand}">
+
+            <summary>Command registrations.</summary>
+
+        </field>
+
+        <field name = "RegisteredHostedTools" Cref = "List{RegisteredHostedTool}">
+
+            <summary>Hosted tool registrations.</summary>
+
+        </field>
+
+        <field name = "RegisteredServiceInstances" Cref = "Dictionary{String,IHostedService}">
+
+            <summary>Named hosted service instance registrations.</summary>
+
+        </field>
+
+        <field name = "EnableAllCommandsAction" Cref = "Action{ToolBuilderContext,ITool}">
+
+            <summary>Enable All Commands Action.</summary>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "ToolBuilder">New ToolBuilder.</returns>
+
+        </constructor>
+
+        <method name = "configuretool">
+
+            <summary>Execute Tool Configuration Actions.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+        </method>
+
+        <method name = "configuretoolasync">
+
+            <summary>Execute Tool configuration actions asynchronously.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "ClearBuildResources">
+
+            <summary>Clear temporary build ownership references after successful transfer.</summary>
+
+        </method>
+
+        <method name = "DisposeBuildResources">
+
+            <summary>Dispose temporary build resources synchronously.</summary>
+
+        </method>
+
+        <method name = "DisposeBuildResourcesAsync">
+
+            <summary>Dispose temporary build resources asynchronously.</summary>
+
+            <returns Cref = "ValueTask">A ValueTask that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "SetBuildTool">
+
+            <summary>Record the Tool produced by the current build operation and transfer the temporary service-provider wrapper to it.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+        </method>
+
+        <method name = "SetBuildHost">
+
+            <summary>Record the host or application owned by the current build operation.</summary>
+
+            <param name = "host" Cref = "IHost?">Host or application.</param>
+
+        </method>
+
+        <method name = "DC">
+
+            <summary>Throw if the builder has been disposed.</summary>
+
+        </method>
+
+        <method name = "StartTool">
+
+            <summary>Start the Tool synchronously.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to start.</param>
+
+        </method>
+
+        <method name = "SealTool">
+
+            <summary>Seal the Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to seal.</param>
+
+        </method>
+
+        <method name = "StartToolAsync">
+
+            <summary>Start the Tool asynchronously.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to start.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "SealToolAsync">
+
+            <summary>Seal the Tool asynchronously.</summary>
+
+            <param name = "tool" Cref = "ITool">The tool to seal.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "BuildServiceProvider">
+
+            <summary>Build the Tool-owned <see cref="ToolServiceProvider"/>.</summary>
+
+			<returns Cref = "ToolServiceProvider">Tool-owned service provider.</returns>
+
+		</method>
+
+        <method name = "BuildServiceProviderAsync">
+
+            <summary>Build the Tool-owned <see cref="ToolServiceProvider"/> asynchronously.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{ToolServiceProvider}">Tool-owned service provider.</returns>
+
+        </method>
+
+        <method name = "CreateHostLifetime">
+
+            <summary>Create and register the builder-owned host lifetime when the ToolServiceProvider is builder-owned.</summary>
+
+            <param name = "console" Cref = "Boolean">Whether to create console lifetime behavior.</param>
+
+            <returns Cref = "IToolHostLifetime?">The registered lifetime, or null when using an external service provider.</returns>
+
+        </method>
+
+        <method name = "InitializeToolBuilderContext">
+
+            <summary>Initialize ToolBuilderContext.</summary>
+
+        </method>
+
+        <method name = "InitializeConfiguration">
+
+            <summary>Initialize Tool-scoped configuration.</summary>
+
+        </method>
+
+        <method name = "InitializeServiceProvider">
+
+            <summary>Initialize ServiceProvider.</summary>
+
+        </method>
+
+        <method name = "RegisterCommands">
+
+            <summary>Register stored command definitions on the built Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <returns Cref = "Boolean">True if successful.</returns>
+
+        </method>
+
+        <method name = "RegisterCommandsAsync">
+
+            <summary>Register stored command definitions on the built Tool Async.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if successful.</returns>
+
+        </method>
+
+        <method name = "AddRegisteredServices">
+
+            <summary>Add named hosted service registrations to the built Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <returns Cref = "Boolean">True if successful.</returns>
+
+        </method>
+
+        <method name = "AddRegisteredServicesAsync">
+
+            <summary>Add named hosted service registrations to the built Tool Async.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if successful.</returns>
+
+        </method>
+
+        <method name = "AddRegisteredTools">
+
+            <summary>Add hosted Tool registrations to the built Tool.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <returns Cref = "Boolean">True if successful.</returns>
+
+        </method>
+
+        <method name = "AddRegisteredToolsAsync">
+
+            <summary>Add hosted Tool registrations to the built Tool Async.</summary>
+
+            <param name = "tool" Cref = "ITool">Built Tool.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if successful.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolServices_NoSync">
+
+            <summary>Add a Tool service configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IServiceCollection}">Configuration action.</param>
+
+            <remarks>Registers a synchronous Tool-service configuration step in the shared ordered service-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolServicesAsync_NoSync">
+
+            <summary>Add an async Tool service configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Func{ToolBuilderContext,IServiceCollection,CancellationToken,Task}">Async configuration action.</param>
+
+            <remarks>Registers an asynchronous Tool-service configuration step in the shared ordered service-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureTool_NoSync">
+
+            <summary>Add a tool configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,ITool}">Configuration action.</param>
+
+            <remarks>Registers a synchronous Tool-configuration step in the shared ordered Tool-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolAsync_NoSync">
+
+            <summary>Add an async Tool configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Func{ToolBuilderContext,ITool,CancellationToken,Task}">Async configuration action.</param>
+
+            <remarks>Registers an asynchronous Tool-configuration step in the shared ordered Tool-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolConfiguration_NoSync">
+
+            <summary>Add a configuration-builder action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IConfigurationBuilder}">Configuration action.</param>
+
+        </method>
+
+        <method name = "RegisterTool_NoSync">
+
+            <summary>Add a hosted tool registration without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "tool" Cref = "ITool">Hosted tool.</param>
+
+            <param name = "name" Cref = "String?">Optional hosted tool name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional permission set.</param>
+
+        </method>
+
+        <method name = "IsRegisteredToolName_NoSync">
+
+            <summary>Determine whether a nonempty hosted tool name is already registered without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "name" Cref = "String?">Hosted tool name to check.</param>
+
+            <returns Cref = "Boolean">True if the name is already registered.</returns>
+
+        </method>
+
+        <method name = "UseAccessManager_NoSync">
+
+            <summary>Assign the access manager without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager">Access manager instance.</param>
+
+        </method>
+
+        <method name = "UseServiceProvider_NoSync">
+
+            <summary>Assign the external service provider without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "serviceprovider" Cref = "IServiceProvider">Service provider instance.</param>
+
+            <param name = "ownership" Cref = "ToolServiceProviderOwnership">Service provider ownership policy.</param>
+
+        </method>
+
+    </class>
+
+</ToolBuilder>

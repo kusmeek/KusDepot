@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CatalogItemState>
+  <record name="CatalogItemState">
+	<summary>Current catalog identity and pending-delete state for an item instance.</summary>
+	<property name="ItemID"><summary>Catalog item identifier.</summary></property>
+	<property name="ItemInstanceToken"><summary>Non-empty token identifying this continuous item instance.</summary></property>
+	<property name="IsPendingDelete"><summary>Indicates whether deletion has begun and the item is hidden from normal catalog access.</summary></property>
+	<constructor name="CatalogItemState">
+	  <summary>Creates a catalog item state from its identity and deletion status.</summary>
+	  <param name="itemID">Catalog item identifier; must not be empty.</param>
+	  <param name="itemInstanceToken">Item instance token; must not be empty.</param>
+	  <param name="isPendingDelete">Whether deletion is pending.</param>
+	</constructor>
+  </record>
+</CatalogItemState>

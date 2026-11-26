@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Main">
+
+        <OutputType>Exe</OutputType>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <TargetFramework>net11.0</TargetFramework>
+
+        <AssemblyName>KusDepotDataPod.App</AssemblyName>
+
+    </PropertyGroup>
+
+    <PropertyGroup Label="ConfigEx">
+
+		<AspireUseCliBundle>True</AspireUseCliBundle>
+
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+    </PropertyGroup>
+
+    <ItemGroup Label="Settings">
+
+        <None Update="appsettings.json">
+
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+        </None>
+
+    </ItemGroup>
+
+    <ItemGroup Label="Packages or Projects">
+
+        <PackageReference Include="Aspire.Hosting.AppHost" />
+
+		<PackageReference Include="Serilog.AspNetCore" IsAspireProjectResource="false" />
+
+        <PackageReference Include="Serilog.Sinks.Console" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\..\KusDepot.ASPR\KusDepot.ASPR.csproj" IsAspireProjectResource="false" />
+
+        <ProjectReference Include="..\Catalog\KusDepotDataPod.Catalog.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\DataControl\KusDepotDataPod.DataControl.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\Services\KusDepotDataPod.Services.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ExceptionStrings>
+
+    <class name = "ExceptionStrings">
+
+        <main>
+
+            <summary>Exception Strings.</summary>
+
+        </main>
+
+    </class>
+
+</ExceptionStrings>

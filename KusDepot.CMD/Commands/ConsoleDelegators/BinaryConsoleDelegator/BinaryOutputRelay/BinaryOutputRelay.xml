@@ -1,0 +1,91 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryOutputRelay>
+
+	<class name = "BinaryOutputRelay">
+
+		<main>
+
+			<summary>Relays one process output stream to a live observer stream and optionally captures all bytes for a buffered result.</summary>
+
+			<remarks>The relay owns the intermediate pipe and optional in-memory collector. It reads the process stream continuously, copies each chunk to the collector when enabled, forwards the chunk to the observer stream, and completes that stream when input ends or process startup fails.</remarks>
+
+		</main>
+
+		<field name = "capture" Cref = "MemoryStream">
+
+			<summary>Optional in-memory copy of all bytes read by the process-output pump.</summary>
+
+		</field>
+
+		<field name = "output" Cref = "Pipe">
+
+			<summary>Intermediate pipe carrying output bytes to the observer-side stream.</summary>
+
+		</field>
+
+		<field name = "writerCompleted" Cref = "Int32">
+
+			<summary>Atomic flag preventing the intermediate pipe writer from being completed more than once.</summary>
+
+		</field>
+
+		<field name = "outputStream" Cref = "Stream">
+
+			<summary>Stream view over the observer-side pipe reader.</summary>
+
+		</field>
+
+		<constructor name = "Constructor">
+
+			<summary>Creates an output relay.</summary>
+
+			<param name = "capture" Cref = "Boolean">True to retain all relayed bytes for a buffered result.</param>
+
+			<returns Cref = "BinaryOutputRelay">A relay exposing the observer-side stream and capture result.</returns>
+
+		</constructor>
+
+		<property name = "Stream">
+
+			<summary>Gets the live stream that an output observer can consume.</summary>
+
+			<returns Cref = "Stream">Observer-side stream containing process output as it is relayed.</returns>
+
+		</property>
+
+		<method name = "PumpAsync">
+
+			<summary>Reads a process output stream, captures each chunk when enabled, and forwards it to the observer-side stream.</summary>
+
+			<param name = "source" Cref = "Stream">Process output stream to drain.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for reading and forwarding.</param>
+
+			<returns Cref = "Task">A task that completes when the source ends or an error occurs.</returns>
+
+		</method>
+
+		<method name = "Complete">
+
+			<summary>Completes the observer-side stream if its process-output pump did not complete it.</summary>
+
+		</method>
+
+		<method name = "Dispose">
+
+			<summary>Releases the observer-side pipe and optional capture buffer.</summary>
+
+		</method>
+
+		<method name = "CopyCapturedBytes">
+
+			<summary>Returns a copy of all bytes captured by this relay.</summary>
+
+			<returns Cref = "Byte[]">Captured bytes, or an empty array when capture is disabled.</returns>
+
+		</method>
+
+	</class>
+
+</BinaryOutputRelay>

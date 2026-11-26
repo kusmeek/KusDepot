@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueConverterRegistration>
+
+    <record name = "ToolValueConverterRegistration">
+
+        <main>
+
+            <summary>Named runtime registration for a ToolValue converter.</summary>
+
+        </main>
+
+        <property name = "Name" Cref = "String">
+
+            <summary>Registration name.</summary>
+
+        </property>
+
+        <property name = "Order" Cref = "Int32">
+
+            <summary>Runtime converter order.</summary>
+
+        </property>
+
+        <property name = "Converter" Cref = "IToolValueConverter?">
+
+            <summary>Registered converter instance.</summary>
+
+        </property>
+
+    </record>
+
+</ToolValueConverterRegistration>

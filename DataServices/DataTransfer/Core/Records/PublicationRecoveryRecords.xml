@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublicationRecoveryRecords>
+	<class name="PublicationRecoveryArtifactKinds">
+	<main><summary>Defines the stable kind values used by <see cref="PublicationRecoveryArtifact.Kind"/>.</summary></main>
+	<field name="StagedObject" Cref="String"><summary>Identifies the staged serialized object payload.</summary></field>
+	<field name="SegmentedRange" Cref="String"><summary>Identifies a staged segmented-transfer range.</summary></field>
+	<field name="StreamChunk" Cref="String"><summary>Identifies a staged stream-transfer chunk.</summary></field>
+	<field name="PublicationObjectRecoveryCopy" Cref="String"><summary>Identifies the publication object's staging recovery copy.</summary></field>
+	<field name="FinalObjectCandidate" Cref="String"><summary>Identifies the candidate final object artifact; its existence is not verified.</summary></field>
+	<field name="FinalStreamCandidate" Cref="String"><summary>Identifies the candidate final stream artifact; its existence is not verified.</summary></field>
+	<field name="FinalIntegrityCandidate" Cref="String"><summary>Identifies the candidate final integrity artifact; its existence is not verified.</summary></field>
+  </class>
+  <record name="InspectPublicationRequest">
+	<main><summary>Identifies a transfer session whose publication recovery footprint is requested.</summary></main>
+	<property name="SessionID" Cref="Guid"><summary>Gets the transfer session identifier to inspect.</summary></property>
+  </record>
+  <record name="PublicationRecoveryFootprint">
+	<main><summary>Describes the recorded recovery state and artifact candidates for one transfer session.</summary><remarks>This is a database snapshot, not verification that any external Blob or catalog record exists. It contains no payload bytes or storage credentials.</remarks></main>
+	<property name="InspectedAt" Cref="DateTimeOffset"><summary>Gets the UTC time at which the database snapshot was read.</summary></property>
+	<property name="ExternalArtifactExistenceChecked" Cref="Boolean"><summary>Gets whether external artifact existence was checked; inspection currently always returns false.</summary></property>
+	<property name="SessionID" Cref="Guid"><summary>Gets the transfer session identifier.</summary></property>
+	<property name="ItemID" Cref="Guid"><summary>Gets the item identifier associated with the transfer.</summary></property>
+	<property name="CatalogName" Cref="String"><summary>Gets the owning catalog name.</summary></property>
+	<property name="Family" Cref="DataControlTransferFamily"><summary>Gets the transfer family.</summary></property>
+	<property name="Mode" Cref="DataItemTransferMode"><summary>Gets the transfer mode.</summary></property>
+	<property name="Status" Cref="DataItemTransferStatus"><summary>Gets the recorded transfer status.</summary></property>
+	<property name="SessionStateVersion" Cref="Int64"><summary>Gets the session state version used as a purge freshness condition.</summary></property>
+	<property name="SessionUpdated" Cref="DateTimeOffset"><summary>Gets the session update timestamp.</summary></property>
+	<property name="OperationID" Cref="Guid"><summary>Gets the publication operation identifier, when a journal exists.</summary></property>
+	<property name="Phase" Cref="TransferPublicationPhase"><summary>Gets the publication journal phase, when a journal exists.</summary></property>
+	<property name="JournalUpdated" Cref="DateTimeOffset"><summary>Gets the journal update timestamp used as a purge freshness condition.</summary></property>
+	<property name="FailureCount" Cref="Int32"><summary>Gets the number of recorded publication failures.</summary></property>
+	<property name="LastError" Cref="String"><summary>Gets the sanitized recorded publication error, when available.</summary></property>
+	<property name="ExpectedStateVersion" Cref="Int64"><summary>Gets the state version expected by the publication journal.</summary></property>
+	<property name="ExpectedObjectLength" Cref="Int64"><summary>Gets the recorded expected serialized object length.</summary></property>
+	<property name="ExpectedObjectSHA512" Cref="Byte[]"><summary>Gets the recorded expected serialized object SHA-512 digest.</summary></property>
+	<property name="ExpectedStreamLength" Cref="Int64"><summary>Gets the recorded expected stream length, when applicable.</summary></property>
+	<property name="ExpectedStreamIntegrity" Cref="TransferContentIntegrity"><summary>Gets the recorded stream integrity evidence, when applicable.</summary></property>
+	<property name="StagingArtifacts" Cref="PublicationRecoveryArtifact[]"><summary>Gets staging Blob references recorded by the session and journal.</summary></property>
+	<property name="StagingPrefix" Cref="String"><summary>Gets the session-specific staging Blob prefix.</summary></property>
+	<property name="FinalArtifacts" Cref="PublicationRecoveryArtifact[]"><summary>Gets candidate final artifact names and any recorded metadata; these artifacts remain under operator control.</summary></property>
+	<property name="IntegrityEvidence" Cref="TransferContentIntegrity"><summary>Gets the recorded stream integrity evidence, when available.</summary></property>
+  </record>
+  <record name="PublicationRecoveryArtifact">
+	<main><summary>Describes an artifact candidate or recorded Blob reference in a recovery footprint.</summary><remarks>A final artifact candidate name is not evidence that the Blob exists. Length and SHA-512 are present only when recorded for the Blob itself.</remarks></main>
+	<property name="Kind" Cref="String"><summary>Gets the artifact category.</summary></property>
+	<property name="BlobName" Cref="String"><summary>Gets the Blob name within the item container.</summary></property>
+	<property name="Length" Cref="Int64"><summary>Gets the recorded artifact length, when available.</summary></property>
+	<property name="SHA512" Cref="Byte[]"><summary>Gets the recorded artifact SHA-512 digest, when available.</summary></property>
+	<property name="OperationID" Cref="Guid"><summary>Gets the associated stream-chunk operation identifier, when applicable.</summary></property>
+	<property name="Offset" Cref="Int64"><summary>Gets the range or chunk offset, when applicable.</summary></property>
+  </record>
+  <record name="PurgePublicationRequest">
+	<main><summary>Requests deletion of one transfer session's staging Blobs and DataControl database state.</summary><remarks>Final artifact Blobs and catalog data are never deleted by this operation. Explicit confirmation is required.</remarks></main>
+	<property name="SessionID" Cref="Guid"><summary>Gets the transfer session identifier.</summary></property>
+	<property name="ItemID" Cref="Guid"><summary>Gets the item identifier expected to own the session.</summary></property>
+	<property name="CatalogName" Cref="String"><summary>Gets the catalog expected to own the session.</summary></property>
+	<property name="ExpectedSessionStateVersion" Cref="Int64"><summary>Gets the session state version returned by inspection.</summary></property>
+	<property name="ExpectedOperationID" Cref="Guid"><summary>Gets the journal operation identifier returned by inspection, or null when no journal existed.</summary></property>
+	<property name="ExpectedPhase" Cref="TransferPublicationPhase"><summary>Gets the journal phase returned by inspection, or null when no journal existed.</summary></property>
+	<property name="ExpectedJournalUpdated" Cref="DateTimeOffset"><summary>Gets the journal update timestamp returned by inspection, or null when no journal existed.</summary></property>
+	<property name="ConfirmPurge" Cref="Boolean"><summary>Gets the required explicit confirmation to purge session state and staging Blobs.</summary></property>
+  </record>
+  <record name="PurgePublicationResponse">
+	<main><summary>Reports the DataControl cleanup performed for a transfer session.</summary><remarks>Final artifact candidates and catalog data are left untouched; candidate names do not establish external existence.</remarks></main>
+	<property name="Purged" Cref="Boolean"><summary>Gets whether the purge completed.</summary></property>
+	<property name="SessionID" Cref="Guid"><summary>Gets the purged transfer session identifier.</summary></property>
+	<property name="OperationID" Cref="Guid"><summary>Gets the publication operation identifier, when one was journaled.</summary></property>
+	<property name="StagingArtifactsDeleted" Cref="Boolean"><summary>Gets whether the session staging prefix was deleted.</summary></property>
+	<property name="DatabaseStateDeleted" Cref="Boolean"><summary>Gets whether the journal, session, and dependent transfer metadata were deleted.</summary></property>
+	<property name="FinalArtifactsDeleted" Cref="Boolean"><summary>Gets whether final published artifacts were deleted; this operation always returns false.</summary></property>
+	<property name="CatalogDataDeleted" Cref="Boolean"><summary>Gets whether catalog data was deleted; this operation always returns false.</summary></property>
+	<property name="FinalArtifactCandidatesLeftUntouched" Cref="PublicationRecoveryArtifact[]"><summary>Gets candidate final artifact names left untouched by purge.</summary></property>
+	<property name="Message" Cref="String"><summary>Gets a summary of the cleanup boundary.</summary></property>
+  </record>
+</PublicationRecoveryRecords>

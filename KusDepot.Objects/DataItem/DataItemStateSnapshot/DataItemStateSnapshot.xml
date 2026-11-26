@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemStateSnapshot>
+	<class name="DataItemStateSnapshot">
+		<main><summary>Snapshot of shared data-item state and optional concrete payload state for rollback.</summary></main>
+		<field name="dataEncrypted"><summary>Original encryption state.</summary></field>
+		<field name="dataProtectionInfo"><summary>Original protection information.</summary></field>
+		<field name="encryptedData"><summary>Original encrypted in-memory payload.</summary></field>
+		<field name="fieldAssertions"><summary>Original field assertions.</summary></field>
+		<field name="fieldIntegrityHashes"><summary>Original field-integrity hashes.</summary></field>
+		<field name="fileSizeCached"><summary>Original cached backing-file size.</summary></field>
+		<field name="contentStreamed"><summary>Original content-streaming mode.</summary></field>
+		<field name="contentMemento"><summary>Optional type-specific payload restoration action captured for a content mutation.</summary></field>
+		<constructor name="Constructor"><summary>Capture the shared state of a DataItem.</summary><param name="item" Cref="DataItem">Item whose state is captured.</param></constructor>
+		<constructor name="ConstructorWithContentMemento"><summary>Capture shared state and an optional type-specific payload memento.</summary><param name="item" Cref="DataItem">Item whose state is captured.</param><param name="contentMemento" Cref="DataItemContentMutationMemento?">Optional payload restoration action.</param></constructor>
+		<method name="CaptureForContentMutation_NoSync"><summary>Capture shared state and the item's optional payload memento.</summary><param name="item" Cref="DataItem">Item whose state is captured; its data gate must already be held.</param><returns Cref="DataItemStateSnapshot">A snapshot that can restore shared and opted-in payload state.</returns></method>
+		<method name="Restore"><summary>Restore the captured shared state to a DataItem.</summary><param name="item" Cref="DataItem">Item receiving the captured state.</param></method>
+		<method name="Clone"><summary>Create a deep copy of a field-value dictionary.</summary><param name="source" Cref="Dictionary{String,Byte[]}?">Dictionary to copy.</param><returns Cref="Dictionary{String,Byte[]}?">A deep copy, or null.</returns></method>
+	</class>
+</DataItemStateSnapshot>

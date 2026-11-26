@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataControlDeletionProcessor>res
+  <class name="DataControlDeletionProcessor">
+	<main>
+	  <summary>Executes the ordered cleanup stages for a durable item-deletion job, persisting progress after each stage so interrupted work can safely resume.</summary>
+	  <remarks>
+		<para>The processor reloads the unfinished deletion job while the item lock is held and performs token-scoped cleanup before conditionally finalizing the matching catalog pending-delete state. Progress is persisted after each cleanup stage; if interruption occurs after a side effect but before progress is saved, that cleanup operation may run again on retry.</para>
+		<para>Cleanup removes only the target item's instance artifacts, sessions, and publication journals. Failures are recorded with bounded exponential retry scheduling and jitter. Cancellation requested through the supplied token is propagated without recording a retry.</para>
+	  </remarks>
+	</main>
+	<field name="scopes"><summary>Creates a fresh asynchronous dependency-injection scope for each cleanup stage.</summary></field>
+	<field name="coordinator"><summary>Provides the cross-process item lock that serializes deletion with item mutations.</summary></field>
+	<field name="jobs"><summary>Loads unfinished deletion jobs and persists stage progress and retry state.</summary></field>
+	<field name="dataConfigs"><summary>Resolves the tenant storage configuration required to remove published and staged artifacts.</summary></field>
+	<field name="options"><summary>Provides the base and maximum retry delays used when a cleanup stage fails.</summary></field>
+	<constructor name="DataControlDeletionProcessor">
+	  <summary>Initializes a processor with the item-lock coordinator, durable deletion-job store, tenant configuration client, scoped service factory, and retry policy.</summary>
+	  <param name="scopes" Cref="IServiceScopeFactory">Factory used to create an asynchronous scope for each cleanup stage.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Coordinator used to acquire exclusive access to the candidate item.</param>
+	  <param name="jobs" Cref="IDataControlDeletionJobStore">Store used to reload unfinished jobs and persist progress and failures.</param>
+	  <param name="dataConfigs" Cref="IDataControlDataConfigsClient">Client used to resolve the tenant storage configuration for artifact cleanup.</param>
+	  <param name="options" Cref="IOptions{DeletionAgentOptions}">Options containing the bounded retry delay policy.</param>
+	  <exception cref="ArgumentNullException">A required dependency other than <paramref name="options"/> is null.</exception>
+	</constructor>
+	<method name="ProcessAsync">
+	  <summary>Acquires the cross-process item lock and processes the candidate's cleanup stages.</summary>
+	  <remarks>The lock remains held until processing returns, including while external cleanup operations run. Use this entry point when the caller does not already own the item's mutation lock.</remarks>
+	  <param name="candidate" Cref="DataControlDeletionJobState">Candidate deletion job identifying the catalog, item, and instance token to clean up.</param>
+	  <param name="cancel" Cref="CancellationToken">Token used to cancel lock acquisition and cleanup operations.</param>
+	  <returns Cref="Task{DataControlDeletionJobState}">The most recently loaded persisted job state, or null if the job no longer exists.</returns>
+	  <exception cref="ArgumentNullException">The candidate is null.</exception>
+	  <exception cref="OperationCanceledException">The operation is canceled through <paramref name="cancel"/>.</exception>
+	</method>
+	<method name="ProcessWithLockAsync">
+	  <summary>Reloads and processes a deletion job while the caller holds the item's cross-process lock.</summary>
+	  <remarks>This method does not acquire or verify the item lock. The caller must hold that lock for the entire call; otherwise deletion may race with an item mutation. A cleanup failure is persisted as a retry when possible, and the latest job state is returned.</remarks>
+	  <param name="candidate" Cref="DataControlDeletionJobState">Candidate deletion job identifying the catalog, item, and instance token to clean up.</param>
+	  <param name="cancel" Cref="CancellationToken">Token used to cancel cleanup and durable state operations.</param>
+	  <returns Cref="Task{DataControlDeletionJobState}">The latest persisted job state, or null if the job no longer exists.</returns>
+	  <exception cref="ArgumentNullException">The candidate is null.</exception>
+	  <exception cref="OperationCanceledException">The operation is canceled through <paramref name="cancel"/>.</exception>
+	</method>
+	<method name="ProcessProgressAsync">
+	  <summary>Performs the external cleanup operation for the job's current progress stage, then persists the next stage.</summary>
+	  <remarks>
+		<para><see cref="DataControlDeletionProgress.CatalogPending"/> deletes the target item instance's token-scoped artifacts.</para>
+		<para><see cref="DataControlDeletionProgress.PublishedArtifactsRemoved"/> deletes transfer sessions and publication journals for the target item instance.</para>
+		<para><see cref="DataControlDeletionProgress.TransferStateRemoved"/> conditionally finalizes the matching catalog pending-delete state and removes the unfinished job.</para>
+	  </remarks>
+	  <param name="job" Cref="DataControlDeletionJobState">Current persisted deletion job and progress stage.</param>
+	  <param name="cancel" Cref="CancellationToken">Token used to cancel the cleanup stage and its progress update.</param>
+	  <exception cref="InvalidOperationException">Tenant storage is unavailable, the catalog item is not pending deletion for this token, the progress value is unsupported, or the progress transition cannot be committed.</exception>
+	  <exception cref="OperationFailedException">Token-scoped artifact cleanup reports failure.</exception>
+	  <exception cref="OperationCanceledException">The operation is canceled through <paramref name="cancel"/>.</exception>
+	</method>
+	<method name="AdvanceAsync">
+	  <summary>Conditionally advances the durable deletion job from its current progress to the supplied next progress.</summary>
+	  <remarks>The deletion-job store performs the transition against the expected current progress so stale workers cannot overwrite a concurrent state change.</remarks>
+	  <param name="job" Cref="DataControlDeletionJobState">Job whose current progress is the expected transition source.</param>
+	  <param name="progress" Cref="DataControlDeletionProgress">Next progress stage to persist.</param>
+	  <param name="cancel" Cref="CancellationToken">Token used to cancel the durable progress update.</param>
+	  <exception cref="InvalidOperationException">The persisted progress changed before the transition could be committed.</exception>
+	  <exception cref="OperationCanceledException">The operation is canceled through <paramref name="cancel"/>.</exception>
+	</method>
+  </class>
+</DataControlDeletionProcessor>

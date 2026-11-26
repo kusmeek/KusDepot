@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Delete>
+  <class name="CatalogDBService">
+	<method name="BeginDelete">
+	  <summary>Marks an existing item as pending deletion and returns its current instance identity.</summary>
+	  <param name="itemID" Cref="Guid">Item identifier to mark for deletion.</param>
+	  <param name="tracecontext" Cref="TraceContext">Optional trace context.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{CatalogItemIdentity}">The same item identity for repeated calls, or null when absent.</returns>
+	</method>
+	<method name="FinalizeDelete">
+	  <summary>Removes an item only when its token matches and it is pending deletion.</summary>
+	  <param name="itemID" Cref="Guid">Item identifier to remove.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Expected token for the item instance being deleted.</param>
+	  <param name="tracecontext" Cref="TraceContext">Optional trace context.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{CatalogDeleteFinalizationResult}">The finalization outcome, including absence, token mismatch, or a non-pending item.</returns>
+	</method>
+	<method name="GetPendingDeletes">
+	  <summary>Returns a keyset-paged list of items pending deletion.</summary>
+	  <param name="afterItemID" Cref="Guid">Exclusive item-ID continuation key, or null to start at the beginning.</param>
+	  <param name="pageSize" Cref="Int32">Maximum number of items to return; must be between 1 and 100.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the query.</param>
+	  <returns Cref="Task{CatalogPendingDeletePage}">A page of pending-delete item identities and the next continuation key.</returns>
+	</method>
+  </class>
+</Delete>

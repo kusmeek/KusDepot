@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProtectedOperationResolverGenerator>
+    <class name="ProtectedOperationResolverGenerator">
+        <main>
+            <summary>
+                Source generator that creates the ProtectedOperationResolver.
+            </summary>
+            <remarks>
+                This generator discovers methods decorated with the AccessCheckAttribute, and uses the method names
+                and the integer indices provided in the attributes to build a ResolveIndex method.
+            </remarks>
+        </main>
+        <property name="AttributeFullName" Cref="String">
+            <summary>The fully qualified name of the attribute used to mark protected operations.</summary>
+        </property>
+        <method name="Execute">
+            <summary>The main execution method for the source generator.</summary>
+            <param name="compilation" Cref="Compilation">The current compilation.</param>
+            <param name="methods" Cref="ImmutableArray{MethodDeclarationSyntax}">The collection of method syntax nodes that have been identified as protected operations.</param>
+            <param name="context" Cref="SourceProductionContext">The source production context, used to add the generated source file.</param>
+        </method>
+        <method name="Initialize">
+            <summary>Initializes the incremental source generator.</summary>
+            <param name="context" Cref="IncrementalGeneratorInitializationContext">The generator initialization context.</param>
+        </method>
+        <method name="IsSyntaxForGeneration">
+            <summary>A filter to determine if a syntax node could possibly be a candidate for generation.</summary>
+            <param name="node" Cref="SyntaxNode">The syntax node to inspect.</param>
+            <returns><see langword="true"/> if the node is a method declaration with attributes; otherwise, <see langword="false"/>.</returns>
+        </method>
+        <method name="GenerateResolver">
+            <summary>Generates the source code for the `ProtectedOperationResolver` class.</summary>
+            <param name="methodInfos" Cref="List{Tuple{String,Int32}}">The list of protected operation names and their corresponding indices.</param>
+            <returns>A string containing the complete source code for the generated class.</returns>
+        </method>
+        <method name="GetMethodInfos">
+            <summary>Extracts the necessary information (method name and operation index) from the method syntax nodes.</summary>
+            <param name="compilation" Cref="Compilation">The current compilation.</param>
+            <param name="methods" Cref="IEnumerable{MethodDeclarationSyntax?}">The collection of method syntax nodes.</param>
+            <param name="cancel" Cref="CancellationToken">A cancellation token.</param>
+            <returns>A list of tuples, where each tuple contains the name and index of a protected operation.</returns>
+        </method>
+        <method name="GetSemanticTargetForGeneration">
+            <summary>Performs a semantic check to confirm if a syntax node is a method decorated with the AccessCheckAttribute.</summary>
+            <param name="context" Cref="GeneratorSyntaxContext">The generator syntax context, which provides access to the semantic model.</param>
+            <returns>The <see Cref="MethodDeclarationSyntax"/> if it has the correct attribute; otherwise, <see langword="null"/>.</returns>
+        </method>
+    </class>
+</ProtectedOperationResolverGenerator>

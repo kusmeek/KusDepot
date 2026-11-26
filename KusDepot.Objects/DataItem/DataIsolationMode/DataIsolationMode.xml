@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataIsolationMode>
+
+    <enum name = "DataIsolationMode">
+
+        <main>
+
+            <summary>Controls whether <see cref="KusDepot.DataItem"/> and related metadata APIs perform defensive data isolation work when exchanging values with callers.</summary>
+
+        </main>
+
+        <field name = "Disabled">
+
+            <summary>Disable data isolation guarantees so callers may observe or provide shared mutable references without defensive copying.</summary>
+
+        </field>
+
+        <field name = "Enabled">
+
+            <summary>Enable defensive data isolation so callers receive isolated values and mutable inputs are copied before storage.</summary>
+
+        </field>
+
+    </enum>
+
+</DataIsolationMode>

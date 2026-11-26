@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataTransferConstants>
+  <class name="DataTransferConstants">
+	<main>
+	  <summary>Shared constants for DataTransfer client and server behaviors.</summary>
+	</main>
+	<field name="LargeObjectPayloadSize" Cref="Int32"><summary>Payload size threshold, in bytes, above which object-payload hashing will use the chunked hashing utility.</summary></field>
+	<field name="PublicationBlockLimitProblemType" Cref="String"><summary>Problem Details type identifying a transfer publication block-limit failure.</summary></field>
+  </class>
+</DataTransferConstants>

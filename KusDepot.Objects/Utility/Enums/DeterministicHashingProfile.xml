@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DeterministicHashingProfile>
+
+	<enum name="DeterministicHashingProfile">
+
+		<main>
+			<summary>Selects the internal deterministic hashing behavior used while traversing object graphs.</summary>
+		</main>
+
+		<value name="ContentIntegrity">
+			<summary>Hash object graphs using explicit, content-sensitive DataItem projections.</summary>
+		</value>
+
+		<value name="MetaBaseIntegrity">
+			<summary>Hash MetaBase integrity fields in a shared canonical graph.</summary>
+		</value>
+
+	</enum>
+
+</DeterministicHashingProfile>

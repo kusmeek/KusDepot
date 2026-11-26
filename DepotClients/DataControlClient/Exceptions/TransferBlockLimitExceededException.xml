@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<TransferBlockLimitExceededException>
+	<class name = "TransferBlockLimitExceededException">
+		<main><summary>The requested transfer operation exceeds the destination blob's publication block limit.</summary></main>
+		<constructor name = "Constructor"><summary>Create a block-limit failure.</summary><param name = "sessionId">The affected session.</param><param name = "currentBlocks">The accepted or planned block count.</param><param name = "requestedBlocks">The number of blocks requested by the rejected range.</param><param name = "maximumBlocks">The maximum publishable block count.</param><param name = "detail">The server's explanation.</param></constructor>
+		<property name = "SessionId"><summary>Gets the affected session identifier.</summary></property>
+		<property name = "CurrentBlocks"><summary>Gets the accepted or planned block count.</summary></property>
+		<property name = "RequestedBlocks"><summary>Gets the count requested by the rejected range.</summary></property>
+		<property name = "MaximumBlocks"><summary>Gets the maximum publishable block count.</summary></property>
+		<method name = "FromResponse"><summary>Create an exception from a matching block-limit response.</summary><param name = "status" Cref = "HttpStatusCode">HTTP response status.</param><param name = "content" Cref = "String?">Problem Details response body.</param><returns Cref = "TransferBlockLimitExceededException?">An exception when the response contains the expected fields; otherwise null.</returns></method>
+	</class>
+</TransferBlockLimitExceededException>

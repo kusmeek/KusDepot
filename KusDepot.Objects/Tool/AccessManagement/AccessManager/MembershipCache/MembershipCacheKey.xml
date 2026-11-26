@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<MembershipCacheKey>
+
+    <struct name = "MembershipCacheKey">
+
+        <main>
+
+            <summary>Immutable SHA-512 fingerprint of a complete serialized access-key credential used to identify its cached membership.</summary>
+
+        </main>
+
+        <field name = "part1" Cref = "UInt128">
+
+            <summary>First 128-bit segment of the credential fingerprint.</summary>
+
+        </field>
+
+        <field name = "part2" Cref = "UInt128">
+
+            <summary>Second 128-bit segment of the credential fingerprint.</summary>
+
+        </field>
+
+        <field name = "part3" Cref = "UInt128">
+
+            <summary>Third 128-bit segment of the credential fingerprint.</summary>
+
+        </field>
+
+        <field name = "part4" Cref = "UInt128">
+
+            <summary>Fourth 128-bit segment of the credential fingerprint.</summary>
+
+        </field>
+
+        <field name = "DigestSize" Cref = "Int32">
+
+            <summary>SHA-512 fingerprint size in bytes.</summary>
+
+        </field>
+
+        <constructor name = "ConstructorDigest" Cref = "MembershipCacheKey">
+
+            <summary>Create a membership-cache key from an already-computed SHA-512 credential fingerprint.</summary>
+
+            <param name = "digest" Cref = "ReadOnlySpan{Byte}">SHA-512 digest of the complete serialized credential.</param>
+
+        </constructor>
+
+        <method name = "TryCreate">
+
+            <summary>Try to create a membership-cache key by hashing the complete serialized access-key credential with SHA-512.</summary>
+
+            <param name = "credential" Cref = "ReadOnlySpan{Byte}">Complete serialized access-key credential bytes.</param>
+
+            <param name = "key" Cref = "MembershipCacheKey">Derived cache key.</param>
+
+            <returns Cref = "Boolean">True if the key was derived successfully; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>Determine equality with another derived membership cache key.</summary>
+
+            <param name = "other" Cref = "MembershipCacheKey">Other cache key.</param>
+
+            <returns Cref = "Boolean">True if equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Determine whether two derived membership cache keys are equal.</summary>
+
+            <param name = "left" Cref = "MembershipCacheKey">Left key.</param>
+
+            <param name = "right" Cref = "MembershipCacheKey">Right key.</param>
+
+            <returns Cref = "Boolean">True if equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Determine whether two derived membership cache keys are not equal.</summary>
+
+            <param name = "left" Cref = "MembershipCacheKey">Left key.</param>
+
+            <param name = "right" Cref = "MembershipCacheKey">Right key.</param>
+
+            <returns Cref = "Boolean">True if not equal; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</MembershipCacheKey>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IPublishedTransferSource>
+  <interface name="IPublishedTransferSource">
+	<main>
+	  <summary>Provides immutable published-content snapshots for readable segmented transfer sessions.</summary>
+	</main>
+	<method name="TryLoadSnapshot">
+	  <summary>Attempts to load a published-content snapshot for the specified item identifier and item instance token.</summary>
+	  <param name="itemid" Cref="Guid">Immutable data item identifier.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Expected catalog-owned item instance token.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishedTransferSnapshot?}">Published snapshot when available; otherwise null.</returns>
+	</method>
+	  <method name="OpenReadRange">
+	  <summary>Opens a readable stream for a specific published-content byte range.</summary>
+	  <param name="snapshot" Cref="PublishedTransferSnapshot">Published snapshot metadata.</param>
+	  <param name="range" Cref="DataItemTransferRange">Requested byte range.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Stream?}">Readable payload stream when available; otherwise null.</returns>
+	</method>
+  </interface>
+</IPublishedTransferSource>

@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConfigureToolGenericHostAction>
+
+	<class name = "ConfigureToolGenericHostAction">
+
+		<main>
+
+			<summary>Represents one ordered ToolGenericHost configuration step.</summary>
+
+			<remarks>Wraps either a synchronous or asynchronous ToolGenericHost configuration delegate.</remarks>
+
+		</main>
+
+		<property name = "Action">
+
+			<summary>Synchronous ToolGenericHost configuration delegate.</summary>
+
+			<returns Cref = "Action{ToolBuilderContext,IToolGenericHost}?">Synchronous configuration delegate.</returns>
+
+		</property>
+
+		<property name = "AsyncAction">
+
+			<summary>Asynchronous ToolGenericHost configuration delegate.</summary>
+
+			<returns Cref = "Func{ToolBuilderContext,IToolGenericHost,CancellationToken,Task}?">Asynchronous configuration delegate.</returns>
+
+		</property>
+
+		<constructor name = "ActionConstructor">
+
+			<summary>Create a configuration step from a synchronous ToolGenericHost configuration delegate.</summary>
+
+			<param name = "action" Cref = "Action{ToolBuilderContext,IToolGenericHost}">Synchronous configuration delegate.</param>
+
+			<returns Cref = "ConfigureToolGenericHostAction">New configuration step.</returns>
+
+		</constructor>
+
+		<constructor name = "AsyncActionConstructor">
+
+			<summary>Create a configuration step from an asynchronous ToolGenericHost configuration delegate.</summary>
+
+			<param name = "asyncaction" Cref = "Func{ToolBuilderContext,IToolGenericHost,CancellationToken,Task}">Asynchronous configuration delegate.</param>
+
+			<returns Cref = "ConfigureToolGenericHostAction">New configuration step.</returns>
+
+		</constructor>
+
+		<method name = "Execute">
+
+			<summary>Execute the configuration step synchronously.</summary>
+
+			<param name = "context" Cref = "ToolBuilderContext">Builder context.</param>
+
+			<param name = "toolgenerichost" Cref = "IToolGenericHost">Built ToolGenericHost.</param>
+
+		</method>
+
+		<method name = "ExecuteAsync">
+
+			<summary>Execute the configuration step asynchronously.</summary>
+
+			<param name = "context" Cref = "ToolBuilderContext">Builder context.</param>
+
+			<param name = "toolgenerichost" Cref = "IToolGenericHost">Built ToolGenericHost.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+			<returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+		</method>
+
+	</class>
+
+</ConfigureToolGenericHostAction>

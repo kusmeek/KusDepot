@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataSecurityObject>
+
+    <class name = "DataSecurityObject">
+
+        <main>
+
+            <summary>Represents a known object identity and certificate used by the `DataItem` security model.</summary>
+
+            <remarks>
+                This type is the neutral runtime representation of an object that can participate in `DataItem` protection, recipient selection, and assertion verification.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new known security object from an object identifier and certificate.</summary>
+
+            <param name = "objectid" Cref = "Guid">Object identifier for the known object.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate associated with the known object.</param>
+
+            <param name = "displayname" Cref = "String?">Optional descriptive display name for diagnostics or presentation.</param>
+
+            <returns Cref = "DataSecurityObject">A new known security object value.</returns>
+
+        </constructor>
+
+        <property name = "ObjectId" Cref = "Guid">
+
+            <summary>Object identifier associated with the certificate.</summary>
+
+        </property>
+
+        <property name = "Certificate" Cref = "X509Certificate2">
+
+            <summary>Certificate associated with the known object.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String">
+
+            <summary>Normalized thumbprint captured from the certificate.</summary>
+
+        </property>
+
+        <property name = "DisplayName" Cref = "String?">
+
+            <summary>Optional human-readable name for the known object.</summary>
+
+        </property>
+
+    </class>
+
+</DataSecurityObject>

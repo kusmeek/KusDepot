@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolOperationAttribute>
+
+    <class name = "ToolOperationAttribute">
+
+        <main>
+
+            <summary>Metadata.</summary>
+
+            <remarks>Provides manifest metadata for a custom protected-operation method.</remarks>
+
+        </main>
+
+        <property name = "Description" Cref = "String">
+
+            <summary>The description for the annotated operation.</summary>
+
+        </property>
+
+    </class>
+
+</ToolOperationAttribute>

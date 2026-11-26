@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CloseTransferSession>
+	<record name = "CloseTransferSessionRequest">
+		<main><summary>Requests closure of a retained read transfer session.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+	</record>
+	<record name = "CloseTransferSessionResponse">
+		<main><summary>Reports whether the retained read transfer session is closed.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "Closed" Cref = "Boolean"><summary>True when the session was closed or was already absent from the authorized catalog.</summary></property>
+	</record>
+</CloseTransferSession>

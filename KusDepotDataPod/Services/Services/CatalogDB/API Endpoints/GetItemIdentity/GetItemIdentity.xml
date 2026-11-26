@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<GetItemIdentity>
+  <class name="CatalogDBService">
+	<method name="GetItemIdentity">
+	  <summary>Returns the active catalog identity and instance token for an item.</summary>
+	  <param name="itemID" Cref="Guid">Item identifier to look up.</param>
+	  <param name="tracecontext" Cref="TraceContext">Optional trace context.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the lookup.</param>
+	  <returns Cref="Task{CatalogItemIdentity}">The active item identity, or null when absent or pending deletion.</returns>
+	</method>
+  </class>
+</GetItemIdentity>

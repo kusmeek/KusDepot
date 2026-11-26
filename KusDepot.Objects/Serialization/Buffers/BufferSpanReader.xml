@@ -1,0 +1,119 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BufferSpanReader>
+
+    <struct name = "BufferSpanReader">
+
+        <main>
+
+            <summary>Read cursor over a fixed span-backed serialization buffer.</summary>
+
+        </main>
+
+        <field name = "buffer" Cref = "ReadOnlySpan{Byte}">
+
+            <summary>Readable backing span.</summary>
+
+        </field>
+
+        <property name = "Position" Cref = "Int32">
+
+            <summary>Current read position.</summary>
+
+        </property>
+
+        <property name = "Length" Cref = "Int32">
+
+            <summary>Total readable length of the backing span.</summary>
+
+        </property>
+
+        <property name = "Remaining" Cref = "Int32">
+
+            <summary>Remaining readable byte count.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a read cursor over source span data.</summary>
+
+            <param name = "buffer" Cref = "ReadOnlySpan{Byte}">Source span.</param>
+
+        </constructor>
+
+        <method name = "TryReadByte">
+
+            <summary>Read a single byte from the source span.</summary>
+
+            <param name = "value" Cref = "Byte">Output byte value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadBytes">
+
+            <summary>Read a byte slice from the source span.</summary>
+
+            <param name = "count" Cref = "Int32">Number of bytes to read.</param>
+
+            <param name = "slice" Cref = "ReadOnlySpan{Byte}">Output byte slice.</param>
+
+            <returns Cref = "Boolean">True when the slice was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadGuid">
+
+            <summary>Read a Guid using the standard .NET Guid byte layout.</summary>
+
+            <param name = "value" Cref = "Guid">Output Guid value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadInt64BigEndian">
+
+            <summary>Read a 64-bit integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "Int64">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt16BigEndian">
+
+            <summary>Read a 16-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt16">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt32BigEndian">
+
+            <summary>Read a 32-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt32">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadUInt128BigEndian">
+
+            <summary>Read a 128-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt128">Output value.</param>
+
+            <returns Cref = "Boolean">True when the value was read; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</BufferSpanReader>

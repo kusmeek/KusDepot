@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+	<EnvironmentVariables>
+	  <KUSDEPOT_DEPLOYMENT_PROFILE>AzureContainer</KUSDEPOT_DEPLOYMENT_PROFILE>	  
+	</EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

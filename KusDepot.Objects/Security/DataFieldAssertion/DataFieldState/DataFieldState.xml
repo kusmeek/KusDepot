@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldState>
+
+    <enum name = "DataFieldState">
+
+        <main>
+
+            <summary>Identifies the current `DataItem` field representation covered by an assertion.</summary>
+
+        </main>
+
+        <field name = "ClearContent">
+
+            <summary>The assertion covers the clear-content representation of the field.</summary>
+
+        </field>
+
+        <field name = "EncryptedContent">
+
+            <summary>The assertion covers the encrypted-content representation of the field.</summary>
+
+        </field>
+
+        <field name = "HashCode">
+
+            <summary>The assertion covers a hash-code.</summary>
+
+        </field>
+
+        <field name = "MetaData">
+
+            <summary>The assertion covers canonical metadata integrity.</summary>
+
+        </field>
+
+    </enum>
+
+</DataFieldState>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Publisher>
+  <class name="Publisher">
+	<main>
+	  <summary>Validates, publishes, and verifies the durable artifacts that make up a data publication.</summary>
+	</main>
+	<field name="SHA512MetadataKey">
+	  <summary>Blob metadata key containing the hexadecimal SHA-512 digest of a published object.</summary>
+	</field>
+	<field name="LengthMetadataKey">
+	  <summary>Blob metadata key containing the invariant-culture length of a published object.</summary>
+	</field>
+	<method name="HasPublishConflictAsync">
+	  <summary>Determines whether an existing catalog entry or published artifact conflicts with the expected publication.</summary>
+	  <param name="grainfactory" Cref="IGrainFactory">Orleans grain factory used to resolve the catalog.</param>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the catalog and publication blobs.</param>
+	  <param name="descriptor" Cref="Descriptor">Descriptor of the item being published.</param>
+	  <param name="expectation" Cref="PublishArtifactExpectation">Expected object and optional stream artifact metadata.</param>
+	  <param name="id" Cref="String">Blob identifier used to resolve the publication artifacts.</param>
+	  <param name="traceid" Cref="String?">Optional trace identifier for catalog operations.</param>
+	  <param name="spanid" Cref="String?">Optional span identifier for catalog operations.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when an existing catalog entry or artifact conflicts with the expectation; otherwise false.</returns>
+	</method>
+	<method name="PublishArtifactsAsync">
+	  <summary>Publishes the object, optionally assembles the stream, and persists the integrity artifact.</summary>
+	  <param name="storage" Cref="ITenantTransferStorage">Tenant-scoped storage used to publish the artifacts.</param>
+	  <param name="objectpayload" Cref="TenantTransferBlobReference">Staged object payload to publish.</param>
+	  <param name="objectSHA512" Cref="Byte[]">Expected SHA-512 digest of the object payload.</param>
+	  <param name="streamplan" Cref="TransferBlockPlan?">Optional block plan used to assemble the stream artifact.</param>
+	  <param name="publishstream" Cref="Boolean">Indicates whether the stream artifact should be published.</param>
+	  <param name="streamlength" Cref="Int64">Expected published stream length.</param>
+	  <param name="streamIntegrity" Cref="TransferContentIntegrity?">Expected integrity summary for the stream artifact.</param>
+	  <param name="streamSegments" Cref="IReadOnlyList{TransferContentIntegritySegment}?">Expected stream integrity segments.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when all requested artifacts are published and verified; otherwise false.</returns>
+	</method>
+	<method name="CreateIntegrityArtifact">
+	  <summary>Creates the integrity artifact describing the published object and optional stream.</summary>
+	  <param name="objectSHA512" Cref="Byte[]">SHA-512 digest of the published object.</param>
+	  <param name="streamIntegrity" Cref="TransferContentIntegrity?">Optional stream integrity summary.</param>
+	  <param name="streamSegments" Cref="IReadOnlyList{TransferContentIntegritySegment}?">Optional stream integrity segments to validate against the summary.</param>
+	  <returns Cref="PublishedTransferIntegrity">Integrity artifact containing the object digest and validated stream integrity data.</returns>
+	  <exception cref="ArgumentException">Thrown when stream segments are supplied without a summary, the summary is invalid, or the segments do not match the summary.</exception>
+	</method>
+	<method name="VerifyObjectAsync">
+	  <summary>Verifies a published object blob's length and SHA-512 metadata.</summary>
+	  <param name="blob" Cref="BlobClient">Object blob to inspect.</param>
+	  <param name="expectedLength" Cref="Int64">Expected object length.</param>
+	  <param name="expectedHash" Cref="Byte[]">Expected object SHA-512 digest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the blob metadata matches the expected object; otherwise false.</returns>
+	</method>
+	<method name="VerifyIntegrityAsync">
+	  <summary>Verifies that an integrity blob contains the expected serialized payload.</summary>
+	  <param name="blob" Cref="BlobClient">Integrity blob to download.</param>
+	  <param name="expectedPayload" Cref="Byte[]">Expected serialized integrity payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the stored payload matches the expected payload; otherwise false.</returns>
+	</method>
+	<method name="VerifyMetadata">
+	  <summary>Verifies the object length and SHA-512 metadata stored on a blob.</summary>
+	  <param name="properties" Cref="BlobProperties">Blob properties containing content length and metadata.</param>
+	  <param name="expectedHash" Cref="Byte[]">Expected object SHA-512 digest.</param>
+	  <param name="expectedLength" Cref="Int64">Expected object length.</param>
+	  <returns Cref="Boolean">True when the properties match the expected values; otherwise false.</returns>
+	</method>
+	<method name="UpdateCatalogAsync">
+	  <summary>Adds or updates the catalog entry for a successfully published item.</summary>
+	  <param name="grainfactory" Cref="IGrainFactory">Orleans grain factory used to resolve the catalog.</param>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the catalog.</param>
+	  <param name="descriptor" Cref="Descriptor">Published item descriptor.</param>
+	  <param name="traceid" Cref="String?">Optional trace identifier for the catalog operation.</param>
+	  <param name="spanid" Cref="String?">Optional span identifier for the catalog operation.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">The catalog operation result.</returns>
+	</method>
+  </class>
+</Publisher>

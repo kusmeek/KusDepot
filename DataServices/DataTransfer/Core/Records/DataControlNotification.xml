@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlNotification>
+
+	<record name = "DataControlNotification">
+
+		<main><summary>Transport-neutral DataControl wake notification emitted by the service and consumed by clients to shorten follow and resume latency without replacing canonical state refresh.</summary></main>
+
+		<property name = "AppendedLength" Cref = "Int64?"><summary>Total durable appended length associated with the notification, when known.</summary></property>
+		<property name = "EventType" Cref = "DataControlNotificationEventType"><summary>Notification event type describing why the client should wake and reconcile current transfer state.</summary></property>
+		<property name = "ItemID" Cref = "Guid?"><summary>Immutable item identifier associated with the notification, when known.</summary></property>
+		<property name = "LatestRange" Cref = "DataItemTransferRange?"><summary>Latest realized or appended range associated with the notification, when known.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode?"><summary>Transfer mode associated with the notification, when known.</summary></property>
+		<property name = "RealizedBytes" Cref = "Int64?"><summary>Total realized bytes associated with the notification, when known.</summary></property>
+		<property name = "Sequence" Cref = "Int64"><summary>Monotonic notification sequence value scoped by the eventual publisher implementation.</summary></property>
+		<property name = "SessionID" Cref = "Guid?"><summary>Transfer session identifier associated with the notification, when known.</summary></property>
+		<property name = "SourceSessionID" Cref = "Guid?"><summary>Source transfer session identifier used by follow and resume workflows, when known.</summary></property>
+		<property name = "StateVersion" Cref = "Int64?"><summary>Transfer state version associated with the notification, when known.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus?"><summary>Transfer status associated with the notification, when known.</summary></property>
+		<property name = "Timestamp" Cref = "DateTimeOffset"><summary>Timestamp describing when the notification was created.</summary></property>
+		<property name = "TransferFamily" Cref = "DataControlTransferFamily?"><summary>Transfer family associated with the notification, when known.</summary></property>
+
+	</record>
+
+</DataControlNotification>

@@ -1,0 +1,95 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CatalogClient>
+
+    <class name = "CatalogClient">
+
+        <main>
+
+            <summary>Catalog Client.</summary>
+
+        </main>
+
+        <field name = "Client" Cref = "HttpClient">
+
+            <summary>HTTP client used for Catalog requests.</summary>
+
+        </field>
+
+        <field name = "Endpoint" Cref = "Uri">
+
+            <summary>Absolute service endpoint used to construct request URIs.</summary>
+
+        </field>
+
+        <field name = "HttpClientOwned" Cref = "Boolean">
+
+            <summary>Indicates whether this client is responsible for disposing its HttpClient.</summary>
+
+        </field>
+
+        <field name = "DefaultToken" Cref = "String?">
+
+            <summary>Default authorization token used when a request does not provide a token.</summary>
+
+        </field>
+
+        <method name = "SendAsync">
+
+            <summary>Send an HTTP request and return a catalog-specific response containing its status, raw content, and optional deserialized response data. For paged Catalog searches, reuse the same filters and pass each response's NextCatalogPageToken as the next request's CatalogPageToken.</summary>
+
+            <typeparam name = "TRequest">The request body type.</typeparam>
+
+            <typeparam name = "TResponse">The response data type.</typeparam>
+
+            <param name = "method" Cref = "HttpMethod">HTTP method.</param>
+
+            <param name = "path" Cref = "String">Request URI.</param>
+
+            <param name = "request" Cref = "TRequest">Optional request body.</param>
+
+            <param name = "token" Cref = "String?">Optional bearer token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "Task{CatalogResponse{TResponse}}">The catalog HTTP response.</returns>
+
+        </method>
+
+        <method name = "ResolveToken">
+
+            <summary>Resolve the authorization token to use for a request, falling back to the constructor token when no request token is supplied.</summary>
+
+            <param name = "token" Cref = "String?">Optional request bearer token.</param>
+
+            <returns Cref = "String?">The resolved bearer token.</returns>
+
+        </method>
+
+        <method name = "CreateRequestUri">
+
+            <summary>Create an absolute request URI by resolving a Catalog route path against the configured endpoint. Root-relative paths target the service origin's root path.</summary>
+
+            <param name = "path" Cref = "String">Absolute or relative Catalog route path.</param>
+
+            <returns Cref = "Uri">The resolved absolute request URI.</returns>
+
+        </method>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "endpoint" Cref = "String">Service Endpoint.</param>
+
+            <param name = "token" Cref = "String?">Optional default bearer authorization token.</param>
+
+            <param name = "options" Cref = "CatalogClientOptions?">Optional HTTP client configuration.</param>
+
+            <returns Cref = "CatalogClient">New CatalogClient.</returns>
+
+        </constructor>
+
+    </class>
+
+</CatalogClient>

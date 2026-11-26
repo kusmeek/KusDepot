@@ -1,0 +1,125 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessManagerSnapshotEntry>
+
+    <record name = "AccessManagerSnapshotEntry">
+
+        <main>
+
+            <summary>Access-manager snapshot entry.</summary>
+
+            <remarks>
+                <para>The snapshot entry carries resolved membership facts needed for auditing.</para>
+            </remarks>
+
+        </main>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Access-key realm identifier.</summary>
+
+        </property>
+
+        <property name = "AssertionSummaries" Cref = "ImmutableArray{AccessKeyAssertionSummary}">
+
+            <summary>Assertion summaries projected from the resolved access-key claims.</summary>
+
+        </property>
+
+        <property name = "Audiences" Cref = "ImmutableArray{String}">
+
+            <summary>Audience claims carried by the membership.</summary>
+
+        </property>
+
+        <property name = "Expired" Cref = "Boolean">
+
+            <summary>True when the membership is expired at the evaluation instant used to build the snapshot.</summary>
+
+        </property>
+
+        <property name = "IssuedAt" Cref = "DateTimeOffset">
+
+            <summary>Membership issuance instant.</summary>
+
+        </property>
+
+        <property name = "IssuerAccessManagerID" Cref = "Guid">
+
+            <summary>Issuer access-manager identifier.</summary>
+
+        </property>
+
+        <property name = "IssuerToolID" Cref = "Guid">
+
+            <summary>Issuer tool identifier.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Manifest hash bound into the membership.</summary>
+
+        </property>
+
+        <property name = "NotAfter" Cref = "DateTimeOffset?">
+
+            <summary>Membership expiration instant if present; otherwise null.</summary>
+
+        </property>
+
+        <property name = "Permissions" Cref = "Byte[]">
+
+            <summary>Permission bitmap for the membership.</summary>
+
+        </property>
+
+        <property name = "Scopes" Cref = "ImmutableArray{String}">
+
+            <summary>Scope claims carried by the membership.</summary>
+
+        </property>
+
+        <property name = "Subject" Cref = "String">
+
+            <summary>Membership subject.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Tool schema identifier.</summary>
+
+        </property>
+
+        <method name = "Allows">
+
+            <summary>Determine whether the snapshot entry grants a protected operation.</summary>
+
+            <param name = "operation" Cref = "Int32">Protected operation index.</param>
+
+            <returns Cref = "Boolean">True if the operation is granted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Copy">
+
+            <summary>Create a defensive copy of the snapshot entry.</summary>
+
+            <returns Cref = "AccessManagerSnapshotEntry">Copied snapshot entry.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Create an audit-safe snapshot entry from resolved access-key claims.</summary>
+
+            <param name = "claims" Cref = "AccessKeyClaims">Resolved access-key claims.</param>
+
+            <returns Cref = "AccessManagerSnapshotEntry">Audit-safe snapshot entry.</returns>
+
+        </method>
+
+    </record>
+
+</AccessManagerSnapshotEntry>

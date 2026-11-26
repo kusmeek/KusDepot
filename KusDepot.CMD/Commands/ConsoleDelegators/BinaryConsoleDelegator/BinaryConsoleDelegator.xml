@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BinaryConsoleDelegator>
+
+    <class name = "BinaryConsoleDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a CliWrap Command with binary standard output and error streams.</summary>
+
+        </main>
+
+        <property name = "Buffered">
+
+            <summary>True to return a BinaryCommandResult with binary buffers.</summary>
+
+            <returns Cref = "Boolean">Buffered binary result mode.</returns>
+
+        </property>
+
+        <property name = "CommandResult">
+
+            <summary>Most recently completed CliWrap command result.</summary>
+
+            <returns Cref = "CliWrap.CommandResult">The last completed streamed or buffered console command result; it is a shared snapshot and is not tied to a particular activity when executions overlap.</returns>
+
+        </property>
+
+        <property name = "ConsoleCommand">
+
+            <summary>CliWrap command delegated by this command.</summary>
+
+            <returns Cref = "CliWrap.Command">Configured console command.</returns>
+
+        </property>
+
+        <property name = "Observer">
+
+            <summary>Observer for streamed binary command events.</summary>
+
+            <returns Cref = "BinaryCommandObserver">Binary Command Observer.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Initializes a binary console delegator.</summary>
+
+            <param name = "command" Cref = "CliWrap.Command">Console Command.</param>
+
+            <param name = "buffered" Cref = "Boolean">True to publish a BinaryCommandResult with binary buffers.</param>
+
+            <param name = "observer" Cref = "BinaryCommandObserver">Observer for streamed execution.</param>
+
+            <returns Cref = "BinaryConsoleDelegator">New BinaryConsoleDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</BinaryConsoleDelegator>

@@ -1,0 +1,253 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ObjectBuilder>
+
+    <class name = "ObjectBuilder">
+
+        <main>
+
+            <summary>Builds object instances through reflected constructor selection.</summary>
+
+        </main>
+
+        <field name = "Sync" Cref = "Object"><summary>Synchronization gate for builder state transitions.</summary></field>
+
+        <field name = "Arguments" Cref = "Dictionary{Int32,Object?}">
+
+            <summary>Indexed argument set used for constructor invocation.</summary>
+
+            <remarks>Missing indexes are treated as null during candidate evaluation.</remarks>
+
+        </field>
+
+        <field name = "BuildType" Cref = "Type?"><summary>Resolved build target type.</summary></field>
+
+        <field name = "TypeLocked" Cref = "Boolean">
+
+            <summary>True once type is fixed by successful SetType call.</summary>
+
+        </field>
+
+        <property name = "Provider" Cref = "TypeProvider">
+
+            <summary>Public type provider used for String-based type configuration and probing.</summary>
+
+            <remarks>Configure active context, probe assemblies, directories, in-memory assemblies, and assembly identities directly through this provider.</remarks>
+
+        </property>
+
+        <property name = "Value" Cref = "Object?">
+
+            <summary>Built object value.</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless constructor.</summary>
+
+            <returns Cref = "ObjectBuilder">New builder instance.</returns>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a builder with the requested resolution mode.</summary>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the internal <see cref = "Provider"/>.</param>
+
+            <remarks>Defaults to <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>.</remarks>
+
+        </constructor>
+
+        <method name = "CreateType">
+
+            <summary>Create builder preconfigured with runtime target type.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the created builder.</param>
+
+            <returns Cref = "ObjectBuilder">Builder instance.</returns>
+
+        </method>
+
+        <method name = "CreateString">
+
+            <summary>Create builder preconfigured with target type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the created builder.</param>
+
+            <returns Cref = "ObjectBuilder">Builder instance.</returns>
+
+        </method>
+
+        <method name = "WithTypeType">
+
+            <summary>Fluent method to configure runtime target type.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <returns Cref = "ObjectBuilder">Current builder instance.</returns>
+
+        </method>
+
+        <method name = "WithContext">
+
+            <summary>Fluent method to configure the provider active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "ObjectBuilder">Current builder instance.</returns>
+
+        </method>
+
+        <method name = "WithTypeString">
+
+            <summary>Fluent method to configure target type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <returns Cref = "ObjectBuilder">Current builder instance.</returns>
+
+        </method>
+
+        <method name = "WithArgument">
+
+            <summary>Fluent method to configure constructor argument.</summary>
+
+            <param name = "index" Cref = "Int32">Argument index.</param>
+
+            <param name = "value" Cref = "Object?">Argument value.</param>
+
+            <returns Cref = "ObjectBuilder">Current builder instance.</returns>
+
+        </method>
+
+        <method name = "TryResolveType">
+
+            <summary>Attempt to resolve the provided type name using the builder provider, including probe source loading when required.</summary>
+
+            <param name = "name" Cref = "String?">Type name to probe.</param>
+
+            <returns Cref = "Boolean">True when type is resolvable; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetTypeType">
+
+            <summary>Set build target directly from runtime Type.</summary>
+
+            <param name = "type" Cref = "Type?">Target type.</param>
+
+            <returns Cref = "Boolean">True when type is accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetContext">
+
+            <summary>Configure the provider active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "Boolean">True when the context is accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetTypeString">
+
+            <summary>Set build target from type name using the provider.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <returns Cref = "Boolean">True when type resolves and is accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "SetArgument">
+
+            <summary>Set or replace a constructor argument at index.</summary>
+
+            <param name = "index" Cref = "Int32">Zero-based constructor parameter index.</param>
+
+            <param name = "value" Cref = "Object?">Argument value.</param>
+
+            <returns Cref = "Boolean">True when argument is accepted; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Build">
+
+            <summary>Attempt to build target object by selecting the best matching constructor.</summary>
+
+            <returns Cref = "Boolean">True when object is built or already built; otherwise false.</returns>
+
+            <remarks>Selection algorithm: determine required width from highest configured argument index + 1; discard constructors with fewer parameters; evaluate compatibility with exact or assignable matching only; choose smallest parameter count, then best exact score, then best assignable score; fail on tie ambiguity.</remarks>
+
+        </method>
+
+        <method name = "ResolveBuildType">
+
+            <summary>Resolve and cache target build type.</summary>
+
+            <returns Cref = "Type?">Resolved type or null.</returns>
+
+        </method>
+
+        <method name = "SelectConstructor">
+
+            <summary>Select best matching public instance constructor.</summary>
+
+            <param name = "type" Cref = "Type">Target type.</param>
+
+            <returns Cref = "ConstructorInfo?">Selected constructor or null.</returns>
+
+            <remarks>
+                <para>Constructor ranking algorithm:</para>
+                <list type = "bullet">
+                    <item><description>Enumerate public instance constructors from <paramref name = "type"/>.</description></item>
+                    <item><description>Compute required width from <see cref = "GetRequiredWidth"/> (max configured argument index + 1).</description></item>
+                    <item><description>Skip constructors whose parameter count is less than required width.</description></item>
+                    <item><description>For each remaining constructor, call <see cref = "TryCreateInvokeArguments"/>.</description></item>
+                    <item><description>Reject candidate if any provided argument is not exact or assignable compatible.</description></item>
+                    <item><description>Reject candidate if any missing index maps to a non-nullable value-type parameter.</description></item>
+                    <item><description>Collect exact and assignable match counts for ranking.</description></item>
+                    <item><description>Prefer candidate with the smallest parameter count.</description></item>
+                    <item><description>If parameter counts tie, prefer greater exact match count.</description></item>
+                    <item><description>If exact counts tie, prefer greater assignable match count.</description></item>
+                    <item><description>If all ranking keys tie, mark the result ambiguous and return null.</description></item>
+                    <item><description>Return null when no valid candidate exists.</description></item>
+                </list>
+            </remarks>
+
+        </method>
+
+        <method name = "GetRequiredWidth">
+
+            <summary>Compute required constructor width from sparse argument map.</summary>
+
+            <returns Cref = "Int32">Maximum index + 1, or 0 when no arguments are configured.</returns>
+
+        </method>
+
+        <method name = "TryCreateInvokeArguments">
+
+            <summary>Build invocation array for candidate constructor.</summary>
+
+            <param name = "parameters" Cref = "ParameterInfo[]">Candidate constructor parameters.</param>
+
+            <param name = "invoke" Cref = "Object?[]?">Invocation values or null on failure.</param>
+
+            <param name = "exact" Cref = "Int32">Count of exact type matches for configured arguments.</param>
+
+            <param name = "assignable" Cref = "Int32">Count of assignable type matches for configured arguments.</param>
+
+            <returns Cref = "Boolean">True when candidate can be invoked; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</ObjectBuilder>

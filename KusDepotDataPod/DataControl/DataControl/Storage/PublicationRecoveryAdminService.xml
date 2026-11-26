@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublicationRecoveryAdminService>
+  <interface name="IPublicationRecoveryAdminService">
+	<main><summary>Provides administrative inspection and purge operations for publication recovery state.</summary></main>
+	<method name="InspectAsync">
+	  <summary>Loads a read-only recovery footprint for a transfer session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PublicationRecoveryFootprint}">The recovery footprint, or null when the session does not exist.</returns>
+	</method>
+	<method name="PurgeAsync">
+	  <summary>Deletes a transfer session's staging artifacts and DataControl recovery state after validating the inspection freshness conditions.</summary>
+	  <param name="request" Cref="PurgePublicationRequest">Explicitly confirmed purge request containing expected session and optional journal state.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PurgePublicationResponse}">The purge result, or null when the expected state no longer matches.</returns>
+	</method>
+  </interface>
+  <class name="PublicationRecoveryAdminService">
+	<main><summary>Implements administrative publication recovery inspection and staging-only purge.</summary><remarks>Inspection reports database-recorded state and does not verify external artifacts. Purge removes staging Blobs under the session's item-instance prefix and database recovery state; final published artifacts and catalog data are left untouched.</remarks></main>
+	<field name="sessions" Cref="IDataControlTransferSessionStore"><summary>Store used to load and conditionally purge transfer recovery state.</summary></field>
+	<field name="coordinator" Cref="IDataItemTransferCoordinator"><summary>Coordinates exclusive mutations for the item and transfer session.</summary></field>
+	<field name="storage" Cref="ITenantTransferStorageContext"><summary>Provides storage operations for the selected tenant catalog.</summary></field>
+	<field name="dataConfigs" Cref="IDataControlDataConfigsClient"><summary>Resolves configured tenant storage for trusted publication-recovery operations.</summary></field>
+	<constructor name="PublicationRecoveryAdminService">
+	  <summary>Initializes the administrative recovery service.</summary>
+	  <param name="sessions" Cref="IDataControlTransferSessionStore">Store for loading and purging transfer recovery state.</param>
+	  <param name="coordinator" Cref="IDataItemTransferCoordinator">Coordinates mutations for the transfer item and session.</param>
+	  <param name="storage" Cref="ITenantTransferStorageContext">Tenant-scoped transfer storage context.</param>
+	  <param name="dataConfigs" Cref="IDataControlDataConfigsClient">Client used to resolve the configured catalog storage.</param>
+	</constructor>
+	<method name="InspectAsync">
+	  <summary>Loads and describes the recorded recovery state for a session.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PublicationRecoveryFootprint}">The recovery footprint, or null when the session does not exist.</returns>
+	</method>
+	<method name="PurgeAsync">
+	  <summary>Deletes the session's item-instance-scoped staging prefix and database recovery state when the inspected state is still current.</summary>
+	  <remarks>The operation preserves final artifact Blobs and catalog data. A null result means the expected session, journal, or configured catalog state did not match.</remarks>
+	  <param name="request" Cref="PurgePublicationRequest">Explicitly confirmed purge request with expected session state version and, when present, journal identity, phase, and update time.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PurgePublicationResponse}">The purge result, or null when the expected state no longer matches.</returns>
+	</method>
+	<method name="LoadFootprintAsync">
+	  <summary>Loads the recovery-state snapshot and builds its inspection footprint.</summary>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PublicationRecoveryFootprint}">The recovery footprint, or null when the session does not exist.</returns>
+	</method>
+	<method name="BuildFootprint">
+	  <summary>Maps a persisted recovery snapshot to the admin-facing recovery footprint.</summary>
+	  <param name="snapshot" Cref="TransferRecoveryStateSnapshot">Consistent session, journal, range, and chunk snapshot.</param>
+	  <returns Cref="PublicationRecoveryFootprint">A footprint describing recorded staging references and final artifact candidates.</returns>
+	  <exception cref="InvalidOperationException">The snapshot has no transfer session.</exception>
+	</method>
+	<method name="GetSessionCatalogName">
+	  <summary>Reads the catalog name from the session manifest according to its transfer family.</summary>
+	  <param name="session" Cref="TransferSessionState">Transfer session whose manifest supplies the catalog name.</param>
+	  <returns Cref="String">The manifest catalog name, or an empty string when it is unavailable.</returns>
+	</method>
+	<method name="ToArtifact">
+	  <summary>Maps a persisted transfer Blob reference to an admin-facing recovery artifact.</summary>
+	  <param name="kind" Cref="String">Recovery artifact category.</param>
+	  <param name="reference" Cref="TransferBlobReference">Persisted Blob reference.</param>
+	  <param name="operationid" Cref="Guid">Optional associated stream operation identifier.</param>
+	  <param name="offset" Cref="Int64">Optional range or chunk offset.</param>
+	  <returns Cref="PublicationRecoveryArtifact">The mapped recovery artifact.</returns>
+	</method>
+	<method name="SanitizeLastError">
+	  <summary>Redacts credential-like values, bearer/JWT tokens, and URLs from a journal error string.</summary>
+	  <param name="error" Cref="String">Recorded journal error text.</param>
+	  <returns Cref="String">Sanitized error text limited to 1024 characters, or the original null/whitespace value.</returns>
+	</method>
+	<method name="CredentialAssignmentRegex">
+	  <summary>Gets the generated regex that redacts credential assignments such as account keys, passwords, and access tokens.</summary>
+	  <returns Cref="System.Text.RegularExpressions.Regex">The cached source-generated credential-assignment regex.</returns>
+	</method>
+	<method name="SasParameterRegex">
+	  <summary>Gets the generated regex that redacts Azure SAS query parameter values.</summary>
+	  <returns Cref="System.Text.RegularExpressions.Regex">The cached source-generated SAS-parameter regex.</returns>
+	</method>
+	<method name="BearerTokenRegex">
+	  <summary>Gets the generated regex that redacts bearer-token values.</summary>
+	  <returns Cref="System.Text.RegularExpressions.Regex">The cached source-generated bearer-token regex.</returns>
+	</method>
+	<method name="JwtTokenRegex">
+	  <summary>Gets the generated regex that redacts JWT-shaped token values.</summary>
+	  <returns Cref="System.Text.RegularExpressions.Regex">The cached source-generated JWT regex.</returns>
+	</method>
+	<method name="UrlRegex">
+	  <summary>Gets the generated regex that redacts HTTP and HTTPS URLs.</summary>
+	  <returns Cref="System.Text.RegularExpressions.Regex">The cached source-generated URL regex.</returns>
+	</method>
+  </class>
+</PublicationRecoveryAdminService>

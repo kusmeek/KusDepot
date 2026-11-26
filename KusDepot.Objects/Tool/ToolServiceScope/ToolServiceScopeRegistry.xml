@@ -1,0 +1,118 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolServiceScopeRegistry>
+
+	<class name = "ToolServiceScopeRegistry">
+
+		<main>
+
+			<summary>Registry for Tool-owned named service scopes.</summary>
+
+			<remarks>Owns the default named Tool scope plus any additional named scopes, and coordinates acquisition and final disposal semantics.</remarks>
+
+		</main>
+
+		<field name = "DefaultScopeName" Cref = "String">
+
+			<summary>Reserved registry name used for the Tool's lifetime-owned default service scope.</summary>
+
+		</field>
+
+		<field name = "disposing" Cref = "Boolean">
+
+			<summary>True after registry disposal has claimed ownership and new scope operations are no longer allowed.</summary>
+
+		</field>
+
+		<field name = "scopes" Cref = "Dictionary{String,ToolNamedServiceScope}">
+
+			<summary>Named-scope registry keyed by scope name using ordinal string comparison.</summary>
+
+		</field>
+
+		<field name = "services" Cref = "IServiceProvider">
+
+			<summary>Root Tool service provider used to create new named service scopes.</summary>
+
+		</field>
+
+		<field name = "sync" Cref = "Lock">
+
+			<summary>Synchronization lock that guards all registry mutations and lookups.</summary>
+
+		</field>
+
+		<constructor name = "Constructor">
+
+			<summary>Create a new Tool service scope registry.</summary>
+
+			<param name = "services" Cref = "IServiceProvider">Root Tool-owned service provider used to create named scopes.</param>
+
+			<returns Cref = "ToolServiceScopeRegistry">New Tool service scope registry.</returns>
+
+		</constructor>
+
+		<method name = "Create">
+
+			<summary>Create a new named Tool service scope and acquire its first handle.</summary>
+
+			<param name = "name" Cref = "String">Scope name.</param>
+
+			<returns Cref = "ToolServiceScope?">New Tool service scope handle, or null when creation is rejected.</returns>
+
+		</method>
+
+		<method name = "Get">
+
+			<summary>Acquire a handle for an existing named Tool service scope.</summary>
+
+			<param name = "name" Cref = "String">Scope name.</param>
+
+			<returns Cref = "ToolServiceScope?">Tool service scope handle, or null when the scope cannot be acquired.</returns>
+
+		</method>
+
+		<method name = "GetDefault">
+
+			<summary>Acquire a handle for the default named Tool service scope.</summary>
+
+			<returns Cref = "ToolServiceScope?">Default Tool service scope handle.</returns>
+
+		</method>
+
+		<method name = "GetNames">
+
+			<summary>Get the names of all currently registered Tool service scopes.</summary>
+
+			<returns Cref = "IEnumerable{String}">Registered Tool service scope names.</returns>
+
+		</method>
+
+		<method name = "Dispose">
+
+			<summary>Dispose all registered Tool service scopes synchronously.</summary>
+
+		</method>
+
+		<method name = "DisposeAsync">
+
+			<summary>Dispose all registered Tool service scopes asynchronously.</summary>
+
+			<returns Cref = "ValueTask">A ValueTask that represents the asynchronous disposal operation.</returns>
+
+		</method>
+
+		<method name = "RemoveEntry">
+
+			<summary>Removes a named scope from the registry when the registered entry is the retiring owner.</summary>
+
+			<param name = "name">Name of the named scope to remove from the registry.</param>
+
+			<param name = "scope" Cref = "ToolNamedServiceScope">Retiring named scope owner.</param>
+
+			<returns>True if the named scope entry was removed; otherwise false.</returns>
+
+		</method>
+
+	</class>
+
+</ToolServiceScopeRegistry>

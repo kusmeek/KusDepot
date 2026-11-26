@@ -1,0 +1,234 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControlTransferSessionStore>
+	<interface name = "IDataControlTransferSessionStore">
+		<main> <summary>Provides server-native transfer session state and payload operations.</summary></main>
+
+		<method name = "LoadRecoveryStateForAdminAsync">
+			<summary>Loads a consistent administrative snapshot of one session and its persisted recovery state.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferRecoveryStateSnapshot}">The recovery snapshot; its session is null when the session does not exist.</returns>
+		</method>
+		<method name = "CloseReadSessionAsync">
+			<summary>Closes one catalog-scoped read-mode transfer session and removes its tenant payload and metadata.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier for the session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the session was closed or already absent; false when identity or lifecycle state prevents closure.</returns>
+		</method>
+		<method name = "HasDependentSessionAsync">
+			<summary>Checks whether a staged-read or stream-follow session still depends on the specified source in the selected catalog.</summary>
+			<param name = "sourcesessionid" Cref = "Guid">Source session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when at least one dependent session exists.</returns>
+		</method>
+		<method name = "LoadStaleTransferSessionCandidatesAsync">
+			<summary>Loads a bounded cursor page of sessions in the selected tenant catalog whose last server-observed activity is at or before a fixed cleanup cutoff.</summary>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive activity cutoff for this scan.</param>
+			<param name = "after" Cref = "TransferSessionCleanupCandidate">Exclusive cursor from the preceding page for this tenant catalog, or null for the first page.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of lightweight candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionCleanupCandidate}}">The next stale-session candidate page.</returns>
+		</method>
+		<method name = "PurgeRecoveryStateAsync">
+			<summary>Conditionally deletes one session's database recovery state when the expected session and journal freshness values still match.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier for the session.</param>
+			<param name = "expectedsessionstateversion" Cref = "Int64">Expected session state version from the inspection snapshot.</param>
+			<param name = "expectedoperationid" Cref = "Guid">Expected journal operation identifier, or null when no journal exists.</param>
+			<param name = "expectedphase" Cref = "TransferPublicationPhase">Expected journal phase, or null when no journal exists.</param>
+			<param name = "expectedjournalupdated" Cref = "DateTimeOffset">Expected journal update time, or null when no journal exists.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when the expected state was deleted; otherwise false.</returns>
+		</method>
+		<method name = "TouchTransferSessionAsync">
+			<summary>Advances the server-observed activity timestamp for one tenant-scoped session without changing its manifest or transfer state version.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "itemid" Cref = "Guid">Expected item identifier.</param>
+			<param name = "activity" Cref = "DateTimeOffset">Observed activity time.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when the matching session was touched.</returns>
+		</method>
+
+		<method name = "LoadSegmentedManifestAsync">
+			<summary>Loads a segmented transfer manifest and its realized ranges only when its serialized item instance token matches the persisted session token.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{DataItemTransferManifest}">The segmented manifest, or null when the session is missing or belongs to another transfer family.</returns>
+		</method>
+		<method name = "LoadSegmentedWriteManifestAsync">
+			<summary>Loads segmented session metadata without materializing coverage.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>The manifest or null.</returns>
+		</method>
+		<method name = "IsSegmentedRangeCoveredAsync">
+			<summary>Checks whether the requested range is covered.</summary>
+			<param name = "sessionid">Session identifier.</param>
+			<param name = "range">Requested range.</param>
+			<param name = "cancel">Cancellation token.</param>
+			<returns>True when coverage contains the range.</returns>
+		</method>
+		<method name = "LoadStreamManifestAsync">
+			<summary>Loads a stream transfer manifest and its current object payload only when its serialized item instance token matches the persisted session token.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{DataStreamTransferManifest}">The stream manifest, or null when the session is missing or belongs to another transfer family.</returns>
+		</method>
+		<method name = "RecomputeIntegrityAsync">
+			<summary>Computes integrity from the session's persisted segment evidence.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferContentIntegrity}">The computed integrity, or null when the session or evidence is unavailable or invalid.</returns>
+		</method>
+		<method name = "LoadIntegritySegmentsAsync">
+			<summary>Loads ordered integrity segment evidence for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferContentIntegritySegment}}">Ordered segment evidence, or null when the session is missing or unsupported.</returns>
+		</method>
+		<method name = "LoadSessionsAsync">
+			<summary>Loads transfer sessions matching indexed filters and the required catalog filter.</summary>
+			<param name = "query" Cref = "TransferSessionQuery">Session filters with the authorized CatalogName.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionState}}">The matching transfer sessions.</returns>
+		</method>
+		<method name = "LoadSessionsForAdminAsync">
+			<summary>Loads transfer sessions across catalogs for an admin-authorized inventory operation.</summary>
+			<param name = "query" Cref = "TransferSessionQuery">Optional indexed session filters.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferSessionState}}">The matching sessions across catalogs.</returns>
+		</method>
+		<method name = "SaveObjectAsync">
+			<summary>Stores an immutable serialized object payload.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "payload" Cref = "Stream">Serialized object payload.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlobReference}">The stored payload reference, or null when no payload was stored.</returns>
+		</method>
+		<method name = "ReplaceObjectAsync">
+			<summary>Replaces the serialized object payload for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "payload" Cref = "Stream">Replacement object payload.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlobReference}">The replacement payload reference, or null when no payload was stored.</returns>
+		</method>
+		<method name = "WriteVerifiedSegmentedRangeAsync">
+			<summary>Verifies and atomically commits a request range with session progress; accepts an identical retry without advancing the version.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Segmented transfer manifest.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Range to write.</param>
+			<param name = "payload" Cref = "Stream">Range payload.</param>
+			<param name = "expectedLength" Cref = "Int64">Declared payload length.</param>
+			<param name = "expectedSHA512" Cref = "Byte[]">Declared SHA-512 digest.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{SegmentedTransferWriteResult}">The committed, replayed, or rejected range result with authoritative state version.</returns>
+		</method>
+		<method name = "CreateSegmentedSessionAsync">
+			<summary>Stores the initial object payload and segmented transfer manifest.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Segmented transfer manifest.</param>
+			<param name = "objectpayload" Cref = "Byte[]">Serialized object payload.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlobReference}">The stored object reference, or null when storage does not return one.</returns>
+		</method>
+		<method name = "CreateStreamSessionAsync">
+			<summary>Stores the initial stream object payload and stream transfer manifest.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Stream transfer manifest.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlobReference}">The stored object reference, or null when storage does not return one.</returns>
+		</method>
+		<method name = "WriteStreamChunkAsync">
+			<summary>Stores an append chunk when it is the next valid chunk for the stream.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Append operation identifier.</param>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Stream transfer manifest.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Chunk range.</param>
+			<param name = "payload" Cref = "Stream">Chunk payload.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{StreamTransferAppendResult}">The accepted or rejected append result.</returns>
+		</method>
+		<method name = "WriteVerifiedStreamChunkAsync">
+			<summary>Verifies an append payload and atomically commits its chunk record with updated stream-session progress; an identical payload at an occupied offset is treated as a replay.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Append operation identifier.</param>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Stream transfer manifest.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Chunk range.</param>
+			<param name = "payload" Cref = "Stream">Chunk payload.</param>
+			<param name = "expectedLength" Cref = "Int64">Declared payload length.</param>
+			<param name = "expectedSHA512" Cref = "Byte[]">Declared SHA-512 digest.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{StreamTransferAppendResult}">The committed, replayed, or rejected append result with authoritative progress.</returns>
+		</method>
+		<method name = "SaveSegmentedManifestAsync">
+			<summary>Sanitizes and persists a segmented transfer manifest.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Manifest to persist.</param>
+			<param name = "objectpayload" Cref = "TransferBlobReference">Optional object payload reference.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the persistence operation.</returns>
+		</method>
+		<method name = "PromoteStagedReadManifestAsync">
+			<summary>Persists the published-read transition for an existing staged-read follow manifest with a matching source session.</summary>
+			<param name = "manifest" Cref = "DataItemTransferManifest">Published-read manifest to persist for the existing session.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when the existing staged-read session was promoted; otherwise false.</returns>
+		</method>
+		<method name = "SaveStreamManifestAsync">
+			<summary>Sanitizes and persists a stream transfer manifest.</summary>
+			<param name = "manifest" Cref = "DataStreamTransferManifest">Manifest to persist.</param>
+			<param name = "objectpayload" Cref = "TransferBlobReference">Optional object payload reference.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the persistence operation.</returns>
+		</method>
+		<method name = "OpenObjectAsync">
+			<summary>Opens the serialized object payload for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">The object payload stream, or null when it does not exist.</returns>
+		</method>
+		<method name = "ReadObjectPayloadAsync">
+			<summary>Reads the serialized object payload fully into memory.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Byte[]}">The object payload bytes, or null when it does not exist.</returns>
+		</method>
+		<method name = "OpenSegmentedRangeAsync">
+			<summary>Opens a composite stream over contiguous realized segmented ranges.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Requested range.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">A composite range stream, or null when the requested range is not fully covered.</returns>
+		</method>
+		<method name = "OpenStreamRangeAsync">
+			<summary>Opens a composite stream over contiguous stream chunks.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Requested range.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">A composite range stream, or null when the requested range is not fully covered.</returns>
+		</method>
+		<method name = "DeleteSessionAsync">
+			<summary>Deletes all metadata and payloads owned by a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when metadata or payloads were deleted.</returns>
+		</method>
+		<method name = "LoadObjectReferenceAsync">
+			<summary>Loads the persisted object reference for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TenantTransferBlobReference}">The tenant storage object reference, or null when the session or object reference is unavailable.</returns>
+		</method>
+		<method name = "CreateSegmentedBlockPlanAsync">
+			<summary>Creates a deterministic storage block plan from the persisted segmented ranges of a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Segmented transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlockPlan}">The segmented block plan, or null when the session is unavailable or is not segmented.</returns>
+		</method>
+		<method name = "CreateStreamBlockPlanAsync">
+			<summary>Creates a deterministic storage block plan from the persisted stream chunks of a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlockPlan}">The stream block plan, or null when the session is unavailable or is not a stream transfer.</returns>
+		</method>
+	</interface>
+</IDataControlTransferSessionStore>

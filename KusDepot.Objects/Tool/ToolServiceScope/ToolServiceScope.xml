@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolServiceScope>
+
+	<class name = "ToolServiceScope">
+
+		<main>
+
+			<summary>Public handle for a named Tool service scope.</summary>
+
+			<remarks>Represents one caller hold on a Tool-owned named service scope. Disposing the handle releases the caller hold and disposes the named scope if it is the last handle.</remarks>
+
+		</main>
+
+		<field name = "owner" Cref = "ToolNamedServiceScope">
+
+			<summary>Internal named-scope owner that backs this public handle.</summary>
+
+		</field>
+
+		<field name = "disposed" Cref = "Int32">
+
+			<summary>Zero while this public Tool service scope handle has not been released; one after release has been claimed atomically.</summary>
+
+		</field>
+
+		<constructor name = "Constructor">
+
+			<summary>Create a new Tool service scope handle.</summary>
+
+			<param name = "owner" Cref = "ToolNamedServiceScope">Owning named Tool service scope.</param>
+
+			<returns Cref = "ToolServiceScope">New Tool service scope handle.</returns>
+
+		</constructor>
+
+		<property name = "IsDefault">
+
+			<summary>True when this handle targets the reserved default Tool service scope.</summary>
+
+			<returns Cref = "Boolean">True if this handle targets the default Tool service scope.</returns>
+
+		</property>
+
+		<property name = "Name">
+
+			<summary>Name of the Tool service scope.</summary>
+
+			<returns Cref = "String">Tool service scope name.</returns>
+
+		</property>
+
+		<property name = "ServiceProvider">
+
+			<summary>Scoped service provider for this Tool service scope handle.</summary>
+
+			<returns Cref = "IServiceProvider">Scoped service provider.</returns>
+
+		</property>
+
+		<method name = "Dispose">
+
+			<summary>Release this Tool service scope handle synchronously.</summary>
+
+		</method>
+
+		<method name = "DisposeAsync">
+
+			<summary>Release this Tool service scope handle asynchronously.</summary>
+
+			<returns Cref = "ValueTask">A ValueTask that represents the asynchronous release operation.</returns>
+
+		</method>
+
+	</class>
+
+</ToolServiceScope>

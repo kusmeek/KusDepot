@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LifeCycleOperationResult>
+
+	<enum name = "LifeCycleOperationResult">
+
+		<main>
+
+			<summary>Describes the result of a Tool lifecycle operation request.</summary>
+
+		</main>
+
+		<value name = "Entered">
+
+			<summary>The requested lifecycle phase was entered.</summary>
+
+		</value>
+
+		<value name = "AlreadySatisfied">
+
+			<summary>The requested lifecycle condition was already satisfied.</summary>
+
+		</value>
+
+		<value name = "Rejected">
+
+			<summary>The lifecycle operation request was rejected.</summary>
+
+		</value>
+
+	</enum>
+
+</LifeCycleOperationResult>

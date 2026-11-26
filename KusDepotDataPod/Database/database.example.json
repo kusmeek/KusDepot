@@ -1,0 +1,15 @@
+{
+  "CatalogDB": {
+    "Database": {
+      "Address": "127.0.0.1",
+      "Port": 5432
+    }
+  },
+  "DataControl": {
+    "Database": {
+      "Name": "datacontrol",
+      "Address": "127.0.0.1",
+      "Port": 5432
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedTransferIntegrity>
+  <record name="PublishedTransferIntegrity">
+	<main>
+	  <summary>Immutable published-transfer integrity metadata for published object and optional stream payload verification.</summary>
+	</main>
+	<property name="ObjectSHA512" Cref="Byte[]"><summary>SHA-512 of the serialized published object payload.</summary></property>
+	<property name="Integrity" Cref="TransferContentIntegrity"><summary>Server-authoritative ordered integrity summary for the optional published stream payload.</summary></property>
+	<property name="Segments" Cref="TransferContentIntegritySegment[]"><summary>Required ordered stream segment evidence used to reproduce and verify the published integrity summary.</summary></property>
+  </record>
+</PublishedTransferIntegrity>

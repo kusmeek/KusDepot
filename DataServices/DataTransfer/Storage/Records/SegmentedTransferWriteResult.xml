@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SegmentedTransferWriteResult>
+  <record name="SegmentedTransferWriteResult">
+	<main>
+	  <summary>Describes the outcome of attempting to write a staged segmented transfer payload range.</summary>
+	</main>
+	<property name="Accepted" Cref="Boolean"><summary>True when the write request was accepted by storage.</summary></property>
+	<property name="CompletedCoverage" Cref="Boolean"><summary>True when the committed ranges cover the entire stream.</summary></property>
+	<property name="Updated" Cref="DateTimeOffset?"><summary>The authoritative update time of the committed session state, when available.</summary></property>
+	<property name="Range" Cref="DataItemTransferRange"><summary>The requested range associated with this write outcome.</summary></property>
+	<property name="Replayed" Cref="Boolean"><summary>True when the identical range had already been committed.</summary></property>
+	<property name="StateVersion" Cref="Int64"><summary>The durable session state version after the write attempt.</summary></property>
+	<method name="Create">
+	  <summary>Create a normalized segmented transfer write result.</summary>
+	  <param name="range" Cref="DataItemTransferRange">The requested range associated with this write outcome.</param>
+	  <param name="accepted" Cref="Boolean">True when the write request was accepted by storage.</param>
+	  <param name="stateversion" Cref="Int64">Durable session state version after the write attempt.</param>
+	  <param name="replayed" Cref="Boolean">True when the identical range had already been committed.</param>
+	  <returns Cref="SegmentedTransferWriteResult">Normalized write outcome.</returns>
+	</method>
+  </record>
+</SegmentedTransferWriteResult>

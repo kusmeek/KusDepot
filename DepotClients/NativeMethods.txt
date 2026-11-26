@@ -1,0 +1,8 @@
+CreateFile
+CloseHandle
+DeviceIoControl
+GetFileSizeEx
+ReadFile
+SetEndOfFile
+SetFilePointerEx
+WriteFile

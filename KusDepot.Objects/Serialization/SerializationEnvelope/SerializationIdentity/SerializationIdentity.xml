@@ -1,0 +1,54 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SerializationIdentity>
+
+    <struct name = "SerializationIdentity">
+
+        <main>
+
+            <summary>Describes the serializer identity used to build a serialization envelope header.</summary>
+
+            <remarks>
+                <para>Fields:</para>
+                <list type="bullet">
+                    <item><description>Kind: The serializer kind from the SerializationKind enum.</description></item>
+                    <item><description>SerializerVersion: UTF-8 encoded version string of the serializer assembly.</description></item>
+                    <item><description>LibraryVersion: UTF-8 encoded version string of the library assembly.</description></item>
+                </list>
+            </remarks>
+
+        </main>
+
+        <field name = "Kind">
+
+            <summary>The serializer kind from the SerializationKind enum.</summary>
+
+        </field>
+
+        <field name = "SerializerVersion">
+
+            <summary>UTF-8 encoded version string of the serializer assembly.</summary>
+
+        </field>
+
+        <field name = "LibraryVersion">
+
+            <summary>UTF-8 encoded version string of the library assembly.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Initialize a SerializationIdentity with a serializer kind and cached version byte arrays.</summary>
+
+            <param name = "kind" Cref = "SerializationKind">The serializer kind.</param>
+
+            <param name = "serializerversion" Cref = "Byte[]">UTF-8 encoded version string of the serializer assembly.</param>
+
+            <param name = "libraryversion" Cref = "Byte[]">UTF-8 encoded version string of the library assembly.</param>
+
+        </constructor>
+
+    </struct>
+
+</SerializationIdentity>

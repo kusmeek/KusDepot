@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlTransferSourceDescriptor>
+
+	<record name="DataControlTransferSourceDescriptor">
+
+		<main>
+
+			<summary>Describes the persisted finite upload source metadata used to reopen or validate resumable client upload content.</summary>
+
+		</main>
+
+		<property name="Kind" Cref="DataControlTransferSourceKind">
+
+			<summary>Kind of persisted upload source represented by this descriptor.</summary>
+
+		</property>
+
+		<property name="Length" Cref="Int64?">
+
+			<summary>Optional total byte length expected from the upload source.</summary>
+
+		</property>
+
+		<property name="Path" Cref="String?">
+
+			<summary>Optional absolute external source path when the descriptor refers to a stable file-backed source.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlTransferSourceDescriptor>

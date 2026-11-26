@@ -1,0 +1,183 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ICatalogClient>
+
+    <interface name = "ICatalogClient">
+
+        <main>
+
+            <summary>Catalog Client Interface.</summary>
+
+        </main>
+
+        <method name = "SearchServices">
+
+            <summary>Search Services. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "ServiceRequest">Service Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{ServiceResponse}}">Service Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchCommands">
+
+            <summary>Search Commands. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "CommandRequest">Command Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{CommandResponse}}">Command Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchElements">
+
+            <summary>Search Elements. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "ElementRequest">Element Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{ElementResponse}}">Element Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchMedia">
+
+            <summary>Search Media. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "MediaRequest">Media Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{MediaResponse}}">Media Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchNotes">
+
+            <summary>Search Notes. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "NoteRequest">Note Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{NoteResponse}}">Note Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "SearchTags">
+
+            <summary>Search Tags. Page through results by resending the same filters and the previous response's NextCatalogPageToken.</summary>
+
+            <param name = "query" Cref = "TagRequest">Tag Search Query.</param>
+
+            <param name = "token" Cref = "String?">Authorization Token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{CatalogResponse{TagResponse}}">Tag Records. StatusCode indicates result.</returns>
+
+        </method>
+
+        <method name = "EnumerateElementsAsync">
+
+            <summary>Enumerate matching Elements sequentially across Catalog pages. The query filters and page size are reused; the returned continuation token is applied to each subsequent page.</summary>
+
+            <param name = "query" Cref = "ElementQuery">Element search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Element}">Matching Elements in page order.</returns>
+
+        </method>
+
+        <method name = "EnumerateCommandsAsync">
+
+            <summary>Enumerate matching Commands sequentially across Catalog pages.</summary>
+
+            <param name = "query" Cref = "CommandQuery">Command search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Command}">Matching Commands in page order.</returns>
+
+        </method>
+
+        <method name = "EnumerateServicesAsync">
+
+            <summary>Enumerate matching Services sequentially across Catalog pages.</summary>
+
+            <param name = "query" Cref = "ServiceQuery">Service search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Service}">Matching Services in page order.</returns>
+
+        </method>
+
+        <method name = "EnumerateMediaAsync">
+
+            <summary>Enumerate matching Media records sequentially across Catalog pages.</summary>
+
+            <param name = "query" Cref = "MediaQuery">Media search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Media}">Matching Media records in page order.</returns>
+
+        </method>
+
+        <method name = "EnumerateNoteIDsAsync">
+
+            <summary>Enumerate distinct matching Note IDs sequentially across Catalog pages.</summary>
+
+            <param name = "query" Cref = "NoteQuery">Note search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Guid}">Matching Note IDs in page order.</returns>
+
+        </method>
+
+        <method name = "EnumerateTagIDsAsync">
+
+            <summary>Enumerate distinct matching Tag IDs sequentially across Catalog pages.</summary>
+
+            <param name = "query" Cref = "TagQuery">Tag search filters and optional page size.</param>
+
+            <param name = "token" Cref = "String?">Optional authorization token.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+
+            <returns Cref = "IAsyncEnumerable{Guid}">Matching Tag IDs in page order.</returns>
+
+        </method>
+
+    </interface>
+
+</ICatalogClient>

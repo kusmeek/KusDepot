@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ObjectPayloadReader>
+  <class name="ObjectPayloadReader">
+	<main>
+	  <summary>Reads a complete staged object payload into one exact-sized byte array.</summary>
+	</main>
+	<method name="ReadAsync">
+	  <summary>Reads the remaining bytes from a stream into a single exact-sized byte array.</summary>
+	  <param name="input" Cref="Stream">Readable object-payload stream.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{Byte[]}">The complete object payload.</returns>
+	  <exception cref="ArgumentNullException">The input stream is null.</exception>
+	  <exception cref="InvalidDataException">The stream length is negative or exceeds the maximum byte-array length.</exception>
+	  <exception cref="EndOfStreamException">The stream ends before its declared length is read.</exception>
+	</method>
+  </class>
+</ObjectPayloadReader>

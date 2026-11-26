@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControlPublicationJournalStore>
+	<interface name = "IDataControlPublicationJournalStore">
+		<main><summary>Provides durable publication-journal operations.</summary></main>
+		<method name = "LoadRecoverableCandidatesAsync">
+			<summary>Loads a bounded page of recoverable and finalized-cleanup journal candidates, excluding journals requiring operator action or marked failed.</summary>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive update-time cutoff for the scan.</param>
+			<param name = "after" Cref = "TransferPublicationRecoveryCandidate">Exclusive keyset cursor from the previous page, if any.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationRecoveryCandidate}}">The next page of candidates.</returns>
+		</method>
+		<method name = "LoadForInstanceAsync">
+			<summary>Loads publication journal states for one catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationJournalState}}">Matching persisted journal states.</returns>
+		</method>
+		<method name = "DeleteForInstanceAsync">
+			<summary>Deletes all publication journals for one catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when one or more matching journals were removed.</returns>
+		</method>
+		<method name = "LoadAsync">
+			<summary>Loads the publication journal for a transfer session in the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The journal, or null when it does not exist.</returns>
+		</method>
+		<method name = "GetOrCreateAsync">
+			<summary>Loads an existing journal or creates the supplied journal when none exists, scoped to the specified catalog.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal to load or create.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must match the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The existing or newly created journal.</returns>
+		</method>
+		<method name = "AdvanceAsync">
+			<summary>Advances a journal to a publication phase and optionally records an error or integrity result.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Publication operation identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "phase" Cref = "TransferPublicationPhase">New publication phase.</param>
+			<param name = "error" Cref = "String">Optional phase error.</param>
+			<param name = "integrity" Cref = "TransferContentIntegrity">Optional final integrity summary.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The updated journal.</returns>
+		</method>
+		<method name = "RecordFailureAsync">
+			<summary>Records a failed recovery or publication attempt for a journal.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Publication operation identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "error" Cref = "String">Failure description.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The updated journal.</returns>
+		</method>
+		<method name = "DeleteAsync">
+			<summary>Deletes the journal for a transfer session in the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the deletion operation.</returns>
+		</method>
+	</interface>
+</IDataControlPublicationJournalStore>

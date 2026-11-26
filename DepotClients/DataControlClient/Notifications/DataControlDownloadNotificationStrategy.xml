@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlDownloadNotificationStrategy>
+
+	<class name="DataControlDownloadNotificationStrategy">
+
+		<main>
+
+			<summary>Creates notification subscriptions for download sessions.</summary>
+
+		</main>
+
+		<method name="Create">
+
+			<summary>Build a logical notification subscription for the supplied download session.</summary>
+
+			<param name="session" Cref="DataControlTransferSessionInfo">Download session whose transfer family and state determine the notification scope.</param>
+
+			<returns Cref="DataControlNotificationSubscription">A subscription describing the notification topics to observe, or null when the session does not support follow wake hints.</returns>
+
+		</method>
+
+	</class>
+
+</DataControlDownloadNotificationStrategy>

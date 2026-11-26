@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Main">
+
+		<OutputType>Exe</OutputType>
+
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<TargetFramework>net11.0</TargetFramework>
+
+		<AssemblyName>KusDepot.Dap</AssemblyName>
+
+	</PropertyGroup>
+
+	<PropertyGroup Label="ConfigEx">
+
+		<AspireUseCliBundle>True</AspireUseCliBundle>
+
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+
+	</PropertyGroup>
+
+	<ItemGroup Label="Settings">
+
+		<None Update="appsettings.json">
+
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+		</None>
+
+	</ItemGroup>
+
+	<ItemGroup Label="Packages or Projects">
+
+		<PackageReference Include="Aspire.Hosting.AppHost" />
+
+		<PackageReference Include="Serilog.AspNetCore" IsAspireProjectResource="false" />
+
+		<PackageReference Include="Serilog.Sinks.Console" IsAspireProjectResource="false" />
+
+		<ProjectReference Include="..\KusDepot.ASPR\KusDepot.ASPR.csproj" IsAspireProjectResource="false" />
+
+		<ProjectReference Include="..\DaprSidecar\DaprSidecar.csproj" IsAspireProjectResource="false" ReferenceOutputAssembly="false" />
+
+	</ItemGroup>
+
+</Project>

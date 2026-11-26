@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IDataStreamTransferService>
+  <interface name="IDataStreamTransferService">
+	<main>
+	  <summary>Coordinates stream transfer session operations with append-oriented staged DataServices storage.</summary>
+	</main>
+	<method name="OpenStreamTransfer">
+	  <summary>Open a new stream source transfer session.</summary>
+	  <param name="request" Cref="OpenStreamTransferRequest">Open request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{OpenStreamTransferResponse}">Open response containing the initial source session state.</returns>
+	</method>
+	<method name="GetTransferIntegrityEvidence">
+	  <summary>Load canonical integrity evidence covering an exact requested prefix of a stream transfer.</summary>
+	  <param name="request" Cref="GetTransferIntegrityEvidenceRequest">Integrity evidence request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{GetTransferIntegrityEvidenceResponse}">Authoritative prefix integrity and its source segment evidence.</returns>
+	</method>
+	<method name="OpenFollowStreamTransfer">
+	  <summary>Open a new stream follower session over an existing source transfer.</summary>
+	  <param name="request" Cref="OpenFollowStreamTransferRequest">Open request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{OpenFollowStreamTransferResponse}">Open response containing the initial follower session state.</returns>
+	</method>
+	<method name="ReOpenStreamTransfer">
+	  <summary>Reattach to an existing stream source transfer session.</summary>
+	  <param name="request" Cref="ReOpenStreamTransferRequest">Reopen request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{ReOpenStreamTransferResponse}">Reopen response containing the current source session state.</returns>
+	</method>
+	<method name="ReOpenFollowStreamTransfer">
+	  <summary>Reattach to an existing stream follower session.</summary>
+	  <param name="request" Cref="ReOpenFollowStreamTransferRequest">Reopen request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{ReOpenFollowStreamTransferResponse}">Reopen response containing the current follower session state.</returns>
+	</method>
+	<method name="GetStreamTransferState">
+	  <summary>Get the current transfer state for a staged stream transfer session.</summary>
+	  <param name="identity" Cref="DataItemTransferIdentity">Transfer identity.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{GetStreamTransferStateResponse}">Current stream transfer state response.</returns>
+	</method>
+	<method name="PutStreamTransferSegment">
+	  <summary>Validate and append a stream payload segment at the current durable tail, accepting an exact retry for a previously committed offset.</summary>
+	  <param name="request" Cref="PutStreamTransferSegmentRequest">Segment append request metadata.</param>
+	  <param name="payload" Cref="Stream">Readable segment payload stream positioned at the first byte to append.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PutStreamTransferSegmentResponse}">Segment append response.</returns>
+	</method>
+	<method name="GetStreamTransferSegment">
+	  <summary>Read a realized stream payload segment from an existing source or follower session.</summary>
+	  <param name="request" Cref="GetStreamTransferSegmentRequest">Segment read request metadata.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{StreamTransferReadResult}">Segment footer metadata plus a readable payload stream.</returns>
+	</method>
+	<method name="BeginPublishStreamTransfer">
+	  <summary>Validate a stream completion request, freeze the source session on its first attempt, and idempotently prepare the journal-selected completion artifacts on retries while the session is publishing.</summary>
+	  <param name="request" Cref="PublishStreamTransferRequest">Completion request.</param>
+	  <param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishStreamTransferResponse}">Response containing the frozen local completion state prepared for publish.</returns>
+	</method>
+	<method name="ValidateBeginPublishStreamTransfer">
+	  <summary>Validate a stream publication request against the current session without changing its state. Call while holding the mutation scope before creating a publication journal.</summary>
+	  <param name="request" Cref="PublishStreamTransferRequest">Publication request.</param>
+	  <param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task">A task representing the validation operation.</returns>
+	</method>
+	<method name="FinishPublishStreamTransfer">
+	  <summary>Finalize a previously begun stream publish after external publish has succeeded.</summary>
+	  <param name="identity" Cref="DataItemTransferIdentity">Transfer identity for the retained source session.</param>
+	  <param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{PublishStreamTransferResponse}">Final published response for the retained stream session.</returns>
+	</method>
+	<method name="GetSessions">
+	  <summary>Enumerate retained stream transfer sessions that match the optional filters.</summary>
+	  <param name="request" Cref="GetTransferSessionsRequest">Optional session filters.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{DataControlServerSessionInfo[]}">Matching stream transfer sessions.</returns>
+	</method>
+	<method name="AbortTransfer">
+	  <summary>Abort an open or complete stream upload session and delete its staged artifacts. Other modes and states conflict.</summary>
+	  <param name="request" Cref="AbortTransferRequest">Abort request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{AbortTransferResponse}">Abort response.</returns>
+	</method>
+	<method name="RemoveTransfer">
+	  <summary>Remove retained stream transfer session artifacts when the session is Complete or Published, unless dependent staged-read or stream-follow sessions still reference it. Other states conflict.</summary>
+	  <param name="request" Cref="RemoveTransferRequest">Remove request.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{RemoveTransferResponse}">Remove response.</returns>
+	</method>
+	<method name="SessionExists">
+	  <summary>Determine whether a retained stream transfer session exists for the supplied identity.</summary>
+	  <param name="identity" Cref="DataItemTransferIdentity">Transfer identity.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True when the stream session exists and matches the supplied item.</returns>
+	</method>
+  </interface>
+</IDataStreamTransferService>

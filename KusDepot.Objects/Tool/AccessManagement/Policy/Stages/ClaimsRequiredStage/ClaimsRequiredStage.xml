@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ClaimsRequiredStage>
+
+    <class name = "ClaimsRequiredStage">
+
+        <main>
+
+            <summary>Claims-required access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when validated access-key claims are unavailable.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "ClaimsRequiredStage">
+
+            <summary>Singleton claims-required stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a claims-required access-policy stage.</summary>
+
+            <returns Cref = "ClaimsRequiredStage">Claims-required access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether validated claims are available in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when validated claims are unavailable; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether validated claims are available in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when validated claims are unavailable; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</ClaimsRequiredStage>

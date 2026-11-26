@@ -1,0 +1,64 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueBuildConverter>
+
+    <class name = "ToolValueBuildConverter">
+
+        <main>
+
+            <summary>Build-mode ToolValue converter.</summary>
+
+        </main>
+
+        <method name = "TryResolveArgument">
+
+            <summary>Try resolve a top-level ToolValue constructor argument.</summary>
+
+            <param name = "argument" Cref = "ToolValueArgument?">Argument envelope.</param>
+
+            <param name = "value" Cref = "Object?">Resolved runtime value.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryResolveNestedBuild">
+
+            <summary>Try build a one-level nested constructor argument.</summary>
+
+            <param name = "argument" Cref = "ToolValueArgument">Build-mode argument envelope.</param>
+
+            <param name = "value" Cref = "Object?">Resolved runtime value.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryResolveParameter">
+
+            <summary>Try resolve a nested constructor parameter.</summary>
+
+            <param name = "parameter" Cref = "ToolValueArgumentParameter?">Terminal parameter envelope.</param>
+
+            <param name = "value" Cref = "Object?">Resolved runtime value.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryResolveParsable">
+
+            <summary>Try resolve a parsable type and string payload into a runtime value.</summary>
+
+            <param name = "type" Cref = "String?">Runtime type name.</param>
+
+            <param name = "data" Cref = "String?">String payload.</param>
+
+            <param name = "value" Cref = "Object?">Resolved runtime value.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+    </class>
+
+</ToolValueBuildConverter>

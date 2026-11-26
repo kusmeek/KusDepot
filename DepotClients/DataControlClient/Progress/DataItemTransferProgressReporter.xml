@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemTransferProgressReporter>
+  <class name="DataItemTransferProgressReporter">
+	<main>
+	  <summary>Progress reporter for segmented transfer operations with optional callback forwarding.</summary>
+	</main>
+	<field name="callback" Cref="Action{DataItemTransferProgress}?">
+	  <summary>Optional callback invoked for each reported progress snapshot after <see cref="Latest"/> is updated.</summary>
+	</field>
+	<property name="Latest" Cref="DataItemTransferProgress?">
+	  <summary>The most recently reported progress snapshot, or <see langword="null"/> before the first report.</summary>
+	</property>
+	<constructor name="DataItemTransferProgressReporter">
+	  <summary>Create a progress reporter that records the latest transfer snapshot and optionally forwards it to the provided callback.</summary>
+	  <param name="callback" Cref="Action{DataItemTransferProgress}?">Optional callback invoked for each reported progress snapshot.</param>
+	</constructor>
+	<method name="Create">
+	  <summary>Create a progress reporter that records the latest transfer snapshot and optionally forwards it to the provided callback.</summary>
+	  <param name="callback" Cref="Action{DataItemTransferProgress}?">Optional callback invoked for each reported progress snapshot.</param>
+	  <returns Cref="DataItemTransferProgressReporter">New progress reporter instance.</returns>
+	</method>
+	<method name="Report">
+	  <summary>Record the latest transfer progress snapshot and invoke the configured callback when one was provided.</summary>
+	  <param name="value" Cref="DataItemTransferProgress">Progress snapshot to report.</param>
+	</method>
+  </class>
+</DataItemTransferProgressReporter>

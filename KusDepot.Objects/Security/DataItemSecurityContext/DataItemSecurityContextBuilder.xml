@@ -1,0 +1,227 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemSecurityContextBuilder>
+
+    <class name = "DataItemSecurityContextBuilder">
+
+        <main>
+
+            <summary>Mutable builder used to assemble `DataItemSecurityContext` values.</summary>
+
+            <remarks>
+                The builder supports object-centric configuration, optional identity-directory integration, known peer registration, recipient selection, distinct signing identity selection, and assertion validity metadata.
+            </remarks>
+
+        </main>
+
+        <field name = "knownobjects" Cref = "Dictionary{Guid,DataSecurityObject}">
+
+            <summary>Known objects attached directly to the builder.</summary>
+
+        </field>
+
+        <field name = "recipients" Cref = "List{DataSecurityRecipient}">
+
+            <summary>Configured recipients for the current build operation.</summary>
+
+        </field>
+
+        <field name = "localobject" Cref = "DataSecurityObject">
+
+            <summary>Local object identity and certificate used to root the builder.</summary>
+
+        </field>
+
+        <field name = "signingobject" Cref = "DataSecurityObject?">
+
+            <summary>Optional distinct assertion-signing identity. When omitted, the local object signs assertions.</summary>
+
+        </field>
+
+        <field name = "directory" Cref = "ISecurityIdentityDirectory?">
+
+            <summary>Optional identity directory used to locate additional known objects.</summary>
+
+        </field>
+
+        <field name = "purpose" Cref = "String?">
+
+            <summary>Optional descriptive purpose metadata.</summary>
+
+        </field>
+
+        <field name = "notbefore" Cref = "DateTimeOffset?">
+
+            <summary>Optional earliest validity instant for generated assertions.</summary>
+
+        </field>
+
+        <field name = "expiresat" Cref = "DateTimeOffset?">
+
+            <summary>Optional expiration instant for generated assertions.</summary>
+
+        </field>
+
+        <field name = "includeselfrecipient" Cref = "Boolean">
+
+            <summary>Controls whether the local object is included as a protection recipient.</summary>
+
+        </field>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a builder rooted in a local object identity and certificate.</summary>
+
+            <param name = "localobject" Cref = "DataSecurityObject">Local object identity and certificate.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">A new builder rooted in the supplied local object.</returns>
+
+        </constructor>
+
+        <method name = "Build">
+
+            <summary>Build the final immutable `DataItemSecurityContext`.</summary>
+
+            <returns Cref = "DataItemSecurityContext">A fully configured `DataItem` security context.</returns>
+
+        </method>
+
+        <method name = "IncludeSelfRecipient">
+
+            <summary>Set whether the local object should be included as a protection recipient.</summary>
+
+            <param name = "value" Cref = "Boolean">True to include the local object as a recipient.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithSigningCertificate">
+
+            <summary>Set a distinct assertion-signing certificate and optional signing object identifier.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Signing certificate.</param>
+
+            <param name = "objectid" Cref = "Guid?">Optional signing object identifier. When omitted, the local object identifier is reused.</param>
+
+            <param name = "displayname" Cref = "String?">Optional signing display name.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithSigningObjectGuid">
+
+            <summary>Set a distinct assertion-signing identity using an explicit object identifier and certificate.</summary>
+
+            <param name = "objectid" Cref = "Guid">Signing object identifier.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Signing certificate.</param>
+
+            <param name = "displayname" Cref = "String?">Optional signing display name.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithSigningObjectObject">
+
+            <summary>Set a distinct assertion-signing identity using an existing `DataSecurityObject` value.</summary>
+
+            <param name = "value" Cref = "DataSecurityObject">Signing identity value.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithKnownObject">
+
+            <summary>Add or replace a known object using an object identifier and certificate.</summary>
+
+            <param name = "objectid" Cref = "Guid">Known object identifier.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Known object certificate.</param>
+
+            <param name = "displayname" Cref = "String?">Optional descriptive display name.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithKnownObjectObject">
+
+            <summary>Add or replace a known object using an existing `DataSecurityObject` value.</summary>
+
+            <param name = "value" Cref = "DataSecurityObject">Known object value.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithPurpose">
+
+            <summary>Set optional descriptive purpose metadata.</summary>
+
+            <param name = "value" Cref = "String?">Optional descriptive purpose value.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithRecipientObjectId">
+
+            <summary>Add a recipient identified by object identifier.</summary>
+
+            <param name = "objectid" Cref = "Guid">Recipient object identifier.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithRecipientCertificate">
+
+            <summary>Add a recipient identified by certificate and optional object identifier.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Recipient certificate.</param>
+
+            <param name = "objectid" Cref = "Guid?">Optional recipient object identifier.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithRecipients">
+
+            <summary>Add multiple recipient values to the builder.</summary>
+
+            <param name = "values" Cref = "IEnumerable{DataSecurityRecipient}?">Recipient values to add.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithDirectory">
+
+            <summary>Attach an optional identity directory used to locate additional known objects.</summary>
+
+            <param name = "value" Cref = "ISecurityIdentityDirectory?">Identity directory instance.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+        <method name = "WithValidity">
+
+            <summary>Set optional validity bounds for generated assertions.</summary>
+
+            <param name = "notbefore" Cref = "DateTimeOffset?">Optional earliest validity instant.</param>
+
+            <param name = "expiresat" Cref = "DateTimeOffset?">Optional expiration instant.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">The current builder.</returns>
+
+        </method>
+
+    </class>
+
+</DataItemSecurityContextBuilder>

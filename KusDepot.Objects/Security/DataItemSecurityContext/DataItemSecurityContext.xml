@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemSecurityContext>
+
+    <class name = "DataItemSecurityContext">
+
+        <main>
+
+            <summary>Composite runtime security input for `DataItem` protection, unprotection, signing, and verification.</summary>
+
+            <remarks>
+                The context combines the local protection identity, the assertion-signing identity, known peers, optional resolution services, recipient intent, and assertion validity metadata into a single input model.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a new `DataItem` security context.</summary>
+
+            <param name = "localobject" Cref = "DataSecurityObject">Local object identity and certificate used by the caller.</param>
+
+            <param name = "signingobject" Cref = "DataSecurityObject?">Optional distinct assertion-signing identity. When null, the local object is also used as the signing identity.</param>
+
+            <param name = "knownobjects" Cref = "ImmutableArray{DataSecurityObject}">Known peer objects available directly in the context.</param>
+
+            <param name = "recipients" Cref = "ImmutableArray{DataSecurityRecipient}">Recipient intent configured for the current protection operation.</param>
+
+            <param name = "directory" Cref = "ISecurityIdentityDirectory?">Optional identity directory used to locate additional known objects.</param>
+
+            <param name = "purpose" Cref = "String?">Optional descriptive purpose metadata.</param>
+
+            <param name = "notbefore" Cref = "DateTimeOffset?">Optional earliest validity instant for assertion material.</param>
+
+            <param name = "expiresat" Cref = "DateTimeOffset?">Optional expiration instant for assertion material.</param>
+
+            <param name = "includeselfrecipient" Cref = "Boolean">True when the local object should be included as a recipient during protection.</param>
+
+            <returns Cref = "DataItemSecurityContext">A new `DataItem` security context.</returns>
+
+        </constructor>
+
+        <property name = "LocalObject" Cref = "DataSecurityObject">
+
+            <summary>Local protection and decrypt identity used by the caller.</summary>
+
+        </property>
+
+        <property name = "SigningObject" Cref = "DataSecurityObject">
+
+            <summary>Assertion-signing identity used to issue `DataFieldAssertion` payloads for protected content.</summary>
+
+        </property>
+
+        <property name = "KnownObjects" Cref = "ImmutableArray{DataSecurityObject}">
+
+            <summary>Known peer objects attached directly to the context.</summary>
+
+        </property>
+
+        <property name = "Recipients" Cref = "ImmutableArray{DataSecurityRecipient}">
+
+            <summary>Recipients configured for the current protection operation.</summary>
+
+        </property>
+
+        <property name = "Directory" Cref = "ISecurityIdentityDirectory?">
+
+            <summary>Optional identity directory used to locate additional known objects.</summary>
+
+        </property>
+
+        <property name = "Purpose" Cref = "String?">
+
+            <summary>Optional descriptive purpose metadata.</summary>
+
+        </property>
+
+        <property name = "NotBefore" Cref = "DateTimeOffset?">
+
+            <summary>Optional earliest validity instant for generated assertions.</summary>
+
+        </property>
+
+        <property name = "ExpiresAt" Cref = "DateTimeOffset?">
+
+            <summary>Optional expiration instant for generated assertions.</summary>
+
+        </property>
+
+        <property name = "IncludeSelfRecipient" Cref = "Boolean">
+
+            <summary>True when the local object should be included as a recipient during protection.</summary>
+
+        </property>
+
+    </class>
+
+</DataItemSecurityContext>

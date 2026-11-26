@@ -1,0 +1,1226 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Tool>
+
+    <class name = "Tool">
+
+        <main>
+
+            <summary>Tool.</summary>
+
+            <remarks>
+                The Tool is a foundation for business workflows. It stores DataItems and hosts Services and Commands, which define
+                specialized compartmentalized functionality. Configuration, Inputs, Outputs, Logger, Status, and WorkingSet are
+                available, as well as an Access Manager and Dependency Injection Container.
+            </remarks>
+
+        </main>
+
+        <field name = "AccessManager" Cref = "IAccessManager?">
+
+            <summary>Access Manager.</summary>
+
+        </field>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "AttachedCommands" Cref = "HashSet{ICommand}?">
+
+            <summary>Attached <see cref="ICommand"/> Instances.</summary>
+
+        </field>
+
+        <field name = "CommandHandles" Cref = "Dictionary{ICommand,HashSet{String}}?">
+
+            <summary>Registered Command Handles.</summary>
+
+        </field>
+
+        <field name = "CommandManagerKeys" Cref = "Dictionary{ICommand,ManagerKey}?">
+
+            <summary>Command ManagerKeys.</summary>
+
+        </field>
+
+        <field name = "CommandKeys" Cref = "Dictionary{ICommand,CommandKey}?">
+
+            <summary>Command AccessKeys.</summary>
+
+        </field>
+
+        <field name = "Commands" Cref = "Dictionary{String,ICommand}?">
+
+            <summary>Registered Command Handle (Method/Operation ID) and <see cref="ICommand"/> Instance.</summary>
+
+        </field>
+
+        <field name = "CommandTypes" Cref = "Dictionary{String,String}?">
+
+            <summary>Command Handle (Method/Operation ID) and FullName of Implementing Type.</summary>
+
+        </field>
+
+        <field name = "CommandTypesMasked" Cref = "Boolean">
+
+            <summary>Registry Commands Mask.</summary>
+
+        </field>
+
+        <field name = "Configuration" Cref = "IConfiguration?">
+
+            <summary>Tool Configuration.</summary>
+
+        </field>
+
+        <field name = "Data" Cref = "HashSet{DataItem}?">
+
+            <summary>Tool Data.</summary>
+
+        </field>
+
+        <field name = "DataIndex" Cref = "Dictionary{Guid,DataItem}?">
+
+            <summary>Tool Data Index.</summary>
+
+        </field>
+
+        <field name = "DisposalState" Cref = "ToolDisposalState">
+
+            <summary>Tool disposal state.</summary>
+
+        </field>
+
+        <property name = "Disposed" Cref = "Boolean">
+
+            <summary>True after disposal has completed.</summary>
+
+            <returns Cref = "Boolean">True only after all base Tool disposal cleanup has completed.</returns>
+
+        </property>
+
+        <field name = "HostedServiceLockState" Cref = "Dictionary{ITool,Boolean}?">
+
+            <summary>Hosted Service lock state when added to the Tool.</summary>
+
+        </field>
+
+        <field name = "HostedServices" Cref = "Dictionary{String,IHostedService}?">
+
+            <summary>Hosted Services.</summary>
+
+        </field>
+
+        <field name = "HostedServiceNamesByInstance" Cref = "Dictionary{IHostedService,String}?">
+
+            <summary>Hosted Service reverse index keyed by service instance.</summary>
+
+        </field>
+
+        <field name = "HostedServicesMasked" Cref = "Boolean">
+
+            <summary>Hosted Services Mask.</summary>
+
+        </field>
+
+        <field name = "HostingKeys" Cref = "Dictionary{ITool,HostKey}?">
+
+            <summary>AccessKeys to Hosted Services.</summary>
+
+        </field>
+
+        <field name = "HostingManagerKeys" Cref = "Dictionary{ITool,ManagerKey}?">
+
+            <summary>Hosting ManagerKeys.</summary>
+
+        </field>
+
+        <field name = "HostingMyHostKeys" Cref = "Dictionary{ITool,MyHostKey}?">
+
+            <summary>Issued MyHostKeys for Hosted Services.</summary>
+
+        </field>
+
+        <field name = "HostingOptions" Cref = "ToolHostOptions?">
+
+            <summary>Hosting Options.</summary>
+
+        </field>
+
+        <field name = "Inputs" Cref = "Queue{Object}?">
+
+            <summary>Tool Inputs.</summary>
+
+        </field>
+
+        <property name = "Instances">
+
+            <summary>Tool Instances.</summary>
+
+            <returns Cref = "ConcurrentDictionary{Guid,WeakReference{ITool}}">Tool Instances.</returns>
+
+        </property>
+
+        <field name = "LifeState" Cref = "LifeCycleStateMachine?">
+
+            <summary>IHostedLifecycleService.</summary>
+
+        </field>
+
+        <field name = "Logger" Cref = "ILogger?">
+
+            <summary>Logger.</summary>
+
+        </field>
+
+        <field name = "MyHostKey" Cref = "MyHostKey?">
+
+            <summary>Access Key to Host.</summary>
+
+        </field>
+
+        <field name = "Outputs" Cref = "Dictionary{Guid,Object?}?">
+
+            <summary>Tool Outputs.</summary>
+
+        </field>
+
+        <field name = "OutputWaiters" Cref = "Dictionary{Guid,List{TaskCompletionSource{Object?}}}?">
+
+            <summary>Pending asynchronous output waiters keyed by output identifier; disposal detaches them and completes them with null.</summary>
+
+        </field>
+
+        <field name = "OwnerSecret" Cref = "Byte[]?">
+
+            <summary>Owner Secret.</summary>
+
+        </field>
+
+        <field name = "Status" Cref = "Dictionary{String,Object?}?">
+
+            <summary>Current Status.</summary>
+
+        </field>
+
+        <field name = "Sync" Cref = "ToolSync">
+
+            <summary>Synchronization Objects.</summary>
+
+        </field>
+
+        <field name = "SelfKey" Cref = "SelfKey?">
+
+            <summary>Local Tool identity bound to this tool's access manager.</summary>
+
+        </field>
+
+        <field name = "ToolServiceProvider" Cref = "ToolServiceProvider?">
+
+            <summary>Tool Service Provider.</summary>
+
+        </field>
+
+        <field name = "ToolServices" Cref = "IServiceProvider?">
+
+            <summary>ServiceProvider.</summary>
+
+        </field>
+
+        <field name = "ToolServiceScopes" Cref = "ToolServiceScopeRegistry?">
+
+            <summary>Registry of Tool-owned named service scopes.</summary>
+
+        </field>
+
+        <field name = "WorkingSet">
+
+            <summary>Tool Working Set.</summary>
+
+            <returns Cref = "ConcurrentDictionary{String,Object?}">Tool Working Set.</returns>
+
+        </field>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <constructor name = "StaticConstructor">
+
+            <summary>Static Constructor.</summary>
+
+        </constructor>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <param name = "data" Cref = "IEnumerable{DataItem}?">Data.</param>
+
+            <param name = "id" Cref = "Guid?">ID.</param>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Services.</param>
+
+            <param name = "commands" Cref = "IEnumerable{Meta{ICommand}}?">Commands.</param>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <returns Cref = "Tool">New Tool.</returns>
+
+        </constructor>
+
+        <method name = "AccessCheck">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Operation Name.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "GenerateIssuerOnlyAccessKey">
+            <summary>Generate an issuer-only access key through this Tool's bound SelfKey.</summary>
+            <typeparam name = "TKey">Concrete access-key type to generate.</typeparam>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings.</param>
+            <returns Cref = "TKey">Generated issuer-only key, or null if issuance fails.</returns>
+        </method>
+
+        <method name = "GenerateIssuerOnlyAccessKeyAsync">
+            <summary>Generate an issuer-only access key asynchronously through this Tool's bound SelfKey.</summary>
+            <typeparam name = "TKey">Concrete access-key type to generate.</typeparam>
+            <param name = "options" Cref = "AccessKeyIssueOptions?">Optional issuance settings.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for asynchronous issuance.</param>
+            <returns Cref = "Task{TKey}">Generated issuer-only key, or null if issuance fails.</returns>
+        </method>
+
+        <method name = "ExecuteCommandCore">
+            <summary>Execute a command synchronously after the caller performs any required access check.</summary>
+            <param name = "details" Cref = "CommandDetails?">Command details.</param>
+            <returns Cref = "Guid?">Command output identifier, or null if execution fails.</returns>
+        </method>
+
+        <method name = "ExecuteCommandAsyncCore">
+            <summary>Execute a command asynchronously after the caller performs any required access check.</summary>
+            <param name = "details" Cref = "CommandDetails?">Command details.</param>
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+            <returns Cref = "Task{Guid?}">Command output identifier, or null if execution fails.</returns>
+        </method>
+
+        <method name = "GetHostedServicesSnapshot">
+            <summary>Create a hosted-service snapshot for while pruning disposed child Tools.</summary>
+            <returns Cref = "IHostedService[]">Hosted-service snapshot.</returns>
+        </method>
+
+        <method name = "TryBeginDisposal">
+
+            <summary>Atomically claim disposal of the Tool.</summary>
+
+            <returns Cref = "Boolean">True if disposal was claimed by this caller.</returns>
+
+        </method>
+
+        <method name = "AccessCheckAsync">
+
+            <summary>Asynchronously evaluate access for the named operation.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operationname" Cref = "String?">Operation Name.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "AccessCheckIndex">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operation" Cref = "Int32">Operation Index.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "AccessCheckIndexAsync">
+
+            <summary>Asynchronously evaluate access for the operation index.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Access Key.</param>
+
+            <param name = "operation" Cref = "Int32">Operation Index.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "DestroySecrets">
+
+            <summary>Destroy Tool-owned secrets using the private local-access capability.</summary>
+
+            <returns Cref = "Boolean">True if the secrets are destroyed; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Starting_NoSync">
+
+            <summary>Run the Starting lifecycle phase without acquiring the Life lock. A finite startup timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Starting phase was entered.</returns>
+
+        </method>
+
+        <method name = "Start_NoSync">
+
+            <summary>Run the Start lifecycle phase without acquiring the Life lock. Atomically enter or continue the Starting state, run hosted child operations, and enter Active on successful completion. A finite startup timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Starting state was entered or continued, the Start phase completed, and the Tool entered Active.</returns>
+
+        </method>
+
+        <method name = "Started_NoSync">
+
+            <summary>Run the Started lifecycle phase without acquiring the Life lock. The phase proceeds only while the Tool is Active. A finite startup timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Tool is Active and the Started phase completed.</returns>
+
+        </method>
+
+        <method name = "Activate_NoSync">
+
+            <summary>Activate Tool without waiting for the LifeState lock.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Tool activated successfully.</returns>
+
+        </method>
+
+        <method name = "Stopping_NoSync">
+
+            <summary>Run the Stopping lifecycle phase without acquiring the Life lock. The phase enters Stopping before hosted child operations run. A finite shutdown timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Stopping phase was entered and completed.</returns>
+
+        </method>
+
+        <method name = "Stop_NoSync">
+
+            <summary>Run the Stop lifecycle phase without acquiring the Life lock. Atomically enter or continue the Stopping state, run hosted child operations, and enter InActive on successful completion. A finite shutdown timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Stopping state was entered or continued, the Stop phase completed, and the Tool entered InActive.</returns>
+
+        </method>
+
+        <method name = "Stopped_NoSync">
+
+            <summary>Run the Stopped lifecycle phase without acquiring the Life lock. The phase proceeds only while the Tool is InActive. A finite shutdown timeout cooperatively cancels hosted child operations; children that ignore cancellation may continue after the phase fails.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "Task{Boolean}">Lifecycle phase task; the result is true when the Tool is InActive and the Stopped phase completed.</returns>
+
+        </method>
+
+        <method name = "GetHostedLifecycleServicesSnapshot">
+
+            <summary>Create a lifecycle-service snapshot from a hosted-service snapshot.</summary>
+
+            <param name = "services" Cref = "IHostedService[]?">Hosted-service snapshot.</param>
+
+            <returns Cref = "IHostedLifecycleService[]">Lifecycle-service snapshot.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStartingAsync">
+
+            <summary>Invoke the Starting lifecycle callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedLifecycleService">Hosted lifecycle service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStartAsync">
+
+            <summary>Invoke the Start callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedService">Hosted service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStartedAsync">
+
+            <summary>Invoke the Started lifecycle callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedLifecycleService">Hosted lifecycle service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStoppingAsync">
+
+            <summary>Invoke the Stopping lifecycle callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedLifecycleService">Hosted lifecycle service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStopAsync">
+
+            <summary>Invoke the Stop callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedService">Hosted service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "InvokeHostedServiceStoppedAsync">
+
+            <summary>Invoke the Stopped lifecycle callback for a hosted service.</summary>
+
+            <param name = "service" Cref = "IHostedLifecycleService">Hosted lifecycle service.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">Invocation task. The result is <c>true</c> when the callback succeeds or the service has already been disposed; otherwise, it is <c>false</c>.</returns>
+
+        </method>
+
+        <method name = "AddHostedService_NoSync">
+
+            <summary>Add a hosted service without acquiring sync locks.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Hosted service instance.</param>
+
+            <param name = "name" Cref = "String?">Optional hosted service registration name.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to issued <see cref="KusDepot.Security.MyHostKey"/>.</param>
+
+            <param name = "request" Cref = "HostRequest?">Optional host request used when the service is a Tool.</param>
+
+            <param name = "start" Cref = "Boolean">True to start the hosted service after it is added.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if hosted service added successfully.</returns>
+
+        </method>
+
+        <method name = "AddInstance">
+
+            <summary>Add a Tool to Instances.</summary>
+
+            <param name = "tool" Cref = "Tool?">Tool.</param>
+
+            <returns Cref = "Boolean">True if Tool added to Instances.</returns>
+
+        </method>
+
+        <method name = "AttachCommand_NoSync">
+
+            <summary>Attach a Command without waiting for the command lock.</summary>
+
+            <param name = "command" Cref = "ICommand">Command.</param>
+
+            <param name = "enable" Cref = "Boolean">True to enable command.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to issued <see cref="CommandKey"/>.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was attached successfully.</returns>
+
+        </method>
+
+        <method name = "Deactivate_NoSync">
+
+            <summary>Deactivate Tool without waiting for the LifeState lock.</summary>
+
+            <param name = "cancel" Cref = "CancellationToken?">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Tool deactivated successfully.</returns>
+
+        </method>
+
+        <method name = "DetachCommand_NoSync">
+
+            <summary>Detach a Command without waiting for the command lock.</summary>
+
+            <param name = "command" Cref = "ICommand">Command.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if Command was detached successfully.</returns>
+
+        </method>
+
+        <method name = "Dispose_NoSync_AccessKey">
+
+            <summary>Dispose of Tool without waiting for the dispose lock.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "Dispose_NoSync">
+
+            <summary>Dispose of Tool without waiting for the dispose lock.</summary>
+
+        </method>
+
+        <method name = "DisposeCore">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "disposing" Cref = "Boolean">Disposing.</param>
+
+        </method>
+
+        <method name = "DisposeAsync_NoSync_AccessKey">
+
+            <summary>Asynchronously dispose of Tool without waiting for the dispose lock.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+        </method>
+
+        <method name = "DisposeAsync_NoSync">
+
+            <summary>Asynchronously dispose of Tool without waiting for the dispose lock.</summary>
+
+        </method>
+
+        <method name = "DisposeAsyncCore">
+
+            <summary>Dispose of Tool.</summary>
+
+            <param name = "disposing" Cref = "Boolean">Disposing.</param>
+
+        </method>
+
+        <method name = "ClearReferences">
+
+            <summary>Clear Tool reference fields during disposal.</summary>
+
+        </method>
+
+        <method name = "ClearOutputReferences">
+
+            <summary>Clear stored outputs and detach pending asynchronous output waiters during disposal.</summary>
+
+            <remarks>Detaches waiters while holding the output semaphore, then completes them with null after releasing the semaphore.</remarks>
+
+        </method>
+
+        <method name = "IsDisposalStateActive_NoSync">
+
+            <summary>Check whether the Tool's disposal state is active without acquiring synchronization locks.</summary>
+
+            <returns Cref = "Boolean">True when the Tool disposal state is Active; otherwise false.</returns>
+
+            <remarks>Use while holding the relevant subsystem synchronization gate to prevent work from being admitted after disposal begins.</remarks>
+
+        </method>
+
+        <method name = "DisposedCheck">
+
+            <summary>Check if Tool is disposed.</summary>
+
+            <exception cref="ObjectDisposedException">Thrown if Tool disposal has started or completed.</exception>
+
+        </method>
+
+        <method name = "DisposeToolServices">
+
+            <summary>Dispose Tool service resources during construction rollback.</summary>
+
+        </method>
+
+        <method name = "op_Equality">
+
+            <summary>Equality Operator.</summary>
+
+            <param name = "a" Cref = "Tool?">A Tool.</param>
+
+            <param name = "b" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are equal.</returns>
+
+        </method>
+
+        <method name = "op_Inequality">
+
+            <summary>Inequality Operator.</summary>
+
+            <param name = "a" Cref = "Tool?">A Tool.</param>
+
+            <param name = "b" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are not equal.</returns>
+
+        </method>
+
+        <method name = "CompareTo">
+
+            <summary>IComparable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Int32">Comparison Result.</returns>
+
+        </method>
+
+        <method name = "EnsureHostedServiceNameIndex_NoSync">
+
+            <summary>Rebuild the hosted-service reverse index from the current hosted-service registrations without acquiring sync locks.</summary>
+
+        </method>
+
+        <method name = "Equals">
+
+            <summary>IEquatable.</summary>
+
+            <param name = "other" Cref = "Tool?">Other Tool.</param>
+
+            <returns Cref = "Boolean">True if Tools are equal.</returns>
+
+        </method>
+
+        <method name = "GenerateHostedServiceName_NoSync">
+
+            <summary>Generate a unique hosted service registration name without acquiring sync locks.</summary>
+
+            <returns Cref = "String">Generated hosted service registration name.</returns>
+
+        </method>
+
+        <method name = "GetConfiguration">
+
+            <summary>Get Configuration.</summary>
+
+            <returns Cref = "IConfiguration?">Configuration.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+        <method name = "GetHost">
+
+            <summary>Determines which Tool is hosting a service, if any.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Service Instance.</param>
+
+            <returns Cref = "ITool?">Tool.</returns>
+
+        </method>
+
+        <method name = "GetToolHost">
+
+            <summary>Determines which ToolHost is hosting a service, if any.</summary>
+
+            <param name = "service" Cref = "IHostedService?">Service Instance.</param>
+
+            <returns Cref = "IToolHost?">ToolHost.</returns>
+
+        </method>
+
+        <method name = "GetInstance">
+
+            <summary>Get a Tool from Instances.</summary>
+
+            <param name = "id" Cref = "Guid?">Tool ID.</param>
+
+            <returns Cref = "Tool?">Tool.</returns>
+
+        </method>
+
+        <method name = "GetInstanceIDs">
+
+            <summary>Get IDs of all Tools in Instances.</summary>
+
+            <returns Cref = "IList{Guid}?">Tool IDs</returns>
+
+        </method>
+
+        <method name = "GetLogger">
+
+            <summary>Get Tool Logger.</summary>
+
+            <returns Cref = "ILogger?">Logger.</returns>
+
+        </method>
+
+        <method name = "GetOutput_NoSync">
+
+            <summary>Get an output without locking.</summary>
+
+            <param name = "id" Cref = "Guid?">ID of the output to get.</param>
+
+            <returns Cref = "Object?">The output object, or null if not found.</returns>
+
+        </method>
+
+        <method name = "GetOutputIDs_NoSync">
+
+            <summary>Get output IDs without locking.</summary>
+
+            <returns Cref = "List{Guid}?">A list of output IDs, or null if there are no outputs.</returns>
+
+        </method>
+
+        <method name = "GetAttachedCommands">
+
+            <summary>Get attached Commands.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IList{ICommand}?">Attached Commands.</returns>
+
+        </method>
+
+        <method name = "InitializeAccessManagement">
+
+            <summary>Initialize Access Management.</summary>
+
+            <param name = "accessmanager" Cref = "IAccessManager?">Access Manager.</param>
+
+            <returns Cref = "Boolean">True if Access Management successfully initialized.</returns>
+
+        </method>
+
+        <method name = "InitializeToolServices">
+
+            <summary>Initialize ToolServices and ToolServiceScope from ToolServiceProvider.</summary>
+
+            <param name = "services" Cref = "ToolServiceProvider?">Tool ServiceProvider.</param>
+
+            <returns Cref = "Boolean">True if ToolServices initialized.</returns>
+
+        </method>
+
+        <method name = "IssueMyHostKeys">
+
+            <summary>Issue MyHostKeys to Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if Keys successfully distributed.</returns>
+
+        </method>
+
+        <method name = "Lock">
+
+            <summary>Lock the Tool using an authorized access key.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Optional access key that must authorize the <see cref="ProtectedOperation.Lock"/> operation.</param>
+
+            <returns Cref = "Boolean">True if the Tool lock state was updated successfully.</returns>
+
+        </method>
+
+        <method name = "LockHostedServices">
+
+            <summary>Lock Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if all Hosted Services Locked.</returns>
+
+        </method>
+
+        <method name = "ModifiedNow">
+
+            <summary>Set Last Modified Time to DateTimeOffset.Now.</summary>
+
+            <returns Cref = "Boolean">Returns true if Last Modified Time was updated successfully.</returns>
+
+        </method>
+
+        <method name = "RegisterCommands">
+
+            <summary>Register injected Commands.</summary>
+
+            <param name = "commands" Cref = "Dictionary{String,ICommand}?">Commands to register.</param>
+
+            <returns Cref = "Boolean">True if Commands successfully registered.</returns>
+
+        </method>
+
+        <method name = "UnLock">
+
+            <summary>Unlock the Tool using an authorized access key.</summary>
+
+            <param name = "key" Cref = "AccessKey?">Optional access key that must authorize the <see cref="ProtectedOperation.UnLock"/> operation.</param>
+
+            <returns Cref = "Boolean">True if the Tool lock state was cleared successfully.</returns>
+
+        </method>
+
+        <method name = "RegisterCommand_NoSync">
+
+            <summary>Register a command and handle without acquiring sync locks.</summary>
+
+            <param name = "handle" Cref = "String">Command Handle (Method/Operation ID).</param>
+
+            <param name = "command" Cref = "ICommand">Command instance.</param>
+
+            <param name = "permissions" Cref = "ImmutableArray{Int32}?">Optional protected-operation set granted to issued <see cref="CommandKey"/>.</param>
+
+            <param name = "enable" Cref = "Boolean">True to enable command after attach.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if command was registered successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveInstance">
+
+            <summary>Remove a Tool from Instances if it is the registered instance for its ID.</summary>
+
+            <param name = "tool" Cref = "Tool?">Tool.</param>
+
+            <returns Cref = "Boolean">True if the registered Tool was removed from Instances.</returns>
+
+        </method>
+
+        <method name = "TryRemoveInstance">
+
+            <summary>Remove an observed Tool registry entry only if its ID still maps to the expected weak reference.</summary>
+
+            <param name = "id" Cref = "Guid">Tool identifier.</param>
+
+            <param name = "entry" Cref = "WeakReference{ITool}">Weak reference observed in the registry.</param>
+
+            <returns Cref = "Boolean">True if the expected registry entry was removed.</returns>
+
+        </method>
+
+        <method name = "RemoveHostedService_NoSync">
+
+            <summary>Remove a hosted service using a known registration key without acquiring sync locks.</summary>
+
+            <param name = "name" Cref = "String">Hosted service registration key.</param>
+
+            <param name = "service" Cref = "IHostedService">Hosted service instance.</param>
+
+            <param name = "stop" Cref = "Boolean">True to stop the hosted service before removal.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if hosted service removed successfully.</returns>
+
+        </method>
+
+        <method name = "RemoveOutputWaiter_NoSync">
+
+            <summary>Remove a pending asynchronous output waiter without acquiring sync locks.</summary>
+
+            <param name = "id" Cref = "Guid">Output identifier associated with the waiter.</param>
+
+            <param name = "waiter" Cref = "TaskCompletionSource{Object?}">Pending waiter to remove.</param>
+
+        </method>
+
+        <method name = "WaitForOutputAsync">
+
+            <summary>Wait for an output to be published, or return one already stored, within a shared timeout budget.</summary>
+
+            <param name = "id" Cref = "Guid">Output identifier.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Token that cancels waiting.</param>
+
+            <param name = "timeout" Cref = "TimeSpan">Original timeout budget, including the infinite-timeout sentinel.</param>
+
+            <param name = "started" Cref = "Int64">Monotonic timestamp at which the timeout budget began.</param>
+
+            <returns Cref = "Task{Object?}">The stored or published output, or null if the wait times out, is canceled, or Tool disposal begins while waiting.</returns>
+
+            <remarks>Coordinates access to the output dictionary and waiter registry with the output semaphore. A pending waiter is removed if its wait does not complete. Disposal drains admitted waiters with a null result and prevents new waiters from registering.</remarks>
+
+        </method>
+
+        <method name = "ValidateOutputTimeout">
+
+            <summary>Validates an output wait timeout.</summary>
+
+            <param name = "timeout" Cref = "TimeSpan">Timeout to validate.</param>
+
+            <exception Cref = "ArgumentOutOfRangeException">The timeout is negative and is not the infinite-timeout sentinel.</exception>
+
+        </method>
+
+        <method name = "GetRemainingOutputTimeout">
+
+            <summary>Computes the remaining portion of an output wait timeout using monotonic elapsed time.</summary>
+
+            <param name = "started" Cref = "Int64">Monotonic timestamp at which the timeout budget began.</param>
+
+            <param name = "timeout" Cref = "TimeSpan">Original timeout budget.</param>
+
+            <returns Cref = "TimeSpan">The infinite sentinel, remaining finite time, or zero when the finite budget has elapsed.</returns>
+
+        </method>
+
+        <method name = "TryTakeOutput_NoSync">
+
+            <summary>Take an output without acquiring the output synchronization lock.</summary>
+
+            <param name = "id" Cref = "Guid">ID of the output to take.</param>
+
+            <param name = "output" Cref = "Object?">The output object, including a stored null value.</param>
+
+            <returns Cref = "Boolean">True if the output was present and removed.</returns>
+
+        </method>
+
+        <method name = "ResolveHostedServices">
+
+            <summary>Resolve Hosted Services from Service Provider.</summary>
+
+            <returns Cref = "Boolean">True if Hosted Services resolved.</returns>
+
+        </method>
+
+        <method name = "RequestHostingKeys">
+
+            <summary>Request AccessKeys to Hosted Services.</summary>
+
+            <returns Cref = "Boolean">True if AccessKeys acquired.</returns>
+
+        </method>
+
+        <method name = "ResolveLogger">
+
+            <summary>Resolve Logger if not given.</summary>
+
+            <param name = "logger" Cref = "ILoggerFactory?">LoggerFactory.</param>
+
+            <returns Cref = "Boolean">True if Logger set successfully.</returns>
+
+        </method>
+
+        <method name = "SetActivityCanceled">
+
+            <summary>Set Activity as Canceled (or TimedOut, determined by <see cref="Activity.IsTimedOut"/>).</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+		<method name = "SetActivityCanceledException">
+
+			<summary>Set Activity as Canceled or TimedOut and preserve the cancellation exception.</summary>
+
+			<param name = "activity" Cref = "Activity?">Activity.</param>
+
+			<param name = "exception" Cref = "OperationCanceledException">Cancellation exception.</param>
+
+		</method>
+
+        <method name = "SetActivityFailed">
+
+            <summary>Set Activity as Failed.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetActivityFaulted">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetActivityFaultedException">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "SetActivitySuccess">
+
+            <summary>Set Activity as Success.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetActivityTimedOut">
+
+            <summary>Set Activity as Timed Out.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+		<method name = "SetActivityTimedOutException">
+
+			<summary>Set Activity as Timed Out and preserve the cancellation exception.</summary>
+
+			<param name = "activity" Cref = "Activity?">Activity.</param>
+
+			<param name = "exception" Cref = "OperationCanceledException">Cancellation exception.</param>
+
+		</method>
+
+		<method name = "SetConfiguration">
+
+            <summary>Set Configuration.</summary>
+
+            <param name = "configuration" Cref = "IConfiguration?">Configuration.</param>
+
+            <returns Cref = "Boolean">Returns true if Configuration set successfully.</returns>
+
+        </method>
+
+        <method name = "StartHostedServiceCore">
+
+            <summary>Start a hosted service.</summary>
+
+            <remarks>Invokes available lifecycle methods on the service.</remarks>
+
+            <param name = "service" Cref = "IHostedService">Service Instance.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if service was started successfully.</returns>
+
+        </method>
+
+        <method name = "StopHostedServiceCore">
+
+            <summary>Stop a hosted service.</summary>
+
+            <remarks>Invokes available lifecycle methods on the service.</remarks>
+
+            <param name = "service" Cref = "IHostedService">Service Instance.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task{Boolean}">True if service was stopped successfully.</returns>
+
+        </method>
+
+        <method name = "ToString">
+
+            <summary>Returns a serialized Descriptor.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "String">Output.</returns>
+
+        </method>
+
+        <method name = "TryParse">
+
+            <summary>Try to Parse Tool.</summary>
+
+            <param name = "input" Cref = "String">Input to Parse.</param>
+
+            <param name = "format" Cref = "IFormatProvider?">Format Provider.</param>
+
+            <param name = "tool" Cref = "Tool">Output Tool.</param>
+
+            <returns Cref = "Boolean">True if input was parsed successfully.</returns>
+
+        </method>
+
+        <method name = "AcquireLocks">
+
+            <summary>Acquires locks on all Sync Objects.</summary>
+
+        </method>
+
+        <method name = "ReleaseLocks">
+
+            <summary>Releases locks on all Sync Objects.</summary>
+
+        </method>
+
+        <property name = "ExtensionData">
+
+            <summary>IExtensibleDataObject.</summary>
+
+        </property>
+
+    </class>
+
+</Tool>

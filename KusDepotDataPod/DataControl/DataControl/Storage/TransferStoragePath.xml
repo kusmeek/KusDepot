@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferStoragePath>
+	<record name = "TransferStoragePath">
+		<main><summary>Provides deterministic token-scoped blob names for one tenant transfer session and its item-instance artifacts.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier used to namespace the staging paths.</summary></property>
+		<property name = "ItemInstanceToken" Cref = "Guid"><summary>Catalog-owned item instance token used to isolate artifacts from other instances.</summary></property>
+		<property name = "Prefix" Cref = "String"><summary>Virtual blob prefix for one item instance and session in the form instances/{itemInstanceToken}/transfers/{session}.</summary></property>
+		<property name = "InstancePrefix" Cref = "String"><summary>Virtual blob prefix containing all artifacts for this item instance.</summary></property>
+		<property name = "ObjectName" Cref = "String"><summary>Blob name for the staged serialized object payload.</summary></property>
+		<property name = "PublishedObjectName" Cref = "String"><summary>Token-scoped final serialized object blob name.</summary></property>
+		<property name = "PublishedStreamName" Cref = "String"><summary>Token-scoped final stream blob name.</summary></property>
+		<property name = "PublishedIntegrityName" Cref = "String"><summary>Token-scoped final integrity metadata blob name.</summary></property>
+		<method name = "ForInstance" Cref = "TransferInstanceStoragePath"><summary>Creates deterministic paths scoped to an item instance, independent of any transfer session.</summary><param name = "itemInstanceToken" Cref = "Guid">Catalog-owned item instance token.</param><returns Cref = "TransferInstanceStoragePath">Token-scoped published artifact paths.</returns></method>
+		<method name = "Create" Cref = "TransferStoragePath"><summary>Create deterministic paths for one item instance and transfer session.</summary><param name = "itemInstanceToken" Cref = "Guid">Catalog-owned item instance token.</param><param name = "sessionid" Cref = "Guid">Transfer session identifier.</param><returns Cref = "TransferStoragePath">Initialized transfer storage paths.</returns></method>
+		<method name = "CreateRangeName"><summary>Create the blob name for a staged logical segmented-transfer range.</summary><param name = "range" Cref = "DataItemTransferRange">Logical range being stored.</param><returns Cref = "String">Deterministic range blob name.</returns></method>
+		<method name = "CreateChunkName"><summary>Create the blob name for a staged stream operation chunk.</summary><param name = "operationid" Cref = "Guid">Stream operation identifier.</param><returns Cref = "String">Deterministic chunk blob name.</returns></method>
+		<method name = "CreatePublicationObjectName"><summary>Create the blob name for a publication operation's staged final object.</summary><param name = "operationid" Cref = "Guid">Publication operation identifier; must not be empty.</param><returns Cref = "String">Deterministic publication object blob name.</returns><exception cref = "ArgumentException">The operation identifier is empty.</exception></method>
+		<method name = "CreatePrefix"><summary>Create the deterministic virtual blob prefix for an item instance and transfer session.</summary><param name = "itemInstanceToken" Cref = "Guid">Catalog-owned item instance token.</param><param name = "sessionid" Cref = "Guid">Transfer session identifier.</param><returns Cref = "String">Item-instance-scoped transfer blob prefix.</returns></method>
+		<method name = "ValidateIdentity"><summary>Validate that the item instance token and transfer session identifier are present.</summary><param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param><param name = "sessionid" Cref = "Guid">Transfer session identifier to validate.</param></method>
+		<method name = "ValidateOperationID"><summary>Validate that a transfer operation identifier is present.</summary><param name = "operationid" Cref = "Guid">Transfer operation identifier to validate.</param></method>
+	</record>
+	<record name = "TransferInstanceStoragePath">
+		<main><summary>Provides deterministic published artifact names scoped to one catalog-owned item instance.</summary></main>
+		<property name = "ItemInstanceToken" Cref = "Guid"><summary>Catalog-owned item instance token used to isolate artifacts from other instances.</summary></property>
+		<property name = "Prefix" Cref = "String"><summary>Virtual blob prefix containing all artifacts for this item instance.</summary></property>
+		<property name = "PublishedObjectName" Cref = "String"><summary>Token-scoped final serialized object blob name.</summary></property>
+		<property name = "PublishedStreamName" Cref = "String"><summary>Token-scoped final stream blob name.</summary></property>
+		<property name = "PublishedIntegrityName" Cref = "String"><summary>Token-scoped final integrity metadata blob name.</summary></property>
+		<method name = "Create" Cref = "TransferInstanceStoragePath"><summary>Creates token-scoped paths after validating the item instance token.</summary><param name = "itemInstanceToken" Cref = "Guid">Catalog-owned item instance token; must not be empty.</param><returns Cref = "TransferInstanceStoragePath">Initialized item-instance paths.</returns><exception cref = "ArgumentException">The item instance token is empty.</exception></method>
+	</record>
+</TransferStoragePath>

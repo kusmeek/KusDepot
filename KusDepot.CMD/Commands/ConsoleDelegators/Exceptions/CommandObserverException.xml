@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CommandObserverException>
+
+	<class name = "CommandObserverException">
+
+		<main>
+
+			<summary>Aggregates failures from command observer callbacks and retains the associated process result when available.</summary>
+
+			<remarks>Thrown after command execution when one or more callbacks fail. The exception's aggregate inner exceptions contain the callback failures and can also include a process execution error. When the process produced a result, <see cref="Result"/> preserves its exit code and metadata for the delegator.</remarks>
+
+		</main>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes a new command observer exception with a process result and the failures encountered.</summary>
+
+			<param name = "result" Cref = "ProcessCommandResult">Process result associated with the callback failures, or null if no result is available.</param>
+
+			<param name = "errors" Cref = "IEnumerable{Exception}">Observer callback failures and any process execution failure to aggregate.</param>
+
+			<returns Cref = "CommandObserverException">The initialized aggregate exception.</returns>
+
+		</constructor>
+
+		<property name = "Result">
+
+			<summary>Gets the process result associated with this exception, if available.</summary>
+
+			<returns Cref = "ProcessCommandResult">Process exit code and timing information, or null when execution did not produce a result.</returns>
+
+		</property>
+
+	</class>
+
+</CommandObserverException>

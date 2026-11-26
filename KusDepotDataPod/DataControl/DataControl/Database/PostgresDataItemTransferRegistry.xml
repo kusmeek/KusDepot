@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PostgresDataItemTransferRegistry>
+	<class name = "PostgresDataItemTransferRegistry">
+		<main><summary>Finds open writer conflicts from indexed PostgreSQL transfer state.</summary></main>
+		<field name = "state" Cref = "ITransferStateStore"><summary>PostgreSQL-backed transfer state store used to query open writer conflicts.</summary></field>
+		<constructor name = "PostgresDataItemTransferRegistry">
+			<summary>Initializes a PostgreSQL transfer registry.</summary>
+			<param name = "state" Cref = "ITransferStateStore">Transfer state store used for conflict queries.</param>
+		</constructor>
+	</class>
+</PostgresDataItemTransferRegistry>

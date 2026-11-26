@@ -1,0 +1,51 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LifeCycleOperation>
+
+	<enum name = "LifeCycleOperation">
+
+		<main>
+
+			<summary>Identifies a Tool lifecycle operation.</summary>
+
+		</main>
+
+		<value name = "Starting">
+
+			<summary>Begin the Starting lifecycle phase.</summary>
+
+		</value>
+
+		<value name = "Start">
+
+			<summary>Begin or continue the Start lifecycle operation.</summary>
+
+		</value>
+
+		<value name = "Started">
+
+			<summary>Complete the Start lifecycle operation.</summary>
+
+		</value>
+
+		<value name = "Stopping">
+
+			<summary>Begin the Stopping lifecycle phase.</summary>
+
+		</value>
+
+		<value name = "Stop">
+
+			<summary>Begin or continue the Stop lifecycle operation.</summary>
+
+		</value>
+
+		<value name = "Stopped">
+
+			<summary>Complete the Stop lifecycle operation.</summary>
+
+		</value>
+
+	</enum>
+
+</LifeCycleOperation>

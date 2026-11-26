@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemProtectionChange>
+	<class name="DataItemProtectionChange">
+		<main>
+			<summary>Reversible candidate payload change prepared for a DataItem protection transition.</summary>
+		</main>
+		<field name="commit"><summary>Action that publishes the candidate payload.</summary></field>
+		<field name="rollback"><summary>Action that restores the original payload.</summary></field>
+		<field name="complete"><summary>Optional post-commit cleanup action.</summary></field>
+		<field name="cleanupArtifactPath"><summary>Optional function that returns the path of a cleanup artifact left behind after completion fails.</summary></field>
+		<field name="fieldDigest"><summary>Optional SHA-512 digest for the encrypted-data field.</summary></field>
+		<field name="encryptedData"><summary>Optional candidate encrypted in-memory payload.</summary></field>
+		<constructor name="Constructor">
+			<summary>Create a reversible candidate payload change.</summary>
+			<param name="commit" Cref="Func{ValueTask}">Action that publishes the candidate payload.</param>
+			<param name="rollback" Cref="Func{ValueTask}">Action that restores the original payload.</param>
+			<param name="fieldDigest" Cref="Byte[]?">Optional transformed payload digest.</param>
+			<param name="encryptedData" Cref="Byte[]?">Optional transformed in-memory payload.</param>
+			<param name="complete" Cref="Func{ValueTask}?">Optional action that finalizes the committed payload change.</param>
+			<param name="cleanupArtifactPath" Cref="Func{String?}?">Optional function that returns the path of a cleanup artifact requiring manual cleanup.</param>
+		</constructor>
+		<property name="FieldDigest"><summary>Gets a copy of the optional transformed payload digest.</summary></property>
+		<property name="EncryptedData"><summary>Gets the candidate encrypted in-memory payload.</summary></property>
+		<property name="CleanupArtifactPath"><summary>Gets the path of a cleanup artifact left by a failed completion, when available.</summary></property>
+		<method name="CommitAsync"><summary>Publish the candidate payload.</summary><returns Cref="ValueTask">The asynchronous commit operation.</returns></method>
+		<method name="RollbackAsync"><summary>Restore the original payload.</summary><returns Cref="ValueTask">The asynchronous rollback operation.</returns></method>
+		<method name="CompleteAsync"><summary>Finalize the committed payload change.</summary><returns Cref="ValueTask">The asynchronous completion operation.</returns></method>
+	</class>
+</DataItemProtectionChange>

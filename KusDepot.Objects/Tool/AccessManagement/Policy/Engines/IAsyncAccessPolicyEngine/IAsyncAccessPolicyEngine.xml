@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAsyncAccessPolicyEngine>
+
+    <interface name = "IAsyncAccessPolicyEngine">
+
+        <main>
+
+            <summary>Async access-policy engine interface.</summary>
+
+            <remarks>
+                Evaluates access-management workflows asynchronously from an <see cref="AccessPolicyContext"/>.
+            </remarks>
+
+        </main>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate an access-management workflow asynchronously from a policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous policy-engine evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Policy decision for the supplied context.</returns>
+
+        </method>
+
+    </interface>
+
+</IAsyncAccessPolicyEngine>

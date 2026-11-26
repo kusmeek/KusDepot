@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<PutStreamTransferSegmentClientResponse>
+
+	<record name="PutStreamTransferSegmentClientResponse">
+
+		<main>
+
+			<summary>Stores the result of a stream-transfer append request.</summary>
+
+		</main>
+
+		<property name="StatusCode" Cref="HttpStatusCode">
+
+			<summary>HTTP status code returned by the DataControl endpoint.</summary>
+
+		</property>
+
+		<property name="Response" Cref="PutStreamTransferSegmentResponse">
+
+			<summary>Parsed stream-transfer append response when the endpoint returned JSON metadata.</summary>
+
+		</property>
+
+		<property name="Content" Cref="String">
+
+			<summary>Raw response content for non-success or non-JSON cases.</summary>
+
+		</property>
+
+	</record>
+
+</PutStreamTransferSegmentClientResponse>

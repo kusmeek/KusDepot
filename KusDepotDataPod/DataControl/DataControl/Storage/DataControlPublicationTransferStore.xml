@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataControlPublicationTransferStore>
+	<class name = "DataControlPublicationTransferStore">
+		<main><summary>Composes the transfer-session and publication-journal stores for DataControl workflows.</summary></main>
+		<field name = "sessions" Cref = "IDataControlTransferSessionStore">
+			<summary>Transfer-session store used for manifests, payloads, ranges, and integrity evidence.</summary>
+		</field>
+			<field name = "journals" Cref = "IDataControlPublicationJournalStore">
+			<summary>Publication-journal store used for durable publication state.</summary>
+		</field>
+		<constructor name = "DataControlPublicationTransferStore">
+			<summary>Initializes the publication transfer store.</summary>
+			<param name = "sessions" Cref = "IDataControlTransferSessionStore">Transfer-session store.</param>
+			<param name = "journals" Cref = "IDataControlPublicationJournalStore">Publication-journal store.</param>
+		</constructor>
+	</class>
+</DataControlPublicationTransferStore>

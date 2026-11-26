@@ -1,0 +1,641 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TypeProvider>
+
+    <class name = "TypeProvider">
+
+        <main>
+
+            <summary>Provides a public runtime <see cref="Type"/> resolution API using exact requested identity matching.</summary>
+
+            <remarks>This provider is intended for late-bound reflection workflows. It honors the configured type name exactly and, when outer assembly identity components are supplied directly or through configured assembly names, it honors the supplied assembly name, version, culture, and public key token strictly and case-sensitively during default-context resolution and active-context probing. When configured for <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>, candidate source precedence is default-context resolution, then the active context's already loaded assemblies, then configured in-memory assembly images, configured assembly file paths, and configured directories. When configured for <see cref="KusDepot.Reflection.TypeResolutionMode.Isolated"/>, default-context resolution is skipped entirely and resolution is restricted to the active context plus configured probe sources. When a caller supplies an <see cref="AssemblyLoadContext"/>, that context is used as-is and is never owned or unloaded by this provider. Otherwise the provider creates and owns a collectible probing context on demand.</remarks>
+
+        </main>
+
+        <field name = "AssemblyPaths" Cref = "List{String}?">
+
+            <summary>Optional candidate assembly file paths for active-context probing.</summary>
+
+            <remarks>Paths are normalized to full paths, filtered to existing files, and de-duplicated case-insensitively.</remarks>
+
+        </field>
+
+        <field name = "AssemblyDirectories" Cref = "List{String}?">
+
+            <summary>Optional candidate directories for active-context probing.</summary>
+
+            <remarks>Directories are normalized to full paths, filtered to existing directories, de-duplicated case-insensitively, and scanned non-recursively for <c>*.dll</c> candidates.</remarks>
+
+        </field>
+
+        <field name = "AssemblyImages" Cref = "List{Byte[]}?">
+
+            <summary>Optional in-memory assembly images for active-context probing.</summary>
+
+            <remarks>Assembly images are owned snapshots of caller-provided <see cref="MemoryStream"/> instances. Unreadable or non-assembly streams are silently ignored.</remarks>
+
+        </field>
+
+        <field name = "AssemblyNames" Cref = "List{AssemblyName}?">
+
+            <summary>Optional configured assembly identities used to refine type-only requests.</summary>
+
+            <remarks>Used only when <see cref="Name"/> does not already supply outer assembly identity. Configured identities are treated as candidate strict filters and resolution succeeds when any configured identity yields a match.</remarks>
+
+        </field>
+
+        <field name = "Context" Cref = "AssemblyLoadContext?">
+
+            <summary>Active load context used for private probing.</summary>
+
+            <remarks>May be a caller-supplied context or a collectible context created and owned by this provider.</remarks>
+
+        </field>
+
+        <field name = "ContextResolver" Cref = "Func{AssemblyLoadContext,AssemblyName,Assembly?}?">
+
+            <summary>Dependency resolver delegate attached to the owned load context.</summary>
+
+            <remarks>Only populated when this provider creates and owns the active context.</remarks>
+
+        </field>
+
+        <field name = "OwnsContext" Cref = "Boolean">
+
+            <summary>Tracks whether the active load context is provider-owned.</summary>
+
+        </field>
+
+        <field name = "Mode" Cref = "TypeResolutionMode">
+
+            <summary>Selected type resolution behavior for this provider instance.</summary>
+
+            <remarks>Defaults to <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>.</remarks>
+
+        </field>
+
+        <field name = "Sync" Cref = "Object">
+
+            <summary>Synchronization object.</summary>
+
+        </field>
+
+        <property name = "Name" Cref = "String?">
+
+            <summary>Configured type identifier.</summary>
+
+            <remarks>Accepts either an exact type name or a partially or fully assembly-qualified type name. Whatever assembly name, version, culture, and public key token components are supplied directly are honored strictly and override configured assembly names.</remarks>
+
+        </property>
+
+        <property name = "Value" Cref = "Type?">
+
+            <summary>Cached resolved runtime type.</summary>
+
+            <remarks>Once set, <see cref="TryResolve"/> fails fast and <see cref="Resolve"/> returns the cached value until <see cref="Clear"/> clears it or <see cref="Unload"/> clears it for provider-owned contexts.</remarks>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a provider with the requested resolution mode.</summary>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for this provider instance.</param>
+
+            <remarks>Defaults to <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>. Invalid enum values fall back to <see cref="KusDepot.Reflection.TypeResolutionMode.Hybrid"/>.</remarks>
+
+        </constructor>
+
+        <method name = "Create">
+
+            <summary>Create a provider preconfigured with type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <param name = "mode" Cref = "TypeResolutionMode">Resolution mode for the created provider.</param>
+
+            <returns Cref = "TypeProvider">Provider instance.</returns>
+
+        </method>
+
+        <method name = "WithType">
+
+            <summary>Fluent method to configure type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+        </method>
+
+        <method name = "SetType">
+
+            <summary>Configure the target type name.</summary>
+
+            <param name = "name" Cref = "String?">Type name to resolve.</param>
+
+            <returns Cref = "Boolean">True when the name was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set.</remarks>
+
+        </method>
+
+        <method name = "WithAssemblyPaths">
+
+            <summary>Fluent method to configure probe assembly file paths.</summary>
+
+            <param name = "paths" Cref = "IEnumerable{String}?">Assembly file paths.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+        </method>
+
+        <method name = "SetAssemblyPaths">
+
+            <summary>Configure probe assembly file paths.</summary>
+
+            <param name = "paths" Cref = "IEnumerable{String}?">Assembly file paths.</param>
+
+            <returns Cref = "Boolean">True when at least one valid path was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set.</remarks>
+
+        </method>
+
+        <method name = "WithAssemblyImages">
+
+            <summary>Fluent method to configure probe assembly images.</summary>
+
+            <param name = "streams" Cref = "IEnumerable{MemoryStream?}?">Assembly image streams.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+            <remarks>Provided <see cref="MemoryStream"/> instances are treated as owned inputs and may be disposed after snapshotting.</remarks>
+
+        </method>
+
+        <method name = "SetAssemblyImages">
+
+            <summary>Configure probe assembly images.</summary>
+
+            <param name = "streams" Cref = "IEnumerable{MemoryStream?}?">Assembly image streams.</param>
+
+            <returns Cref = "Boolean">True when at least one valid assembly image was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set. Invalid, unreadable, or non-assembly streams are silently ignored and accepted streams are snapshotted to owned memory before the input streams are disposed.</remarks>
+
+        </method>
+
+        <method name = "WithDirectories">
+
+            <summary>Fluent method to configure probe directories.</summary>
+
+            <param name = "paths" Cref = "IEnumerable{String}?">Directory paths.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+        </method>
+
+        <method name = "SetDirectories">
+
+            <summary>Configure probe directories.</summary>
+
+            <param name = "paths" Cref = "IEnumerable{String}?">Directory paths.</param>
+
+            <returns Cref = "Boolean">True when at least one valid directory was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set.</remarks>
+
+        </method>
+
+        <method name = "WithAssemblyNames">
+
+            <summary>Fluent method to configure candidate assembly identities.</summary>
+
+            <param name = "names" Cref = "IEnumerable{AssemblyName}?">Assembly identities.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+        </method>
+
+        <method name = "SetAssemblyNames">
+
+            <summary>Configure candidate assembly identities.</summary>
+
+            <param name = "names" Cref = "IEnumerable{AssemblyName}?">Assembly identities.</param>
+
+            <returns Cref = "Boolean">True when at least one valid identity was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set. Identities are normalized to the strict fields used by this provider and de-duplicated.</remarks>
+
+        </method>
+
+        <method name = "WithContext">
+
+            <summary>Fluent method to configure the active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "TypeProvider">Current provider instance.</returns>
+
+        </method>
+
+        <method name = "SetContext">
+
+            <summary>Configure the active load context.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext?">Caller-supplied load context.</param>
+
+            <returns Cref = "Boolean">True when the context was accepted; otherwise false.</returns>
+
+            <remarks>Fails when <see cref="Value"/> is already set or when the supplied context is null. If this provider currently owns a different active context, that owned context is unloaded before the supplied context is accepted. Caller-supplied contexts are used as-is and are never owned, decorated, or unloaded by this provider.</remarks>
+
+        </method>
+
+        <method name = "Clear">
+
+            <summary>Clear the configured type name and cached resolved type.</summary>
+
+            <returns Cref = "Boolean">True when clear succeeds; otherwise false.</returns>
+
+            <remarks>Preserves configured assembly paths, configured directories, configured assembly images, configured assembly names, and the active context.</remarks>
+
+        </method>
+
+        <method name = "Unload">
+
+            <summary>Unload the owned context and clear the cached resolved type.</summary>
+
+            <returns Cref = "Boolean">True when unload bookkeeping succeeds; otherwise false.</returns>
+
+            <remarks>Preserves configured type name, assembly paths, configured directories, configured assembly images, and configured assembly names. Fails fast when the active context was supplied by the caller instead of created and owned by this provider.</remarks>
+
+        </method>
+
+        <method name = "TryResolve">
+
+            <summary>Resolve the configured type.</summary>
+
+            <returns Cref = "Boolean">True when resolution succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "Resolve">
+
+            <summary>Resolve and return the target type.</summary>
+
+            <returns Cref = "Type?">Resolved type or null.</returns>
+
+            <remarks>Returns the cached value when already resolved; otherwise follows the current provider mode.</remarks>
+
+        </method>
+
+        <method name = "TryResolveNoSync">
+
+            <summary>Core resolver logic that assumes synchronization has already been acquired.</summary>
+
+            <returns Cref = "Boolean">True when resolution succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryGetEffectiveRequestsNoSync">
+
+            <summary>Derive the effective requested identities for resolution.</summary>
+
+            <param name = "requests" Cref = "List{TypeRequest}?">Effective requested identities output.</param>
+
+            <returns Cref = "Boolean">True when at least one effective request is available; otherwise false.</returns>
+
+            <remarks>If <see cref="Name"/> already supplies outer assembly identity it remains authoritative and yields a single request. Otherwise each configured assembly identity contributes a candidate strict request; without configured identities the original type-only request is used.</remarks>
+
+        </method>
+
+        <method name = "TryResolveInDefaultContextNoSync">
+
+            <summary>Attempt strict normal resolution against the default load context.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <param name = "type" Cref = "Type?">Resolved type output.</param>
+
+            <returns Cref = "Boolean">True when the type is already available in the default load context and matches the requested identity; otherwise false.</returns>
+
+        </method>
+
+        <method name = "EnsureActiveContextNoSync">
+
+            <summary>Ensure that the active load context exists.</summary>
+
+            <returns Cref = "AssemblyLoadContext?">Active context or null.</returns>
+
+        </method>
+
+        <method name = "UnloadOwnedContextNoSync">
+
+            <summary>Detach resolver state and unload the owned context.</summary>
+
+            <returns Cref = "Boolean">True when context bookkeeping succeeds; otherwise false.</returns>
+
+            <remarks>Fails fast when the active context is caller-supplied.</remarks>
+
+        </method>
+
+        <method name = "EnumerateCandidateAssemblyPathsNoSync">
+
+            <summary>Enumerate candidate assembly files that satisfy the requested outer assembly identity.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <returns Cref = "List{String}">Candidate assembly file paths.</returns>
+
+            <remarks>Explicit configured assembly file paths are yielded before non-recursive <c>*.dll</c> candidates discovered from configured directories.</remarks>
+
+        </method>
+
+        <method name = "GetAssemblyDirectoriesNoSync">
+
+            <summary>Extract unique candidate directories from configured assembly paths and configured directories.</summary>
+
+            <returns Cref = "HashSet{String}">Unique candidate directories.</returns>
+
+        </method>
+
+        <method name = "TryResolveFromPathsInActiveContextNoSync">
+
+            <summary>Probe the active load context plus configured assembly paths and directories using strict requested identity matching.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <param name = "type" Cref = "Type?">Resolved type output.</param>
+
+            <returns Cref = "Boolean">True when the type is resolved; otherwise false.</returns>
+
+            <remarks>Runs after active-context probing against in-memory assembly images.</remarks>
+
+        </method>
+
+        <method name = "TryResolveFromImagesInActiveContextNoSync">
+
+            <summary>Probe the active load context and configured in-memory assembly images using strict requested identity matching.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <param name = "type" Cref = "Type?">Resolved type output.</param>
+
+            <returns Cref = "Boolean">True when the type is resolved; otherwise false.</returns>
+
+            <remarks>Checks already loaded assemblies in the active context before loading configured images and runs before file-path and directory probing.</remarks>
+
+        </method>
+
+        <method name = "ResolveContextDependency">
+
+            <summary>Resolve active-context dependencies from configured assembly images, assembly paths, and configured directories.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext">Active load context.</param>
+
+            <param name = "assemblyname" Cref = "AssemblyName">Requested dependency identity.</param>
+
+            <returns Cref = "Assembly?">Loaded dependency assembly or null.</returns>
+
+        </method>
+
+        <method name = "TryLoadImageByRequestedAssemblyInContext">
+
+            <summary>Load a matching dependency from configured in-memory assembly images.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext">Active load context.</param>
+
+            <param name = "requested" Cref = "AssemblyName">Requested dependency identity.</param>
+
+            <returns Cref = "Assembly?">Loaded dependency assembly or null.</returns>
+
+        </method>
+
+        <method name = "MatchesRequestAssembly">
+
+            <summary>Validate that a candidate assembly satisfies the requested outer assembly identity.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <param name = "assemblyname" Cref = "AssemblyName">Candidate assembly identity.</param>
+
+            <returns Cref = "Boolean">True when the candidate assembly matches the supplied request components; otherwise false.</returns>
+
+        </method>
+
+        <method name = "MatchesRequestedAssembly">
+
+            <summary>Validate that a candidate assembly satisfies a dependency assembly request.</summary>
+
+            <param name = "candidate" Cref = "AssemblyName">Candidate assembly identity.</param>
+
+            <param name = "requested" Cref = "AssemblyName">Requested dependency identity.</param>
+
+            <returns Cref = "Boolean">True when the candidate satisfies the requested dependency identity; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryGetAssemblyName">
+
+            <summary>Read assembly identity metadata from an assembly file path.</summary>
+
+            <param name = "path" Cref = "String">Assembly file path.</param>
+
+            <param name = "assemblyname" Cref = "AssemblyName?">Assembly identity output.</param>
+
+            <returns Cref = "Boolean">True when assembly identity metadata is available; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TrySnapshotAssemblyImage">
+
+            <summary>Snapshot a caller-provided in-memory assembly stream.</summary>
+
+            <param name = "stream" Cref = "MemoryStream?">Assembly image stream.</param>
+
+            <param name = "image" Cref = "Byte[]?">Owned assembly image output.</param>
+
+            <returns Cref = "Boolean">True when snapshotting succeeds and the image looks like an assembly; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryReadAssemblyName">
+
+            <summary>Read assembly identity metadata from an in-memory assembly image.</summary>
+
+            <param name = "image" Cref = "Byte[]">Assembly image bytes.</param>
+
+            <param name = "assemblyname" Cref = "AssemblyName?">Assembly identity output.</param>
+
+            <returns Cref = "Boolean">True when assembly identity metadata is available; otherwise false.</returns>
+
+        </method>
+
+        <method name = "AssemblyNamesEqual">
+
+            <summary>Compare two normalized configured assembly identities.</summary>
+
+            <param name = "left" Cref = "AssemblyName">Configured assembly identity.</param>
+
+            <param name = "right" Cref = "AssemblyName">Configured assembly identity.</param>
+
+            <returns Cref = "Boolean">True when the normalized identities are equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "GetCultureText">
+
+            <summary>Normalize assembly culture text for strict comparison.</summary>
+
+            <param name = "assemblyname" Cref = "AssemblyName">Assembly identity.</param>
+
+            <returns Cref = "String">Normalized culture text.</returns>
+
+        </method>
+
+        <method name = "GetPublicKeyTokenText">
+
+            <summary>Normalize assembly public key token text for strict comparison.</summary>
+
+            <param name = "assemblyname" Cref = "AssemblyName">Assembly identity.</param>
+
+            <returns Cref = "String">Normalized public key token text.</returns>
+
+        </method>
+
+        <method name = "TryFindLoadedByPathInContext">
+
+            <summary>Find a loaded assembly in the active context by physical path.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext">Active load context.</param>
+
+            <param name = "fullpath" Cref = "String">Full assembly file path.</param>
+
+            <returns Cref = "Assembly?">Loaded assembly or null.</returns>
+
+        </method>
+
+        <method name = "TryFindLoadedByRequestInContext">
+
+            <summary>Find a loaded assembly in the active context that satisfies the requested outer assembly identity.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext">Active load context.</param>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <returns Cref = "Assembly?">Loaded assembly or null.</returns>
+
+        </method>
+
+        <method name = "TryFindLoadedByRequestedAssemblyInContext">
+
+            <summary>Find a loaded assembly in the active context that satisfies a dependency assembly request.</summary>
+
+            <param name = "context" Cref = "AssemblyLoadContext">Active load context.</param>
+
+            <param name = "requested" Cref = "AssemblyName">Requested dependency identity.</param>
+
+            <returns Cref = "Assembly?">Loaded assembly or null.</returns>
+
+        </method>
+
+        <method name = "TryParseRequestNoSync">
+
+            <summary>Parse the configured name into a progressively strict requested identity.</summary>
+
+            <param name = "request" Cref = "TypeRequest?">Requested identity output.</param>
+
+            <returns Cref = "Boolean">True when parsing succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "FindAssemblySeparator">
+
+            <summary>Find the outer assembly separator in a type name.</summary>
+
+            <param name = "name" Cref = "String">Configured type identifier.</param>
+
+            <returns Cref = "Int32">Separator index or -1.</returns>
+
+            <remarks>Ignores commas inside bracketed generic type argument lists.</remarks>
+
+        </method>
+
+        <method name = "TryParseAssemblyIdentity">
+
+            <summary>Parse the supplied outer assembly identity components.</summary>
+
+            <param name = "input" Cref = "String">Assembly identity text following the outer type token.</param>
+
+            <param name = "name" Cref = "String?">Requested simple assembly name.</param>
+
+            <param name = "version" Cref = "Version?">Requested version.</param>
+
+            <param name = "hasversion" Cref = "Boolean">True when version was explicitly supplied.</param>
+
+            <param name = "culture" Cref = "String?">Requested culture text.</param>
+
+            <param name = "hasculture" Cref = "Boolean">True when culture was explicitly supplied.</param>
+
+            <param name = "publickeytoken" Cref = "String?">Requested public key token text.</param>
+
+            <param name = "haspublickeytoken" Cref = "Boolean">True when public key token was explicitly supplied.</param>
+
+            <returns Cref = "Boolean">True when parsing succeeds; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TypeRequestsEqual">
+
+            <summary>Compare two effective requests for deduplication.</summary>
+
+            <param name = "left" Cref = "TypeRequest">Effective request.</param>
+
+            <param name = "right" Cref = "TypeRequest">Effective request.</param>
+
+            <returns Cref = "Boolean">True when the effective requests are equal; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryResolveInAssembly">
+
+            <summary>Resolve the exact requested type name from a specific assembly.</summary>
+
+            <param name = "assembly" Cref = "Assembly">Candidate assembly.</param>
+
+            <param name = "typename" Cref = "String">Exact requested type name.</param>
+
+            <param name = "type" Cref = "Type?">Resolved type output.</param>
+
+            <returns Cref = "Boolean">True when the exact requested type is resolved; otherwise false.</returns>
+
+        </method>
+
+        <method name = "MatchesResolvedType">
+
+            <summary>Validate that a resolved runtime type satisfies the requested identity.</summary>
+
+            <param name = "request" Cref = "TypeRequest">Requested type identity.</param>
+
+            <param name = "type" Cref = "Type">Resolved runtime type.</param>
+
+            <returns Cref = "Boolean">True when the resolved type matches the request; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryNormalizeAssemblyName">
+
+            <summary>Normalize a configured assembly identity to the strict fields used by this provider.</summary>
+
+            <param name = "input" Cref = "AssemblyName?">Configured assembly identity.</param>
+
+            <param name = "assemblyname" Cref = "AssemblyName?">Normalized assembly identity output.</param>
+
+            <returns Cref = "Boolean">True when normalization succeeds; otherwise false.</returns>
+
+        </method>
+
+    </class>
+
+</TypeProvider>

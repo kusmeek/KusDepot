@@ -1,0 +1,99 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolHostLifetime>
+
+    <interface name = "IToolHostLifetime">
+
+        <main>
+
+            <summary>ToolHostLifetime Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolHostLifetime.</remarks>
+
+        </main>
+
+        <property name = "LifeID">
+
+            <summary>Gets the current ID of the host bound to this lifetime.</summary>
+
+            <returns Cref = "Guid?">Bound host ID, if available.</returns>
+
+        </property>
+
+        <property name = "ToolHost">
+
+            <summary>Gets the host bound to this lifetime.</summary>
+
+            <returns Cref = "IToolHost?">Bound host, if available.</returns>
+
+        </property>
+
+        <property name = "ApplicationStarting">
+
+            <summary>ApplicationStarting Token</summary>
+
+            <returns Cref = "CancellationToken">ApplicationStarting Token.</returns>
+
+        </property>
+
+        <method name = "Bind">
+
+            <summary>Binds this lifetime to a single host and returns its notification key.</summary>
+
+            <param name = "toolhost" Cref = "IToolHost">Host to bind.</param>
+
+            <returns Cref = "Guid">Opaque key required for lifecycle notifications.</returns>
+
+        </method>
+
+        <method name = "Dispose">
+
+            <summary>Disposes this lifetime only when called with the key returned by <see cref="M:IToolHostLifetime.Bind(IToolHost)"/>.</summary>
+
+            <param name = "lifekey" Cref = "Guid">Key returned when this lifetime was bound to its owning host.</param>
+
+        </method>
+
+        <method name = "NotifyStarting">
+
+            <summary>Signal Starting</summary>
+
+            <param name = "lifekey" Cref = "Guid">Lifetime binding key.</param>
+
+        </method>
+
+        <method name = "NotifyStarted">
+
+            <summary>Signal Started</summary>
+
+            <param name = "lifekey" Cref = "Guid">Lifetime binding key.</param>
+
+        </method>
+
+        <method name = "NotifyStopping">
+
+            <summary>Signal Stopping</summary>
+
+            <param name = "lifekey" Cref = "Guid">Lifetime binding key.</param>
+
+        </method>
+
+        <method name = "NotifyStopped">
+
+            <summary>Signal Stopped</summary>
+
+            <param name = "lifekey" Cref = "Guid">Lifetime binding key.</param>
+
+        </method>
+
+        <method name = "StopApplication">
+
+            <summary>IHostApplicationLifetime</summary>
+
+            <remarks>Does nothing.</remarks>
+
+        </method>
+
+    </interface>
+
+</IToolHostLifetime>

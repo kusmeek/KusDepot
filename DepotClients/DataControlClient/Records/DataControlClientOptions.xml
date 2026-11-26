@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlClientOptions>
+
+	<record name="DataControlClientOptions">
+
+		<main>
+
+			<summary>Configures DataControl client transport, payload pacing, download-state refresh, and working-directory behavior.</summary>
+
+		</main>
+
+		<property name="UploadPayloadRateLimit" Cref="Int64?">
+
+			<summary>Maximum aggregate application-payload upload pacing rate, in bytes per second, across transfers using this client; it does not guarantee end-to-end or network throughput. Values must be positive, default is unlimited.</summary>
+
+		</property>
+
+		<property name="DownloadPayloadRateLimit" Cref="Int64?">
+
+			<summary>Maximum aggregate application-payload download pacing rate, in bytes per second, across transfers using this client; it does not guarantee end-to-end or network throughput. Values must be positive, default is unlimited.</summary>
+
+		</property>
+
+		<property name="DownloadStateRefreshInterval" Cref="TimeSpan">
+
+			<summary>Maximum interval between authoritative state refreshes while a download follow is waiting for new data. Must be positive and no greater than Int32.MaxValue milliseconds; defaults to one hour. Notifications and successful reconnects can trigger an earlier refresh.</summary>
+
+		</property>
+
+		<property name="WorkingDirectoryOptions" Cref="DataControlClientWorkingDirectoryOptions">
+
+			<summary>Options that control where segmented and stream transfer working directories are created and persisted.</summary>
+
+		</property>
+
+		<property name="HttpClient" Cref="HttpClient?">
+
+			<summary>Optional HTTP client used for REST requests. When supplied, its BaseAddress and default Authorization header must be unset and must remain unset while this DataControl client is using it. SignalR notifications use a separate transport.</summary>
+
+		</property>
+
+		<property name="HttpClientOwned" Cref="Boolean">
+
+			<summary>Indicates that DataControlClient takes responsibility for disposing the supplied HttpClient. Has no effect when HttpClient is not specified; internally created clients are always disposed by DataControlClient.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlClientOptions>

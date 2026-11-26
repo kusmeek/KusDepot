@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PublishedTransferArtifacts>
+	<record name = "PublishedTransferArtifacts">
+		<main><summary>References the final object, optional stream, and integrity artifacts produced by publication.</summary></main>
+		<property name = "Object" Cref = "PublishedArtifactReference"><summary>Final serialized object artifact.</summary></property>
+		<property name = "Stream" Cref = "PublishedArtifactReference"><summary>Optional final stream artifact.</summary></property>
+		<property name = "Integrity" Cref = "PublishedArtifactReference"><summary>Final integrity artifact written after content verification.</summary></property>
+	</record>
+</PublishedTransferArtifacts>

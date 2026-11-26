@@ -1,0 +1,97 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CompositeReadStream>
+
+	<record name = "CompositeReadStreamPart">
+		<main><summary>Describes one sequential source part exposed by a <see cref="CompositeReadStream"/>.</summary></main>
+		<property name = "SourceOffset" Cref = "Int64"><summary>Gets the source offset at which the part begins.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the number of bytes exposed from the source.</summary></property>
+		<property name = "OpenAsync" Cref = "Func{CancellationToken,Task{Stream}}"><summary>Gets the asynchronous source factory.</summary></property>
+	</record>
+
+	<class name = "CompositeReadStream">
+		<main><summary>Reads an ordered sequence of source stream parts as one non-seekable stream.</summary></main>
+
+		<field name = "Parts" Cref = "IReadOnlyList{CompositeReadStreamPart}"><summary>The ordered source parts exposed by the composite stream.</summary></field>
+		<field name = "TotalLength" Cref = "Int64"><summary>The total number of bytes exposed by all source parts.</summary></field>
+		<field name = "PartIndex" Cref = "Int32"><summary>The index of the next source part to open.</summary></field>
+		<field name = "Current" Cref = "Stream"><summary>The currently open source stream, if any.</summary></field>
+		<field name = "CurrentRemaining" Cref = "Int64"><summary>The number of bytes remaining from the current source part.</summary></field>
+		<field name = "Disposed" Cref = "Boolean"><summary>Tracks whether the composite stream has been disposed.</summary></field>
+		<field name = "PositionValue" Cref = "Int64"><summary>The number of bytes returned to the consumer.</summary></field>
+
+		<constructor name = "CompositeReadStream">
+			<summary>Initializes a composite reader over ordered source parts.</summary>
+			<param name = "parts" Cref = "CompositeReadStreamPart[]">The ordered source parts to expose.</param>
+		</constructor>
+
+		<property name = "CanRead" Cref = "Boolean"><summary>Gets a value indicating whether the composite stream can be read.</summary></property>
+		<property name = "CanSeek" Cref = "Boolean"><summary>Gets a value indicating that the composite stream does not support seeking.</summary></property>
+		<property name = "CanWrite" Cref = "Boolean"><summary>Gets a value indicating that the composite stream does not support writing.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Gets the total length of the composite stream.</summary></property>
+		<property name = "Position" Cref = "Int64"><summary>Gets the number of bytes read from the composite stream; setting the position is not supported.</summary></property>
+
+		<method name = "Flush"><summary>Flushing is not supported by the read-only composite stream.</summary></method>
+		<method name = "FlushAsync">
+			<summary>Asynchronously flushes the composite stream; flushing is not supported.</summary>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task that faults because flushing is not supported.</returns>
+		</method>
+		<method name = "ReadArray">
+			<summary>Reads bytes from the composite stream into an array buffer.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer.</param>
+			<param name = "offset" Cref = "Int32">Starting offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<returns Cref = "Int32">The number of bytes read.</returns>
+		</method>
+		<method name = "ReadSpan">
+			<summary>Reads bytes from the composite stream into a span buffer.</summary>
+			<param name = "buffer" Cref = "Span{Byte}">Destination span.</param>
+			<returns Cref = "Int32">The number of bytes read.</returns>
+		</method>
+		<method name = "ReadAsyncArray">
+			<summary>Asynchronously reads bytes from the composite stream into an array buffer.</summary>
+			<param name = "buffer" Cref = "Byte[]">Destination buffer.</param>
+			<param name = "offset" Cref = "Int32">Starting offset in the destination buffer.</param>
+			<param name = "count" Cref = "Int32">Maximum number of bytes to read.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Int32}">A task that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "ReadAsyncMemory">
+			<summary>Asynchronously reads bytes from the composite stream into memory.</summary>
+			<param name = "buffer" Cref = "Memory{Byte}">Destination memory.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "ValueTask{Int32}">A task-like value that completes with the number of bytes read.</returns>
+		</method>
+		<method name = "Seek">
+			<summary>Seeking is not supported by the composite stream.</summary>
+			<param name = "offset" Cref = "Int64">Unused desired offset.</param>
+			<param name = "origin" Cref = "SeekOrigin">Unused reference origin.</param>
+			<returns Cref = "Int64">This method always throws because seeking is not supported.</returns>
+		</method>
+		<method name = "SetLength">
+			<summary>Changing the composite stream length is not supported.</summary>
+			<param name = "value" Cref = "Int64">Unused desired length.</param>
+		</method>
+		<method name = "Write">
+			<summary>Writing is not supported by the read-only composite stream.</summary>
+			<param name = "buffer" Cref = "Byte[]">Unused source buffer.</param>
+			<param name = "offset" Cref = "Int32">Unused source offset.</param>
+			<param name = "count" Cref = "Int32">Unused byte count.</param>
+		</method>
+		<method name = "Dispose">
+			<summary>Disposes the composite stream and its currently open source.</summary>
+			<param name = "disposing" Cref = "Boolean">True when called from deterministic disposal; otherwise false.</param>
+		</method>
+		<method name = "DisposeAsync"><summary>Asynchronously disposes the composite stream and its currently open source.</summary></method>
+		<method name = "ThrowIfDisposed"><summary>Throws when the composite stream has already been disposed.</summary></method>
+		<method name = "SkipAsync">
+			<summary>Advances a source stream by the requested number of bytes.</summary>
+			<param name = "source" Cref = "Stream">Source stream to advance.</param>
+			<param name = "length" Cref = "Int64">Number of bytes to skip.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Boolean}">True when the requested offset was reached; otherwise false.</returns>
+		</method>
+	</class>
+
+</CompositeReadStream>

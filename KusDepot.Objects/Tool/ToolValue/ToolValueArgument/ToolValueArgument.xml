@@ -1,0 +1,44 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<ToolValueArgument>
+
+    <record name = "ToolValueArgument">
+
+        <main>
+
+            <summary>Constructor argument envelope for tool values.</summary>
+
+        </main>
+
+        <property name = "Index" Cref = "Int32">
+
+            <summary>Argument index.</summary>
+
+        </property>
+
+        <property name = "Mode" Cref = "ToolValueMode">
+
+            <summary>Argument conversion mode.</summary>
+
+        </property>
+
+        <property name = "Type" Cref = "String?">
+
+            <summary>Argument type name.</summary>
+
+        </property>
+
+        <property name = "Data" Cref = "String?">
+
+            <summary>Argument parse data.</summary>
+
+        </property>
+
+        <property name = "Parameters" Cref = "ToolValueArgumentParameter[]?">
+
+            <summary>Terminal constructor parameters for a build-mode argument.</summary>
+
+        </property>
+
+    </record>
+
+</ToolValueArgument>

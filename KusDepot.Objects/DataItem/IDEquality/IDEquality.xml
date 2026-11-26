@@ -1,0 +1,37 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDEquality>
+
+    <class name = "IDEquality">
+
+        <main>
+
+            <summary>Equality Comparer of DataItems using IDs.</summary>
+
+        </main>
+
+        <method name = "Equals">
+
+            <summary>Determine equality using IDs.</summary>
+
+            <param name = "a" Cref = "DataItem?">DataItem.</param>
+
+            <param name = "b" Cref = "DataItem?">Other DataItem.</param>
+
+            <returns Cref = "Boolean">True if Items have the same ID.</returns>
+
+        </method>
+
+        <method name = "GetHashCode">
+
+            <summary>Generate Hash Code.</summary>
+
+            <param name = "item" Cref = "DataItem">DataItem.</param>
+
+            <returns Cref = "Int32">Hash Code.</returns>
+
+        </method>
+
+    </class>
+
+</IDEquality>

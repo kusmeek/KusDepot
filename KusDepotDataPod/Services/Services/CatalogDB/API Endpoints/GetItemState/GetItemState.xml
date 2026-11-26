@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<GetItemState>
+  <class name="CatalogDBService">
+	<method name="GetItemState">
+	  <summary>Returns the current item token and deletion state, including pending deletions.</summary>
+	  <param name="itemID" Cref="Guid">Item identifier to look up.</param>
+	  <param name="tracecontext" Cref="TraceContext">Optional trace context.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the lookup.</param>
+	  <returns Cref="Task{CatalogItemState}">The current item state, or null when the item is absent.</returns>
+	</method>
+  </class>
+</GetItemState>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PutTransferSegmentClientResponse>
+  <record name="PutTransferSegmentClientResponse">
+	<main>
+	  <summary>
+		Represents the client response envelope for a segmented transfer segment upload request.
+	  </summary>
+	</main>
+	<property name="Content">
+	  <summary>
+		Gets the raw response body content.
+	  </summary>
+	</property>
+	<property name="Response">
+	  <summary>
+		Gets the parsed segmented transfer segment response when the request succeeds.
+	  </summary>
+	</property>
+	<property name="StatusCode">
+	  <summary>
+		Gets the HTTP status code returned by the server.
+	  </summary>
+	</property>
+  </record>
+</PutTransferSegmentClientResponse>

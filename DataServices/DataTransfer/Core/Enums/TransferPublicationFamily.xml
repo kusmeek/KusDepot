@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferPublicationFamily>
+	<enum name = "TransferPublicationFamily">
+		<main><summary>Transfer family associated with a durable publication operation.</summary></main>
+		<value name = "Segmented"><summary>Publication for a finite segmented transfer.</summary></value>
+		<value name = "Stream"><summary>Publication for an append or follow stream transfer.</summary></value>
+	</enum>
+</TransferPublicationFamily>

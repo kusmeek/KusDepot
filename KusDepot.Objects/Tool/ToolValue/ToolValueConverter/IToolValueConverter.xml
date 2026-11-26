@@ -1,0 +1,38 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<IToolValueConverter>
+
+    <interface name = "IToolValueConverter">
+
+        <main>
+
+            <summary>ToolValue converter strategy interface.</summary>
+
+        </main>
+
+        <method name = "TryRead">
+
+            <summary>Try read ToolValue.</summary>
+
+            <param name = "value" Cref = "ToolValue?">Tool value.</param>
+
+            <param name = "result" Cref = "Object?">Result.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+        <method name = "TryWrite">
+
+            <summary>Try write ToolValue.</summary>
+
+            <param name = "value" Cref = "Object?">Value.</param>
+
+            <param name = "result" Cref = "ToolValue?">Tool value.</param>
+
+            <returns Cref = "Boolean">True on success.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolValueConverter>

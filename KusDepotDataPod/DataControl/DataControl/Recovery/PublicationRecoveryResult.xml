@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<PublicationRecoveryResult>
+	<record name="PublicationRecoveryResult">
+		<main><summary>Result of one publication recovery evaluation.</summary></main>
+		<property name="Succeeded" Cref="Boolean"><summary>Indicates whether the recovery evaluation completed successfully.</summary></property>
+		<property name="FailureReason" Cref="String"><summary>Reason recovery could not complete and should be retried.</summary></property>
+		<method name="Success">
+			<summary>Creates a result indicating that publication recovery completed successfully.</summary>
+			<returns Cref="PublicationRecoveryResult">A successful recovery result with no failure reason.</returns>
+		</method>
+		<method name="Failure">
+			<summary>Creates a result indicating that publication recovery could not complete.</summary>
+			<param name="reason" Cref="String">Description of the failure that should be recorded and retried.</param>
+			<returns Cref="PublicationRecoveryResult">A failed recovery result containing the supplied failure reason.</returns>
+			<exception cref="ArgumentException">Thrown when <paramref name="reason"/> is null, empty, or consists only of white-space.</exception>
+		</method>
+	</record>
+</PublicationRecoveryResult>

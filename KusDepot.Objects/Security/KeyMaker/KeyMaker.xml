@@ -1,0 +1,283 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<KeyMaker>
+
+    <class name = "KeyMaker">
+
+        <main>
+
+            <summary>Builder for producing security key instances.</summary>
+
+        </main>
+
+        <field name = "ID" Cref = "Guid?"><summary>Key ID.</summary></field>
+
+        <field name = "Factories" Cref = "Dictionary{String,Func{KeyMaterial,AccessKey?}}"><summary>Registered key factories keyed by canonical requested key-type token.</summary></field>
+
+        <field name = "Aliases" Cref = "Dictionary{String,String}"><summary>Alias map from alternate requested key-type tokens to canonical registered tokens.</summary></field>
+
+        <field name = "Key" Cref = "Byte[]?"><summary>Key material.</summary></field>
+
+        <field name = "Certificate" Cref = "X509Certificate2?"><summary>Certificate material.</summary></field>
+
+        <finalizer name = "Finalizer">
+
+            <summary>Finalizer.</summary>
+
+        </finalizer>
+
+        <method name = "AsClientKey">
+
+            <summary>Create a ClientKey.</summary>
+
+            <returns Cref = "ClientKey?">ClientKey.</returns>            
+
+        </method>
+
+        <method name = "AsCommandKey">
+
+            <summary>Create a CommandKey.</summary>
+
+            <returns Cref = "CommandKey?">CommandKey.</returns>            
+
+        </method>
+
+        <method name = "AsExecutiveKey">
+
+            <summary>Create an ExecutiveKey.</summary>
+
+            <returns Cref = "ExecutiveKey?">ExecutiveKey.</returns>            
+
+        </method>
+
+        <method name = "AsHostKey">
+
+            <summary>Create a HostKey.</summary>
+
+            <returns Cref = "HostKey?">HostKey.</returns>            
+
+        </method>
+
+        <method name = "AsManagerKey">
+
+            <summary>Create a ManagerKey.</summary>
+
+            <returns Cref = "ManagerKey?">ManagerKey.</returns>
+
+        </method>
+
+        <method name = "AsMyHostKey">
+
+            <summary>Create a MyHostKey.</summary>
+
+            <returns Cref = "MyHostKey?">MyHostKey.</returns>
+
+        </method>
+
+        <method name = "AsOwnerKey">
+
+            <summary>Create an OwnerKey.</summary>
+
+            <returns Cref = "OwnerKey?">OwnerKey.</returns>
+
+        </method>
+
+        <method name = "AsServiceKey">
+
+            <summary>Create a ServiceKey.</summary>
+
+            <returns Cref = "ServiceKey?">ServiceKey.</returns>            
+
+        </method>
+
+        <method name = "AsTokenKey">
+
+            <summary>Create a TokenKey.</summary>
+
+            <param name = "type" Cref = "TokenKeyType">Token classification.</param>
+
+            <returns Cref = "TokenKey?">TokenKey.</returns>
+
+        </method>
+
+        <method name = "Create">
+
+            <summary>Factory method.</summary>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "CreateKeyMaterial">
+
+            <summary>Project the current transient identifier, key bytes, and certificate into a <see cref="KeyMaterial"/> value for a registered custom key factory.</summary>
+
+            <returns Cref = "KeyMaterial">Projected key material.</returns>
+
+        </method>
+
+        <method name = "Reset">
+
+            <summary>Reset the transient key-construction state by clearing the current identifier, key material, and certificate material while leaving registered factories and aliases intact.</summary>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "NormalizeRequestedKeyType">
+
+            <summary>Normalize a requested key-type token for registry use.</summary>
+
+            <param name = "requestedkeytype" Cref = "String?">Requested key-type token.</param>
+
+            <returns Cref = "String?">Normalized requested key-type token, or null if empty.</returns>
+
+        </method>
+
+        <method name = "ResolveRequestedKeyType">
+
+            <summary>Resolve a requested key-type token through the alias map into the canonical registered token.</summary>
+
+            <param name = "requestedkeytype" Cref = "String?">Requested key-type token.</param>
+
+            <returns Cref = "String?">Canonical requested key-type token, or null if empty.</returns>
+
+        </method>
+
+        <method name = "Register">
+
+            <summary>Register a key factory for a canonical requested key-type token.</summary>
+
+            <param name = "requestedkeytype" Cref = "String?">Canonical requested key-type token.</param>
+
+            <param name = "factory" Cref = "Func{KeyMaterial,AccessKey?}">Factory used to create the access key from projected transient key material.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "RegisterAlias">
+
+            <summary>Register an alias that resolves to a canonical requested key-type token.</summary>
+
+            <param name = "alias" Cref = "String?">Alias token.</param>
+
+            <param name = "requestedkeytype" Cref = "String?">Canonical requested key-type token.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "TryMake">
+
+            <summary>Try to create an access key using the registered factory for the requested key-type token.</summary>
+
+            <param name = "requestedkeytype" Cref = "String?">Requested key-type token or alias.</param>
+
+            <param name = "key" Cref = "AccessKey?">Created access key.</param>
+
+            <returns Cref = "Boolean">True when a registered factory created an access key; otherwise false.</returns>
+
+        </method>
+
+        <method name = "ValidMaterial">
+
+            <summary>Validate current ID and key/certificate material.</summary>
+
+            <param name = "needskey" Cref = "Boolean">True when a key is required.</param>
+
+            <param name = "needscertificate" Cref = "Boolean">True when a certificate is required.</param>
+
+            <returns Cref = "Boolean">True when material is valid.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKey">
+
+            <summary>Set certificate material for owner/manager keys.</summary>
+
+            <param name = "certificate" Cref = "X509Certificate2">Certificate.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKeyName">
+
+            <summary>Lookup certificate in store by subject common name.</summary>
+
+            <param name = "location" Cref = "StoreLocation">Store Location.</param>
+
+            <param name = "store" Cref = "StoreName">Store Name.</param>
+
+            <param name = "name" Cref = "String">Subject Name.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithCertificateKeyThumb">
+
+            <summary>Lookup certificate in store by thumbprint.</summary>
+
+            <param name = "location" Cref = "StoreLocation">Store Location.</param>
+
+            <param name = "store" Cref = "StoreName">Store Name.</param>
+
+            <param name = "thumbprint" Cref = "String">Thumbprint.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithID">
+
+            <summary>Use ID.</summary>
+
+            <param name = "id" Cref = "Guid">Identifier.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "AutoID">
+
+            <summary>Use a new automatically generated ID.</summary>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithKey">
+
+            <summary>Use key bytes.</summary>
+
+            <param name = "key" Cref = "ReadOnlySpan{Byte}">Key Bytes.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithOwnedKey">
+
+            <summary>Intake transient key bytes without cloning.</summary>
+
+            <param name = "key" Cref = "Byte[]?">Owned transient key bytes.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+        <method name = "WithRandomKey">
+
+            <summary>Use cryptographically strong random key bytes.</summary>
+
+            <param name = "size" Cref = "Int32">Key length in bytes.</param>
+
+            <returns Cref = "KeyMaker">KeyMaker.</returns>
+
+        </method>
+
+    </class>
+
+</KeyMaker>

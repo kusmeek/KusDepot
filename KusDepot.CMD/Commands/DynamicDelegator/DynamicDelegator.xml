@@ -1,0 +1,53 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DynamicDelegator>
+
+    <class name = "DynamicDelegator">
+
+        <main>
+
+            <summary>Delegates Command Execution to a function <see cref="CommandExecutor"/>.</summary>
+
+        </main>
+
+        <property name = "CommandExecutor">
+
+            <summary>Function that receives the attached tool, current activity, and command key.</summary>
+
+            <returns Cref = "Func{ITool,Activity,AccessKey,ValueTask{Activity?}}">Dynamic awaitable function.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Initializes a dynamic delegator with a ValueTask-based execution function.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,ValueTask{Activity?}}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorSync">
+
+            <summary>Initializes a dynamic delegator with a synchronous execution function.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,Activity?}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+        <constructor name = "ConstructorTask">
+
+            <summary>Initializes a dynamic delegator with a Task-based execution function.</summary>
+
+            <param name = "executor" Cref = "Func{ITool,Activity,AccessKey,Task{Activity?}}">Command Execution Function.</param>
+
+            <returns Cref = "DynamicDelegator">New DynamicDelegator.</returns>
+
+        </constructor>
+
+    </class>
+
+</DynamicDelegator>

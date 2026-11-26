@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TenantTransferStorage>
+  <class name="TenantTransferStorage">
+	<main>
+	  <summary>Provides tenant-scoped Azure Blob Storage for transfer staging, publication assembly, and cleanup.</summary>
+	  <remarks>Staged objects, ranges, chunks, and publication objects are addressed below the transfer session prefix. Upload payloads are read sequentially into one rented 8 MiB in-memory block buffer per active save, hashed as read, staged directly to Azure as uncommitted blocks, then committed with integrity metadata.</remarks>
+	</main>
+	<field name="SHA512MetadataKey">
+	  <summary>Metadata key containing the uppercase hexadecimal SHA-512 digest of a blob.</summary>
+	</field>
+	<field name="LengthMetadataKey">
+	  <summary>Metadata key containing the invariant string representation of a blob length.</summary>
+	</field>
+	<field name="StagedBlockSize">
+	  <summary>Maximum in-memory payload buffer used for each uncommitted block.</summary>
+	</field>
+	<field name="MaximumBlockCount">
+	  <summary>Maximum number of committed blocks allowed in a block blob.</summary>
+	</field>
+	<field name="container">
+	  <summary>Blob container used for the tenant item.</summary>
+	</field>
+	<field name="connectionString">
+	  <summary>Connection string used to create block blob clients for the tenant item.</summary>
+	</field>
+	<field name="path">
+	  <summary>Transfer path builder for the current session.</summary>
+	</field>
+	<field name="itemid">
+	  <summary>Published item identifier whose tenant container is being accessed.</summary>
+	</field>
+	<constructor name="TenantTransferStorage">
+	  <summary>Initializes tenant transfer storage for a storage silo, transfer session, item, and item instance.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the tenant connection string.</param>
+	  <param name="sessionid" Cref="Guid">Transfer session identifier used to construct staging paths.</param>
+	  <param name="itemid" Cref="Guid">Published item identifier used to select the blob container.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Item instance token used to isolate the staging paths.</param>
+	  <exception cref="ArgumentNullException">The storage silo is null.</exception>
+	  <exception cref="ArgumentException">The silo has no connection string or the item identifier is empty.</exception>
+	</constructor>
+	<method name="DeleteTransferCoreAsync">
+	  <summary>Deletes all staged blobs below the current transfer prefix.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{Boolean}">True after the transfer staging artifacts have been removed.</returns>
+	</method>
+	<method name="DeleteInstanceTransfersAsync">
+	  <summary>Deletes every transfer blob under the selected item instance, including prefixes without a persisted session and published artifacts.</summary>
+	  <param name="silo" Cref="StorageSilo">Storage silo containing the tenant connection string.</param>
+	  <param name="itemid" Cref="Guid">Published item identifier whose blob container is selected.</param>
+	  <param name="itemInstanceToken" Cref="Guid">Item instance token whose transfer artifacts are removed.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+	  <returns Cref="Task{Boolean}">True after all artifacts for the item instance are absent.</returns>
+	</method>
+	<method name="SaveVerifiedAsync">
+	  <summary>Streams and hashes a request payload into uncommitted blocks, verifies its declared length and digest, then atomically commits the blocks and metadata.</summary>
+	  <param name="name" Cref="String">Blob name relative to the selected container.</param>
+	  <param name="payload" Cref="Stream">Request payload to store.</param>
+	  <param name="expectedLength" Cref="Int64">Declared payload length.</param>
+	  <param name="expectedSHA512" Cref="Byte[]">Declared SHA-512 digest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">A verified staged blob reference, or null when the content does not match the declaration.</returns>
+	</method>
+	<method name="PublishObjectAsync">
+	  <summary>Copies a validated staged object to its published Blob with integrity metadata in the same Azure copy request.</summary>
+	  <remarks>The source copy is conditioned on the ETag whose metadata was validated, and destination creation is conditional to preserve immutable publication behavior.</remarks>
+	  <param name="source" Cref="TenantTransferBlobReference">Validated source object reference.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the copy operation.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">Published artifact reference, or null when validation or copy does not succeed.</returns>
+	</method>
+	<method name="DeleteStagedBlobAsync">
+	  <summary>Attempts idempotent cleanup of a staged blob without masking the original write failure.</summary>
+	  <param name="name" Cref="String">Blob name to remove.</param>
+	  <returns Cref="Task">A task representing best-effort cleanup.</returns>
+	</method>
+	<method name="GetVerificationFailureCode">
+	  <summary>Identifies whether an existing staged blob has an invalid length or hash.</summary>
+	  <param name="properties" Cref="BlobProperties">Stored blob properties.</param>
+	  <param name="expectedLength" Cref="Int64">Declared payload length.</param>
+	  <returns Cref="StorageVerificationFailureCode">The storage verification failure code.</returns>
+	</method>
+	<method name="ValidateExpectedLength">
+	  <summary>Validates that the expected payload length matches the logical transfer range.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Logical transfer range.</param>
+	  <param name="expectedLength" Cref="Int64">Declared payload length.</param>
+	</method>
+	<method name="SaveAsync">
+	  <summary>Streams a transfer payload into uncommitted Azure Blob blocks, then commits its bytes and content metadata together.</summary>
+	  <remarks>When replacement is disabled, an existing blob is accepted only when its length and SHA-512 digest match the supplied content. A conflicting immutable blob causes an exception.</remarks>
+	  <param name="name" Cref="String">Blob name relative to the selected container.</param>
+	  <param name="payload" Cref="Stream">Payload to store.</param>
+	  <param name="replace" Cref="Boolean">Whether an existing blob may be replaced.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">The stored blob reference, or null when storage does not return a reference.</returns>
+	  <exception cref="ArgumentNullException">The payload is null.</exception>
+	  <exception cref="InvalidOperationException">An immutable existing blob has different content from the supplied payload.</exception>
+	</method>
+	<method name="StagePayloadAsync">
+	  <param name="blob" Cref="BlockBlobClient">Destination blob for the staged blocks.</param>
+	  <param name="payload" Cref="HashingReadStream">Payload stream that computes the digest as bytes are read.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for block uploads.</param>
+	  <returns Cref="Task{List{String}}">Ordered Base64 block identifiers staged for final commit.</returns>
+	</method>
+	<method name="CreateBlockID">
+	  <summary>Creates a deterministic Base64 block identifier from a staging operation identifier and block index.</summary>
+	  <param name="operationid" Cref="Guid">Operation identifier shared by all blocks staged for one payload.</param>
+	  <param name="index" Cref="Int32">Zero-based block index within the staging operation.</param>
+	  <returns Cref="String">Base64 block identifier encoded from operation bytes and index.</returns>
+	</method>
+	<method name="CommitPayloadAsync">
+	  <summary>Commits staged blocks and their verified content metadata in one conditional Blob operation; empty payloads use one conditional empty-blob upload.</summary>
+	  <param name="blob" Cref="BlockBlobClient">Destination blob to commit.</param>
+	  <param name="blockids" Cref="List{String}">Ordered Base64 block identifiers.</param>
+	  <param name="digest" Cref="Byte[]">SHA-512 digest of the staged bytes.</param>
+	  <param name="length" Cref="Int64">Length of the staged bytes.</param>
+	  <param name="replace" Cref="Boolean">Whether an existing blob may be replaced.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the commit.</param>
+	</method>
+	<method name="SaveFinalAsync">
+	  <summary>Saves a final artifact payload using replacement semantics.</summary>
+	  <param name="name" Cref="String">Blob name relative to the selected container.</param>
+	  <param name="payload" Cref="Stream">Final artifact payload.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{TenantTransferBlobReference}">The stored artifact reference, or null when storage does not return a reference.</returns>
+	</method>
+	<method name="OpenAsync">
+	  <summary>Opens a blob for streaming download.</summary>
+	  <param name="name" Cref="String">Blob name relative to the selected container.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{Stream}">The blob content stream, or null when the blob does not exist.</returns>
+	</method>
+	<method name="EnsureContainerAsync">
+	  <summary>Ensures that the tenant item blob container exists.</summary>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task">A task representing the container creation check.</returns>
+	</method>
+	<method name="VerifyArtifactAsync">
+	  <summary>Verifies an existing published artifact against its expected length and SHA-512 digest.</summary>
+	  <param name="blob" Cref="BlockBlobClient">Published artifact blob to inspect.</param>
+	  <param name="length" Cref="Int64">Expected artifact length.</param>
+	  <param name="hash" Cref="Byte[]">Expected SHA-512 digest.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the operation.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">A verified artifact reference, or null when the metadata does not match.</returns>
+	</method>
+	<method name="GetReferenceAsync">
+	  <summary>Reads the properties of an existing block blob and creates its published artifact reference.</summary>
+	  <param name="blob" Cref="BlockBlobClient">Existing published artifact blob to inspect.</param>
+	  <param name="cancel" Cref="CancellationToken">Cancellation token for the properties request.</param>
+	  <returns Cref="Task{PublishedArtifactReference}">A reference containing the blob name, content length, and decoded SHA-512 metadata.</returns>
+	</method>
+	<method name="VerifyMetadata">
+	  <summary>Checks the stored blob length and SHA-512 metadata against expected values.</summary>
+	  <param name="properties" Cref="BlobProperties">Blob properties containing the stored length and metadata.</param>
+	  <param name="hash" Cref="Byte[]">Expected SHA-512 digest.</param>
+	  <param name="length" Cref="Int64">Expected blob length.</param>
+	  <returns Cref="Boolean">True when both the length and digest metadata match.</returns>
+	</method>
+	<method name="CreateUploadOptions">
+	  <summary>Creates upload options with SHA-512 and length metadata and immutable or replacement conditions.</summary>
+	  <param name="hash" Cref="Byte[]">SHA-512 digest to store as metadata.</param>
+	  <param name="length" Cref="Int64">Payload length to store as metadata.</param>
+	  <param name="replace" Cref="Boolean">Whether the upload may replace an existing blob.</param>
+	  <returns Cref="BlobUploadOptions">Configured blob upload options.</returns>
+	</method>
+	<method name="CreateMetadata">
+	  <summary>Creates the standard integrity and length metadata for a blob.</summary>
+	  <param name="hash" Cref="Byte[]">SHA-512 digest to encode.</param>
+	  <param name="length" Cref="Int64">Blob length to encode.</param>
+	  <returns Cref="Dictionary{String,String}">Metadata containing the digest and length.</returns>
+	</method>
+	<method name="ReadHash">
+	  <summary>Reads and validates a SHA-512 digest from blob metadata.</summary>
+	  <param name="metadata" Cref="IDictionary{String,String}">Blob metadata to inspect.</param>
+	  <returns Cref="Byte[]">The decoded 64-byte digest, or an empty array when metadata is missing or invalid.</returns>
+	</method>
+	<method name="ValidateRange">
+	  <summary>Validates that a transfer range is non-empty and structurally valid.</summary>
+	  <param name="range" Cref="DataItemTransferRange">Range to validate.</param>
+	  <exception cref="ArgumentException">The range is null, invalid, or empty.</exception>
+	</method>
+	<method name="ValidateOperationID">
+	  <summary>Validates that a transfer operation identifier is not empty.</summary>
+	  <param name="operationid" Cref="Guid">Operation identifier to validate.</param>
+	  <exception cref="ArgumentException">The operation identifier is empty.</exception>
+	</method>
+	<method name="ValidateBlobReference">
+	  <summary>Validates the name, length, and SHA-512 digest of a tenant blob reference.</summary>
+	  <param name="reference" Cref="TenantTransferBlobReference">Blob reference to validate.</param>
+	  <exception cref="ArgumentException">The reference has an empty name, a negative length, or an invalid digest.</exception>
+	</method>
+	<method name="ValidateBlock">
+	  <summary>Validates a transfer block's identifier, source range, and source bounds.</summary>
+	  <param name="block" Cref="TransferBlock">Transfer block to validate.</param>
+	  <exception cref="ArgumentNullException">The block is null.</exception>
+	  <exception cref="ArgumentException">The block identifier, length, source offset, or source bounds are invalid.</exception>
+	</method>
+	<method name="CreateBlockBlob">
+	  <summary>Creates a block blob client for a named blob in the current item container.</summary>
+	  <param name="name" Cref="String">Blob name.</param>
+	  <returns Cref="BlockBlobClient">Block blob client for the named blob.</returns>
+	</method>
+  </class>
+</TenantTransferStorage>

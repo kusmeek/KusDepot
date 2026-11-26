@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandResult>
+  <class name="CommandResult">
+	<main>
+	  <summary>Represents the structured terminal outcome produced by a command core execution.</summary>
+	  <remarks>The result transports output and diagnostic state through the command execution template. <see cref="HasOutput"/> distinguishes a requested null output from the absence of output.</remarks>
+	</main>
+	<property name="Code">
+	  <summary>Gets the terminal <see cref="ActivityRecordCode"/> classification.</summary>
+	</property>
+	<property name="Exception">
+	  <summary>Gets the exception transported to the terminal Activity record, if any.</summary>
+	</property>
+	<property name="HasOutput">
+	  <summary>Gets a value indicating whether publication of <see cref="Output"/> is requested, including when the payload is null.</summary>
+	  <remarks>This property expresses publication intent. After result application, <see cref="ActivityRecord.HasOutput"/> reports whether publication actually succeeded.</remarks>
+	</property>
+	<property name="Message">
+	  <summary>Gets the optional terminal diagnostic message.</summary>
+	</property>
+	<property name="Output">
+	  <summary>Gets the optional output payload.</summary>
+	</property>
+	<method name="Canceled">
+	  <summary>Creates a canceled result without output.</summary>
+	  <param name="exception">The cancellation exception to preserve.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A canceled command result.</returns>
+	</method>
+	<method name="CanceledWithOutput">
+	  <summary>Creates a canceled result with an output to publish.</summary>
+	  <param name="output">The output payload. A null value is published.</param>
+	  <param name="exception">The cancellation exception to preserve.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A canceled command result with output.</returns>
+	</method>
+	<method name="Failed">
+	  <summary>Creates an expected failure result without output.</summary>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A failed command result.</returns>
+	</method>
+	<method name="FailedWithOutput">
+	  <summary>Creates an expected failure result with an output to publish.</summary>
+	  <param name="output">The output payload. A null value is published.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A failed command result with output.</returns>
+	</method>
+	<method name="Faulted">
+	  <summary>Creates a faulted result without output.</summary>
+	  <param name="exception">The exception to preserve.</param>
+	  <param name="message">An optional diagnostic message. The exception message is used when omitted.</param>
+	  <returns>A faulted command result.</returns>
+	</method>
+	<method name="FaultedWithOutput">
+	  <summary>Creates a faulted result with an output to publish.</summary>
+	  <param name="exception">The exception to preserve.</param>
+	  <param name="output">The output payload. A null value is published.</param>
+	  <param name="message">An optional diagnostic message. The exception message is used when omitted.</param>
+	  <returns>A faulted command result with output.</returns>
+	</method>
+	<method name="Success">
+	  <summary>Creates a successful result without output.</summary>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A successful command result.</returns>
+	</method>
+	<method name="SuccessWithOutput">
+	  <summary>Creates a successful result with an output to publish.</summary>
+	  <param name="output">The output payload. A null value is published.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A successful command result with output.</returns>
+	</method>
+	<method name="TimedOut">
+	  <summary>Creates a timed-out result without output.</summary>
+	  <param name="exception">The cancellation exception to preserve.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A timed-out command result.</returns>
+	</method>
+	<method name="TimedOutWithOutput">
+	  <summary>Creates a timed-out result with an output to publish.</summary>
+	  <param name="output">The output payload. A null value is published.</param>
+	  <param name="exception">The cancellation exception to preserve.</param>
+	  <param name="message">An optional diagnostic message.</param>
+	  <returns>A timed-out command result with output.</returns>
+	</method>
+  </class>
+</CommandResult>

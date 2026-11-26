@@ -1,0 +1,135 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<BufferWriter>
+
+    <struct name = "BufferWriter">
+
+        <main>
+
+            <summary>Writable cursor over a fixed serialization buffer.</summary>
+
+            <remarks>This ref struct writes primitive values and byte ranges into a caller-owned <see cref="Span{Byte}"/>.</remarks>
+
+        </main>
+
+        <field name = "buffer" Cref = "Span{Byte}">
+
+            <summary>Writable backing span.</summary>
+
+        </field>
+
+        <property name = "Position" Cref = "Int32">
+
+            <summary>Current write position.</summary>
+
+        </property>
+
+        <property name = "Length" Cref = "Int32">
+
+            <summary>Total writable length of the backing span.</summary>
+
+        </property>
+
+        <property name = "Remaining" Cref = "Int32">
+
+            <summary>Remaining writable byte count.</summary>
+
+        </property>
+
+        <property name = "WrittenSpan" Cref = "ReadOnlySpan{Byte}">
+
+            <summary>Written region of the backing span.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a writable cursor over a destination span.</summary>
+
+            <param name = "buffer" Cref = "Span{Byte}">Destination span.</param>
+
+        </constructor>
+
+        <method name = "TryWriteByte">
+
+            <summary>Write a single byte into the destination span.</summary>
+
+            <param name = "value" Cref = "Byte">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteBytes">
+
+            <summary>Write a sequence of bytes into the destination span.</summary>
+
+            <param name = "source" Cref = "ReadOnlySpan{Byte}">Source bytes to copy.</param>
+
+            <returns Cref = "Boolean">True when the bytes were written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteGuid">
+
+            <summary>Write a Guid using the standard .NET Guid byte layout.</summary>
+
+            <param name = "value" Cref = "Guid">Guid value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteInt32BigEndian">
+
+            <summary>Write a 32-bit integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "Int32">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteInt64BigEndian">
+
+            <summary>Write a 64-bit integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "Int64">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteUInt16BigEndian">
+
+            <summary>Write a 16-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt16">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteUInt32BigEndian">
+
+            <summary>Write a 32-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt32">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+        <method name = "TryWriteUInt128BigEndian">
+
+            <summary>Write a 128-bit unsigned integer in big-endian form.</summary>
+
+            <param name = "value" Cref = "UInt128">Value to write.</param>
+
+            <returns Cref = "Boolean">True when the value was written; otherwise false.</returns>
+
+        </method>
+
+    </struct>
+
+</BufferWriter>

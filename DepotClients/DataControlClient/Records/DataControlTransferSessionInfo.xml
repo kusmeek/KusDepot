@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlTransferSessionInfo>
+
+	<record name="DataControlTransferSessionInfo">
+
+		<main>
+
+			<summary>Describes a client upload or download session persisted in the local working directory.</summary>
+
+		</main>
+
+		<property name="SessionId" Cref="Guid">
+
+			<summary>Transfer session identifier.</summary>
+
+		</property>
+
+		<property name="ItemId" Cref="Guid">
+
+			<summary>Data item identifier associated with the session.</summary>
+
+		</property>
+
+		<property name="WorkingDirectory" Cref="String">
+
+			<summary>Local working directory path used to persist session files.</summary>
+
+		</property>
+
+		<property name="State" Cref="DataItemTransferState">
+
+			<summary>Latest known server transfer state for the session.</summary>
+
+		</property>
+
+		<property name="TransferFamily" Cref="DataControlTransferFamily">
+
+			<summary>Transfer family currently backing the client session.</summary>
+
+		</property>
+
+		<property name="UploadSource" Cref="DataControlTransferSourceDescriptor">
+
+			<summary>Persisted descriptor for the upload source used to reopen or validate resumable upload content.</summary>
+
+		</property>
+
+		<property name="SegmentedState" Cref="DataItemTransferState">
+
+			<summary>Finite segmented transfer state when the session is backed by segmented transport.</summary>
+
+		</property>
+
+		<property name="StreamState" Cref="DataStreamTransferState">
+
+			<summary>Stream transfer state when the session is backed by stream transport.</summary>
+
+		</property>
+
+		<property name="SupportsLiveFollowBinding" Cref="Boolean">
+
+			<summary>Whether the session currently supports client-side live follow binding.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlTransferSessionInfo>

@@ -1,0 +1,57 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConsoleCommandObserver>
+
+    <class name = "ConsoleCommandObserver">
+
+        <main>
+
+            <summary>Configures handlers for CliWrap Command events.</summary>
+
+            <remarks>Provides set-once delegates that are invoked for observed Command events.</remarks>
+
+        </main>
+
+        <property name = "OnStarted">
+
+            <summary>Handler for StartedCommandEvent, receiving the command execution cancellation token.</summary>
+
+            <returns Cref = "Func{StartedCommandEvent,CancellationToken,Task}">Delegate invoked when the Command starts.</returns>
+
+        </property>
+
+        <property name = "OnStdOut">
+
+            <summary>Handler for StandardOutputCommandEvent, receiving the command execution cancellation token.</summary>
+
+            <returns Cref = "Func{StandardOutputCommandEvent,CancellationToken,Task}">Delegate invoked for standard output events.</returns>
+
+        </property>
+
+        <property name = "OnStdErr">
+
+            <summary>Handler for StandardErrorCommandEvent, receiving the command execution cancellation token.</summary>
+
+            <returns Cref = "Func{StandardErrorCommandEvent,CancellationToken,Task}">Delegate invoked for standard error events.</returns>
+
+        </property>
+
+        <property name = "OnExited">
+
+            <summary>Handler for ExitedCommandEvent, receiving the command execution cancellation token.</summary>
+
+            <returns Cref = "Func{ExitedCommandEvent,CancellationToken,Task}">Delegate invoked when the Command exits.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor.</summary>
+
+            <returns Cref = "ConsoleCommandObserver">New ConsoleCommandObserver.</returns>
+
+        </constructor>
+
+    </class>
+
+</ConsoleCommandObserver>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<DataControlNotificationSubscription>
+
+	<record name="DataControlNotificationSubscription">
+
+		<main>
+
+			<summary>Describes the logical notification scope a client follow session wants to observe.</summary>
+
+		</main>
+
+		<property name="ItemID" Cref="Guid?">
+
+			<summary>Optional data item identifier used to scope notification delivery.</summary>
+
+		</property>
+
+		<property name="SessionID" Cref="Guid?">
+
+			<summary>Optional local or remote transfer session identifier used to scope notification delivery.</summary>
+
+		</property>
+
+		<property name="SourceSessionID" Cref="Guid?">
+
+			<summary>Optional source transfer session identifier used to scope follow notifications.</summary>
+
+		</property>
+
+		<property name="TransferFamily" Cref="DataControlTransferFamily?">
+
+			<summary>Optional transfer family hint used to filter notification matches.</summary>
+
+		</property>
+
+	</record>
+
+</DataControlNotificationSubscription>

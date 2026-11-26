@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolDisposalState>
+
+	<enum name = "ToolDisposalState">
+
+		<main>
+
+			<summary>Represents the disposal state of a Tool.</summary>
+
+		</main>
+
+		<field name = "Active">
+
+			<summary>The Tool has not begun disposal.</summary>
+
+		</field>
+
+		<field name = "Disposing">
+
+			<summary>Disposal has been claimed and is in progress.</summary>
+
+		</field>
+
+		<field name = "Disposed">
+
+			<summary>The Tool has completed disposal.</summary>
+
+		</field>
+
+	</enum>
+
+</ToolDisposalState>

@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<StreamTransferSegmentFooter>
+
+	<record name = "StreamTransferSegmentFooter">
+		<main><summary>Trailing footer metadata carried after a stream-transfer segment payload.</summary></main>
+		<property name = "AppendedLength" Cref = "Int64"><summary>Current durable appended length for the source session.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier.</summary></property>
+		<property name = "RequestedLength" Cref = "Int64"><summary>Requested read length in bytes.</summary></property>
+		<property name = "RequestedOffset" Cref = "Int64"><summary>Requested read offset in bytes.</summary></property>
+		<property name = "ReturnedLength" Cref = "Int64"><summary>Returned payload length in bytes.</summary></property>
+		<property name = "ReturnedOffset" Cref = "Int64"><summary>Returned payload offset in bytes.</summary></property>
+		<property name = "SegmentSHA512" Cref = "Byte[]"><summary>SHA-512 of the returned segment payload.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Current transfer state version.</summary></property>
+	</record>
+
+</StreamTransferSegmentFooter>

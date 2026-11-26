@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<SubjectRequiredStage>
+
+    <class name = "SubjectRequiredStage">
+
+        <main>
+
+            <summary>Subject-required access-policy stage.</summary>
+
+            <remarks>
+                Denies policy evaluation when the supplied policy context does not provide a subject string.
+            </remarks>
+
+        </main>
+
+        <property name = "Instance" Cref = "SubjectRequiredStage">
+
+            <summary>Singleton subject-required stage instance.</summary>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Create a subject-required access-policy stage.</summary>
+
+            <returns Cref = "SubjectRequiredStage">Subject-required access-policy stage.</returns>
+
+        </constructor>
+
+        <method name = "Evaluate">
+
+            <summary>Evaluate whether a subject is present in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <returns Cref = "AccessPolicyDecision">Deny when the subject is missing or whitespace; otherwise allow.</returns>
+
+        </method>
+
+        <method name = "EvaluateAsync">
+
+            <summary>Evaluate asynchronously whether a subject is present in the supplied policy context.</summary>
+
+            <param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+            <returns Cref = "ValueTask{AccessPolicyDecision}">Deny when the subject is missing or whitespace; otherwise allow.</returns>
+
+        </method>
+
+    </class>
+
+</SubjectRequiredStage>

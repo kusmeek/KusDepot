@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferBlockPlan>
+	<record name = "TransferBlockPlan">
+		<main><summary>Ordered storage-block plan for assembling a final stream from logical transfer ranges.</summary></main>
+		<property name = "Blocks" Cref = "IReadOnlyList{TransferBlock}"><summary>Destination-ordered storage blocks in the plan.</summary></property>
+		<property name = "LogicalRanges" Cref = "IReadOnlyList{TransferRangeReference}"><summary>Ordered logical ranges represented by the plan.</summary></property>
+		<property name = "TotalLength" Cref = "Int64"><summary>Total number of logical stream bytes represented by the plan.</summary></property>
+	</record>
+</TransferBlockPlan>

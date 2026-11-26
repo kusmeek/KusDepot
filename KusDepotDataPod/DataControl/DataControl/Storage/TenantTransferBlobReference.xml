@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TenantTransferBlobReference>
+	<record name = "TenantTransferBlobReference">
+		<main><summary>Describes a blob stored in tenant transfer storage.</summary></main>
+		<property name = "BlobName" Cref = "String"><summary>Blob name within the selected tenant container.</summary></property>
+		<property name = "Length" Cref = "Int64"><summary>Stored blob length in bytes.</summary></property>
+		<property name = "SHA512" Cref = "Byte[]"><summary>SHA-512 digest of the stored blob content.</summary></property>
+	</record>
+</TenantTransferBlobReference>

@@ -1,0 +1,53 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IToolHost>
+
+    <interface name = "IToolHost">
+
+        <main>
+
+            <summary>ToolHost Interface.</summary>
+
+            <remarks>This interface defines the operational contracts of the ToolHost.</remarks>
+
+        </main>
+
+        <method name = "GetServices">
+
+            <summary>Get Services.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An AccessKey.</param>
+
+            <returns Cref = "IServiceProvider?">Services.</returns>
+
+        </method>
+
+        <method name = "Run">
+
+            <summary>Run the ToolHost synchronously until it is stopped.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An access key authorized to start and stop a locked ToolHost.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">The timeout for host startup and shutdown; null means no timeout.</param>
+
+            <returns Cref = "Boolean">True if the ToolHost starts and stops successfully; otherwise, false.</returns>
+
+        </method>
+
+        <method name = "RunAsync">
+
+            <summary>Run the ToolHost asynchronously until cancellation or host shutdown.</summary>
+
+            <param name = "key" Cref = "AccessKey?">An access key authorized to start and stop a locked ToolHost.</param>
+
+            <param name = "timeout" Cref = "TimeSpan?">The timeout for host startup and shutdown; null means no timeout.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">A cancellation token that requests host shutdown.</param>
+
+            <returns Cref = "Task{Boolean}">True if the ToolHost starts and stops successfully; otherwise, false.</returns>
+
+        </method>
+
+    </interface>
+
+</IToolHost>

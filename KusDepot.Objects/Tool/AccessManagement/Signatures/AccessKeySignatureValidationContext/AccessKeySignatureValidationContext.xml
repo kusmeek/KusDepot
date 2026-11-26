@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<AccessKeySignatureValidationContext>
+
+    <struct name = "AccessKeySignatureValidationContext">
+
+        <main>
+
+            <summary>Access-key signature validation context.</summary>
+
+            <remarks>
+                Immutable verification input model supplied to access-key signature processors.
+            </remarks>
+
+        </main>
+
+        <constructor name = "Constructor">
+
+            <summary>Create an empty access-key signature validation context.</summary>
+
+            <returns Cref = "AccessKeySignatureValidationContext">Empty access-key signature validation context.</returns>
+
+        </constructor>
+
+        <property name = "AccessKeyRealmID" Cref = "String">
+
+            <summary>Current access-key realm identifier for the verification operation.</summary>
+
+        </property>
+
+        <property name = "Logger" Cref = "ILogger?">
+
+            <summary>Optional logger available to the configured signature processor for diagnostics.</summary>
+
+        </property>
+
+        <property name = "ManifestHash" Cref = "String">
+
+            <summary>Current manifest hash associated with the validation operation.</summary>
+
+        </property>
+
+        <property name = "Signature" Cref = "AccessKeySignatureDescriptor">
+
+            <summary>Parsed outer signature metadata read from the access-key envelope.</summary>
+
+        </property>
+
+        <property name = "SignatureBytes" Cref = "ReadOnlyMemory{Byte}">
+
+            <summary>Raw signature bytes from the access-key envelope.</summary>
+
+        </property>
+
+        <property name = "SignedRegion" Cref = "ReadOnlyMemory{Byte}">
+
+            <summary>Canonical signed-region bytes from the access-key envelope.</summary>
+
+        </property>
+
+        <property name = "ToolSchemaID" Cref = "String">
+
+            <summary>Current tool schema identifier for the verification operation.</summary>
+
+        </property>
+
+    </struct>
+
+</AccessKeySignatureValidationContext>

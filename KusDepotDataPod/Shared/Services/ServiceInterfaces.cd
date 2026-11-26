@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="DataPodServices.CatalogDB.ICatalogDB">
+    <Position X="0.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABCEAAABAAAAAAAAAEAAQAIAAAAAAgAAAAAAEmCAA=</HashCode>
+      <FileName>Services\CatalogDB\ICatalogDB.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataPodServices.DataConfigs.IDataConfigsReaderGrain">
+    <Position X="3" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABABAAACAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DataConfigs\Contracts\IDataConfigsReaderGrain.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataPodServices.DataConfigs.IDataConfigsAdminGrain">
+    <Position X="9.25" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DataConfigs\Contracts\IDataConfigsAdminGrain.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataPodServices.DataConfigs.IDataConfigsRecoveryGrain">
+    <Position X="5.75" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Services\DataConfigs\Contracts\IDataConfigsRecoveryGrain.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

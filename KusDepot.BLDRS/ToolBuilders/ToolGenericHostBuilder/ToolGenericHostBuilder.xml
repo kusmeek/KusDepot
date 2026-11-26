@@ -1,0 +1,113 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ToolGenericHostBuilder>
+
+    <class name = "ToolGenericHostBuilder">
+
+        <main>
+
+            <summary>Build Hosts for Generic Tools.</summary>
+
+        </main>
+
+        <field name = "Link" Cref = "Boolean">
+
+            <summary>True when the Tool host lifetime should also be registered in the managed application host services.</summary>
+
+        </field>
+
+        <field name = "Connect" Cref = "Boolean">
+
+            <summary>True when a shared <see cref="IToolConnect"/> instance should be registered in the managed application host services.</summary>
+
+        </field>
+
+        <field name = "Console" Cref = "Boolean">
+
+            <summary>True when the ToolGenericHost should use console lifetime behavior.</summary>
+
+        </field>
+
+        <field name = "hostbuilder" Cref = "IHostBuilder?">
+
+            <summary>The managed <see cref="IHostBuilder"/> used when host-builder mode is active.</summary>
+
+        </field>
+
+        <field name = "builder" Cref = "HostApplicationBuilder?">
+
+            <summary>The managed <see cref="HostApplicationBuilder"/> used when application-builder mode is active.</summary>
+
+        </field>
+
+        <field name = "ConfigureToolGenericHostActions" Cref = "List{ConfigureToolGenericHostAction}">
+
+            <summary>Ordered ToolGenericHost configuration actions.</summary>
+
+        </field>
+
+        <method name = "CreateApplicationConnection">
+
+            <summary>Create and register the shared connection when application connection is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime; no connection is created when it is absent.</param>
+
+            <returns Cref = "ToolConnect?">The registered connection, or null when connection is disabled or no Tool lifetime is available.</returns>
+
+            <remarks>Registers the connection with the active <see cref="HostApplicationBuilder"/> or <see cref="IHostBuilder"/> service configuration.</remarks>
+
+        </method>
+
+        <method name = "LinkApplicationLifetime">
+
+            <summary>Register the Tool host lifetime in managed generic host services when lifetime linking is enabled.</summary>
+
+            <param name = "lifetime" Cref = "IToolHostLifetime?">The Tool host lifetime to register.</param>
+
+            <remarks>Does nothing when linking is disabled or no Tool lifetime is available. Registration supports both generic host builder modes.</remarks>
+
+        </method>
+
+        <method name = "configuretoolgenerichost">
+
+            <summary>Execute Tool Generic Host Configuration Actions.</summary>
+
+            <param name = "toolgenerichost" Cref = "IToolGenericHost">Built ToolGenericHost.</param>
+
+        </method>
+
+        <method name = "configuretoolgenerichostasync">
+
+            <summary>Execute ToolGenericHost configuration actions asynchronously.</summary>
+
+            <param name = "toolgenerichost" Cref = "IToolGenericHost">Built ToolGenericHost.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+            <returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+        </method>
+
+        <method name = "ConfigureToolGenericHost_NoSync">
+
+            <summary>Add a tool generic host configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Action{ToolBuilderContext,IToolGenericHost}">Configuration action.</param>
+
+            <remarks>Registers a synchronous ToolGenericHost-configuration step in the shared ordered ToolGenericHost-configuration pipeline.</remarks>
+
+        </method>
+
+        <method name = "ConfigureToolGenericHostAsync_NoSync">
+
+            <summary>Add an async ToolGenericHost configuration action without acquiring the builder synchronization semaphore.</summary>
+
+            <param name = "action" Cref = "Func{ToolBuilderContext,IToolGenericHost,CancellationToken,Task}">Async configuration action.</param>
+
+            <remarks>Registers an asynchronous ToolGenericHost-configuration step in the shared ordered ToolGenericHost-configuration pipeline.</remarks>
+
+        </method>
+
+    </class>
+
+</ToolGenericHostBuilder>

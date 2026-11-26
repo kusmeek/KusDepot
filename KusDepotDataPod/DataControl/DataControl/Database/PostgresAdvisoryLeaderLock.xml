@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PostgresAdvisoryLeaderLock>
+  <class name="PostgresAdvisoryLeaderLock">
+	<main><summary>Provides named PostgreSQL session-level advisory-lock leases for singleton background workers.</summary></main>
+	<field name="dataSource" Cref="NpgsqlDataSource"><summary>Data source used to open dedicated PostgreSQL sessions that hold leadership locks.</summary></field>
+	<constructor name="PostgresAdvisoryLeaderLock"><summary>Initializes the provider with the DataControl PostgreSQL data source.</summary><param name="dataSource" Cref="NpgsqlDataSource">Data source for dedicated lock sessions.</param></constructor>
+	<method name="TryAcquireAsync"><summary>Attempts to acquire the deterministic lock for the supplied name without waiting.</summary><param name="lockName" Cref="String">Stable name identifying one worker's leadership lock.</param><param name="cancel" Cref="CancellationToken">Token that cancels connection opening or lock acquisition.</param><returns Cref="Task{IPostgresAdvisoryLeaderLease}">The lease when acquired; otherwise, null.</returns></method>
+  </class>
+	<class name="AdvisoryLockLease">
+	<main><summary>Holds the dedicated database connection that owns one named advisory leadership lock.</summary><param name="connection" Cref="NpgsqlConnection">Open connection that owns the session-level lock.</param><param name="lockKey" Cref="Int64">Deterministic PostgreSQL advisory-lock key.</param><param name="lockName" Cref="String">Stable name used to identify the lock in lease-loss errors.</param></main>
+	<field name="connection" Cref="NpgsqlConnection"><summary>Dedicated PostgreSQL connection that owns the session-level advisory lock.</summary></field>
+	<method name="VerifyAsync"><summary>Verifies the lock-owning connection is still usable and reports loss of leadership on database failure.</summary><param name="cancel" Cref="CancellationToken">Token that cancels verification.</param></method>
+	<method name="DisposeAsync"><summary>Attempts to release the advisory lock and disposes its dedicated connection.</summary><returns Cref="ValueTask">Asynchronous cleanup operation.</returns></method>
+  </class>
+  <interface name="IPostgresAdvisoryLeaderLock">
+	<main><summary>Acquires named PostgreSQL advisory-lock leases for singleton workers.</summary></main>
+	<method name="TryAcquireAsync"><summary>Attempts to acquire the named leadership lease without waiting.</summary><param name="lockName" Cref="String">Stable worker lock name.</param><param name="cancel" Cref="CancellationToken">Cancellation token.</param><returns Cref="Task{IPostgresAdvisoryLeaderLease}">The lease when acquired; otherwise, null.</returns></method>
+  </interface>
+  <interface name="IPostgresAdvisoryLeaderLease">
+	<main><summary>Represents leadership held by a PostgreSQL session-level advisory lock.</summary></main>
+	<method name="VerifyAsync"><summary>Checks that the lock-owning database connection remains available.</summary><param name="cancel" Cref="CancellationToken">Token that cancels verification.</param></method>
+	<method name="DisposeAsync"><summary>Releases leadership and disposes its dedicated database connection.</summary><returns Cref="ValueTask">Asynchronous release operation.</returns></method>
+  </interface>
+</PostgresAdvisoryLeaderLock>

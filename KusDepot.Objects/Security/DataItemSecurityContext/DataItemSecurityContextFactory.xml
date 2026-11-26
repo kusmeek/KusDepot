@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemSecurityContextFactory>
+
+    <class name = "DataItemSecurityContextFactory">
+
+        <main>
+
+            <summary>Factory entry points for building `DataItemSecurityContext` values.</summary>
+
+            <remarks>
+                The factory keeps the primary creation flow object-centric by rooting all builder creation in a local object identity and certificate.
+            </remarks>
+
+        </main>
+
+        <method name = "ForObject">
+
+            <summary>Create a `DataItemSecurityContextBuilder` for a local object identifier and certificate.</summary>
+
+            <param name = "objectid" Cref = "Guid">Local object identifier.</param>
+
+            <param name = "certificate" Cref = "X509Certificate2">Local certificate containing the private key material used by the caller.</param>
+
+            <param name = "displayname" Cref = "String?">Optional descriptive display name for the local object.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">A builder rooted in the supplied local object identity.</returns>
+
+        </method>
+
+        <method name = "ForDataSecurityObject">
+
+            <summary>Create a `DataItemSecurityContextBuilder` from an existing `DataSecurityObject` value.</summary>
+
+            <param name = "localobject" Cref = "DataSecurityObject">Local object identity and certificate.</param>
+
+            <returns Cref = "DataItemSecurityContextBuilder">A builder rooted in the supplied local object.</returns>
+
+        </method>
+
+    </class>
+
+</DataItemSecurityContextFactory>

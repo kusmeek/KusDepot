@@ -1,0 +1,167 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<LifeCycleStateMachine>
+
+    <class name = "LifeCycleStateMachine">
+
+        <main>
+
+            <summary>LifeCycle State Machine.</summary>
+
+        </main>
+
+        <field name = "StateSync" Cref = "Object">
+
+            <summary>Stable synchronization gate for lifecycle state access and transitions.</summary>
+
+        </field>
+
+        <field name = "state" Cref = "LifeCycleState">
+
+            <summary>Backing field for the current lifecycle state.</summary>
+
+        </field>
+
+        <field name = "startedadmitted" Cref = "Boolean">
+
+            <summary>Indicates whether the current Active lifecycle cycle has admitted its terminal Started callback.</summary>
+
+        </field>
+
+        <field name = "stoppedadmitted" Cref = "Boolean">
+
+            <summary>Indicates whether the current InActive lifecycle cycle has admitted its terminal Stopped callback.</summary>
+
+        </field>
+
+        <property name = "State">
+
+            <summary>Current State.</summary>
+
+            <returns Cref = "LifeCycleState">Current State.</returns>
+
+        </property>
+
+        <property name = "ToolID">
+
+            <summary>Tool ID.</summary>
+
+            <returns Cref = "LifeCycleState">Tool ID.</returns>
+
+        </property>
+
+        <constructor name = "Constructor">
+
+            <summary>Constructor</summary>
+
+            <param name = "toolid" Cref ="Guid?">Tool ID.</param>
+
+            <returns Cref = "LifeCycleStateMachine">LifeCycleStateMachine</returns>
+
+        </constructor>
+
+        <method name = "TrySetState">
+
+            <summary>Atomically validate and set a permitted lifecycle state.</summary>
+
+            <param name = "target" Cref = "LifeCycleState">Target lifecycle state.</param>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the entry attempt.</param>
+
+            <param name = "allowcurrent" Cref = "Boolean">Whether the operation succeeds when the target state is already current.</param>
+
+            <returns Cref = "Boolean">True when the target state is entered or already current when allowed.</returns>
+
+        </method>
+
+        <method name = "SetState">
+
+            <summary>Atomically assign a permitted lifecycle state and reset terminal callback admission for a new lifecycle phase.</summary>
+
+            <param name = "target" Cref = "LifeCycleState">Target lifecycle state.</param>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the entry attempt.</param>
+
+            <param name = "allowcurrent" Cref = "Boolean">Whether the operation succeeds when the target state is already current.</param>
+
+            <returns Cref = "Boolean">True when the target lifecycle state is assigned.</returns>
+
+        </method>
+
+        <method name = "TryAdmitOperation">
+
+            <summary>Atomically determine whether a lifecycle operation may proceed.</summary>
+
+            <param name = "operation" Cref = "LifeCycleOperation">Lifecycle operation to evaluate.</param>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the operation was evaluated.</param>
+
+            <returns Cref = "LifeCycleOperationResult">The result of the lifecycle operation admission.</returns>
+
+        </method>
+
+        <method name = "TryInitialize">
+
+            <summary>Atomically enter or continue in the Initialized state when the lifecycle permits initialization.</summary>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the entry attempt.</param>
+
+            <returns Cref = "Boolean">True when the Initialized state is entered or is already current.</returns>
+
+        </method>
+
+        <method name = "TryActivate">
+
+            <summary>Atomically enter the Active state when the lifecycle permits activation.</summary>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the entry attempt.</param>
+
+            <returns Cref = "Boolean">True when the Active state is entered.</returns>
+
+        </method>
+
+        <method name = "CommandChangeOK">
+
+            <summary>Determine if OK to change commands.</summary>
+
+            <returns Cref = "Boolean">True if OK to change commands.</returns>
+
+        </method>
+
+        <method name = "TryDeactivate">
+
+            <summary>Atomically enter the InActive state when the lifecycle permits deactivation.</summary>
+
+            <param name = "previous" Cref = "LifeCycleState">The state before the entry attempt.</param>
+
+            <returns Cref = "Boolean">True when the InActive state is entered.</returns>
+
+        </method>
+
+        <method name = "HostedServicesChangeOK">
+
+            <summary>Determine if OK to change hosted services.</summary>
+
+            <returns Cref = "Boolean">True if OK to change hosted services.</returns>
+
+        </method>
+
+        <method name = "InitializeOK">
+
+            <summary>Determine if OK to begin or continue Initialize.</summary>
+
+            <returns Cref = "Boolean">True if OK to begin Initialize.</returns>
+
+        </method>
+
+        <method name = "ToError">
+
+            <summary>Force a change to Error.</summary>
+
+            <returns Cref = "Boolean">True if State changed to Error.</returns>
+
+        </method>
+
+    </class>
+
+</LifeCycleStateMachine>

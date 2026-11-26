@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IssuerMatchStage>
+
+	<class name = "IssuerMatchStage">
+
+		<main>
+
+			<summary>Issuer-match access-policy stage.</summary>
+
+			<remarks>
+				Denies issuer-only keys when either the issuing AccessManager or Tool does not match the current evaluator.
+			</remarks>
+
+		</main>
+
+		<property name = "Instance" Cref = "IssuerMatchStage">
+
+			<summary>Singleton issuer-match stage instance.</summary>
+
+		</property>
+
+		<constructor name = "Constructor">
+
+			<summary>Create an issuer-match access-policy stage.</summary>
+
+			<returns Cref = "IssuerMatchStage">Issuer-match access-policy stage.</returns>
+
+		</constructor>
+
+		<method name = "Evaluate">
+
+			<summary>Evaluate whether issuer-only key claims match the current AccessManager and Tool.</summary>
+
+			<param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+			<returns Cref = "AccessPolicyDecision">Deny when an issuer-only key does not match both current issuer identities; otherwise allow.</returns>
+
+		</method>
+
+		<method name = "EvaluateAsync">
+
+			<summary>Evaluate asynchronously whether issuer-only key claims match the current AccessManager and Tool.</summary>
+
+			<param name = "context" Cref = "AccessPolicyContext">Access-policy evaluation context.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the asynchronous stage evaluation.</param>
+
+			<returns Cref = "ValueTask{AccessPolicyDecision}">Deny when an issuer-only key does not match both current issuer identities; otherwise allow.</returns>
+
+		</method>
+
+	</class>
+
+</IssuerMatchStage>

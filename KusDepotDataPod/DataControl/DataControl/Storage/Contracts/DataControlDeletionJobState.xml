@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataControlDeletionJobState>
+  <enum name="DataControlDeletionProgress">
+	<main><summary>Ordered durable deletion-job stages used to resume cleanup after interruption.</summary></main>
+	<field name="CatalogPending"><summary>The catalog item is pending deletion and token-scoped artifacts remain to be removed.</summary></field>
+	<field name="PublishedArtifactsRemoved"><summary>Published artifacts for the item instance have been removed.</summary></field>
+	<field name="TransferStateRemoved"><summary>Transfer sessions and publication journals for the item instance have been removed.</summary></field>
+  </enum>
+  <record name="DataControlDeletionJobState">
+	<main><summary>Persisted deletion progress and retry state for one catalog item instance.</summary></main>
+	<property name="CatalogName" Cref="String"><summary>Catalog that owns the item.</summary></property>
+	<property name="ItemID" Cref="Guid"><summary>Item identifier.</summary></property>
+	<property name="ItemInstanceToken" Cref="Guid"><summary>Token identifying this continuous item instance and distinguishing jobs when an item ID is reused.</summary></property>
+	<property name="Progress" Cref="DataControlDeletionProgress"><summary>Current durable deletion stage.</summary></property>
+	<property name="LastError" Cref="String"><summary>Most recent failure detail, if an attempt failed.</summary></property>
+	<property name="AttemptCount" Cref="Int32"><summary>Total number of recorded failed attempts.</summary></property>
+	<property name="LastAttempt" Cref="DateTimeOffset"><summary>UTC time of the most recent attempt, if one has run.</summary></property>
+	<property name="NextAttempt" Cref="DateTimeOffset"><summary>UTC time when retry is next due, or null when immediately eligible.</summary></property>
+	<property name="Created" Cref="DateTimeOffset"><summary>UTC time when the job was first created.</summary></property>
+	<property name="Updated" Cref="DateTimeOffset"><summary>UTC time when the job was last changed.</summary></property>
+  </record>
+</DataControlDeletionJobState>

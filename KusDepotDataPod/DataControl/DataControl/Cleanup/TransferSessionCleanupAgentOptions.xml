@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferSessionCleanupAgentOptions>
+	<class name = "TransferSessionCleanupAgentOptions">
+		<main><summary>Configures the inactivity retention period, leader identity, cleanup polling interval, startup jitter, and candidate page size for transfer-session cleanup.</summary></main>
+		<field name = "LeaderLockName" Cref = "String"><summary>Stable PostgreSQL advisory-lock name used to elect one transfer-session cleanup leader.</summary></field>
+		<property name = "InactivityTimeout" Cref = "TimeSpan"><summary>Gets or sets the inactivity age after which a transfer session can be considered for cleanup.</summary></property>
+		<property name = "PollingInterval" Cref = "TimeSpan"><summary>Gets or sets the interval between cleanup scans by the elected leader.</summary></property>
+		<property name = "LeaderRetryInterval" Cref = "TimeSpan"><summary>Gets or sets the maximum randomized delay before a follower retries acquiring cleanup leadership.</summary></property>
+		<property name = "InitialJitterMaximum" Cref = "TimeSpan"><summary>Gets or sets the maximum randomized delay before the first cleanup scan.</summary></property>
+		<property name = "CandidatePageSize" Cref = "Int32"><summary>Gets or sets the maximum number of stale candidate rows loaded per page.</summary></property>
+	</class>
+</TransferSessionCleanupAgentOptions>

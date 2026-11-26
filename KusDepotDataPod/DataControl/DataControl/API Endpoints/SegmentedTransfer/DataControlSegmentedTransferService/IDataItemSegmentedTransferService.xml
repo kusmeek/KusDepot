@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<IDataItemSegmentedTransferService>
+  <interface name="IDataItemSegmentedTransferService">
+	<main>
+	  <summary>Coordinates segmented transfer session operations on top of staged DataServices storage.</summary>
+	</main>
+	<method name="OpenUploadTransfer">
+		<summary>Open a new staged segmented upload session.</summary>
+		<param name="request" Cref="OpenUploadTransferRequest">Open request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{OpenUploadTransferResponse}">Open response containing the initial session state.</returns>
+	</method>
+	<method name="GetTransferIntegrityEvidence">
+		<summary>Load canonical integrity evidence covering an exact requested prefix of a segmented transfer.</summary>
+		<param name="request" Cref="GetTransferIntegrityEvidenceRequest">Integrity evidence request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{GetTransferIntegrityEvidenceResponse}">Authoritative prefix integrity and its source segment evidence.</returns>
+	</method>
+	<method name="OpenGetTransfer">
+		<summary>Open a new readable segmented session over published content.</summary>
+		<param name="request" Cref="OpenGetTransferRequest">Open request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{OpenGetTransferResponse}">Open response containing the initial readable session state.</returns>
+	</method>
+	<method name="ReOpenUploadTransfer">
+		<summary>Reattach to an existing staged segmented upload session.</summary>
+		<param name="request" Cref="ReOpenUploadTransferRequest">Reopen request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{ReOpenUploadTransferResponse}">Reopen response containing the current session state.</returns>
+	</method>
+	<method name="ReOpenGetTransfer">
+		<summary>Reattach to an existing readable segmented session.</summary>
+		<param name="request" Cref="ReOpenGetTransferRequest">Reopen request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{ReOpenGetTransferResponse}">Reopen response containing the current readable session state.</returns>
+	</method>
+	<method name="GetTransferState">
+		<summary>Get the current transfer state for a staged segmented session.</summary>
+		<param name="identity" Cref="DataItemTransferIdentity">Transfer identity.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{GetTransferStateResponse}">Current transfer state response.</returns>
+	</method>
+	<method name="PutTransferSegment">
+		<summary>Validate and upload a segmented payload range for an existing staged session.</summary>
+		<param name="request" Cref="PutTransferSegmentRequest">Segment write request metadata.</param>
+		<param name="payload" Cref="Stream">Readable segment payload stream positioned at the first byte to upload.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{PutTransferSegmentResponse}">Segment write response.</returns>
+	</method>
+	<method name="GetTransferSegment">
+		<summary>Read a realized segmented payload range from an existing staged session.</summary>
+		<param name="request" Cref="GetTransferSegmentRequest">Segment read request metadata.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{SegmentedTransferReadResult}">Segment footer metadata plus a readable payload stream.</returns>
+	</method>
+	<method name="GetSessions">
+		<summary>Enumerate retained segmented transfer sessions that match the optional filters.</summary>
+		<param name="request" Cref="GetTransferSessionsRequest">Optional session filters.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{DataControlServerSessionInfo[]}">Matching segmented transfer sessions.</returns>
+	</method>
+	<method name="AbortTransfer">
+		<summary>Abort an open or complete segmented upload session and delete its staged artifacts. Other modes and states conflict.</summary>
+		<param name="request" Cref="AbortTransferRequest">Abort request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{AbortTransferResponse}">Abort response.</returns>
+	</method>
+	<method name="BeginPublishSegmentedTransfer">
+		<summary>Validate a fully realized staged segmented upload and transition it into the frozen publishing state before external publication begins.</summary>
+		<param name="request" Cref="PublishSegmentedTransferRequest">Publication request.</param>
+		<param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{PublishSegmentedTransferResponse}">Response containing the frozen publishing session state prepared for publication.</returns>
+	</method>
+	<method name="ValidateBeginPublishSegmentedTransfer">
+		<summary>Validate a segmented publication request against the current session without changing its state. Call while holding the mutation scope before creating a publication journal.</summary>
+		<param name="request" Cref="PublishSegmentedTransferRequest">Publication request.</param>
+		<param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task">A task representing the validation operation.</returns>
+	</method>
+	<method name="RemoveTransfer">
+		<summary>Remove retained transfer session artifacts when the session is Complete or Published, unless dependent staged-read or stream-follow sessions still reference it. Other states conflict.</summary>
+		<param name="request" Cref="RemoveTransferRequest">Remove request.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{RemoveTransferResponse}">Remove response.</returns>
+	</method>
+	<method name="FinishPublishSegmentedTransfer">
+		<summary>Finalize a previously begun segmented publish after external publish has succeeded.</summary>
+		<param name="identity" Cref="DataItemTransferIdentity">Transfer identity for the publishing upload session.</param>
+		<param name="scope" Cref="ITransferMutationScope">Mutation scope owning the item and session locks.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{PublishSegmentedTransferResponse}">Final published response for the retained upload session.</returns>
+	</method>
+	<method name="SessionExists">
+		<summary>Determine whether a retained segmented transfer session exists for the supplied identity.</summary>
+		<param name="identity" Cref="DataItemTransferIdentity">Transfer identity.</param>
+		<param name="cancel" Cref="CancellationToken">Cancellation token.</param>
+		<returns Cref="Task{Boolean}">True when the segmented session exists and matches the supplied item.</returns>
+	</method>
+  </interface>
+</IDataItemSegmentedTransferService>

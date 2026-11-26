@@ -1,0 +1,37 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataItemHelpers>
+
+    <class name = "DataItemHelpers">
+
+        <main>
+
+            <summary>DataItem helper extensions.</summary>
+
+        </main>
+
+        <method name = "TryDistinctByID">
+            <summary>Builds a set of items distinct by their ID.</summary>
+            <param name = "items">Input sequence of DataItem instances.</param>
+            <param name = "result">Resulting HashSet containing one item per ID, or null on failure.</param>
+            <returns>True on success; false on null input or failure.</returns>
+        </method>
+
+        <method name = "TryCloneDistinctByID">
+            <summary>Clones items and builds a set distinct by their ID. Returns false if any distinct item cannot be cloned.</summary>
+            <param name = "items">Input sequence of DataItem instances.</param>
+            <param name = "result">Resulting HashSet of cloned items with distinct IDs, or null if cloning fails.</param>
+            <returns>True if every distinct item was cloned; false on null input or any failure.</returns>
+        </method>
+
+        <method name = "TryAddByID">
+            <summary>Clones and adds items to a target set when their ID is not already present. The target is unchanged if cloning or addition fails.</summary>
+            <param name = "target">Target HashSet to receive new items.</param>
+            <param name = "items">Items to add to the target by unique ID.</param>
+            <param name = "added">The count of items added to the target, or zero on failure.</param>
+            <returns>True if all eligible items were cloned and added; false on null input or failure.</returns>
+        </method>
+
+    </class>
+
+</DataItemHelpers>

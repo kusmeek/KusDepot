@@ -1,0 +1,141 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataFieldAssertionData>
+
+    <struct name = "DataFieldAssertionData">
+
+        <main>
+
+            <summary>Canonical signed payload for a `DataItem` field assertion.</summary>
+
+            <remarks>
+                This payload binds a specific `DataItem` field representation, hash, issuer identity, and optional descriptive metadata into a canonical structure suitable for signing and detached verification.
+
+                <para>Only the current active field state is intended to be represented by an assertion payload. Stale assertions should be replaced rather than accumulated as history in the core `DataItem` model.</para>
+
+                <para>The canonical binary layout is owned by `DataFieldAssertionFactory` and is stable by field order rather than by JSON property order.</para>
+            </remarks>
+
+        </main>
+
+        <property name = "Version" Cref = "Byte">
+
+            <summary>Assertion data version.</summary>
+
+        </property>
+
+        <property name = "AssertionId" Cref = "Guid">
+
+            <summary>Unique identifier for the assertion payload.</summary>
+
+        </property>
+
+        <property name = "DataItemId" Cref = "Guid">
+
+            <summary>Identifier of the `DataItem` whose field is covered by the assertion.</summary>
+
+        </property>
+
+        <property name = "Field" Cref = "String">
+
+            <summary>Name of the asserted field.</summary>
+
+        </property>
+
+        <property name = "FieldState" Cref = "DataFieldState">
+
+            <summary>Representation state covered by the assertion.</summary>
+
+        </property>
+
+        <property name = "HashAlgorithm" Cref = "DataFieldHashAlgorithm">
+
+            <summary>Hash algorithm used to produce the asserted hash value.</summary>
+
+        </property>
+
+        <property name = "Hash" Cref = "Byte[]">
+
+            <summary>Hash bytes for the asserted field representation.</summary>
+
+        </property>
+
+        <property name = "IssuerObjectId" Cref = "Guid">
+
+            <summary>Object identifier of the signer issuing the assertion.</summary>
+
+        </property>
+
+        <property name = "SubjectObjectId" Cref = "Guid?">
+
+            <summary>Optional subject object identifier carried by the assertion.</summary>
+
+        </property>
+
+        <property name = "CreatedAt" Cref = "DateTimeOffset">
+
+            <summary>Creation instant of the assertion payload.</summary>
+
+        </property>
+
+        <property name = "NotBefore" Cref = "DateTimeOffset?">
+
+            <summary>Optional earliest validity instant for the assertion.</summary>
+
+        </property>
+
+        <property name = "ExpiresAt" Cref = "DateTimeOffset?">
+
+            <summary>Optional expiration instant for the assertion.</summary>
+
+        </property>
+
+        <property name = "Purpose" Cref = "String?">
+
+            <summary>Optional descriptive purpose metadata carried with the assertion.</summary>
+
+        </property>
+
+        <property name = "Thumbprint" Cref = "String">
+
+            <summary>Thumbprint of the certificate expected to verify the signed assertion.</summary>
+
+        </property>
+
+        <method name = "Create">
+
+            <summary>Create a canonical assertion payload value.</summary>
+
+            <param name = "dataitemid" Cref = "Guid">Identifier of the asserted `DataItem`.</param>
+
+            <param name = "field" Cref = "String">Name of the asserted field.</param>
+
+            <param name = "fieldstate" Cref = "DataFieldState">Representation state covered by the assertion.</param>
+
+            <param name = "hashalgorithm" Cref = "DataFieldHashAlgorithm">Hash algorithm used for the asserted hash value.</param>
+
+            <param name = "hash" Cref = "Byte[]">Hash bytes for the asserted field representation.</param>
+
+            <param name = "issuerobjectid" Cref = "Guid">Object identifier of the signer issuing the assertion.</param>
+
+            <param name = "thumbprint" Cref = "String">Thumbprint of the certificate expected to verify the assertion.</param>
+
+            <param name = "subjectobjectid" Cref = "Guid?">Optional subject object identifier.</param>
+
+            <param name = "purpose" Cref = "String?">Optional descriptive purpose metadata.</param>
+
+            <param name = "createdat" Cref = "DateTimeOffset?">Optional creation instant.</param>
+
+            <param name = "notbefore" Cref = "DateTimeOffset?">Optional earliest validity instant.</param>
+
+            <param name = "expiresat" Cref = "DateTimeOffset?">Optional expiration instant.</param>
+
+            <param name = "assertionid" Cref = "Guid?">Optional assertion identifier.</param>
+
+            <returns Cref = "DataFieldAssertionData">A new canonical assertion payload value.</returns>
+
+        </method>
+
+    </struct>
+
+</DataFieldAssertionData>

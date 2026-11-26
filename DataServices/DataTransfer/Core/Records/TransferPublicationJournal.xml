@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+
+<TransferPublicationJournal>
+	<record name = "TransferPublicationJournal">
+		<main><summary>Durable state record for recovering a transfer publication across process failures.</summary></main>
+		<property name = "Created" Cref = "DateTimeOffset"><summary>UTC timestamp when the publication journal was created.</summary></property>
+		<property name = "ExpectedStateVersion" Cref = "Int64"><summary>Transfer-session state version expected when the publication operation began.</summary></property>
+		<property name = "CatalogName" Cref = "String"><summary>Configured catalog name used to resolve current publication storage credentials.</summary></property>
+		<property name = "Family" Cref = "TransferPublicationFamily"><summary>Transfer family whose publication operation is being recovered.</summary></property>
+		<property name = "FinalObjectInfo" Cref = "DataItemTransferObjectInfo?"><summary>Optional final object metadata supplied for stream completion.</summary></property>
+		<property name = "FinalObjectPayload" Cref = "Byte[]"><summary>Optional final serialized object payload supplied for stream completion.</summary></property>
+		<property name = "FinalStreamLength" Cref = "Int64?"><summary>Optional final stream length supplied for stream completion.</summary></property>
+		<property name = "Integrity" Cref = "TransferContentIntegrity?"><summary>Optional server-authoritative ordered integrity summary captured for the publication.</summary></property>
+		<property name = "FailureCount" Cref = "Int32"><summary>Cumulative number of recovery failures recorded for this operation.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Immutable data item identifier associated with the publication.</summary></property>
+		<property name = "ItemInstanceToken" Cref = "Guid"><summary>Catalog-owned item instance token associated with the publication.</summary></property>
+		<property name = "LastError" Cref = "String?"><summary>Most recent recoverable error associated with the publication operation.</summary></property>
+		<property name = "OperationID" Cref = "Guid"><summary>Stable identifier for the publication operation across retries and process restarts.</summary></property>
+		<property name = "Phase" Cref = "TransferPublicationPhase"><summary>Durable phase reached by the publication workflow.</summary></property>
+		<property name = "SessionID" Cref = "Guid"><summary>Transfer session identifier associated with the publication.</summary></property>
+		<property name = "Updated" Cref = "DateTimeOffset"><summary>UTC timestamp when the journal was most recently updated.</summary></property>
+	</record>
+</TransferPublicationJournal>

@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IAccessKeySigner>
+
+    <interface name = "IAccessKeySigner">
+
+        <main>
+
+            <summary>Synchronous access-key signer contract.</summary>
+
+            <remarks>
+                Supplies signing metadata and produces signature bytes for signed access-key envelope creation.
+            </remarks>
+
+        </main>
+
+        <method name = "GetSigningInfo">
+
+            <summary>Get the signing metadata required for signed access-key envelope creation.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation, including diagnostics infrastructure and any currently known issuance facts.</param>
+
+            <returns Cref = "AccessKeySignatureInfo">Signing metadata for the current signer configuration.</returns>
+
+        </method>
+
+        <method name = "TrySign">
+
+            <summary>Try to sign a canonical access-key envelope byte region into the supplied signature buffer.</summary>
+
+            <param name = "context" Cref = "AccessKeySignatureSigningContext">Signing context for the current operation, including the canonical signed-region bytes and optional logger.</param>
+
+            <param name = "signature" Cref = "Span{Byte}">Destination signature buffer sized according to <see cref="M:KusDepot.Security.Signatures.IAccessKeySigner.GetSigningInfo(KusDepot.Security.Signatures.AccessKeySignatureSigningContext)"/>.</param>
+
+            <param name = "written" Cref = "Int32">Number of signature bytes written to the destination buffer.</param>
+
+            <returns Cref = "Boolean">True when signing succeeded; otherwise false.</returns>
+
+        </method>
+
+    </interface>
+
+</IAccessKeySigner>

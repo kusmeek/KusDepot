@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TransferIntegrityEvidenceBuilder>
+	<class name = "TransferIntegrityEvidenceBuilder">
+		<main><summary>Builds integrity evidence for a requested prefix from persisted source segment hashes.</summary><remarks>Complete source segments retain their persisted hashes. When a prefix ends partway through a source segment, the partial segment is re-read and hashed while the entire source segment is verified against its persisted digest. The resulting prefix segments are passed to the domain-separated integrity calculator.</remarks></main>
+		<method name = "BuildAsync" Cref = "Task{ValueTuple{TransferContentIntegrity,TransferContentIntegritySegment[]}?}">
+			<summary>Builds an integrity summary and canonical segments covering the requested prefix.</summary>
+			<param name = "sourceSegments" Cref = "IEnumerable{TransferContentIntegritySegment}">Persisted source segment evidence; segments must provide contiguous coverage from offset zero.</param>
+			<param name = "prefixLength" Cref = "Int64">Length of the prefix to cover.</param>
+			<param name = "hashPartialSegment" Cref = "Func{TransferContentIntegritySegment,Int64,CancellationToken,Task{Byte[]}}">Callback used to hash a source segment when the requested prefix ends inside it.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for partial-segment reads.</param>
+			<returns>A tuple containing the computed integrity summary and prefix segments, or null when the evidence is malformed, incomplete, or cannot provide a required partial-segment hash.</returns>
+		</method>
+		<method name = "HashPartialSegmentAsync" Cref = "Task{Byte[]}">
+			<summary>Hashes a prefix of a source segment and verifies the full source segment against its persisted SHA-512 digest.</summary>
+			<param name = "segment" Cref = "TransferContentIntegritySegment">Persisted source segment, including its offset, full length, and SHA-512 digest.</param>
+			<param name = "prefixLength" Cref = "Int64">Number of leading bytes in the segment to hash for the returned prefix digest.</param>
+			<param name = "openSegment" Cref = "Func{DataItemTransferRange,CancellationToken,Task{Stream}}">Callback that opens the full source segment range.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for opening and reading the source segment.</param>
+			<returns>The SHA-512 digest of the requested leading bytes.</returns>
+			<exception cref = "ArgumentException">The source segment or requested partial length is invalid.</exception>
+			<exception cref = "IOException">The source segment cannot be opened.</exception>
+			<exception cref = "EndOfStreamException">The opened source segment ends before its declared length.</exception>
+			<exception cref = "InvalidDataException">The full segment bytes do not match the persisted SHA-512 digest.</exception>
+		</method>
+	</class>
+</TransferIntegrityEvidenceBuilder>

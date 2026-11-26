@@ -1,0 +1,3 @@
+name: KusDepotDataPod.Infrastructure
+description: Infrastructure for the KusDepot DataPod
+runtime: dotnet

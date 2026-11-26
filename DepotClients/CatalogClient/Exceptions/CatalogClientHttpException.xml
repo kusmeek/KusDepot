@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<CatalogClientHttpException>
+
+	<class name = "CatalogClientHttpException">
+
+		<main>
+
+			<summary>HTTP error returned by a Catalog request made by a CatalogClient iterator.</summary>
+
+		</main>
+
+		<property name = "ResponseBody">
+
+			<summary>Gets the raw response body returned by Catalog.</summary>
+
+		</property>
+
+		<property name = "ResponseStatusCode">
+
+			<summary>Gets the HTTP status code returned by Catalog.</summary>
+
+		</property>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes a CatalogClientHttpException.</summary>
+
+			<param name = "statusCode">The HTTP status code returned by Catalog.</param>
+
+			<param name = "responseBody">The raw response body returned by Catalog.</param>
+
+		</constructor>
+
+	</class>
+
+</CatalogClientHttpException>

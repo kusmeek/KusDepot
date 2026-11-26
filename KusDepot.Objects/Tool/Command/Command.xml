@@ -1,0 +1,392 @@
+﻿<?xml version = "1.0" encoding = "utf-8" ?>
+
+<Command>
+
+    <class name = "Command">
+
+        <main>
+
+            <summary>Dynamic Activity Plugin.</summary>
+
+            <remarks>Functional specialization. Registered via Tool.RegisterCommand and invoked via Tool.ExecuteCommand.
+            Commands that inherit the public execution methods use the structured template: the Command owns registration, task tracking, terminal result application, logging, and cleanup. A derived type that overrides a public execution method bypasses these guarantees and owns the complete execution lifecycle. Long-running asynchronous tasks are tracked via Activities.</remarks>
+
+        </main>
+
+        <field name = "Activities" Cref = "List{Activity}?">
+
+            <summary>Activities.</summary>
+
+        </field>
+
+        <field name = "AttachedTool" Cref = "ITool?">
+
+            <summary>Attached Tool.</summary>
+
+        </field>
+
+        <field name = "enabled" Cref = "Boolean">
+
+            <summary>True if Command enabled.</summary>
+
+        </field>
+
+        <field name = "Key" Cref = "CommandKey?">
+
+            <summary>Command Key.</summary>
+
+        </field>
+
+        <property name = "ExecutionMode" Cref = "CommandExecutionMode">
+
+            <summary>Command execution configuration.</summary>
+
+        </property>
+
+        <constructor name = "ParameterlessConstructor">
+
+            <summary>Parameterless Constructor.</summary>
+
+        </constructor>
+
+        <method name = "AccessCheck">
+
+            <summary>Access Check.</summary>
+
+            <param name = "key" Cref = "CommandKey?">Key.</param>
+
+            <returns Cref = "Boolean">True if access is granted.</returns>
+
+        </method>
+
+        <method name = "CreateCanceledResult">
+
+            <summary>Creates the terminal result used when command core execution throws an OperationCanceledException.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity whose timeout state determines cancellation classification.</param>
+
+            <param name = "exception" Cref = "OperationCanceledException">Cancellation exception to preserve.</param>
+
+            <returns Cref = "CommandResult">A Canceled or TimedOut result containing the original exception.</returns>
+
+            <remarks>The default implementation classifies the result as TimedOut when <see cref="Activity.IsTimedOut"/> returns true; otherwise it classifies the result as Canceled.</remarks>
+
+        </method>
+
+        <method name = "CreateFaultedResult">
+
+            <summary>Creates the terminal result used when command core execution throws an unexpected exception.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity associated with the execution.</param>
+
+            <param name = "exception" Cref = "Exception">Exception to preserve.</param>
+
+            <returns Cref = "CommandResult">A Faulted result containing the original exception.</returns>
+
+        </method>
+
+        <method name = "ExecuteCore">
+
+            <summary>Performs synchronous command work and returns its structured terminal result.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity associated with this execution.</param>
+
+            <param name = "key" Cref = "CommandKey?">Optional command key supplied for execution.</param>
+
+            <returns Cref = "CommandResult">The terminal result to publish.</returns>
+
+            <remarks>Override this method when synchronous execution is enabled. The base execution template translates OperationCanceledException and unexpected exceptions, publishes requested output, sets the ActivityRecord, logs the outcome, and performs cleanup. This hook does not fall back to ExecuteCoreAsync.</remarks>
+
+            <exception cref = "NotImplementedException">The command has not implemented synchronous core execution.</exception>
+
+        </method>
+
+        <method name = "ExecuteCoreAsync">
+
+            <summary>Performs asynchronous command work and returns its structured terminal result.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity associated with this execution.</param>
+
+            <param name = "key" Cref = "CommandKey?">Optional command key supplied for execution.</param>
+
+            <param name = "cancel" Cref = "CancellationToken">Per-execution cancellation token.</param>
+
+            <returns Cref = "ValueTask{CommandResult}">A value task that produces the terminal result.</returns>
+
+            <remarks>Override this method when asynchronous or free-mode execution is enabled. The tracked runner translates OperationCanceledException and unexpected exceptions, publishes requested output, sets the ActivityRecord, logs the outcome, and performs cleanup. This hook does not fall back to ExecuteCore.</remarks>
+
+            <exception cref = "NotImplementedException">The command has not implemented asynchronous core execution.</exception>
+
+        </method>
+
+        <method name = "ApplyResult">
+
+            <summary>Publishes requested output, atomically applies the terminal ActivityRecord with publication state, and logs the resulting disposition.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity receiving the terminal disposition.</param>
+
+            <param name = "result" Cref = "CommandResult">Structured result produced or translated by the execution pipeline.</param>
+
+            <returns Cref = "CommandResult">The result actually applied to the Activity.</returns>
+
+            <remarks><see cref="CommandResult.HasOutput"/> expresses publication intent. The applied <see cref="ActivityRecord.HasOutput"/> is true only when AddOutput succeeds, including when the stored payload is null. If publication of requested output fails for a successful result, the applied result is converted to Failed so success is not reported without its promised output.</remarks>
+
+        </method>
+
+        <method name = "CleanUpTemplate">
+
+            <summary>Routes execution cleanup according to Activity free-mode ownership and contains cleanup failures.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity to clean up.</param>
+
+            <remarks>A cleanup exception is preserved as a Faulted terminal record only when no terminal record has already been published, and is otherwise limited to fault logging.</remarks>
+
+        </method>
+
+        <method name = "GetCanceledResult">
+
+            <summary>Safely obtains the command-specific canceled or timed-out result.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity whose timeout state is evaluated.</param>
+
+            <param name = "exception" Cref = "OperationCanceledException">Cancellation exception to preserve.</param>
+
+            <returns Cref = "CommandResult">The customized result, or a default no-output Canceled or TimedOut fallback if customization fails.</returns>
+
+        </method>
+
+        <method name = "GetFaultedResult">
+
+            <summary>Safely obtains the command-specific faulted result.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity associated with the fault.</param>
+
+            <param name = "exception" Cref = "Exception">Exception to preserve.</param>
+
+            <returns Cref = "CommandResult">The customized result, or a default no-output Faulted fallback if customization fails.</returns>
+
+        </method>
+
+        <method name = "LogResult">
+
+            <summary>Dispatches terminal result logging by ActivityRecordCode without allowing logging failures to escape the template.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity providing execution logging context.</param>
+
+            <param name = "result" Cref = "CommandResult">Applied terminal result to log.</param>
+
+        </method>
+
+        <method name = "RunTrackedCoreAsync">
+
+            <summary>Runs asynchronous command core work under task ownership, translates exceptions, applies the terminal result, and performs cleanup.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity that owns and exposes the tracked runner.</param>
+
+            <param name = "key" Cref = "CommandKey?">Optional command key supplied for execution.</param>
+
+            <param name = "start" Cref = "Task{Boolean}">Start gate indicating whether the runner was installed as the Activity task.</param>
+
+            <returns Cref = "Task{Object?}">A task whose result is the applied CommandResult.</returns>
+
+            <remarks>The start gate prevents core work from beginning before Activity.Task ownership is established. All core cancellation and faults are translated so the tracked task completes without an unobserved exception.</remarks>
+
+        </method>
+
+        <method name = "TryBeginExecution">
+
+            <summary>Claims command-template lifecycle ownership and registers an unused Activity before core work starts.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity to claim and register.</param>
+
+            <returns Cref = "Boolean">True when lifecycle ownership and registration succeed; otherwise false.</returns>
+
+            <remarks>An Activity that already has a terminal record, already has a task, or has already been claimed is rejected. Registration failure is translated to a Faulted result and triggers template cleanup.</remarks>
+
+        </method>
+
+        <method name = "AddActivity">
+
+            <summary>Add Activity to Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity added to Attached Tool.</returns>
+
+        </method>
+
+        <method name = "AddOutput">
+
+            <summary>Add Output to Attached Tool.</summary>
+
+            <param name = "id" Cref = "Guid?">Output ID.</param>
+
+            <param name = "output" Cref = "Object?">Output.</param>
+
+            <returns Cref = "Boolean">True if Output added to Attached Tool.</returns>
+
+            <remarks>Adds null Output by default.</remarks>
+
+        </method>
+
+        <method name = "CleanUp">
+
+            <summary>Clean up an Activity when the tool owns the lifecycle (Activity.FreeMode is false).</summary>
+
+            <param name = "activity" Cref = "Activity">Activity.</param>
+
+        </method>
+
+        <method name = "CleanUpFreeMode">
+
+            <summary>Clean up an Activity in free mode when the command owns the lifecycle.</summary>
+
+            <param name = "activity" Cref = "Activity">Activity.</param>
+
+        </method>
+
+        <method name = "EnabledAllowed">
+
+            <summary>Enabled and Access Check.</summary>
+
+            <param name = "key" Cref = "CommandKey?">Key.</param>
+
+            <returns Cref = "Boolean">True if the command is enabled and access is granted.</returns>
+
+        </method>
+
+        <method name = "LogCanceled">
+
+            <summary>Log execution canceled.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "LogCanceledException">
+
+            <summary>Log execution canceled.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "LogFailed">
+
+            <summary>Log execution failure.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "LogFaulted">
+
+            <summary>Log execution fault.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "LogExecuting">
+
+            <summary>Log execution start.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String">Message.</param>
+
+            <param name ="args" Cref = "Object?[]">Arguments.</param>
+
+        </method>
+
+        <method name = "LogSuccess">
+
+            <summary>Log execution success.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "RemoveActivity">
+
+            <summary>Remove Activity from Attached Tool.</summary>
+
+            <param name = "a" Cref = "Activity">Activity.</param>
+
+            <returns Cref = "Boolean">True if Activity removed from Attached Tool.</returns>
+
+        </method>
+
+        <method name = "SetCanceled">
+
+            <summary>Set Activity as Canceled (or TimedOut, determined by <see cref="Activity.IsTimedOut"/>).</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFailed">
+
+            <summary>Set Activity as Failed.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFaulted">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetFaultedException">
+
+            <summary>Set Activity as Faulted.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "exception" Cref = "Exception">Exception.</param>
+
+        </method>
+
+        <method name = "SetSuccess">
+
+            <summary>Set Activity as Success.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+        <method name = "SetTimedOut">
+
+            <summary>Set Activity as TimedOut.</summary>
+
+            <param name = "activity" Cref = "Activity?">Activity.</param>
+
+            <param name = "message" Cref = "String?">Message.</param>
+
+        </method>
+
+    </class>
+
+</Command>

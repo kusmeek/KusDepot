@@ -1,0 +1,138 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<IDataControlPublicationTransferStore>
+	<interface name = "IDataControlPublicationTransferStore">
+		<main><summary>Provides transfer artifacts and publication-journal operations for DataControl publish workflows.</summary></main>
+		<method name = "LoadSegmentedManifestAsync">
+			<summary>Loads the segmented transfer manifest for a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{DataItemTransferManifest}">The segmented manifest, or null when unavailable.</returns>
+		</method>
+		<method name = "LoadJournalsForInstanceAsync">
+			<summary>Loads all publication journals for the specified catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationJournalState}}">Matching persisted journal states without loading tenant payloads.</returns>
+		</method>
+		<method name = "DeleteJournalsForInstanceAsync">
+			<summary>Deletes all publication journals for the specified catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journals.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when one or more journals were removed.</returns>
+		</method>
+		<method name = "LoadStreamManifestAsync">
+			<summary>Loads the stream transfer manifest for a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{DataStreamTransferManifest}">The stream manifest, or null when unavailable.</returns>
+		</method>
+		<method name = "ReadObjectPayloadAsync">
+			<summary>Reads the serialized object payload for a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Byte[]}">The object payload, or null when unavailable.</returns>
+		</method>
+		<method name = "OpenObjectAsync">
+			<summary>Opens the serialized object payload for a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">The object payload stream, or null when unavailable.</returns>
+		</method>
+		<method name = "OpenSegmentedRangeAsync">
+			<summary>Opens a composed stream over a realized segmented range.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Requested range.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">The composed range stream, or null when the range is not fully realized.</returns>
+		</method>
+		<method name = "OpenStreamRangeAsync">
+			<summary>Opens a composed stream over realized stream chunks.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "range" Cref = "DataItemTransferRange">Requested range.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{Stream}">The composed range stream, or null when the range is not fully realized.</returns>
+		</method>
+		<method name = "RecomputeIntegrityAsync">
+			<summary>Computes integrity from the session’s persisted segment evidence.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferContentIntegrity}">Computed integrity, or null when the session or evidence is unavailable.</returns>
+		</method>
+		<method name = "LoadIntegritySegmentsAsync">
+			<summary>Loads ordered integrity segment evidence for a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferContentIntegritySegment}}">Ordered evidence, or null for an unsupported or missing session.</returns>
+		</method>
+		<method name = "LoadObjectReferenceAsync">
+			<summary>Loads the persisted object reference for a transfer session.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TenantTransferBlobReference}">The tenant storage object reference, or null when the session or object reference is unavailable.</returns>
+		</method>
+		<method name = "CreateSegmentedBlockPlanAsync">
+			<summary>Creates a deterministic storage block plan from the persisted segmented ranges of a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Segmented transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlockPlan}">The segmented block plan, or null when the session is unavailable or is not segmented.</returns>
+		</method>
+		<method name = "CreateStreamBlockPlanAsync">
+			<summary>Creates a deterministic storage block plan from the persisted stream chunks of a session.</summary>
+			<param name = "sessionid" Cref = "Guid">Stream transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferBlockPlan}">The stream block plan, or null when the session is unavailable or is not a stream transfer.</returns>
+		</method>
+		<method name = "LoadRecoverableCandidatesAsync">
+			<summary>Loads a bounded page of lightweight publication journal candidates for recovery.</summary>
+			<param name = "cutoff" Cref = "DateTimeOffset">Inclusive update-time cutoff for the scan.</param>
+			<param name = "after" Cref = "TransferPublicationRecoveryCandidate">Exclusive keyset cursor from the previous page, if any.</param>
+			<param name = "pageSize" Cref = "Int32">Maximum number of candidates to return.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationRecoveryCandidate}}">The next page of candidates.</returns>
+		</method>
+		<method name = "LoadJournalAsync">
+			<summary>Loads one publication journal belonging to the specified catalog.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The journal, or null when unavailable.</returns>
+		</method>
+		<method name = "GetOrCreateJournalAsync">
+			<summary>Loads or creates a publication journal in the catalog declared by the supplied journal.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal to load or create.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The existing or created journal.</returns>
+		</method>
+		<method name = "AdvanceJournalAsync">
+			<summary>Advances a publication journal phase.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Publication operation identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "phase" Cref = "TransferPublicationPhase">New publication phase.</param>
+			<param name = "error" Cref = "String">Optional phase error.</param>
+			<param name = "integrity" Cref = "TransferContentIntegrity">Optional final integrity summary.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The updated journal.</returns>
+		</method>
+		<method name = "RecordJournalFailureAsync">
+			<summary>Records a publication journal failure.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "operationid" Cref = "Guid">Publication operation identifier.</param>
+			<param name = "catalogname" Cref = "String">Catalog that must own the journal.</param>
+			<param name = "error" Cref = "String">Failure description.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task{TransferPublicationJournal}">The updated journal.</returns>
+		</method>
+		<method name = "DeleteJournalAsync">
+			<summary>Deletes a publication journal.</summary>
+			<param name = "sessionid" Cref = "Guid">Transfer session identifier.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "Task">A task representing the deletion operation.</returns>
+		</method>
+	</interface>
+</IDataControlPublicationTransferStore>

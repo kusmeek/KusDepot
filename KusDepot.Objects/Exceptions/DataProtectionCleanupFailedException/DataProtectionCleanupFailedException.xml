@@ -1,0 +1,43 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionCleanupFailedException>
+
+	<class name = "DataProtectionCleanupFailedException">
+
+		<main>
+
+			<summary>Exception thrown when a data protection transition commits but its post-commit cleanup fails.</summary>
+
+			<remarks>The data protection state has already changed. No automatic retry is performed. If <see cref="BackupPath"/> is populated, it identifies the backup file that requires manual cleanup; encryption backups may contain plaintext. The original cleanup error is available as the inner exception.</remarks>
+
+		</main>
+
+		<property name = "Operation">
+
+			<summary>Gets the committed data protection method name, such as EncryptData or DecryptData.</summary>
+
+		</property>
+
+		<property name = "BackupPath">
+
+			<summary>Gets the backup file path requiring manual cleanup, or null when no backup path is available.</summary>
+
+		</property>
+
+		<constructor name = "Constructor">
+
+			<summary>Initializes an exception describing a committed operation whose post-commit cleanup failed.</summary>
+
+			<param name = "operation" Cref = "String">Name of the committed operation.</param>
+
+			<param name = "backupPath" Cref = "String?">Backup file path requiring manual cleanup, when available.</param>
+
+			<param name = "innerException" Cref = "Exception">Original post-commit cleanup failure.</param>
+
+			<returns Cref = "DataProtectionCleanupFailedException">The committed-cleanup-failed exception.</returns>
+
+		</constructor>
+
+	</class>
+
+</DataProtectionCleanupFailedException>

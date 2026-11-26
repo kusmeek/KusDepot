@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PostgresAdvisoryLeaderLeaseLostException>
+  <class name="PostgresAdvisoryLeaderLeaseLostException">
+	<main><summary>Indicates that the PostgreSQL connection holding a named advisory leadership lease is no longer available.</summary></main>
+	<constructor name="PostgresAdvisoryLeaderLeaseLostException"><summary>Initializes an exception for a lost named PostgreSQL advisory leadership lease.</summary><param name="lockName" Cref="String">Name of the advisory lock whose lease was lost.</param><param name="innerException" Cref="Exception">Database exception that caused lease verification to fail.</param></constructor>
+  </class>
+</PostgresAdvisoryLeaderLeaseLostException>

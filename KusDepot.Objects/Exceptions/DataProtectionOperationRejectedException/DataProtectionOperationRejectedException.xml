@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataProtectionOperationRejectedException>
+
+	<class name = "DataProtectionOperationRejectedException">
+
+		<main>
+
+			<summary>Data Protection Operation Rejected Exception.</summary>
+
+			<remarks>Signals that a data protection operation failed an integrity or assertion check and must be rolled back.</remarks>
+
+		</main>
+
+	</class>
+
+</DataProtectionOperationRejectedException>

@@ -1,0 +1,77 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<ConfigureToolWebHostAction>
+
+	<class name = "ConfigureToolWebHostAction">
+
+		<main>
+
+			<summary>Represents one ordered ToolWebHost configuration step.</summary>
+
+			<remarks>Wraps either a synchronous or asynchronous ToolWebHost configuration delegate.</remarks>
+
+		</main>
+
+		<property name = "Action">
+
+			<summary>Synchronous ToolWebHost configuration delegate.</summary>
+
+			<returns Cref = "Action{ToolBuilderContext,IToolWebHost}?">Synchronous configuration delegate.</returns>
+
+		</property>
+
+		<property name = "AsyncAction">
+
+			<summary>Asynchronous ToolWebHost configuration delegate.</summary>
+
+			<returns Cref = "Func{ToolBuilderContext,IToolWebHost,CancellationToken,Task}?">Asynchronous configuration delegate.</returns>
+
+		</property>
+
+		<constructor name = "ActionConstructor">
+
+			<summary>Create a configuration step from a synchronous ToolWebHost configuration delegate.</summary>
+
+			<param name = "action" Cref = "Action{ToolBuilderContext,IToolWebHost}">Synchronous configuration delegate.</param>
+
+			<returns Cref = "ConfigureToolWebHostAction">New configuration step.</returns>
+
+		</constructor>
+
+		<constructor name = "AsyncActionConstructor">
+
+			<summary>Create a configuration step from an asynchronous ToolWebHost configuration delegate.</summary>
+
+			<param name = "asyncaction" Cref = "Func{ToolBuilderContext,IToolWebHost,CancellationToken,Task}">Asynchronous configuration delegate.</param>
+
+			<returns Cref = "ConfigureToolWebHostAction">New configuration step.</returns>
+
+		</constructor>
+
+		<method name = "Execute">
+
+			<summary>Execute the configuration step synchronously.</summary>
+
+			<param name = "context" Cref = "ToolBuilderContext">Builder context.</param>
+
+			<param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+		</method>
+
+		<method name = "ExecuteAsync">
+
+			<summary>Execute the configuration step asynchronously.</summary>
+
+			<param name = "context" Cref = "ToolBuilderContext">Builder context.</param>
+
+			<param name = "toolwebhost" Cref = "IToolWebHost">Built ToolWebHost.</param>
+
+			<param name = "cancel" Cref = "CancellationToken">Cancellation Token.</param>
+
+			<returns Cref = "Task">A Task that represents the asynchronous operation.</returns>
+
+		</method>
+
+	</class>
+
+</ConfigureToolWebHostAction>

@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferEnvelopeHeader>
+
+	<struct name = "TransferEnvelopeHeader">
+
+		<main>
+			<summary>Parsed fixed header of a shared transfer envelope.</summary>
+			<remarks>
+				<para>Layout:</para>
+				<list type="bullet">
+					<item><description>Magic (UInt32, big-endian)</description></item>
+					<item><description>FormatVersion (Byte)</description></item>
+					<item><description>Flags (Byte)</description></item>
+					<item><description>HeaderLength (UInt16, big-endian)</description></item>
+					<item><description>MetadataLength (Int32, big-endian)</description></item>
+					<item><description>PayloadLength (Int64, big-endian)</description></item>
+					<item><description>TrailerLength (Int32, big-endian)</description></item>
+					<item><description>Reserved (Int32, big-endian)</description></item>
+				</list>
+			</remarks>
+		</main>
+
+		<field name = "Magic"><summary>Envelope magic value.</summary></field>
+		<field name = "FormatVersion"><summary>Envelope format version.</summary></field>
+		<field name = "Flags"><summary>Envelope flags.</summary></field>
+		<field name = "HeaderLength"><summary>Declared fixed header length.</summary></field>
+		<field name = "MetadataLength"><summary>Metadata byte length.</summary></field>
+		<field name = "PayloadLength"><summary>Payload byte length.</summary></field>
+		<field name = "TrailerLength"><summary>Trailer byte length.</summary></field>
+		<field name = "Reserved"><summary>Reserved field.</summary></field>
+
+		<constructor name = "Constructor">
+			<summary>Initialize a parsed transfer envelope header.</summary>
+			<param name = "magic" cref = "UInt32">Envelope magic value.</param>
+			<param name = "formatversion" cref = "Byte">Envelope format version.</param>
+			<param name = "flags" cref = "Byte">Envelope flags.</param>
+			<param name = "headerlength" cref = "UInt16">Declared fixed header length.</param>
+			<param name = "metadatalength" cref = "Int32">Metadata byte length.</param>
+			<param name = "payloadlength" cref = "Int64">Payload byte length.</param>
+			<param name = "trailerlength" cref = "Int32">Trailer byte length.</param>
+			<param name = "reserved" cref = "Int32">Reserved field.</param>
+		</constructor>
+
+	</struct>
+
+</TransferEnvelopeHeader>

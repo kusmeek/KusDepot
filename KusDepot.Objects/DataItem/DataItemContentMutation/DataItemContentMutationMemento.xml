@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DataItemContentMutationMemento>
+	<class name="DataItemContentMutationMemento">
+		<main><summary>Restores a concrete DataItem payload after a rejected content mutation.</summary><remarks>The memento is captured while the DataItem data gate is held and is invoked before the shared protection metadata snapshot is restored.</remarks></main>
+		<field name="restore"><summary>Type-specific action that restores payload and derived state on the item.</summary></field>
+		<constructor name="Constructor"><summary>Create a payload memento from a restoration action.</summary><param name="restore" Cref="Action{DataItem}">Action that restores the prior payload state.</param></constructor>
+		<method name="Restore"><summary>Restore the captured payload state to a DataItem.</summary><param name="item" Cref="DataItem">Item whose payload and derived state are restored.</param></method>
+	</class>
+</DataItemContentMutationMemento>

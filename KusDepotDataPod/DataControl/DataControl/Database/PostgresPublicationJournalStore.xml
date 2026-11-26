@@ -1,0 +1,67 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<PostgresPublicationJournalStore>
+	<class name = "PostgresPublicationJournalStore">
+		<main><summary>Persists publication journals through the PostgreSQL transfer-state store and tenant-scoped transfer storage.</summary></main>
+		<field name = "state" Cref = "ITransferStateStore"><summary>Metadata store used to load and persist journal state.</summary></field>
+		<field name = "dataConfigs" Cref = "IDataControlDataConfigsClient"><summary>Client used to resolve configured tenant storage for publication catalogs.</summary></field>
+		<field name = "storageFactory" Cref = "ITenantTransferStorageFactory"><summary>Factory used to persist and restore final publication objects in tenant-scoped storage.</summary></field>
+		<constructor name = "PostgresPublicationJournalStore">
+			<summary>Initializes a PostgreSQL-backed publication journal store.</summary>
+			<param name = "state" Cref = "ITransferStateStore">Metadata store for journal state.</param>
+			<param name = "dataConfigs" Cref = "IDataControlDataConfigsClient">Client used to resolve configured tenant storage.</param>
+			<param name = "storageFactory" Cref = "ITenantTransferStorageFactory">Tenant storage factory for final publication objects.</param>
+		</constructor>
+		<method name = "EnsureOperation">
+			<summary>Ensures that the requested operation owns the loaded journal.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal whose owner is checked.</param>
+			<param name = "operationid" Cref = "Guid">Operation identifier that must own the journal.</param>
+		</method>
+		<method name = "LoadForInstanceAsync">
+			<summary>Loads journal states belonging to the exact catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{IReadOnlyList{TransferPublicationJournalState}}">Matching persisted journal states without loading tenant payloads.</returns>
+		</method>
+		<method name = "DeleteForInstanceAsync">
+			<summary>Deletes all journals for the exact catalog, item, and item instance token.</summary>
+			<param name = "itemid" Cref = "Guid">Item identifier.</param>
+			<param name = "itemInstanceToken" Cref = "Guid">Item instance token.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token.</param>
+			<returns Cref = "Task{Boolean}">True when one or more journals were deleted.</returns>
+		</method>
+		<method name = "SaveStateAsync">
+			<summary>Stores the journal payload and its sanitized metadata state.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal to persist.</param>
+			<param name = "catalogname" Cref = "String">Authorized catalog that must own the journal.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+		</method>
+		<method name = "ToState">
+			<summary>Converts a domain journal into the PostgreSQL persistence state.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal to convert.</param>
+			<param name = "finalObject" Cref = "TransferBlobReference">Persisted final-object reference, if one exists.</param>
+			<returns Cref = "TransferPublicationJournalState">Persistence state containing sanitized journal JSON and durable Blob metadata.</returns>
+		</method>
+		<method name = "ToJournalAsync">
+			<summary>Reconstructs a domain journal from PostgreSQL state, validates its item instance token, and restores its optional final-object payload from token-scoped tenant storage.</summary>
+			<param name = "state" Cref = "TransferPublicationJournalState">Persisted journal state.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the operation.</param>
+			<returns Cref = "TransferPublicationJournal">Reconstructed domain journal.</returns>
+		</method>
+		<method name = "SaveFinalObjectAsync">
+			<summary>Stores a journal's final publication object under the journal's item-instance and session staging path in catalog tenant-scoped storage.</summary>
+			<param name = "journal" Cref = "TransferPublicationJournal">Journal containing the catalog, session, item, and operation identifiers.</param>
+			<param name = "payload" Cref = "Stream">Final publication object payload to persist.</param>
+			<param name = "cancel" Cref = "CancellationToken">Cancellation token for the storage operation.</param>
+			<returns Cref = "Task{TransferBlobReference?}">Reference to the persisted object, or null when the catalog silo cannot be resolved.</returns>
+		</method>
+		<method name = "ToReference">
+			<summary>Converts a tenant storage blob reference into the journal store's transfer blob reference.</summary>
+			<param name = "reference" Cref = "TenantTransferBlobReference?">Tenant storage reference to convert.</param>
+			<returns Cref = "TransferBlobReference?">Equivalent transfer blob reference, or null when the source reference is null.</returns>
+		</method>
+	</class>
+</PostgresPublicationJournalStore>

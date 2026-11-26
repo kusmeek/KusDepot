@@ -1,0 +1,85 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<DataIsolation>
+
+    <class name = "DataIsolation">
+
+        <main>
+
+            <summary>Controls runtime data isolation behavior for data items and related metadata APIs.</summary>
+
+        </main>
+
+        <field name = "scopedmode" Cref = "AsyncLocal{DataIsolationMode}">
+
+            <summary>Ambient scoped override for the current data isolation mode.</summary>
+
+        </field>
+
+        <property name = "Mode" Cref = "DataIsolationMode">
+
+            <summary>The default runtime mode that controls whether data isolation work is enabled or disabled.</summary>
+
+        </property>
+
+        <method name = "BeginScope">
+
+            <summary>Begin a scoped override for the current data isolation mode.</summary>
+
+            <returns cref = "IDisposable">A disposable scope that restores the previous data isolation mode when disposed.</returns>
+
+        </method>
+
+        <method name = "Disable">
+
+            <summary>Disable data isolation behavior for the default runtime mode.</summary>
+
+        </method>
+
+        <method name = "Enable">
+
+            <summary>Enable data isolation behavior for the default runtime mode.</summary>
+
+        </method>
+
+        <method name = "IsDisabled">
+
+            <summary>Determine whether data isolation behavior is currently disabled for the active scope.</summary>
+
+            <returns cref = "Boolean"><see langword = "true"/> when data isolation behavior is currently disabled for the active scope; otherwise, <see langword = "false"/>.</returns>
+
+        </method>
+
+        <method name = "IsEnabled">
+
+            <summary>Determine whether data isolation behavior is currently enabled for the active scope.</summary>
+
+            <returns cref = "Boolean"><see langword = "true"/> when data isolation behavior is currently enabled for the active scope; otherwise, <see langword = "false"/>.</returns>
+
+        </method>
+
+        <method name = "IsScopeActive">
+
+            <summary>Determine whether a scoped data isolation override is currently active for the logical execution flow.</summary>
+
+            <returns cref = "Boolean"><see langword = "true"/> when a scoped override is active; otherwise, <see langword = "false"/>.</returns>
+
+        </method>
+
+        <method name = "GetScopedMode">
+
+            <summary>Get the scoped data isolation override currently applied to the active logical execution flow, if any.</summary>
+
+            <returns cref = "DataIsolationMode">The scoped data isolation override currently applied to the active logical execution flow, if any.</returns>
+
+        </method>
+
+        <method name = "SetScopedMode">
+
+            <summary>Set or clear the scoped data isolation override for the active logical execution flow.</summary>
+
+        </method>
+
+    </class>
+
+</DataIsolation>

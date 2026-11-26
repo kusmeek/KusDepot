@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<TransferSessionState>
+	<record name = "TransferSessionState">
+		<main><summary>Represents provider-neutral transfer session metadata.</summary></main>
+		<property name = "SessionID" Cref = "Guid"><summary>Gets the transfer session identifier.</summary></property>
+		<property name = "ItemID" Cref = "Guid"><summary>Gets the item identifier associated with the session.</summary></property>
+		<property name = "ItemInstanceToken" Cref = "Guid"><summary>Gets the catalog-owned item instance token associated with the session.</summary></property>
+		<property name = "Family" Cref = "DataControlTransferFamily"><summary>Gets the transfer family.</summary></property>
+		<property name = "Mode" Cref = "DataItemTransferMode"><summary>Gets the transfer mode.</summary></property>
+		<property name = "Status" Cref = "DataItemTransferStatus"><summary>Gets the transfer status.</summary></property>
+		<property name = "StateVersion" Cref = "Int64"><summary>Gets the optimistic state version.</summary></property>
+		<property name = "PlannedBlockCount" Cref = "Int64"><summary>Gets the number of destination blocks required by accepted upload ranges.</summary></property>
+		<property name = "CoveredBytes" Cref = "Int64"><summary>Gets the total length of accepted, non-overlapping segmented ranges.</summary></property>
+		<property name = "Created" Cref = "DateTimeOffset"><summary>Gets the creation time.</summary></property>
+		<property name = "Updated" Cref = "DateTimeOffset"><summary>Gets the last update time.</summary></property>
+		<property name = "LastActivity" Cref = "DateTimeOffset"><summary>Gets the last server-observed client activity time, independent of manifest updates.</summary></property>
+		<property name = "ManifestJson" Cref = "String"><summary>Gets the sanitized serialized manifest.</summary></property>
+		<property name = "ObjectPayload" Cref = "TransferBlobReference"><summary>Gets the optional Blob reference for the serialized object payload.</summary></property>
+	</record>
+</TransferSessionState>
